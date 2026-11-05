@@ -1,0 +1,1891 @@
+{
+ "brand": {
+  "name": "Plusmark",
+  "legalName": "Plusmark Boards",
+  "logoText": "Plusmark - Writing & Display System",
+  "tagline": "Quality Jo Pehchaan Ban Jaaye",
+  "phone": "+91 99139 67888",
+  "whatsapp": "+919913967888",
+  "email": "info@plusmarkboards.com",
+  "city": "Ahmedabad, Gujarat",
+  "gemApproved": true,
+  "amazonUrl": null
+ },
+ "series": {
+  "metallic-premium": {
+   "name": "Metallic Premium",
+   "rank": 1,
+   "surface": "High Gloss Marker Grade HPL Sheet",
+   "frame": "Aluminium anodized frame, heavy-duty",
+   "corners": "Signature Dual-Tone corners - red cap over black connector",
+   "sizes": [
+    "3 x 4 ft",
+    "4 x 4 ft",
+    "5 x 4 ft",
+    "6 x 4 ft",
+    "8 x 4 ft"
+   ]
+  },
+  "eco-premium": {
+   "name": "Eco Premium",
+   "rank": 2,
+   "surface": "Marker Grade HPL Sheet",
+   "frame": "Ribbed aluminium anodized frame",
+   "corners": "ABS Dual-Tone corners",
+   "sizes": [
+    "2 x 3 ft",
+    "3 x 4 ft",
+    "4 x 4 ft",
+    "5 x 4 ft",
+    "6 x 4 ft",
+    "8 x 4 ft"
+   ]
+  },
+  "deluxe-standard": {
+   "name": "Deluxe Standard",
+   "rank": 3,
+   "surface": "High gloss melamine writing surface",
+   "frame": "Deluxe anodized aluminium frame",
+   "corners": "Electroplated chrome corners",
+   "sizes": [
+    "3 x 4 ft",
+    "4 x 4 ft",
+    "5 x 4 ft",
+    "6 x 4 ft",
+    "8 x 4 ft"
+   ]
+  },
+  "eco-regular": {
+   "name": "Eco Regular",
+   "rank": 4,
+   "surface": "High gloss melamine writing surface",
+   "frame": "Lightweight ribbed aluminium anodized frame",
+   "corners": "Standard plastic corners",
+   "sizes": [
+    "1 x 1 ft",
+    "2 x 2 ft",
+    "2 x 3 ft",
+    "2 x 4 ft",
+    "3 x 4 ft",
+    "4 x 4 ft",
+    "5 x 4 ft",
+    "6 x 4 ft",
+    "8 x 4 ft"
+   ]
+  }
+ },
+ "categories": [
+  {
+   "id": "white-boards",
+   "name": "White Boards",
+   "subject": "Whiteboard",
+   "description": "Marker boards in HPL and melamine surfaces, magnetic and non-magnetic.",
+   "image": "plusmark/products/metallic-premium-white-board",
+   "subcategories": [
+    {
+     "id": "white-boards-non-magnetic",
+     "name": "Non-Magnetic White Boards",
+     "image": "plusmark/products/metallic-premium-white-board"
+    },
+    {
+     "id": "white-boards-magnetic",
+     "name": "Magnetic White Boards",
+     "image": "plusmark/products/metallic-premium-magnetic-board"
+    },
+    {
+     "id": "white-boards-ceramic",
+     "name": "Ceramic White Boards",
+     "image": "plusmark/products/metallic-premium-ceramic-board"
+    }
+   ]
+  },
+  {
+   "id": "chalk-boards",
+   "name": "Chalk Boards",
+   "subject": "Chalkboard",
+   "description": "Non-reflective chalk faces that stay glare-free from the back bench.",
+   "image": "plusmark/products/metallic-premium-chalk-board",
+   "subcategories": [
+    {
+     "id": "chalk-boards-non-magnetic",
+     "name": "Non-Magnetic Chalk Boards",
+     "image": "plusmark/products/metallic-premium-chalk-board"
+    },
+    {
+     "id": "chalk-boards-magnetic",
+     "name": "Magnetic Chalk Boards",
+     "image": "plusmark/products/metallic-premium-magnetic-chalk-board"
+    },
+    {
+     "id": "chalk-boards-ceramic",
+     "name": "Ceramic Chalk Boards",
+     "image": "plusmark/products/metallic-premium-ceramic-chalk-board"
+    }
+   ]
+  },
+  {
+   "id": "notice-boards",
+   "name": "Notice Boards",
+   "subject": "Notice board",
+   "description": "Cork, fabric and acrylic display boards for corridors and offices.",
+   "image": "plusmark/products/metallic-premium-notice-board",
+   "subcategories": [
+    {
+     "id": "notice-boards-pin-up",
+     "name": "Pin-Up Boards",
+     "image": "plusmark/products/fabric-notice-board"
+    },
+    {
+     "id": "notice-boards-adc",
+     "name": "Acrylic Door Cover (ADC)",
+     "image": "plusmark/products/deluxe-45mm-adc-notice-board-double-door"
+    }
+   ]
+  },
+  {
+   "id": "double-sided-boards",
+   "name": "Double-Sided Boards",
+   "subject": "Double sided board",
+   "description": "Two writing faces on one frame - chalk on one side, marker on the other.",
+   "image": "plusmark/products/eco-premium-both-side-board",
+   "subcategories": []
+  },
+  {
+   "id": "schedule-boards",
+   "name": "Schedule Boards",
+   "subject": "Schedule board",
+   "description": "Dry-wipe timetable boards made in the design and size you ask for.",
+   "image": "plusmark/products/dry-wipe-schedule-board",
+   "subcategories": []
+  },
+  {
+   "id": "display-boards",
+   "name": "Display Boards",
+   "subject": "Display board",
+   "description": "Acrylic folder boards for reports, charts and production data.",
+   "image": "plusmark/products/acrylic-folder-display-board",
+   "subcategories": []
+  },
+  {
+   "id": "specialty-boards",
+   "name": "Specialty Display Boards",
+   "subject": "Specialty board",
+   "description": "Grooved coloured boards, perforated boards, practice boards and key hangers.",
+   "image": "plusmark/products/grooved-boards",
+   "subcategories": []
+  },
+  {
+   "id": "clipboards",
+   "name": "Clipboards",
+   "subject": "Clipboard",
+   "description": "Acrylic and MDF base clipboards with chrome electroplated clips.",
+   "image": "plusmark/products/laminate-mdf-base-clipboard",
+   "subcategories": [
+    {
+     "id": "clipboards-mdf",
+     "name": "MDF Base",
+     "image": "plusmark/products/laminate-mdf-base-clipboard"
+    },
+    {
+     "id": "clipboards-acrylic",
+     "name": "Acrylic Base",
+     "image": "plusmark/products/heavy-duty-clear-acrylic-clipboard"
+    }
+   ]
+  },
+  {
+   "id": "board-stands",
+   "name": "Board Stands & Storage",
+   "subject": "Board stand",
+   "description": "Mobile and fixed stands, racks and storage units for boards up to 8 ft.",
+   "image": "plusmark/products/four-leg-stand",
+   "subcategories": [
+    {
+     "id": "board-stands-stands",
+     "name": "Display Stands",
+     "image": "plusmark/products/telescopic-stand"
+    },
+    {
+     "id": "board-stands-storage",
+     "name": "Storage & Racks",
+     "image": "plusmark/products/file-rack"
+    }
+   ]
+  },
+  {
+   "id": "school-benches",
+   "name": "School Benches",
+   "subject": "School bench",
+   "description": "Cast-iron and wooden benches and study tables for classrooms and labs.",
+   "image": "plusmark/products/pds-sb-801",
+   "subcategories": []
+  },
+  {
+   "id": "board-study-essentials",
+   "name": "Board & Study Essentials",
+   "subject": "Study essential",
+   "description": "Letters and figures sets and classroom accessories.",
+   "image": "plusmark/products/letters-and-figures-set",
+   "subcategories": []
+  }
+ ],
+ "products": [
+  {
+   "slug": "metallic-premium-white-board",
+   "name": "Metallic Premium White Board",
+   "categoryId": "white-boards",
+   "seriesId": "metallic-premium",
+   "subcategoryIds": [],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "3 x 4 ft",
+    "4 x 4 ft",
+    "5 x 4 ft",
+    "6 x 4 ft",
+    "8 x 4 ft"
+   ],
+   "images": [
+    "plusmark/products/metallic-premium-white-board"
+   ],
+   "imageSource": "product",
+   "videoId": "plusmark/videos/metallic-premium-white-board",
+   "surface": "High Gloss Marker Grade HPL Sheet",
+   "frame": "Aluminium anodized frame, heavy-duty",
+   "corners": "Signature Dual-Tone corners - red cap over black connector"
+  },
+  {
+   "slug": "metallic-premium-chalk-board",
+   "name": "Metallic Premium Chalk Board",
+   "categoryId": "chalk-boards",
+   "seriesId": "metallic-premium",
+   "subcategoryIds": [],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "3 x 4 ft",
+    "4 x 4 ft",
+    "5 x 4 ft",
+    "6 x 4 ft",
+    "8 x 4 ft"
+   ],
+   "images": [
+    "plusmark/products/metallic-premium-chalk-board"
+   ],
+   "imageSource": "product",
+   "videoId": "plusmark/videos/metallic-premium-chalk-board",
+   "surface": "High Gloss Marker Grade HPL Sheet",
+   "frame": "Aluminium anodized frame, heavy-duty",
+   "corners": "Signature Dual-Tone corners - red cap over black connector"
+  },
+  {
+   "slug": "metallic-premium-magnetic-board",
+   "name": "Metallic Premium Magnetic Board",
+   "categoryId": "white-boards",
+   "seriesId": "metallic-premium",
+   "subcategoryIds": [
+    "white-boards-magnetic"
+   ],
+   "magnetic": true,
+   "doubleSided": false,
+   "sizes": [
+    "3 x 4 ft",
+    "4 x 4 ft",
+    "5 x 4 ft",
+    "6 x 4 ft",
+    "8 x 4 ft"
+   ],
+   "images": [
+    "plusmark/products/metallic-premium-magnetic-board"
+   ],
+   "imageSource": "product",
+   "videoId": null,
+   "surface": "High Gloss Marker Grade HPL Sheet",
+   "frame": "Aluminium anodized frame, heavy-duty",
+   "corners": "Signature Dual-Tone corners - red cap over black connector"
+  },
+  {
+   "slug": "metallic-premium-magnetic-chalk-board",
+   "name": "Metallic Premium Magnetic Chalk Board",
+   "categoryId": "chalk-boards",
+   "seriesId": "metallic-premium",
+   "subcategoryIds": [
+    "chalk-boards-magnetic"
+   ],
+   "magnetic": true,
+   "doubleSided": false,
+   "sizes": [
+    "3 x 4 ft",
+    "4 x 4 ft",
+    "5 x 4 ft",
+    "6 x 4 ft",
+    "8 x 4 ft"
+   ],
+   "images": [
+    "plusmark/products/metallic-premium-magnetic-chalk-board"
+   ],
+   "imageSource": "product",
+   "videoId": null,
+   "surface": "High Gloss Marker Grade HPL Sheet",
+   "frame": "Aluminium anodized frame, heavy-duty",
+   "corners": "Signature Dual-Tone corners - red cap over black connector"
+  },
+  {
+   "slug": "metallic-premium-ceramic-board",
+   "name": "Metallic Premium Ceramic Board",
+   "categoryId": "white-boards",
+   "seriesId": "metallic-premium",
+   "subcategoryIds": [
+    "white-boards-ceramic"
+   ],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "3 x 4 ft",
+    "4 x 4 ft",
+    "5 x 4 ft",
+    "6 x 4 ft",
+    "8 x 4 ft"
+   ],
+   "images": [
+    "plusmark/products/metallic-premium-ceramic-board"
+   ],
+   "imageSource": "product",
+   "videoId": null,
+   "surface": "High Gloss Marker Grade HPL Sheet",
+   "frame": "Aluminium anodized frame, heavy-duty",
+   "corners": "Signature Dual-Tone corners - red cap over black connector"
+  },
+  {
+   "slug": "metallic-premium-ceramic-chalk-board",
+   "name": "Metallic Premium Ceramic Chalk Board",
+   "categoryId": "chalk-boards",
+   "seriesId": "metallic-premium",
+   "subcategoryIds": [
+    "chalk-boards-ceramic"
+   ],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "3 x 4 ft",
+    "4 x 4 ft",
+    "5 x 4 ft",
+    "6 x 4 ft",
+    "8 x 4 ft"
+   ],
+   "images": [],
+   "imageSource": "none",
+   "videoId": null,
+   "surface": "High Gloss Marker Grade HPL Sheet",
+   "frame": "Aluminium anodized frame, heavy-duty",
+   "corners": "Signature Dual-Tone corners - red cap over black connector"
+  },
+  {
+   "slug": "metallic-premium-notice-board",
+   "name": "Metallic Premium Notice Board",
+   "categoryId": "notice-boards",
+   "seriesId": "metallic-premium",
+   "subcategoryIds": [],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "3 x 4 ft",
+    "4 x 4 ft",
+    "5 x 4 ft",
+    "6 x 4 ft",
+    "8 x 4 ft"
+   ],
+   "images": [
+    "plusmark/products/metallic-premium-notice-board"
+   ],
+   "imageSource": "product",
+   "videoId": "plusmark/videos/metallic-premium-notice-board",
+   "surface": "High Gloss Marker Grade HPL Sheet",
+   "frame": "Aluminium anodized frame, heavy-duty",
+   "corners": "Signature Dual-Tone corners - red cap over black connector"
+  },
+  {
+   "slug": "eco-premium-white-board",
+   "name": "Eco Premium White Board",
+   "categoryId": "white-boards",
+   "seriesId": "eco-premium",
+   "subcategoryIds": [
+    "white-boards-non-magnetic"
+   ],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "2 x 3 ft",
+    "3 x 4 ft",
+    "4 x 4 ft",
+    "5 x 4 ft",
+    "6 x 4 ft",
+    "8 x 4 ft"
+   ],
+   "images": [
+    "plusmark/products/eco-premium-white-board"
+   ],
+   "imageSource": "product",
+   "videoId": "plusmark/videos/eco-premium-white-board",
+   "surface": "Marker Grade HPL Sheet",
+   "frame": "Ribbed aluminium anodized frame",
+   "corners": "ABS Dual-Tone corners"
+  },
+  {
+   "slug": "eco-premium-chalk-board",
+   "name": "Eco Premium Chalk Board",
+   "categoryId": "chalk-boards",
+   "seriesId": "eco-premium",
+   "subcategoryIds": [
+    "chalk-boards-non-magnetic"
+   ],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "2 x 3 ft",
+    "3 x 4 ft",
+    "4 x 4 ft",
+    "5 x 4 ft",
+    "6 x 4 ft",
+    "8 x 4 ft"
+   ],
+   "images": [
+    "plusmark/products/eco-premium-chalk-board"
+   ],
+   "imageSource": "product",
+   "videoId": "plusmark/videos/eco-premium-chalk-board",
+   "surface": "Marker Grade HPL Sheet",
+   "frame": "Ribbed aluminium anodized frame",
+   "corners": "ABS Dual-Tone corners"
+  },
+  {
+   "slug": "eco-premium-notice-board",
+   "name": "Eco Premium Notice Board",
+   "categoryId": "notice-boards",
+   "seriesId": "eco-premium",
+   "subcategoryIds": [
+    "notice-boards-pin-up"
+   ],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "2 x 3 ft",
+    "3 x 4 ft",
+    "4 x 4 ft",
+    "5 x 4 ft",
+    "6 x 4 ft",
+    "8 x 4 ft"
+   ],
+   "images": [
+    "plusmark/products/eco-premium-notice-board"
+   ],
+   "imageSource": "product",
+   "videoId": "plusmark/videos/eco-premium-notice-board",
+   "surface": "Marker Grade HPL Sheet",
+   "frame": "Ribbed aluminium anodized frame",
+   "corners": "ABS Dual-Tone corners"
+  },
+  {
+   "slug": "eco-premium-both-side-board",
+   "name": "Eco Premium Double-Sided Board",
+   "categoryId": "double-sided-boards",
+   "seriesId": "eco-premium",
+   "subcategoryIds": [],
+   "magnetic": false,
+   "doubleSided": true,
+   "sizes": [
+    "2 x 3 ft",
+    "3 x 4 ft",
+    "4 x 4 ft",
+    "5 x 4 ft",
+    "6 x 4 ft",
+    "8 x 4 ft"
+   ],
+   "images": [
+    "plusmark/products/eco-premium-both-side-board"
+   ],
+   "imageSource": "product",
+   "videoId": "plusmark/videos/eco-premium-both-side",
+   "surface": "Marker Grade HPL Sheet",
+   "frame": "Ribbed aluminium anodized frame",
+   "corners": "ABS Dual-Tone corners"
+  },
+  {
+   "slug": "eco-regular-white-board",
+   "name": "Eco Regular White Board",
+   "categoryId": "white-boards",
+   "seriesId": "eco-regular",
+   "subcategoryIds": [
+    "white-boards-non-magnetic"
+   ],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "1 x 1 ft",
+    "2 x 2 ft",
+    "2 x 3 ft",
+    "2 x 4 ft",
+    "3 x 4 ft",
+    "4 x 4 ft",
+    "5 x 4 ft",
+    "6 x 4 ft",
+    "8 x 4 ft"
+   ],
+   "images": [
+    "plusmark/products/eco-regular-white-board"
+   ],
+   "imageSource": "product",
+   "videoId": null,
+   "surface": "High gloss melamine writing surface",
+   "frame": "Lightweight ribbed aluminium anodized frame",
+   "corners": "Standard plastic corners"
+  },
+  {
+   "slug": "eco-regular-chalk-board",
+   "name": "Eco Regular Chalk Board",
+   "categoryId": "chalk-boards",
+   "seriesId": "eco-regular",
+   "subcategoryIds": [
+    "chalk-boards-non-magnetic"
+   ],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "1 x 1 ft",
+    "2 x 2 ft",
+    "2 x 3 ft",
+    "2 x 4 ft",
+    "3 x 4 ft",
+    "4 x 4 ft",
+    "5 x 4 ft",
+    "6 x 4 ft",
+    "8 x 4 ft"
+   ],
+   "images": [
+    "plusmark/products/eco-regular-chalk-board"
+   ],
+   "imageSource": "product",
+   "videoId": null,
+   "surface": "High gloss melamine writing surface",
+   "frame": "Lightweight ribbed aluminium anodized frame",
+   "corners": "Standard plastic corners"
+  },
+  {
+   "slug": "eco-regular-magnetic-board",
+   "name": "Eco Regular Magnetic Board",
+   "categoryId": "white-boards",
+   "seriesId": "eco-regular",
+   "subcategoryIds": [
+    "white-boards-magnetic"
+   ],
+   "magnetic": true,
+   "doubleSided": false,
+   "sizes": [
+    "1 x 1 ft",
+    "2 x 2 ft",
+    "2 x 3 ft",
+    "2 x 4 ft",
+    "3 x 4 ft",
+    "4 x 4 ft",
+    "5 x 4 ft",
+    "6 x 4 ft",
+    "8 x 4 ft"
+   ],
+   "images": [
+    "plusmark/products/eco-regular-magnetic-board"
+   ],
+   "imageSource": "product",
+   "videoId": null,
+   "surface": "High gloss melamine writing surface",
+   "frame": "Lightweight ribbed aluminium anodized frame",
+   "corners": "Standard plastic corners"
+  },
+  {
+   "slug": "eco-regular-magnetic-chalk-board",
+   "name": "Eco Regular Magnetic Chalk Board",
+   "categoryId": "chalk-boards",
+   "seriesId": "eco-regular",
+   "subcategoryIds": [
+    "chalk-boards-magnetic"
+   ],
+   "magnetic": true,
+   "doubleSided": false,
+   "sizes": [
+    "1 x 1 ft",
+    "2 x 2 ft",
+    "2 x 3 ft",
+    "2 x 4 ft",
+    "3 x 4 ft",
+    "4 x 4 ft",
+    "5 x 4 ft",
+    "6 x 4 ft",
+    "8 x 4 ft"
+   ],
+   "images": [
+    "plusmark/products/eco-regular-magnetic-chalk-board"
+   ],
+   "imageSource": "product",
+   "videoId": null,
+   "surface": "High gloss melamine writing surface",
+   "frame": "Lightweight ribbed aluminium anodized frame",
+   "corners": "Standard plastic corners"
+  },
+  {
+   "slug": "eco-regular-notice-board",
+   "name": "Eco Regular Notice Board",
+   "categoryId": "notice-boards",
+   "seriesId": "eco-regular",
+   "subcategoryIds": [
+    "notice-boards-pin-up"
+   ],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "1 x 1 ft",
+    "2 x 2 ft",
+    "2 x 3 ft",
+    "2 x 4 ft",
+    "3 x 4 ft",
+    "4 x 4 ft",
+    "5 x 4 ft",
+    "6 x 4 ft",
+    "8 x 4 ft"
+   ],
+   "images": [
+    "plusmark/products/eco-regular-notice-board"
+   ],
+   "imageSource": "product",
+   "videoId": null,
+   "surface": "High gloss melamine writing surface",
+   "frame": "Lightweight ribbed aluminium anodized frame",
+   "corners": "Standard plastic corners"
+  },
+  {
+   "slug": "deluxe-standard-white-board",
+   "name": "Deluxe Standard White Board",
+   "categoryId": "white-boards",
+   "seriesId": "deluxe-standard",
+   "subcategoryIds": [
+    "white-boards-non-magnetic"
+   ],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "3 x 4 ft",
+    "4 x 4 ft",
+    "5 x 4 ft",
+    "6 x 4 ft",
+    "8 x 4 ft"
+   ],
+   "images": [
+    "plusmark/products/deluxe-standard-white-board"
+   ],
+   "imageSource": "product",
+   "videoId": null,
+   "surface": "High gloss melamine writing surface",
+   "frame": "Deluxe anodized aluminium frame",
+   "corners": "Electroplated chrome corners"
+  },
+  {
+   "slug": "deluxe-standard-chalk-board",
+   "name": "Deluxe Standard Chalk Board",
+   "categoryId": "chalk-boards",
+   "seriesId": "deluxe-standard",
+   "subcategoryIds": [
+    "chalk-boards-non-magnetic"
+   ],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "3 x 4 ft",
+    "4 x 4 ft",
+    "5 x 4 ft",
+    "6 x 4 ft",
+    "8 x 4 ft"
+   ],
+   "images": [
+    "plusmark/products/deluxe-standard-chalk-board"
+   ],
+   "imageSource": "product",
+   "videoId": null,
+   "surface": "High gloss melamine writing surface",
+   "frame": "Deluxe anodized aluminium frame",
+   "corners": "Electroplated chrome corners"
+  },
+  {
+   "slug": "deluxe-standard-magnetic-board",
+   "name": "Deluxe Standard Magnetic Board",
+   "categoryId": "white-boards",
+   "seriesId": "deluxe-standard",
+   "subcategoryIds": [
+    "white-boards-magnetic"
+   ],
+   "magnetic": true,
+   "doubleSided": false,
+   "sizes": [
+    "3 x 4 ft",
+    "4 x 4 ft",
+    "5 x 4 ft",
+    "6 x 4 ft",
+    "8 x 4 ft"
+   ],
+   "images": [
+    "plusmark/products/deluxe-standard-magnetic-board"
+   ],
+   "imageSource": "product",
+   "videoId": null,
+   "surface": "High gloss melamine writing surface",
+   "frame": "Deluxe anodized aluminium frame",
+   "corners": "Electroplated chrome corners"
+  },
+  {
+   "slug": "deluxe-standard-magnetic-chalk-board",
+   "name": "Deluxe Standard Magnetic Chalk Board",
+   "categoryId": "chalk-boards",
+   "seriesId": "deluxe-standard",
+   "subcategoryIds": [
+    "chalk-boards-magnetic"
+   ],
+   "magnetic": true,
+   "doubleSided": false,
+   "sizes": [
+    "3 x 4 ft",
+    "4 x 4 ft",
+    "5 x 4 ft",
+    "6 x 4 ft",
+    "8 x 4 ft"
+   ],
+   "images": [
+    "plusmark/products/deluxe-standard-magnetic-chalk-board"
+   ],
+   "imageSource": "product",
+   "videoId": null,
+   "surface": "High gloss melamine writing surface",
+   "frame": "Deluxe anodized aluminium frame",
+   "corners": "Electroplated chrome corners"
+  },
+  {
+   "slug": "deluxe-standard-ceramic-board",
+   "name": "Deluxe Standard Ceramic Board",
+   "categoryId": "white-boards",
+   "seriesId": "deluxe-standard",
+   "subcategoryIds": [
+    "white-boards-ceramic"
+   ],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "3 x 4 ft",
+    "4 x 4 ft",
+    "5 x 4 ft",
+    "6 x 4 ft",
+    "8 x 4 ft"
+   ],
+   "images": [
+    "plusmark/products/deluxe-standard-ceramic-board"
+   ],
+   "imageSource": "product",
+   "videoId": null,
+   "surface": "High gloss melamine writing surface",
+   "frame": "Deluxe anodized aluminium frame",
+   "corners": "Electroplated chrome corners"
+  },
+  {
+   "slug": "deluxe-standard-notice-board",
+   "name": "Deluxe Standard Notice Board",
+   "categoryId": "notice-boards",
+   "seriesId": "deluxe-standard",
+   "subcategoryIds": [
+    "notice-boards-pin-up"
+   ],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "3 x 4 ft",
+    "4 x 4 ft",
+    "5 x 4 ft",
+    "6 x 4 ft",
+    "8 x 4 ft"
+   ],
+   "images": [
+    "plusmark/products/deluxe-standard-notice-board"
+   ],
+   "imageSource": "product",
+   "videoId": null,
+   "surface": "High gloss melamine writing surface",
+   "frame": "Deluxe anodized aluminium frame",
+   "corners": "Electroplated chrome corners"
+  },
+  {
+   "slug": "deluxe-45mm-adc-notice-board-double-door",
+   "name": "Deluxe 45 MM ADC Notice Board (Double Door)",
+   "categoryId": "notice-boards",
+   "seriesId": "deluxe-standard",
+   "subcategoryIds": [
+    "notice-boards-adc"
+   ],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "3 x 4 ft",
+    "4 x 4 ft",
+    "5 x 4 ft",
+    "6 x 4 ft",
+    "8 x 4 ft"
+   ],
+   "images": [
+    "plusmark/products/deluxe-45mm-adc-notice-board-double-door"
+   ],
+   "imageSource": "product",
+   "videoId": null,
+   "surface": "High gloss melamine writing surface",
+   "frame": "Deluxe anodized aluminium frame",
+   "corners": "Electroplated chrome corners"
+  },
+  {
+   "slug": "eco-adc-notice-board-single-door",
+   "name": "Eco ADC Notice Board (Single Door)",
+   "categoryId": "notice-boards",
+   "seriesId": "eco-regular",
+   "subcategoryIds": [
+    "notice-boards-adc"
+   ],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "1 x 1 ft",
+    "2 x 2 ft",
+    "2 x 3 ft",
+    "2 x 4 ft",
+    "3 x 4 ft",
+    "4 x 4 ft",
+    "5 x 4 ft",
+    "6 x 4 ft",
+    "8 x 4 ft"
+   ],
+   "images": [
+    "plusmark/products/eco-adc-notice-board-single-door"
+   ],
+   "imageSource": "product",
+   "videoId": null,
+   "surface": "High gloss melamine writing surface",
+   "frame": "Lightweight ribbed aluminium anodized frame",
+   "corners": "Standard plastic corners"
+  },
+  {
+   "slug": "laminate-mdf-base-clipboard",
+   "name": "Laminate MDF Base Clipboard",
+   "categoryId": "clipboards",
+   "seriesId": null,
+   "subcategoryIds": [
+    "clipboards-mdf"
+   ],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "Standard size",
+    "Made to order"
+   ],
+   "images": [
+    "plusmark/products/laminate-mdf-base-clipboard"
+   ],
+   "imageSource": "product",
+   "videoId": null,
+   "surface": null,
+   "frame": null,
+   "corners": null
+  },
+  {
+   "slug": "graphic-mdf-base-clipboard",
+   "name": "Graphic MDF Base Clipboard",
+   "categoryId": "clipboards",
+   "seriesId": null,
+   "subcategoryIds": [
+    "clipboards-mdf"
+   ],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "Standard size",
+    "Made to order"
+   ],
+   "images": [
+    "plusmark/products/graphic-mdf-base-clipboard"
+   ],
+   "imageSource": "product",
+   "videoId": null,
+   "surface": null,
+   "frame": null,
+   "corners": null
+  },
+  {
+   "slug": "pre-lam-mdf-base-clipboard",
+   "name": "Pre-Lam MDF Base Clipboard",
+   "categoryId": "clipboards",
+   "seriesId": null,
+   "subcategoryIds": [
+    "clipboards-mdf"
+   ],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "Standard size",
+    "Made to order"
+   ],
+   "images": [
+    "plusmark/products/pre-lam-mdf-base-clipboard"
+   ],
+   "imageSource": "product",
+   "videoId": null,
+   "surface": null,
+   "frame": null,
+   "corners": null
+  },
+  {
+   "slug": "crystal-clear-base-clipboard",
+   "name": "Crystal Clear Base Clipboard",
+   "categoryId": "clipboards",
+   "seriesId": null,
+   "subcategoryIds": [
+    "clipboards-acrylic"
+   ],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "Standard size",
+    "Made to order"
+   ],
+   "images": [
+    "plusmark/products/crystal-clear-base-clipboard"
+   ],
+   "imageSource": "product",
+   "videoId": null,
+   "surface": null,
+   "frame": null,
+   "corners": null
+  },
+  {
+   "slug": "crystal-colour-base-clipboard",
+   "name": "Crystal Colour Base Clipboard",
+   "categoryId": "clipboards",
+   "seriesId": null,
+   "subcategoryIds": [
+    "clipboards-acrylic"
+   ],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "Standard size",
+    "Made to order"
+   ],
+   "images": [
+    "plusmark/products/crystal-colour-base-clipboard"
+   ],
+   "imageSource": "product",
+   "videoId": null,
+   "surface": null,
+   "frame": null,
+   "corners": null
+  },
+  {
+   "slug": "heavy-duty-clear-acrylic-clipboard",
+   "name": "Heavy Duty Clear Acrylic Clipboard",
+   "categoryId": "clipboards",
+   "seriesId": null,
+   "subcategoryIds": [
+    "clipboards-acrylic"
+   ],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "Standard size",
+    "Made to order"
+   ],
+   "images": [
+    "plusmark/products/heavy-duty-clear-acrylic-clipboard"
+   ],
+   "imageSource": "product",
+   "videoId": null,
+   "surface": null,
+   "frame": null,
+   "corners": null
+  },
+  {
+   "slug": "cork-notice-board",
+   "name": "Cork Notice Board",
+   "categoryId": "notice-boards",
+   "seriesId": null,
+   "subcategoryIds": [
+    "notice-boards-pin-up"
+   ],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "Standard size",
+    "Made to order"
+   ],
+   "images": [
+    "plusmark/products/cork-notice-board"
+   ],
+   "imageSource": "product",
+   "videoId": null,
+   "surface": null,
+   "frame": null,
+   "corners": null
+  },
+  {
+   "slug": "fabric-notice-board",
+   "name": "Fabric Notice Board",
+   "categoryId": "notice-boards",
+   "seriesId": null,
+   "subcategoryIds": [
+    "notice-boards-pin-up"
+   ],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "Standard size",
+    "Made to order"
+   ],
+   "images": [
+    "plusmark/products/fabric-notice-board"
+   ],
+   "imageSource": "product",
+   "videoId": null,
+   "surface": null,
+   "frame": null,
+   "corners": null
+  },
+  {
+   "slug": "acrylic-folder-display-board",
+   "name": "Acrylic Folder Display Board",
+   "categoryId": "display-boards",
+   "seriesId": null,
+   "subcategoryIds": [],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "Standard size",
+    "Made to order"
+   ],
+   "images": [
+    "plusmark/products/acrylic-folder-display-board"
+   ],
+   "imageSource": "product",
+   "videoId": null,
+   "surface": null,
+   "frame": null,
+   "corners": null
+  },
+  {
+   "slug": "dry-wipe-schedule-board",
+   "name": "Dry Wipe Schedule Board",
+   "categoryId": "schedule-boards",
+   "seriesId": null,
+   "subcategoryIds": [],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "Standard size",
+    "Made to order"
+   ],
+   "images": [
+    "plusmark/products/dry-wipe-schedule-board"
+   ],
+   "imageSource": "product",
+   "videoId": null,
+   "surface": null,
+   "frame": null,
+   "corners": null
+  },
+  {
+   "slug": "four-line-square-line-practice-board",
+   "name": "Four Line & Square Line Practice Board",
+   "categoryId": "specialty-boards",
+   "seriesId": null,
+   "subcategoryIds": [],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "Standard size",
+    "Made to order"
+   ],
+   "images": [
+    "plusmark/products/four-line-square-line-practice-board"
+   ],
+   "imageSource": "product",
+   "videoId": null,
+   "surface": null,
+   "frame": null,
+   "corners": null
+  },
+  {
+   "slug": "grooved-boards",
+   "name": "Grooved Coloured Display Board",
+   "categoryId": "specialty-boards",
+   "seriesId": null,
+   "subcategoryIds": [],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "Standard size",
+    "Made to order"
+   ],
+   "images": [
+    "plusmark/products/grooved-boards"
+   ],
+   "imageSource": "product",
+   "videoId": null,
+   "surface": null,
+   "frame": null,
+   "corners": null
+  },
+  {
+   "slug": "perforated-board",
+   "name": "Perforated Display Board",
+   "categoryId": "specialty-boards",
+   "seriesId": null,
+   "subcategoryIds": [],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "Standard size",
+    "Made to order"
+   ],
+   "images": [
+    "plusmark/products/perforated-board"
+   ],
+   "imageSource": "product",
+   "videoId": null,
+   "surface": null,
+   "frame": null,
+   "corners": null
+  },
+  {
+   "slug": "key-hanger-board",
+   "name": "Key Hanger Board",
+   "categoryId": "specialty-boards",
+   "seriesId": null,
+   "subcategoryIds": [],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "Standard size",
+    "Made to order"
+   ],
+   "images": [
+    "plusmark/products/key-hanger-board"
+   ],
+   "imageSource": "product",
+   "videoId": null,
+   "surface": null,
+   "frame": null,
+   "corners": null
+  },
+  {
+   "slug": "letters-and-figures-set",
+   "name": "Letters and Figures Set",
+   "categoryId": "board-study-essentials",
+   "seriesId": null,
+   "subcategoryIds": [],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "Standard size",
+    "Made to order"
+   ],
+   "images": [
+    "plusmark/products/letters-and-figures-set"
+   ],
+   "imageSource": "product",
+   "videoId": null,
+   "surface": null,
+   "frame": null,
+   "corners": null
+  },
+  {
+   "slug": "combination-board",
+   "name": "Combination Board",
+   "categoryId": "notice-boards",
+   "seriesId": null,
+   "subcategoryIds": [],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "Standard size",
+    "Made to order"
+   ],
+   "images": [
+    "plusmark/products/combination-board"
+   ],
+   "imageSource": "product",
+   "videoId": null,
+   "surface": null,
+   "frame": null,
+   "corners": null
+  },
+  {
+   "slug": "deluxe-45mm-adc-notice-board-single-door",
+   "name": "Deluxe 45 mm ADC Notice Board (Single Door)",
+   "categoryId": "notice-boards",
+   "seriesId": "deluxe-standard",
+   "subcategoryIds": [
+    "notice-boards-adc"
+   ],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "3 x 4 ft",
+    "4 x 4 ft",
+    "5 x 4 ft",
+    "6 x 4 ft",
+    "8 x 4 ft"
+   ],
+   "images": [
+    "plusmark/products/deluxe-45mm-adc-notice-board-single-door"
+   ],
+   "imageSource": "product",
+   "videoId": null,
+   "surface": "High gloss melamine writing surface",
+   "frame": "Deluxe anodized aluminium frame",
+   "corners": "Electroplated chrome corners"
+  },
+  {
+   "slug": "four-leg-stand",
+   "name": "Four Leg Board Stand",
+   "categoryId": "board-stands",
+   "seriesId": null,
+   "subcategoryIds": [
+    "board-stands-stands"
+   ],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "Standard size",
+    "Made to order"
+   ],
+   "images": [
+    "plusmark/products/four-leg-stand"
+   ],
+   "imageSource": "product",
+   "videoId": null,
+   "surface": null,
+   "frame": null,
+   "corners": null
+  },
+  {
+   "slug": "three-leg-stand",
+   "name": "Three Leg Board Stand",
+   "categoryId": "board-stands",
+   "seriesId": null,
+   "subcategoryIds": [
+    "board-stands-stands"
+   ],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "Standard size",
+    "Made to order"
+   ],
+   "images": [
+    "plusmark/products/three-leg-stand"
+   ],
+   "imageSource": "product",
+   "videoId": null,
+   "surface": null,
+   "frame": null,
+   "corners": null
+  },
+  {
+   "slug": "zig-zag-stand",
+   "name": "Zig Zag Board Stand",
+   "categoryId": "board-stands",
+   "seriesId": null,
+   "subcategoryIds": [
+    "board-stands-stands"
+   ],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "Standard size",
+    "Made to order"
+   ],
+   "images": [
+    "plusmark/products/zig-zag-stand"
+   ],
+   "imageSource": "product",
+   "videoId": null,
+   "surface": null,
+   "frame": null,
+   "corners": null
+  },
+  {
+   "slug": "revolving-stand",
+   "name": "Revolving Board Stand",
+   "categoryId": "board-stands",
+   "seriesId": null,
+   "subcategoryIds": [
+    "board-stands-stands"
+   ],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "Standard size",
+    "Made to order"
+   ],
+   "images": [
+    "plusmark/products/revolving-stand"
+   ],
+   "imageSource": "product",
+   "videoId": null,
+   "surface": null,
+   "frame": null,
+   "corners": null
+  },
+  {
+   "slug": "telescopic-stand",
+   "name": "Telescopic Board Stand",
+   "categoryId": "board-stands",
+   "seriesId": null,
+   "subcategoryIds": [
+    "board-stands-stands"
+   ],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "Standard size",
+    "Made to order"
+   ],
+   "images": [
+    "plusmark/products/telescopic-stand"
+   ],
+   "imageSource": "product",
+   "videoId": null,
+   "surface": null,
+   "frame": null,
+   "corners": null
+  },
+  {
+   "slug": "file-rack",
+   "name": "File Rack",
+   "categoryId": "board-stands",
+   "seriesId": null,
+   "subcategoryIds": [
+    "board-stands-storage"
+   ],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "Standard size",
+    "Made to order"
+   ],
+   "images": [
+    "plusmark/products/file-rack"
+   ],
+   "imageSource": "product",
+   "videoId": null,
+   "surface": null,
+   "frame": null,
+   "corners": null
+  },
+  {
+   "slug": "magazine-stand",
+   "name": "Magazine Stand",
+   "categoryId": "board-stands",
+   "seriesId": null,
+   "subcategoryIds": [
+    "board-stands-storage"
+   ],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "Standard size",
+    "Made to order"
+   ],
+   "images": [
+    "plusmark/products/magazine-stand"
+   ],
+   "imageSource": "product",
+   "videoId": null,
+   "surface": null,
+   "frame": null,
+   "corners": null
+  },
+  {
+   "slug": "newspaper-stand",
+   "name": "Newspaper Stand",
+   "categoryId": "board-stands",
+   "seriesId": null,
+   "subcategoryIds": [
+    "board-stands-storage"
+   ],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "Standard size",
+    "Made to order"
+   ],
+   "images": [
+    "plusmark/products/newspaper-stand"
+   ],
+   "imageSource": "product",
+   "videoId": null,
+   "surface": null,
+   "frame": null,
+   "corners": null
+  },
+  {
+   "slug": "letter-box",
+   "name": "Letter Box",
+   "categoryId": "board-stands",
+   "seriesId": null,
+   "subcategoryIds": [
+    "board-stands-storage"
+   ],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "Standard size",
+    "Made to order"
+   ],
+   "images": [
+    "plusmark/products/letter-box"
+   ],
+   "imageSource": "product",
+   "videoId": null,
+   "surface": null,
+   "frame": null,
+   "corners": null
+  },
+  {
+   "slug": "first-aid-box",
+   "name": "First Aid Box",
+   "categoryId": "board-study-essentials",
+   "seriesId": null,
+   "subcategoryIds": [],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "Standard size",
+    "Made to order"
+   ],
+   "images": [
+    "plusmark/products/first-aid-box"
+   ],
+   "imageSource": "product",
+   "videoId": null,
+   "surface": null,
+   "frame": null,
+   "corners": null
+  },
+  {
+   "slug": "student-study-table",
+   "name": "Student Study Table",
+   "categoryId": "school-benches",
+   "seriesId": null,
+   "subcategoryIds": [],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "Standard size",
+    "Made to order"
+   ],
+   "images": [
+    "plusmark/products/student-study-table"
+   ],
+   "imageSource": "product",
+   "videoId": null,
+   "surface": null,
+   "frame": null,
+   "corners": null
+  },
+  {
+   "slug": "pds-500",
+   "name": "PDS 500 Classroom Bench",
+   "categoryId": "school-benches",
+   "seriesId": null,
+   "subcategoryIds": [],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "Standard size",
+    "Made to order"
+   ],
+   "images": [
+    "plusmark/products/pds-500"
+   ],
+   "imageSource": "product",
+   "videoId": null,
+   "surface": null,
+   "frame": null,
+   "corners": null
+  },
+  {
+   "slug": "pds-sb-801",
+   "name": "PDS SB-801 School Bench",
+   "categoryId": "school-benches",
+   "seriesId": null,
+   "subcategoryIds": [],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "Standard size",
+    "Made to order"
+   ],
+   "images": [
+    "plusmark/products/pds-sb-801"
+   ],
+   "imageSource": "product",
+   "videoId": null,
+   "surface": null,
+   "frame": null,
+   "corners": null
+  },
+  {
+   "slug": "pds-sb-802",
+   "name": "PDS SB-802 School Bench",
+   "categoryId": "school-benches",
+   "seriesId": null,
+   "subcategoryIds": [],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "Standard size",
+    "Made to order"
+   ],
+   "images": [
+    "plusmark/products/pds-sb-802"
+   ],
+   "imageSource": "product",
+   "videoId": null,
+   "surface": null,
+   "frame": null,
+   "corners": null
+  },
+  {
+   "slug": "pds-sb-803",
+   "name": "PDS SB-803 School Bench",
+   "categoryId": "school-benches",
+   "seriesId": null,
+   "subcategoryIds": [],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "Standard size",
+    "Made to order"
+   ],
+   "images": [
+    "plusmark/products/pds-sb-803"
+   ],
+   "imageSource": "product",
+   "videoId": null,
+   "surface": null,
+   "frame": null,
+   "corners": null
+  },
+  {
+   "slug": "pds-sb-804",
+   "name": "PDS SB-804 School Bench",
+   "categoryId": "school-benches",
+   "seriesId": null,
+   "subcategoryIds": [],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "Standard size",
+    "Made to order"
+   ],
+   "images": [
+    "plusmark/products/pds-sb-804"
+   ],
+   "imageSource": "product",
+   "videoId": null,
+   "surface": null,
+   "frame": null,
+   "corners": null
+  },
+  {
+   "slug": "pds-sb-805",
+   "name": "PDS SB-805 School Bench",
+   "categoryId": "school-benches",
+   "seriesId": null,
+   "subcategoryIds": [],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "Standard size",
+    "Made to order"
+   ],
+   "images": [
+    "plusmark/products/pds-sb-805"
+   ],
+   "imageSource": "product",
+   "videoId": null,
+   "surface": null,
+   "frame": null,
+   "corners": null
+  },
+  {
+   "slug": "pds-sb-806",
+   "name": "PDS SB-806 School Bench",
+   "categoryId": "school-benches",
+   "seriesId": null,
+   "subcategoryIds": [],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "Standard size",
+    "Made to order"
+   ],
+   "images": [
+    "plusmark/products/pds-sb-806"
+   ],
+   "imageSource": "product",
+   "videoId": null,
+   "surface": null,
+   "frame": null,
+   "corners": null
+  },
+  {
+   "slug": "pds-sb-807",
+   "name": "PDS SB-807 School Bench",
+   "categoryId": "school-benches",
+   "seriesId": null,
+   "subcategoryIds": [],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "Standard size",
+    "Made to order"
+   ],
+   "images": [
+    "plusmark/products/pds-sb-807"
+   ],
+   "imageSource": "product",
+   "videoId": null,
+   "surface": null,
+   "frame": null,
+   "corners": null
+  },
+  {
+   "slug": "pds-sb-808",
+   "name": "PDS SB-808 School Bench",
+   "categoryId": "school-benches",
+   "seriesId": null,
+   "subcategoryIds": [],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "Standard size",
+    "Made to order"
+   ],
+   "images": [
+    "plusmark/products/pds-sb-808"
+   ],
+   "imageSource": "product",
+   "videoId": null,
+   "surface": null,
+   "frame": null,
+   "corners": null
+  },
+  {
+   "slug": "pds-sb-809",
+   "name": "PDS SB-809 School Bench",
+   "categoryId": "school-benches",
+   "seriesId": null,
+   "subcategoryIds": [],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "Standard size",
+    "Made to order"
+   ],
+   "images": [
+    "plusmark/products/pds-sb-809"
+   ],
+   "imageSource": "product",
+   "videoId": null,
+   "surface": null,
+   "frame": null,
+   "corners": null
+  },
+  {
+   "slug": "pds-sb-810",
+   "name": "PDS SB-810 School Bench",
+   "categoryId": "school-benches",
+   "seriesId": null,
+   "subcategoryIds": [],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "Standard size",
+    "Made to order"
+   ],
+   "images": [
+    "plusmark/products/pds-sb-810"
+   ],
+   "imageSource": "product",
+   "videoId": null,
+   "surface": null,
+   "frame": null,
+   "corners": null
+  },
+  {
+   "slug": "pds-sb-811",
+   "name": "PDS SB-811 School Bench",
+   "categoryId": "school-benches",
+   "seriesId": null,
+   "subcategoryIds": [],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "Standard size",
+    "Made to order"
+   ],
+   "images": [
+    "plusmark/products/pds-sb-811"
+   ],
+   "imageSource": "product",
+   "videoId": null,
+   "surface": null,
+   "frame": null,
+   "corners": null
+  },
+  {
+   "slug": "pds-sb-812",
+   "name": "PDS SB-812 School Bench",
+   "categoryId": "school-benches",
+   "seriesId": null,
+   "subcategoryIds": [],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "Standard size",
+    "Made to order"
+   ],
+   "images": [
+    "plusmark/products/pds-sb-812"
+   ],
+   "imageSource": "product",
+   "videoId": null,
+   "surface": null,
+   "frame": null,
+   "corners": null
+  },
+  {
+   "slug": "pds-sb-813",
+   "name": "PDS SB-813 School Bench",
+   "categoryId": "school-benches",
+   "seriesId": null,
+   "subcategoryIds": [],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "Standard size",
+    "Made to order"
+   ],
+   "images": [
+    "plusmark/products/pds-sb-813"
+   ],
+   "imageSource": "product",
+   "videoId": null,
+   "surface": null,
+   "frame": null,
+   "corners": null
+  },
+  {
+   "slug": "pds-sb-814",
+   "name": "PDS SB-814 School Bench",
+   "categoryId": "school-benches",
+   "seriesId": null,
+   "subcategoryIds": [],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "Standard size",
+    "Made to order"
+   ],
+   "images": [
+    "plusmark/products/pds-sb-814"
+   ],
+   "imageSource": "product",
+   "videoId": null,
+   "surface": null,
+   "frame": null,
+   "corners": null
+  },
+  {
+   "slug": "pds-sb-815",
+   "name": "PDS SB-815 School Bench",
+   "categoryId": "school-benches",
+   "seriesId": null,
+   "subcategoryIds": [],
+   "magnetic": false,
+   "doubleSided": false,
+   "sizes": [
+    "Standard size",
+    "Made to order"
+   ],
+   "images": [
+    "plusmark/products/pds-sb-815"
+   ],
+   "imageSource": "product",
+   "videoId": null,
+   "surface": null,
+   "frame": null,
+   "corners": null
+  }
+ ],
+ "institutions": [
+  "Delhi Public School",
+  "Kendriya Vidyalaya",
+  "Jawahar Navodaya Vidyalaya",
+  "IIT Kharagpur",
+  "Gujarat University",
+  "GEM - All Departments",
+  "Tata Sky",
+  "Amul Dairy",
+  "Banas Dairy",
+  "Mahi Dairy"
+ ],
+ "assurances": [
+  "GEM approved vendor",
+  "GST invoice with HSN",
+  "Bulk pricing on request",
+  "Pan-India dispatch"
+ ],
+ "media": {
+  "industries": [
+   "plusmark/industries/colleges-universities",
+   "plusmark/industries/dealers-distributors",
+   "plusmark/industries/factories-industrial-units",
+   "plusmark/industries/government-private-institutions",
+   "plusmark/industries/schools",
+   "plusmark/industries/training-coaching-centers"
+  ],
+  "clients": [
+   "plusmark/clients/amul-dairy",
+   "plusmark/clients/banas-dairy",
+   "plusmark/clients/delhi-public-school",
+   "plusmark/clients/gem",
+   "plusmark/clients/gujarat-university",
+   "plusmark/clients/iit-kharagpur",
+   "plusmark/clients/jawahar-navodaya-vidyalaya",
+   "plusmark/clients/kendriya-vidyalaya",
+   "plusmark/clients/mahi-dairy",
+   "plusmark/clients/tata-sky"
+  ],
+  "videos": [
+   "plusmark/videos/board-installation",
+   "plusmark/videos/eco-premium-both-side",
+   "plusmark/videos/eco-premium-chalk-board",
+   "plusmark/videos/eco-premium-notice-board",
+   "plusmark/videos/eco-premium-white-board",
+   "plusmark/videos/metallic-premium-both-side",
+   "plusmark/videos/metallic-premium-chalk-board",
+   "plusmark/videos/metallic-premium-notice-board",
+   "plusmark/videos/metallic-premium-white-board",
+   "plusmark/videos/retail-board-installation"
+  ]
+ }
+}
