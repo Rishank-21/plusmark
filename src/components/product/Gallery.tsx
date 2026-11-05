@@ -124,7 +124,7 @@ export function Gallery({ product }: { product: Product }) {
             )}
           >
             <Image
-              src={imageUrl(asset.publicId, { fit: "fill", width: 160, height: 160 })}
+              src={imageUrl(asset.publicId, { fit: "scale", width: 160 })}
               alt=""
               width={160}
               height={160}
@@ -204,7 +204,7 @@ export function Gallery({ product }: { product: Product }) {
             />
           ) : (
             <Image
-              src={imageUrl(current.publicId, { fit: "fill", width: 1600, height: 1200 })}
+              src={imageUrl(current.publicId, { fit: "scale", width: 1600 })}
               alt={current.alt}
               width={1600}
               height={1200}
@@ -238,7 +238,7 @@ export function Gallery({ product }: { product: Product }) {
               }}
             >
               <Image
-                src={imageUrl(current.publicId, { fit: "fill", width: 2000, height: 1500 })}
+                src={imageUrl(current.publicId, { fit: "scale", width: 2000 })}
                 alt=""
                 width={2000}
                 height={1500}
@@ -281,7 +281,7 @@ export function Gallery({ product }: { product: Product }) {
           <div className="flex flex-col gap-3">
             <div className="relative flex items-center justify-center rounded-md bg-white">
               <Image
-                src={imageUrl(lightboxAsset.publicId, { fit: "fill", width: 2000, height: 1500 })}
+                src={imageUrl(lightboxAsset.publicId, { fit: "scale", width: 2000 })}
                 alt={lightboxAsset.alt}
                 width={2000}
                 height={1500}
@@ -320,7 +320,7 @@ export function Gallery({ product }: { product: Product }) {
                   )}
                 >
                   <Image
-                    src={imageUrl(asset.publicId, { fit: "fill", width: 96, height: 96 })}
+                    src={imageUrl(asset.publicId, { fit: "scale", width: 96 })}
                     alt=""
                     width={96}
                     height={96}

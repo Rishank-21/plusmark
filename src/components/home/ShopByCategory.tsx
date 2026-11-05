@@ -68,7 +68,7 @@ export function ShopByCategory() {
                 <div className="relative aspect-[4/3] overflow-hidden bg-white">
                   {image && (
                     <Image
-                      src={imageUrl(image, { fit: "fill", width: 900, height: 675 })}
+                      src={imageUrl(image, { fit: "scale", width: 900 })}
                       alt=""
                       fill
                       {...deliveryProps(image)}

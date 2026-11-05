@@ -697,9 +697,14 @@ function SearchPanel({ id, className }: { id: string; className?: string }) {
                       {s.imagePublicId && (
                         // eslint-disable-next-line @next/next/no-img-element
                         <img
-                          src={imageUrl(s.imagePublicId, { fit: "fill", width: 88, height: 88 })}
+                          src={imageUrl(
+                            s.imagePublicId,
+                            s.kind === "product"
+                              ? { fit: "scale", width: 88 }
+                              : { fit: "fill", width: 88, height: 88 }
+                          )}
                           alt=""
-                          className="size-full object-cover"
+                          className={classNames("size-full", s.kind === "product" ? "object-contain" : "object-cover")}
                           loading="lazy"
                         />
                       )}
