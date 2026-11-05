@@ -168,7 +168,7 @@ export function ThemeSwitcher() {
             Recolours the top strip, footer, promo panel and every button.
           </p>
           <p className="mt-1 border-t border-hair pt-2 text-[0.625rem] leading-relaxed text-graphite-light">
-            Development only — hidden in production.
+            Preview tool — set NEXT_PUBLIC_THEME_PREVIEW=off to hide.
           </p>
         </div>
       ) : (
