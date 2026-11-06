@@ -23,7 +23,7 @@ import {
   type AdminProductInput
 } from "@/lib/supabase/admin";
 import { useToast } from "@/state/toast";
-import type { Category, MediaAsset, PriceMode, Product } from "@/types";
+import type { BoardType, Category, MediaAsset, PriceMode, Product, ProductSpec, SurfaceKind } from "@/types";
 
 interface VariantDraft {
   key: string;
@@ -51,6 +51,12 @@ interface FeatureDraft {
   value: string;
 }
 
+interface SpecDraft {
+  key: string;
+  label: string;
+  value: string;
+}
+
 interface FormState {
   name: string;
   slug: string;
@@ -62,19 +68,39 @@ interface FormState {
   corners: string;
   magnetic: boolean;
   doubleSided: boolean;
+  boardType: BoardType;
+  surfaceKind: SurfaceKind;
   usage: string;
   blurb: string;
   description: string;
   features: FeatureDraft[];
+  specs: SpecDraft[];
+  customisation: string;
   hsnCode: string;
   gstRatePercent: string;
   bulkSuggestionQuantity: string;
   media: MediaDraft[];
   videoId: string;
+  enquiryOnly: boolean;
+  needsData: boolean;
   published: boolean;
   featured: boolean;
   variants: VariantDraft[];
 }
+
+const BOARD_TYPE_OPTIONS: { value: BoardType; label: string }[] = [
+  { value: "n/a", label: "Not a board" },
+  { value: "non-magnetic", label: "Non-magnetic" },
+  { value: "magnetic", label: "Magnetic" },
+  { value: "ceramic", label: "Ceramic steel" }
+];
+
+const SURFACE_KIND_OPTIONS: { value: SurfaceKind; label: string }[] = [
+  { value: "other", label: "Other / not a writing face" },
+  { value: "marker", label: "Marker (white)" },
+  { value: "chalk", label: "Chalk (green)" },
+  { value: "pin-up", label: "Pin-up (notice)" }
+];
 
 const GST_OPTIONS = [
   { value: "0", label: "0% — export / exempt" },
@@ -105,15 +131,21 @@ function initialValues(product: Product | null, categories: Category[]): FormSta
       corners: "",
       magnetic: false,
       doubleSided: false,
+      boardType: "n/a",
+      surfaceKind: "other",
       usage: "",
       blurb: "",
       description: "",
       features: [{ key: "f_1", value: "" }],
+      specs: [],
+      customisation: "",
       hsnCode: "",
       gstRatePercent: "12",
       bulkSuggestionQuantity: "10",
       media: [],
       videoId: "",
+      enquiryOnly: false,
+      needsData: false,
       published: false,
       featured: false,
       variants: [emptyVariant()]
@@ -130,12 +162,16 @@ function initialValues(product: Product | null, categories: Category[]): FormSta
     corners: product.corners ?? "",
     magnetic: product.magnetic,
     doubleSided: product.doubleSided,
+    boardType: product.boardType,
+    surfaceKind: product.surfaceKind,
     usage: product.usage,
     blurb: product.blurb,
     description: product.description,
     features: product.features.length
       ? product.features.map((value, index) => ({ key: `f_${index}`, value }))
       : [{ key: "f_1", value: "" }],
+    specs: product.specs.map((spec, index) => ({ key: `s_${index}`, label: spec.label, value: spec.value })),
+    customisation: product.customisation ?? "",
     hsnCode: product.hsnCode ?? "",
     gstRatePercent: String(product.gstRatePercent),
     bulkSuggestionQuantity: String(product.bulkSuggestionQuantity),
@@ -148,6 +184,8 @@ function initialValues(product: Product | null, categories: Category[]): FormSta
       source: asset.source
     })),
     videoId: product.videoId ?? "",
+    enquiryOnly: product.enquiryOnly,
+    needsData: product.needsData,
     published: product.published,
     featured: product.featured,
     variants: product.variants.map((variant) => ({
@@ -316,10 +354,16 @@ function ProductFormBody({ mode, categories, product }: { mode: "create" | "edit
       corners: values.corners.trim(),
       magnetic: values.magnetic,
       doubleSided: values.doubleSided,
+      boardType: values.boardType,
+      surfaceKind: values.surfaceKind,
       usage: values.usage.trim(),
       blurb: values.blurb.trim(),
       description: values.description.trim(),
       features: values.features.map((f) => f.value.trim()).filter(Boolean),
+      specs: values.specs
+        .map((spec) => ({ label: spec.label.trim(), value: spec.value.trim() }))
+        .filter((spec): spec is ProductSpec => Boolean(spec.label && spec.value)),
+      customisation: values.customisation.trim() || null,
       media: values.media
         .filter((entry) => entry.publicId.trim())
         .map((entry) => ({
@@ -334,6 +378,8 @@ function ProductFormBody({ mode, categories, product }: { mode: "create" | "edit
       gstRatePercent: Number.parseInt(values.gstRatePercent, 10),
       hsnCode: values.hsnCode.trim() || null,
       bulkSuggestionQuantity: Number.parseInt(values.bulkSuggestionQuantity, 10),
+      enquiryOnly: values.enquiryOnly,
+      needsData: values.needsData,
       published: values.published,
       featured: values.featured,
       variants: values.variants.map((variant) => ({
@@ -470,9 +516,35 @@ function ProductFormBody({ mode, categories, product }: { mode: "create" | "edit
           <TextField label="Frame" optional value={values.frame} onChange={(event) => set("frame", event.target.value)} placeholder="Aluminium anodized frame, heavy-duty" />
           <TextField label="Corners" optional value={values.corners} onChange={(event) => set("corners", event.target.value)} placeholder="Dual-tone corners" />
         </div>
+        <div className="mt-4 grid gap-4 md:grid-cols-2">
+          <SelectField
+            label="Board type"
+            value={values.boardType}
+            options={BOARD_TYPE_OPTIONS}
+            hint="Construction, not the writing surface."
+            onChange={(event) => set("boardType", event.target.value as BoardType)}
+          />
+          <SelectField
+            label="Writing surface"
+            value={values.surfaceKind}
+            options={SURFACE_KIND_OPTIONS}
+            hint="Drives the marker / chalk / pin-up filter."
+            onChange={(event) => set("surfaceKind", event.target.value as SurfaceKind)}
+          />
+        </div>
         <div className="mt-4 flex flex-col gap-3 border-t border-hair pt-4 sm:flex-row sm:gap-8">
           <CheckboxField label="Magnetic face" checked={values.magnetic} onChange={(event) => set("magnetic", event.target.checked)} />
           <CheckboxField label="Double-sided" checked={values.doubleSided} onChange={(event) => set("doubleSided", event.target.checked)} />
+        </div>
+        <div className="mt-4">
+          <TextArea
+            label="Customisation note"
+            optional
+            rows={2}
+            value={values.customisation}
+            hint="Sizes, layouts or colours made to order. Leave blank when the product is only sold as listed."
+            onChange={(event) => set("customisation", event.target.value)}
+          />
         </div>
         <div className="mt-4 grid gap-4 md:grid-cols-2">
           <TextField label="Usage" value={values.usage} error={errors.usage ?? null} required onChange={(event) => set("usage", event.target.value)} placeholder="Classrooms, corridors and staff rooms" />
@@ -522,6 +594,56 @@ function ProductFormBody({ mode, categories, product }: { mode: "create" | "edit
             </div>
           ))}
         </div>
+      </AdminPanel>
+
+      <AdminPanel
+        title="Published spec table"
+        description="Rows shown as a specification table on the product page. Only enter values Plusmark has published."
+        aside={
+          <AddRow
+            label="Add spec row"
+            onClick={() => set("specs", [...values.specs, { key: `s_${Date.now()}`, label: "", value: "" }])}
+          />
+        }
+      >
+        {values.specs.length === 0 ? (
+          <p className="text-body-sm text-graphite">No spec rows. The product page falls back to the surface, frame and corner fields above.</p>
+        ) : (
+          <div className="flex flex-col gap-2">
+            {values.specs.map((spec, index) => (
+              <div key={spec.key} className="flex items-center gap-2">
+                <label className="sr-only" htmlFor={`spec-label-${spec.key}`}>Spec label {index + 1}</label>
+                <input
+                  id={`spec-label-${spec.key}`}
+                  value={spec.label}
+                  onChange={(event) =>
+                    set("specs", values.specs.map((entry) => (entry.key === spec.key ? { ...entry, label: event.target.value } : entry)))
+                  }
+                  placeholder="Material"
+                  className="h-11 w-40 shrink-0 rounded-xs border border-hair-strong bg-surface px-3 text-body-sm text-ink placeholder:text-graphite-light"
+                />
+                <label className="sr-only" htmlFor={`spec-value-${spec.key}`}>Spec value {index + 1}</label>
+                <input
+                  id={`spec-value-${spec.key}`}
+                  value={spec.value}
+                  onChange={(event) =>
+                    set("specs", values.specs.map((entry) => (entry.key === spec.key ? { ...entry, value: event.target.value } : entry)))
+                  }
+                  placeholder="Marker grade HPL"
+                  className="h-11 w-full rounded-xs border border-hair-strong bg-surface px-3 text-body-sm text-ink placeholder:text-graphite-light"
+                />
+                <button
+                  type="button"
+                  onClick={() => set("specs", values.specs.filter((entry) => entry.key !== spec.key))}
+                  aria-label={`Remove spec row ${index + 1}`}
+                  className="flex size-11 shrink-0 items-center justify-center rounded-xs border border-hair-strong text-graphite transition-colors hover:border-danger hover:text-danger"
+                >
+                  <Trash2 className="size-4" aria-hidden />
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
       </AdminPanel>
 
       <AdminPanel
@@ -682,6 +804,20 @@ function ProductFormBody({ mode, categories, product }: { mode: "create" | "edit
             hint="Manual curation. Plusmark publishes no sales statistics."
             checked={values.featured}
             onChange={(event) => set("featured", event.target.checked)}
+          />
+        </div>
+        <div className="mt-4 flex flex-col gap-3 border-t border-hair pt-4 sm:flex-row sm:gap-8">
+          <CheckboxField
+            label="Enquiry only — price on request"
+            hint="No add-to-cart. The product page offers WhatsApp and the contact form instead."
+            checked={values.enquiryOnly}
+            onChange={(event) => set("enquiryOnly", event.target.checked)}
+          />
+          <CheckboxField
+            label="Needs data"
+            hint="Flags the record in the admin list until specs, sizes, dimensions or photos are supplied."
+            checked={values.needsData}
+            onChange={(event) => set("needsData", event.target.checked)}
           />
         </div>
       </AdminPanel>

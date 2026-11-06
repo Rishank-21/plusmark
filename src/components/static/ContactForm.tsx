@@ -29,8 +29,12 @@ const EMPTY: FormState = { name: "", email: "", phone: "", organisation: "", top
  * submitted text is held in component state, echoed back once and never claimed
  * to have been sent anywhere.
  */
-export function ContactForm() {
-  const [form, setForm] = useState<FormState>(EMPTY);
+export function ContactForm({ prefill }: { prefill?: { topic?: string; message?: string } }) {
+  const [form, setForm] = useState<FormState>(() => ({
+    ...EMPTY,
+    topic: prefill?.topic && TOPICS.some((topic) => topic.value === prefill.topic) ? prefill.topic : EMPTY.topic,
+    message: prefill?.message ?? EMPTY.message
+  }));
   const [errors, setErrors] = useState<FieldError[]>([]);
   const [submitted, setSubmitted] = useState<{ summary: string } | null>(null);
 

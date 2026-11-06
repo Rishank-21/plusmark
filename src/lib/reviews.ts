@@ -7,6 +7,10 @@ export interface CustomerReview {
 /** Rating and count as shown on Plusmark's Google Business Profile. */
 export const GOOGLE_REVIEW_SUMMARY = { rating: 5, count: 96 } as const;
 
+/** Public Google Business Profile these ratings and quotes come from. */
+export const GOOGLE_REVIEW_URL =
+  "https://www.google.com/maps/search/?api=1&query=Plusmark+Display+System+Narolgam+Ahmedabad";
+
 /** Verbatim quotes from Plusmark's Google Business Profile. */
 export const customerReviews: CustomerReview[] = [
   {

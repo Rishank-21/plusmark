@@ -2,12 +2,14 @@ import type { Metadata } from "next";
 import { Listing } from "@/components/commerce/Listing";
 import { filterProducts, sortProducts } from "@/lib/filters";
 import { clampPage, parseFilters, parsePage, parseSort, toParams } from "@/lib/listing-query";
-import { META_TITLE_SUFFIX } from "@/lib/config";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: `Search${META_TITLE_SUFFIX}`,
-  description: "Search the Plusmark catalogue by product name, series, board type, size or SKU."
-};
+export const metadata: Metadata = pageMetadata({
+  title: "Search",
+  path: "/search",
+  description: "Search the Plusmark catalogue by product name, series, board type, size or SKU.",
+  noindex: true
+});
 
 const PER_PAGE = 12;
 

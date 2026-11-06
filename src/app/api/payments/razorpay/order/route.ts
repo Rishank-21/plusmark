@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { brand } from "@/lib/catalog";
 import { requestUser } from "@/lib/server/request-auth";
 import { createRazorpayOrder, razorpayConfig, RazorpayError } from "@/lib/server/razorpay";
 import { serverSupabase } from "@/lib/server/supabase-admin";
@@ -93,7 +94,7 @@ export async function POST(request: Request) {
       amount,
       currency: "INR",
       reference: order.reference,
-      name: "Plusmark Retail",
+      name: brand.legalName,
       description: `Order ${order.reference}`,
       prefill: {
         name: address.recipientName ?? "",

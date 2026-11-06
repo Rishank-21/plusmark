@@ -179,18 +179,19 @@ export function Header() {
             <Menu className="size-5" aria-hidden />
           </button>
 
-          <Link href="/" className="flex shrink-0 items-center rounded-xs" aria-label="Plusmark Retail home">
+          <Link href="/" className="flex shrink-0 items-center rounded-xs" aria-label="Plusmark home">
             <Image
-              src="/images/plusmark/brand/plusmark-retail.png"
-              alt="Plusmark Retail"
-              width={1375}
-              height={480}
+              src="/images/plusmark/brand/plusmark.png"
+              alt="Plusmark"
+              width={1304}
+              height={262}
+              sizes="(min-width: 1024px) 318px, 239px"
               className="h-12 w-auto lg:h-16"
               priority
             />
           </Link>
 
-          <SearchPanel id="desktop-search" className="hidden min-w-0 flex-1 lg:block" />
+          <SearchPanel id="desktop-search" label="Search products" className="hidden min-w-0 flex-1 lg:block" />
 
           <div className="ml-auto flex shrink-0 items-center gap-1 lg:ml-0 lg:gap-4">
             <HeaderAction label={`Account${session.account ? " — signed in" : ""}`} href="/account" hideOnMobile>
@@ -211,7 +212,7 @@ export function Header() {
         </div>
 
         <div className="pm-shell pb-3 lg:hidden">
-          <SearchPanel id="mobile-search" />
+          <SearchPanel id="mobile-search" label="Search products (mobile header)" />
         </div>
 
         <nav aria-label="Product navigation" className="hidden border-t border-hair lg:block">
@@ -382,6 +383,7 @@ function NavMenu({ item }: { item: NavItem }) {
                         asset={product.media[0] ?? null}
                         name={product.name}
                         categoryId={product.categoryId}
+                        preset="thumb"
                         sizes="56px"
                         className="size-full object-contain"
                       />
@@ -484,6 +486,7 @@ function MegaMenu() {
                         asset={p.media[0] ?? null}
                         name={p.name}
                         categoryId={p.categoryId}
+                        preset="thumb"
                         sizes="56px"
                         className="size-full object-contain"
                       />
@@ -528,7 +531,7 @@ function MegaCategory({ category, onNavigate }: { category: (typeof categories)[
   );
 }
 
-function SearchPanel({ id, className }: { id: string; className?: string }) {
+function SearchPanel({ id, className, label }: { id: string; className?: string; label: string }) {
   const [query, setQuery] = useState("");
   const [debounced, setDebounced] = useState("");
   const [loading, setLoading] = useState(false);
@@ -588,6 +591,7 @@ function SearchPanel({ id, className }: { id: string; className?: string }) {
           commit(activeIndex >= 0 ? suggestions[activeIndex] : undefined);
         }}
         role="search"
+        aria-label={label}
         className="relative"
       >
         <Search className="pointer-events-none absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-graphite" aria-hidden />

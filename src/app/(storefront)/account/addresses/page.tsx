@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { AccountApp } from "@/components/account/AccountApp";
 
-export const metadata: Metadata = { title: "Address book — Plusmark", robots: { index: false, follow: false } };
+export const metadata: Metadata = { title: "Address book", robots: { index: false, follow: false } };
 
 export default function AccountAddressesPage() {
   return <AccountApp section="addresses" />;

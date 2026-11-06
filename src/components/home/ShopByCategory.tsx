@@ -1,48 +1,25 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ChevronDown } from "lucide-react";
 import { categories, products } from "@/lib/catalog";
+import { classNames } from "@/lib/format";
 import { cloudinaryLoader, imageUrl, isCloudinaryPublicId } from "@/lib/media";
 
 function deliveryProps(publicId: string) {
   return isCloudinaryPublicId(publicId) ? { loader: cloudinaryLoader } : { unoptimized: true as const };
 }
 
-const FEATURED_CATEGORY_IDS = ["white-boards", "chalk-boards", "notice-boards", "white-boards-ceramic", "display-boards", "board-stands"];
+/** The catalogue's canonical order; the first six tiles stay above the fold. */
+const PRIMARY_COUNT = 6;
 
 export function ShopByCategory() {
-  const featured = FEATURED_CATEGORY_IDS.map((id) => {
-    const category = categories.find((item) => item.id === id);
-    if (category) return { category, image: category.image, name: category.name, href: `/shop/${category.slug}`, subcategoryId: null };
-    for (const parent of categories) {
-      const subcategory = parent.subcategories.find((item) => item.id === id);
-      if (subcategory) {
-        return {
-          category: parent,
-          image: subcategory.image,
-          name: "Ceramic Boards",
-          href: `/shop/${parent.slug}/${subcategory.id}`,
-          subcategoryId: subcategory.id
-        };
-      }
-    }
-    return null;
-  }).filter((item): item is NonNullable<typeof item> => Boolean(item));
-  const featuredCategoryIds = new Set(featured.map(({ category, subcategoryId }) => subcategoryId ? `${category.id}:${subcategoryId}` : category.id));
-  const allCategoryItems = [
-    ...featured,
-    ...categories
-      .filter((category) => !featuredCategoryIds.has(category.id))
-      .map((category) => ({
-        category,
-        image: category.image,
-        name: category.name,
-        href: `/shop/${category.slug}`,
-        subcategoryId: null
-      }))
-  ];
+  const [expanded, setExpanded] = useState(false);
+  const primary = categories.slice(0, PRIMARY_COUNT);
+  const rest = categories.slice(PRIMARY_COUNT);
+  const tiles = expanded ? [...primary, ...rest] : primary;
 
   return (
     <section className="bg-canvas py-10 lg:py-14" aria-labelledby="categories-heading">
@@ -58,11 +35,12 @@ export function ShopByCategory() {
         </header>
 
         <div className="grid grid-cols-2 gap-x-4 gap-y-8 pb-2 sm:grid-cols-3 sm:gap-x-5 sm:gap-y-10 lg:grid-cols-6 lg:gap-x-6 lg:gap-y-12">
-          {allCategoryItems.map(({ category, image, name, href }) => {
+          {tiles.map((category) => {
+            const image = category.image;
             return (
               <Link
-                key={`${category.id}-${name}`}
-                href={href}
+                key={category.id}
+                href={`/shop/${category.slug}`}
                 className="group flex min-w-0 flex-col"
               >
                 <div className="relative aspect-[4/3] overflow-hidden bg-white">
@@ -80,7 +58,7 @@ export function ShopByCategory() {
                 <div className="flex flex-col pt-4">
                   <div className="flex justify-center gap-3 pt-1.5 text-center">
                     <h3 className="font-sans text-[1.35rem] font-normal leading-[1.15] tracking-[-0.01em] text-navy transition-colors group-hover:text-blue-deep sm:text-[1.5rem]">
-                      {name}
+                      {category.name}
                     </h3>
                   </div>
                 </div>
@@ -89,6 +67,24 @@ export function ShopByCategory() {
           })}
         </div>
 
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 border-t border-hair pt-6">
+          <button
+            type="button"
+            onClick={() => setExpanded((value) => !value)}
+            aria-expanded={expanded}
+            className="inline-flex min-h-11 items-center gap-1.5 text-body-sm font-medium text-navy hover:text-blue-deep"
+          >
+            {expanded ? "Show fewer categories" : `More categories (${rest.length})`}
+            <ChevronDown className={classNames("size-4 transition-transform", expanded && "rotate-180")} aria-hidden />
+          </button>
+          <Link
+            href="/collections/ceramic-boards"
+            className="inline-flex min-h-11 items-center gap-1.5 text-body-sm font-medium text-blue hover:text-blue-deep"
+          >
+            Ceramic Boards
+            <ArrowRight className="size-4" aria-hidden />
+          </Link>
+        </div>
       </div>
     </section>
   );

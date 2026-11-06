@@ -31,14 +31,7 @@ export function ProductCard({
   const quickAdd = product.variants.find((v) => v.available) ?? null;
   const saved = wishlist.hydrated && wishlist.has(product.slug);
   const madeToOrder = !product.variants.some((v) => v.available);
-  const cardTag =
-    product.slug === "metallic-premium-white-board" || product.slug === "eco-premium-white-board"
-      ? "Best seller"
-      : product.slug === "metallic-premium-chalk-board"
-        ? "Popular choice"
-        : product.featured
-          ? "Featured"
-          : null;
+  const cardTag = product.featured ? "Featured" : null;
 
   return (
     <article
@@ -50,7 +43,8 @@ export function ProductCard({
         <Link
           href={`/product/${product.slug}`}
           className="absolute inset-0 z-10"
-          aria-label={`${product.name} — view product`}
+          tabIndex={-1}
+          aria-hidden
         />
         <ProductImage
           asset={hovered && secondary ? secondary : primary}
@@ -105,7 +99,7 @@ export function ProductCard({
           </Link>
         </h3>
         <div className="mt-auto space-y-2.5 pt-3">
-          <PriceRange size="lg" product={product} showDiscount />
+          <PriceRange size="lg" product={product} />
           {quickAdd && (
             <button
               type="button"
@@ -114,12 +108,11 @@ export function ProductCard({
                 if (!result.ok) toast.push(result.message, "error");
                 else cart.openDrawer();
               }}
-              aria-label={`Add ${product.name}, ${variantLabel(quickAdd)}, to cart`}
+              aria-label={`Add to cart: ${product.name}, ${variantLabel(quickAdd)}`}
               className="z-20 flex h-11 w-full min-w-0 items-center justify-center gap-1.5 rounded-md bg-blue px-3 text-caption font-semibold text-white shadow-sm transition-colors hover:bg-blue-deep lg:h-10"
             >
               <Plus className="size-3.5 shrink-0" strokeWidth={2.5} aria-hidden />
-              <span className="truncate lg:hidden">Add to cart</span>
-              <span className="hidden truncate lg:inline">Add {product.name}</span>
+              <span className="truncate">Add to cart</span>
             </button>
           )}
         </div>

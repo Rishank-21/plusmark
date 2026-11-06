@@ -113,6 +113,7 @@ export function CartDrawer() {
                       asset={line.product.media[0] ?? null}
                       name={line.product.name}
                       categoryId={line.product.categoryId}
+                      preset="thumb"
                       sizes="80px"
                       className="size-full object-contain"
                     />

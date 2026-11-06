@@ -4,7 +4,7 @@ import { Listing } from "@/components/commerce/Listing";
 import { categories, getCategory } from "@/lib/catalog";
 import { filterProducts, sortProducts } from "@/lib/filters";
 import { clampPage, parseFilters, parsePage, parseSort, toParams } from "@/lib/listing-query";
-import { META_TITLE_SUFFIX } from "@/lib/config";
+import { breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
 
 const PER_PAGE = 12;
 
@@ -23,10 +23,11 @@ export async function generateMetadata({
   const category = getCategory(slug);
   const sub = category?.subcategories.find((item) => item.id === subId);
   if (!category || !sub) return {};
-  return {
-    title: `${sub.name} — ${category.name}${META_TITLE_SUFFIX}`,
-    description: `${sub.name} made to order by Plusmark, in the ${category.name.toLowerCase()} range. Sized from 1 × 1 ft to 8 × 4 ft and quoted per requirement.`
-  };
+  return pageMetadata({
+    title: `${sub.name} — ${category.name}`,
+    description: `${sub.name} made to order by Plusmark, in the ${category.name.toLowerCase()} range. Sized from 1 × 1 ft to 8 × 4 ft and quoted per requirement.`,
+    path: `/shop/${category.slug}/${sub.id}`
+  });
 }
 
 export default async function SubcategoryPage({
@@ -48,25 +49,39 @@ export default async function SubcategoryPage({
   const all = sortProducts(filterProducts(filters), sort);
   const page = clampPage(parsePage(raw.get("page")), all.length, PER_PAGE);
 
+  const breadcrumbs = breadcrumbJsonLd([
+    { name: "Home", path: "/" },
+    { name: "Shop", path: "/shop" },
+    { name: category.name, path: `/shop/${category.slug}` },
+    { name: sub.name, path: `/shop/${category.slug}/${sub.id}` }
+  ]);
+
   return (
-    <Listing
-      basePath={`/shop/${category.slug}`}
-      lockedCategoryId={category.id}
-      lockedSubcategoryId={sub.id}
-      filters={filters}
-      sort={sort}
-      page={page}
-      perPage={PER_PAGE}
-      results={all.slice((page - 1) * PER_PAGE, page * PER_PAGE)}
-      total={all.length}
-      heading={sub.name}
-      description={`${sub.name} within the ${category.name.toLowerCase()} range, made to order in Ahmedabad.`}
-      trail={[
-        { label: "Home", href: "/" },
-        { label: "Shop", href: "/shop" },
-        { label: category.name, href: `/shop/${category.slug}` },
-        { label: sub.name }
-      ]}
-    />
+    <>
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }}
+      />
+      <Listing
+        basePath={`/shop/${category.slug}/${sub.id}`}
+        lockedCategoryId={category.id}
+        lockedSubcategoryId={sub.id}
+        filters={filters}
+        sort={sort}
+        page={page}
+        perPage={PER_PAGE}
+        results={all.slice((page - 1) * PER_PAGE, page * PER_PAGE)}
+        total={all.length}
+        heading={sub.name}
+        description={`${sub.name} within the ${category.name.toLowerCase()} range, made to order in Ahmedabad.`}
+        trail={[
+          { label: "Home", href: "/" },
+          { label: "Shop", href: "/shop" },
+          { label: category.name, href: `/shop/${category.slug}` },
+          { label: sub.name }
+        ]}
+      />
+    </>
   );
 }

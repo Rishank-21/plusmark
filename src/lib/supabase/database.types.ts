@@ -56,6 +56,12 @@ export type ProductRow = {
   corners: string | null;
   magnetic: boolean;
   double_sided: boolean;
+  board_type: "non-magnetic" | "magnetic" | "ceramic" | "n/a";
+  surface_kind: "marker" | "chalk" | "pin-up" | "other";
+  enquiry_only: boolean;
+  needs_data: boolean;
+  customisation: string | null;
+  specs: Json;
   usage: string;
   blurb: string;
   description: string;
@@ -386,6 +392,9 @@ export type Database = {
           id?: string; slug: string; name: string; category_id: string; series_id?: string | null;
           subcategory_ids?: string[]; surface?: string | null; frame?: string | null; corners?: string | null;
           magnetic?: boolean; double_sided?: boolean; usage?: string; blurb?: string; description?: string;
+          board_type?: "non-magnetic" | "magnetic" | "ceramic" | "n/a";
+          surface_kind?: "marker" | "chalk" | "pin-up" | "other";
+          enquiry_only?: boolean; needs_data?: boolean; customisation?: string | null; specs?: Json;
           features?: string[]; media?: Json; video_id?: string | null; price_mode?: "fixed" | "on_request";
           gst_rate_percent?: number; hsn_code?: string | null; bulk_suggestion_quantity?: number;
           published?: boolean; featured?: boolean;
@@ -394,6 +403,9 @@ export type Database = {
           slug?: string; name?: string; category_id?: string; series_id?: string | null;
           subcategory_ids?: string[]; surface?: string | null; frame?: string | null; corners?: string | null;
           magnetic?: boolean; double_sided?: boolean; usage?: string; blurb?: string; description?: string;
+          board_type?: "non-magnetic" | "magnetic" | "ceramic" | "n/a";
+          surface_kind?: "marker" | "chalk" | "pin-up" | "other";
+          enquiry_only?: boolean; needs_data?: boolean; customisation?: string | null; specs?: Json;
           features?: string[]; media?: Json; video_id?: string | null; price_mode?: "fixed" | "on_request";
           gst_rate_percent?: number; hsn_code?: string | null; bulk_suggestion_quantity?: number;
           published?: boolean; featured?: boolean;

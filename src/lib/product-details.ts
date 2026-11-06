@@ -169,6 +169,10 @@ function buildSpecs(product: Product, extraRows: DetailSpec[]): DetailSpec[] {
   if (product.surface) physical.push({ term: "Surface", detail: product.surface, group: "Construction" });
   if (product.frame) physical.push({ term: "Frame", detail: product.frame, group: "Construction" });
   if (product.corners) physical.push({ term: "Corners", detail: product.corners, group: "Construction" });
+  for (const spec of product.specs) {
+    if (physical.some((row) => row.term.toLowerCase() === spec.label.toLowerCase())) continue;
+    physical.push({ term: spec.label, detail: spec.value, group: "Construction" });
+  }
 
   return [
     ...physical,
@@ -177,8 +181,10 @@ function buildSpecs(product: Product, extraRows: DetailSpec[]): DetailSpec[] {
     { term: "Sides", detail: product.doubleSided ? "Both sides usable" : "Single side", group: "General" },
     ...(product.usage ? [{ term: "Typical use", detail: product.usage, group: "General" }] : []),
     ...(product.hsnCode ? [{ term: "HSN code", detail: product.hsnCode, group: "Ordering" }] : []),
-    { term: "Retail minimum", detail: "1 piece", group: "Ordering" },
-    { term: "Custom sizes", detail: "Made to order", group: "Ordering" }
+    ...(product.enquiryOnly
+      ? [{ term: "Ordering", detail: "Price on request — contact the Plusmark order desk", group: "Ordering" }]
+      : [{ term: "Retail minimum", detail: "1 piece", group: "Ordering" }]),
+    { term: "Custom sizes", detail: product.customisation ?? "Made to order", group: "Ordering" }
   ];
 }
 

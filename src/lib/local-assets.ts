@@ -49,7 +49,15 @@ const PRODUCT_IMAGE_MAP: Record<string, string[]> = {
     "metallic-premium-ceramic-board-6",
     "metallic-premium-ceramic-board-7"
   ],
-  "metallic-premium-ceramic-chalk-board": ["metallic-premium-chalk-board"],
+  "metallic-premium-ceramic-chalk-board": [
+    "metallic-premium-ceramic-chalk-board",
+    "metallic-premium-ceramic-chalk-board-2",
+    "metallic-premium-ceramic-chalk-board-3",
+    "metallic-premium-ceramic-chalk-board-4",
+    "metallic-premium-ceramic-chalk-board-5",
+    "metallic-premium-ceramic-chalk-board-6",
+    "metallic-premium-ceramic-chalk-board-7"
+  ],
   "deluxe-standard-white-board": ["deluxe-standard-white-board"],
   "deluxe-standard-chalk-board": ["deluxe-standard-chalk-board-correct"],
   "eco-premium-white-board": [
@@ -61,7 +69,15 @@ const PRODUCT_IMAGE_MAP: Record<string, string[]> = {
     "eco-premium-white-board-6",
     "eco-premium-white-board-7"
   ],
-  "eco-regular-white-board": ["eco-regular-white-board-correct"],
+  "eco-regular-white-board": [
+    "eco-regular-white-board-correct",
+    "eco-regular-white-board-2",
+    "eco-regular-white-board-3",
+    "eco-regular-white-board-4",
+    "eco-regular-white-board-5",
+    "eco-regular-white-board-6",
+    "eco-regular-white-board-7"
+  ],
   "eco-premium-chalk-board": [
     "eco-premium-chalk-board",
     "eco-premium-chalk-board-2",
@@ -71,9 +87,33 @@ const PRODUCT_IMAGE_MAP: Record<string, string[]> = {
     "eco-premium-chalk-board-6",
     "eco-premium-chalk-board-7"
   ],
-  "eco-regular-chalk-board": ["eco-regular-chalk-board-correct"],
-  "eco-regular-magnetic-board": ["eco-regular-magnetic-board-correct"],
-  "eco-regular-magnetic-chalk-board": ["eco-regular-magnetic-chalk-board-correct"],
+  "eco-regular-chalk-board": [
+    "eco-regular-chalk-board-correct",
+    "eco-regular-chalk-board-2",
+    "eco-regular-chalk-board-3",
+    "eco-regular-chalk-board-4",
+    "eco-regular-chalk-board-5",
+    "eco-regular-chalk-board-6",
+    "eco-regular-chalk-board-7"
+  ],
+  "eco-regular-magnetic-board": [
+    "eco-regular-magnetic-board-correct",
+    "eco-regular-magnetic-board-2",
+    "eco-regular-magnetic-board-3",
+    "eco-regular-magnetic-board-4",
+    "eco-regular-magnetic-board-5",
+    "eco-regular-magnetic-board-6",
+    "eco-regular-magnetic-board-7"
+  ],
+  "eco-regular-magnetic-chalk-board": [
+    "eco-regular-magnetic-chalk-board-correct",
+    "eco-regular-magnetic-chalk-board-2",
+    "eco-regular-magnetic-chalk-board-3",
+    "eco-regular-magnetic-chalk-board-4",
+    "eco-regular-magnetic-chalk-board-5",
+    "eco-regular-magnetic-chalk-board-6",
+    "eco-regular-magnetic-chalk-board-7"
+  ],
   "metallic-premium-notice-board": [
     "metallic-premium-notice-board",
     "metallic-premium-notice-board-2",
@@ -93,7 +133,15 @@ const PRODUCT_IMAGE_MAP: Record<string, string[]> = {
     "eco-premium-notice-board-7"
   ],
   "deluxe-standard-notice-board": ["deluxe-standard-notice-board"],
-  "eco-regular-notice-board": ["eco-regular-notice-board-correct"],
+  "eco-regular-notice-board": [
+    "eco-regular-notice-board-correct",
+    "eco-regular-notice-board-2",
+    "eco-regular-notice-board-3",
+    "eco-regular-notice-board-4",
+    "eco-regular-notice-board-5",
+    "eco-regular-notice-board-6",
+    "eco-regular-notice-board-7"
+  ],
   "eco-premium-both-side-board": [
     "eco-premium-both-side-board",
     "eco-premium-both-side-board-2",
@@ -160,8 +208,12 @@ const CATEGORY_IMAGE_MAP: Record<string, string> = {
   "white-boards": "metallic-premium-white-board",
   "chalk-boards": "metallic-premium-chalk-board",
   "notice-boards": "metallic-premium-notice-board",
+  "acrylic-door-cover-notice-boards": "deluxe-45mm-adc-notice-board-double-door",
   "double-sided-boards": "eco-premium-both-side-board",
   "schedule-boards": "dry-wipe-schedule-board",
+  "specialty-boards": "acrylic-folder-display-board",
+  "display-boards": "grooved-boards",
+  "board-study-essentials": "four-line-square-line-practice-board",
   "clipboards": "laminate-mdf-base-clipboard",
   "board-stands": "four-leg-stand",
   "school-benches": "pds-sb-807"

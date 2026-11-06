@@ -30,7 +30,7 @@ function FieldShell({
       <label htmlFor={id} className="flex items-baseline gap-2 text-caption font-medium text-ink">
         {label}
         {isRequired && <span className="text-danger">*</span>}
-        {optional && <span className="text-caption text-graphite-light">(optional)</span>}
+        {optional && <span className="text-caption text-graphite">(optional)</span>}
       </label>
       {children}
       {hint && !error && <p id={`${id}-hint`} className="text-caption text-graphite">{hint}</p>}

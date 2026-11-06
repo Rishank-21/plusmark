@@ -3,8 +3,9 @@ import { notFound } from "next/navigation";
 import { ProductApp } from "@/components/product/ProductApp";
 import { RelatedProducts } from "@/components/product/RelatedProducts";
 import { getCategory, getProduct, getSeries, products, productsInCategory, relatedProducts } from "@/lib/catalog";
-import { DEMO_PRICING_ENABLED, META_TITLE_SUFFIX, SITE_URL } from "@/lib/config";
+import { DEMO_PRICING_ENABLED } from "@/lib/config";
 import { imageUrl, ogImageUrl } from "@/lib/media";
+import { absoluteUrl, breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
 
 export function generateStaticParams() {
   return products.map((product) => ({ slug: product.slug }));
@@ -16,26 +17,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!product) return {};
   const series = getSeries(product.seriesId);
 
-  return {
-    title: `${product.name}${META_TITLE_SUFFIX}`,
+  return pageMetadata({
+    title: product.name,
+    path: `/product/${product.slug}`,
     description: `${product.blurb} ${series ? `${series.name} — ${series.surface}.` : ""}`.trim(),
-    alternates: { canonical: `${SITE_URL}/product/${product.slug}` },
-    openGraph: {
-      title: product.name,
-      description: product.blurb,
-      url: `${SITE_URL}/product/${product.slug}`,
-      type: "website",
-      images: product.media[0]
-        ? [{ url: ogImageUrl(product.media[0].publicId), width: 1200, height: 630, alt: product.media[0].alt }]
-        : undefined
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: product.name,
-      description: product.blurb,
-      images: product.media[0] ? [ogImageUrl(product.media[0].publicId)] : undefined
-    }
-  };
+    image: product.media[0] ? ogImageUrl(product.media[0].publicId) : undefined,
+    imageAlt: product.media[0]?.alt
+  });
 }
 
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -53,32 +41,41 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
     ? productsInCategory("board-stands").slice(0, 3)
     : [];
 
+  // Plusmark quotes real orders itself, so prices only enter the markup while
+  // the demo rate card is on. An enquiry-only product gets no offer at all.
+  const priceValues = product.enquiryOnly
+    ? []
+    : product.variants.map((variant) => variant.priceInr).filter((value): value is number => value !== null);
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
     name: product.name,
     description: product.description,
-    sku: product.variants[0]?.sku,
+    url: absoluteUrl(`/product/${product.slug}`),
+    ...(product.variants[0]?.sku ? { sku: product.variants[0].sku } : {}),
     brand: { "@type": "Brand", name: "Plusmark" },
     category: category?.name,
     image: product.media.map((asset) => imageUrl(asset.publicId, { fit: "scale", width: 1200 })),
-    offers: {
-      "@type": "AggregateOffer",
-      offerCount: product.variants.length,
-      availability: product.variants.some((variant) => variant.available)
-        ? "https://schema.org/InStock"
-        : "https://schema.org/MadeAvailable",
-      // Prices are published in the markup only while the demo rate card is on;
-      // Plusmark's real prices are quoted per order, so they must never appear here.
-      ...(() => {
-        const values = product.variants.map((variant) => variant.priceInr).filter((value): value is number => value !== null);
-        if (!DEMO_PRICING_ENABLED || values.length === 0) {
-          return { priceCurrency: "INR" as const };
+    ...(DEMO_PRICING_ENABLED && priceValues.length
+      ? {
+          offers: {
+            "@type": "AggregateOffer",
+            priceCurrency: "INR",
+            lowPrice: Math.min(...priceValues),
+            highPrice: Math.max(...priceValues),
+            offerCount: product.variants.length,
+            availability: product.variants.some((variant) => variant.available)
+              ? "https://schema.org/InStock"
+              : "https://schema.org/MadeToOrder"
+          }
         }
-        return { lowPrice: Math.min(...values), highPrice: Math.max(...values) };
-      })()
-    }
+      : {})
   };
+  const breadcrumbs = breadcrumbJsonLd([
+    { name: "Home", path: "/" },
+    { name: category?.name ?? "Shop", path: category ? `/shop/${category.slug}` : "/shop" },
+    { name: product.name, path: `/product/${product.slug}` }
+  ]);
 
   return (
     <>
@@ -86,6 +83,11 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         type="application/ld+json"
         // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }}
       />
       <ProductApp product={product} related={related} />
       {companions.length > 0 && <RelatedProducts products={companions} title="Completes the setup" />}

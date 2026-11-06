@@ -114,7 +114,6 @@ export function Listing(
             <FilterPanel
               filters={filters}
               sort={sort}
-              basePath={basePath}
               lockedCategoryId={lockedCategoryId}
               lockedSubcategoryId={lockedSubcategoryId}
               onChange={(next) => push(next, sort, 1)}
@@ -158,6 +157,7 @@ export function Listing(
             />
           ) : (
             <>
+              <h2 className="sr-only">Products</h2>
               <div className="grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 md:grid-cols-3">
                 {results.map((product, index) => (
                   <ProductCard key={product.slug} product={product} priority={index < 4} onQuickView={setQuick} />
@@ -197,7 +197,6 @@ export function Listing(
         onClose={() => setDrawerOpen(false)}
         filters={filters}
         sort={sort}
-        basePath={basePath}
         lockedCategoryId={lockedCategoryId}
         lockedSubcategoryId={lockedSubcategoryId}
         onChange={(next) => push(next, sort, 1)}
@@ -243,6 +242,16 @@ function filterChips(
       label: SIZE_LABELS.get(id) ?? id,
       href: href({ sizeIds: filters.sizeIds.filter((item) => item !== id) })
     });
+  }
+  if (filters.boardType !== "any") {
+    chips.push({
+      label: filters.boardType === "non-magnetic" ? "Non-magnetic" : filters.boardType === "magnetic" ? "Magnetic" : "Ceramic",
+      href: href({ boardType: "any" })
+    });
+  }
+  if (filters.surfaceKind !== "any") {
+    const labels: Record<string, string> = { marker: "Marker", chalk: "Chalk", "pin-up": "Pin-up", other: "Other" };
+    chips.push({ label: labels[filters.surfaceKind] ?? filters.surfaceKind, href: href({ surfaceKind: "any" }) });
   }
   if (filters.magnetic !== "any") {
     chips.push({ label: filters.magnetic === "yes" ? "Magnetic" : "Non-magnetic", href: href({ magnetic: "any" }) });

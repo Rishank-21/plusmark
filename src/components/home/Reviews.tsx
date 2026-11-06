@@ -1,5 +1,5 @@
 import { Star } from "lucide-react";
-import { customerReviews, GOOGLE_REVIEW_SUMMARY } from "@/lib/reviews";
+import { customerReviews, GOOGLE_REVIEW_SUMMARY, GOOGLE_REVIEW_URL } from "@/lib/reviews";
 
 function Stars({ className }: { className?: string }) {
   return (
@@ -25,7 +25,14 @@ export function Reviews() {
             <Stars className="flex items-center gap-1 text-terra" />
             <p className="text-caption text-graphite">
               <span className="tabular font-medium text-navy">{GOOGLE_REVIEW_SUMMARY.rating.toFixed(1)}</span> from{" "}
-              {GOOGLE_REVIEW_SUMMARY.count} Google reviews
+              <a
+                href={GOOGLE_REVIEW_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline decoration-graphite/40 underline-offset-4 hover:text-navy"
+              >
+                {GOOGLE_REVIEW_SUMMARY.count} Google reviews
+              </a>
             </p>
           </div>
         </header>

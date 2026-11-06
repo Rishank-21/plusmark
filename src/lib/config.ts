@@ -27,6 +27,6 @@ export const STORAGE_KEYS = {
 /** Link to the separate sales site for schools, offices and dealers. */
 export const B2B_SITE_URL = process.env.NEXT_PUBLIC_B2B_SITE_URL ?? "https://plusmarkboards.com";
 
-export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://plusmark.vercel.app";
 
 export const META_TITLE_SUFFIX = "Plusmark — Writing & Display Systems";

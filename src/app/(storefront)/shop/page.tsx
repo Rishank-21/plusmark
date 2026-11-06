@@ -3,13 +3,14 @@ import { Listing } from "@/components/commerce/Listing";
 import { categories, products } from "@/lib/catalog";
 import { filterProducts, sortProducts } from "@/lib/filters";
 import { clampPage, parseFilters, parsePage, parseSort, toParams } from "@/lib/listing-query";
-import { META_TITLE_SUFFIX } from "@/lib/config";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: `Shop all boards${META_TITLE_SUFFIX}`,
+export const metadata: Metadata = pageMetadata({
+  title: "Shop all boards",
+  path: "/shop",
   description:
     "Browse the full Plusmark catalogue — white boards, chalk boards, notice boards, ceramic and display boards, stands, clipboards and school benches, made to order in Ahmedabad and dispatched across India."
-};
+});
 
 const PER_PAGE = 12;
 

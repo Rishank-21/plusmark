@@ -2,11 +2,13 @@ import type { Metadata } from "next";
 import { collections } from "@/components/static/collection-data";
 import { PageHeader } from "@/components/static/Editorial";
 import { CollectionBrowser, type BrowseCollection } from "@/components/static/CollectionBrowser";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Collections",
+  path: "/collections",
   description: "Browse Plusmark by series, board type and format. Every collection is a structural selection from the published catalogue."
-};
+});
 
 export default function CollectionsPage() {
   const items: BrowseCollection[] = collections.map((collection) => {

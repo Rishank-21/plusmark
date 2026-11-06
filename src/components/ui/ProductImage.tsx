@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { ImageOff } from "lucide-react";
-import { blurDataUrl, cloudinaryLoader, imageUrl, isCloudinaryPublicId } from "@/lib/media";
+import { blurDataUrl, cardLoader, cloudinaryLoader, galleryLoader, imageUrl, isCloudinaryPublicId } from "@/lib/media";
 import type { MediaAsset } from "@/types";
 
 /**
@@ -19,7 +19,8 @@ export function ProductImage({
   priority = false,
   className,
   name,
-  categoryId
+  categoryId,
+  preset = "card"
 }: {
   asset: MediaAsset | null;
   sizes: string;
@@ -27,6 +28,7 @@ export function ProductImage({
   className?: string;
   name: string;
   categoryId?: string;
+  preset?: "card" | "gallery" | "thumb";
 }) {
   if (!asset) {
     return (
@@ -36,13 +38,22 @@ export function ProductImage({
 
   return (
     <Image
-      src={imageUrl(asset.publicId, { fit: "scale", width: asset.width })}
+      src={imageUrl(asset.publicId, { fit: "limit", width: asset.width })}
       alt={asset.alt}
       sizes={sizes}
       width={asset.width}
       height={asset.height}
       priority={priority}
-      {...deliveryProps(asset.publicId)}
+      loader={
+        isCloudinaryPublicId(asset.publicId)
+          ? preset === "gallery"
+            ? galleryLoader
+            : preset === "thumb"
+              ? cloudinaryLoader
+              : cardLoader
+          : undefined
+      }
+      unoptimized={!isCloudinaryPublicId(asset.publicId)}
       {...blurProps(asset.publicId)}
       className={className}
     />

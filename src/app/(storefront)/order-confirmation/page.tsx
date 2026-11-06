@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { OrderConfirmationPanel } from "@/components/checkout/OrderConfirmationPanel";
 
-export const metadata: Metadata = { title: "Order confirmation — Plusmark", robots: { index: false, follow: false } };
+export const metadata: Metadata = { title: "Order confirmation", robots: { index: false, follow: false } };
 
 export default async function OrderConfirmationPage({
   searchParams

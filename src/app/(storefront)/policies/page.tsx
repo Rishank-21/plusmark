@@ -4,8 +4,13 @@ import { ArrowUpRight } from "lucide-react";
 import { PageHeader, Section } from "@/components/static/Editorial";
 import { DraftPolicyNotice } from "@/components/static/Policy";
 import { policies } from "@/components/static/policy-data";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "Policies", description: "Draft shipping, returns, privacy and storefront terms, with every unresolved Plusmark business rule clearly marked for confirmation." };
+export const metadata: Metadata = pageMetadata({
+  title: "Policies",
+  path: "/policies",
+  description: "Draft shipping, returns, privacy and storefront terms, with every unresolved Plusmark business rule clearly marked for confirmation."
+});
 
 export default function PoliciesPage() {
   return (

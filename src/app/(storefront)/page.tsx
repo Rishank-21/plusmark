@@ -7,8 +7,19 @@ import { Reviews } from "@/components/home/Reviews";
 import { Selection } from "@/components/home/Selection";
 import { ShopByCategory } from "@/components/home/ShopByCategory";
 import { ShopByCollection } from "@/components/home/ShopByCollection";
+import type { Metadata } from "next";
 import { products } from "@/lib/catalog";
+import { META_TITLE_SUFFIX } from "@/lib/config";
+import { pageMetadata } from "@/lib/seo";
 import type { Product } from "@/types";
+
+export const metadata: Metadata = pageMetadata({
+  title: META_TITLE_SUFFIX,
+  absoluteTitle: true,
+  path: "/",
+  description:
+    "Shop Plusmark writing boards, chalk boards, notice boards, magnetic and ceramic boards, stands and school benches. Made in Ahmedabad and delivered across India."
+});
 
 // "Bestselling" and "new arrival" are not data Plusmark publishes, so both rails
 // are honest cross-sections of ranges that carry photography, and the second

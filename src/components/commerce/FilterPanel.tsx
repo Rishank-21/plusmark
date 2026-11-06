@@ -18,14 +18,14 @@ export interface FilterTarget {
   lockedSubcategoryId?: string | null;
 }
 
-interface FilterPanelProps extends FilterTarget {
+interface FilterPanelProps extends Omit<FilterTarget, "basePath"> {
   filters: ProductFilterState;
   sort: SortKey;
   onChange: (next: ProductFilterState) => void;
   onClear: () => void;
 }
 
-export function FilterPanel({ filters, sort, basePath, lockedCategoryId, lockedSubcategoryId, onChange, onClear }: FilterPanelProps) {
+export function FilterPanel({ filters, sort, lockedCategoryId, lockedSubcategoryId, onChange, onClear }: FilterPanelProps) {
   const active = activeFilterCount(filters);
   const lockedCategory = categories.find((c) => c.id === lockedCategoryId) ?? null;
 
@@ -71,14 +71,14 @@ export function FilterPanel({ filters, sort, basePath, lockedCategoryId, lockedS
         <Collapsible title="Subcategory" defaultOpen>
           <ul className="flex flex-col gap-0.5">
             <li>
-              <RowLink href={`${basePath}${filtersToQuery({ ...filters, categoryId: null, subcategoryId: null }, sort, 1)}`} active={!lockedSubcategoryId}>
+              <RowLink href={`/shop/${lockedCategory.slug}${filtersToQuery({ ...filters, categoryId: null, subcategoryId: null }, sort, 1)}`} active={!lockedSubcategoryId}>
                 All {lockedCategory.name.toLowerCase()}
               </RowLink>
             </li>
             {lockedCategory.subcategories.map((sub) => (
               <li key={sub.id}>
                 <RowLink
-                  href={`${basePath}/${sub.id}${filtersToQuery({ ...filters, categoryId: null, subcategoryId: null }, sort, 1)}`}
+                  href={`/shop/${lockedCategory.slug}/${sub.id}${filtersToQuery({ ...filters, categoryId: null, subcategoryId: null }, sort, 1)}`}
                   active={lockedSubcategoryId === sub.id}
                 >
                   {sub.name}
@@ -132,16 +132,31 @@ export function FilterPanel({ filters, sort, basePath, lockedCategoryId, lockedS
         </ul>
       </Collapsible>
 
-      <Collapsible title="Magnetic capability">
+      <Collapsible title="Board type">
         <Segmented
-          label="Magnetic capability"
-          value={filters.magnetic}
+          label="Board type"
+          value={filters.boardType}
           options={[
             { value: "any", label: "Any" },
-            { value: "yes", label: "Magnetic" },
-            { value: "no", label: "Non-magnetic" }
+            { value: "non-magnetic", label: "Non-magnetic" },
+            { value: "magnetic", label: "Magnetic" },
+            { value: "ceramic", label: "Ceramic" }
           ]}
-          onChange={(value) => onChange({ ...filters, magnetic: value as ProductFilterState["magnetic"] })}
+          onChange={(value) => onChange({ ...filters, boardType: value as ProductFilterState["boardType"] })}
+        />
+      </Collapsible>
+
+      <Collapsible title="Writing surface">
+        <Segmented
+          label="Writing surface"
+          value={filters.surfaceKind}
+          options={[
+            { value: "any", label: "Any" },
+            { value: "marker", label: "Marker" },
+            { value: "chalk", label: "Chalk" },
+            { value: "pin-up", label: "Pin-up" }
+          ]}
+          onChange={(value) => onChange({ ...filters, surfaceKind: value as ProductFilterState["surfaceKind"] })}
         />
       </Collapsible>
 
@@ -258,7 +273,7 @@ function CheckRow({ label, hint, checked, onToggle }: { label: string; hint?: st
       </span>
       <span className="min-w-0">
         <span className="block leading-snug">{label}</span>
-        {hint && <span className="block text-caption leading-snug text-graphite-light">{hint}</span>}
+        {hint && <span className="block text-caption leading-snug text-graphite">{hint}</span>}
       </span>
     </label>
   );

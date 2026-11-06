@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { AuthPanel } from "@/components/account/AuthPanel";
 import { safeNextPath } from "@/lib/validation";
 
-export const metadata: Metadata = { title: "Create an account — Plusmark", robots: { index: false, follow: false } };
+export const metadata: Metadata = { title: "Create an account", robots: { index: false, follow: false } };
 
 export default async function RegisterPage({
   searchParams

@@ -48,14 +48,12 @@ export function PriceRange({
   product,
   variant,
   size = "md",
-  className,
-  showDiscount = false
+  className
 }: {
   product: Product;
   variant?: Variant | null;
   size?: "md" | "lg";
   className?: string;
-  showDiscount?: boolean;
 }) {
   const values = product.variants
     .filter((v) => (v.packQty ?? 1) === 1)
@@ -69,18 +67,15 @@ export function PriceRange({
       </span>
     );
   }
-  const discountPercent = 10;
-  const originalPrice = Math.ceil(amount / (1 - discountPercent / 100));
+  const multipleSizes = !variant && new Set(values).size > 1;
   return (
-    <span className={classNames("inline-flex flex-wrap items-baseline gap-2", className)}>
-      {showDiscount && (
-        <span className="text-body-sm font-semibold text-terra">{discountPercent}% off</span>
-      )}
-      {showDiscount && (
-        <span className="text-body-sm text-graphite line-through">{formatInr(originalPrice)}</span>
-      )}
-      <span className={classNames(size === "lg" ? "text-price" : "text-body-sm", "tabular font-medium text-ink")}>
-        {formatInr(amount)}
+    <span className={classNames("inline-flex flex-wrap items-baseline gap-1.5", className)}>
+      {multipleSizes && <span className={classNames(size === "lg" ? "text-body-sm" : "text-caption", "text-graphite")}>From</span>}
+      <span className="inline-flex items-baseline gap-1 whitespace-nowrap">
+        <span className={classNames(size === "lg" ? "text-price" : "text-body-sm", "tabular font-medium text-ink")}>
+          {formatInr(amount)}
+        </span>
+        <span className={classNames(size === "lg" ? "text-body-sm" : "text-caption", "text-graphite")}>+ GST</span>
       </span>
     </span>
   );

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { ForgotPasswordPanel } from "@/components/account/PasswordForms";
 import { safeNextPath } from "@/lib/validation";
 
-export const metadata: Metadata = { title: "Reset your password — Plusmark", robots: { index: false, follow: false } };
+export const metadata: Metadata = { title: "Reset your password", robots: { index: false, follow: false } };
 
 export default async function ForgotPasswordPage({
   searchParams

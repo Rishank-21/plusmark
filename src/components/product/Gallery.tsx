@@ -5,7 +5,7 @@ import Image from "next/image";
 import { ChevronLeft, ChevronRight, Play, Share2 } from "lucide-react";
 import { Modal } from "@/components/ui/Modal";
 import { ProductImage } from "@/components/ui/ProductImage";
-import { imageUrl, videoPoster, videoUrl, cloudinaryLoader, isCloudinaryPublicId } from "@/lib/media";
+import { cloudinaryLoader, imageUrl, videoPoster, videoUrl, galleryLoader, zoomLoader, isCloudinaryPublicId } from "@/lib/media";
 import { classNames } from "@/lib/format";
 import type { Product } from "@/types";
 
@@ -20,8 +20,8 @@ const LENS = 240;
 const LENS_RADIUS = LENS / 2;
 const THUMB_LIMIT = 5;
 
-function deliveryProps(publicId: string) {
-  return isCloudinaryPublicId(publicId) ? { loader: cloudinaryLoader } : { unoptimized: true as const };
+function deliveryProps(publicId: string, loader = galleryLoader) {
+  return isCloudinaryPublicId(publicId) ? { loader } : { unoptimized: true as const };
 }
 
 export function Gallery({ product }: { product: Product }) {
@@ -48,6 +48,7 @@ export function Gallery({ product }: { product: Product }) {
         name={product.name}
         categoryId={product.categoryId}
         className="aspect-square w-full"
+        preset="gallery"
       />
     );
   }
@@ -128,7 +129,7 @@ export function Gallery({ product }: { product: Product }) {
               alt=""
               width={160}
               height={160}
-              {...deliveryProps(asset.publicId)}
+              {...deliveryProps(asset.publicId, cloudinaryLoader)}
               className="size-full object-contain"
             />
           </button>
@@ -149,7 +150,7 @@ export function Gallery({ product }: { product: Product }) {
               alt=""
               width={160}
               height={160}
-              {...deliveryProps(product.videoId)}
+              {...deliveryProps(product.videoId, cloudinaryLoader)}
               className="absolute inset-0 size-full object-cover"
             />
             <span className="absolute inset-0 flex items-center justify-center bg-navy-deep/20">
@@ -167,7 +168,7 @@ export function Gallery({ product }: { product: Product }) {
           <button
             type="button"
             onClick={() => setShowAll(true)}
-            aria-label={`Show all ${media.length} images for ${product.name}`}
+            aria-label={`+${hiddenCount} more images — show all ${media.length} for ${product.name}`}
             className="flex aspect-square w-16 shrink-0 items-center justify-center rounded-sm border-2 border-hair bg-surface text-body-sm font-medium text-ink transition-colors hover:border-graphite-light"
           >
             +{hiddenCount}
@@ -204,10 +205,10 @@ export function Gallery({ product }: { product: Product }) {
             />
           ) : (
             <Image
-              src={imageUrl(current.publicId, { fit: "scale", width: 1600 })}
+              src={imageUrl(current.publicId, { fit: "limit", width: 1200 })}
               alt={current.alt}
-              width={1600}
-              height={1200}
+              width={1200}
+              height={900}
               priority
               {...deliveryProps(current.publicId)}
               sizes="(max-width: 767px) 100vw, (max-width: 1023px) 48vw, (max-width: 1279px) 52vw, 40vw"
@@ -238,11 +239,11 @@ export function Gallery({ product }: { product: Product }) {
               }}
             >
               <Image
-                src={imageUrl(current.publicId, { fit: "scale", width: 2000 })}
+                src={imageUrl(current.publicId, { fit: "limit", width: 2000 })}
                 alt=""
                 width={2000}
                 height={1500}
-                {...deliveryProps(current.publicId)}
+                {...deliveryProps(current.publicId, zoomLoader)}
                 className="absolute max-w-none object-contain"
                 style={{
                   // Lay the photo out at the frame's own size, then scale it about
@@ -281,11 +282,11 @@ export function Gallery({ product }: { product: Product }) {
           <div className="flex flex-col gap-3">
             <div className="relative flex items-center justify-center rounded-md bg-white">
               <Image
-                src={imageUrl(lightboxAsset.publicId, { fit: "scale", width: 2000 })}
+                src={imageUrl(lightboxAsset.publicId, { fit: "limit", width: 2000 })}
                 alt={lightboxAsset.alt}
                 width={2000}
                 height={1500}
-                {...deliveryProps(lightboxAsset.publicId)}
+                {...deliveryProps(lightboxAsset.publicId, zoomLoader)}
                 sizes="100vw"
                 className="max-h-[64vh] w-full object-contain"
               />
@@ -324,7 +325,7 @@ export function Gallery({ product }: { product: Product }) {
                     alt=""
                     width={96}
                     height={96}
-                    {...deliveryProps(asset.publicId)}
+                    {...deliveryProps(asset.publicId, cloudinaryLoader)}
                     className="size-full object-contain"
                   />
                 </button>

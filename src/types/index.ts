@@ -53,6 +53,15 @@ export interface Variant {
   imageOverride?: MediaAsset;
 }
 
+/** Construction type, independent of the writing surface. */
+export type BoardType = "non-magnetic" | "magnetic" | "ceramic" | "n/a";
+export type SurfaceKind = "marker" | "chalk" | "pin-up" | "other";
+
+export interface ProductSpec {
+  label: string;
+  value: string;
+}
+
 export interface Product {
   id: string;
   slug: string;
@@ -65,10 +74,16 @@ export interface Product {
   corners: string | null;
   magnetic: boolean;
   doubleSided: boolean;
+  boardType: BoardType;
+  surfaceKind: SurfaceKind;
   usage: string;
   blurb: string;
   description: string;
   features: string[];
+  /** Spec rows supplied by Plusmark's own product data. */
+  specs: ProductSpec[];
+  /** Made to a customer's size, colour or layout rather than a fixed list. */
+  customisation: string | null;
   media: MediaAsset[];
   videoId: PublicId | null;
   variants: Variant[];
@@ -79,6 +94,10 @@ export interface Product {
   minimumOrderQuantity: 1;
   /** Quantity at which the bulk-quote path is suggested. */
   bulkSuggestionQuantity: number;
+  /** Enquiry-only products cannot be added to the cart. */
+  enquiryOnly: boolean;
+  /** A catalogue record waiting on specs, sizes, dimensions or photography. */
+  needsData: boolean;
   published: boolean;
   featured: boolean;
   createdAt: IsoDate;
@@ -419,6 +438,8 @@ export interface ProductFilterState {
   categoryId: string | null;
   subcategoryId: string | null;
   seriesIds: string[];
+  boardType: "any" | "non-magnetic" | "magnetic" | "ceramic";
+  surfaceKind: "any" | "marker" | "chalk" | "pin-up" | "other";
   magnetic: "any" | "yes" | "no";
   doubleSided: "any" | "yes" | "no";
   sizeIds: string[];

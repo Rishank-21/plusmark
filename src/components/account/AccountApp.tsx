@@ -788,7 +788,7 @@ function OrderHistory({
                           className={`relative grid size-14 shrink-0 place-items-center overflow-hidden rounded-lg border border-hair bg-white sm:size-16 ${FOCUS}`}
                           aria-label={`${line.name} — view product`}
                         >
-                          <ProductImage asset={product?.media[0] ?? null} name={line.name} categoryId={product?.categoryId} sizes="64px" className="h-full w-full object-contain" />
+                          <ProductImage asset={product?.media[0] ?? null} name={line.name} categoryId={product?.categoryId} preset="thumb" sizes="64px" className="h-full w-full object-contain" />
                         </Link>
                         <div className="min-w-0 flex-1">
                           <Link href={`/product/${line.slug}`} className="line-clamp-2 text-body-sm font-medium text-ink transition-colors hover:text-brand">

@@ -1,8 +1,8 @@
 {
  "brand": {
   "name": "Plusmark",
-  "legalName": "Plusmark Boards",
-  "logoText": "Plusmark - Writing & Display System",
+  "legalName": "Plusmark Display System",
+  "logoText": "Plusmark",
   "tagline": "Quality Jo Pehchaan Ban Jaaye",
   "phone": "+91 99139 67888",
   "whatsapp": "+919913967888",
@@ -79,7 +79,7 @@
    "id": "white-boards",
    "name": "White Boards",
    "subject": "Whiteboard",
-   "description": "Marker boards in HPL and melamine surfaces, magnetic and non-magnetic.",
+   "description": "Marker boards in Non-Magnetic, Magnetic and Ceramic variants, with High Gloss Marker Grade HPL Sheet and premium writing surfaces.",
    "image": "plusmark/products/metallic-premium-white-board",
    "subcategories": [
     {
@@ -103,7 +103,7 @@
    "id": "chalk-boards",
    "name": "Chalk Boards",
    "subject": "Chalkboard",
-   "description": "Non-reflective chalk faces that stay glare-free from the back bench.",
+   "description": "Chalk boards in Non-Magnetic, Magnetic and Ceramic variants with Chalk Grade HPL Sheet — non-reflective, glare-free surfaces.",
    "image": "plusmark/products/metallic-premium-chalk-board",
    "subcategories": [
     {
@@ -124,10 +124,18 @@
    ]
   },
   {
+   "id": "double-sided-boards",
+   "name": "Double-Sided Boards",
+   "subject": "Double-Sided Board",
+   "description": "Two writing surfaces in one frame — marker on one side and chalk on the other, in premium aluminium frames.",
+   "image": "plusmark/products/eco-premium-both-side-board",
+   "subcategories": []
+  },
+  {
    "id": "notice-boards",
    "name": "Notice Boards",
-   "subject": "Notice board",
-   "description": "Cork, fabric and acrylic display boards for corridors and offices.",
+   "subject": "Notice Board",
+   "description": "Pin-up notice boards in Blazer Cloth, Velvet Cloth, Cork and Fabric surfaces, in four aluminium frame series.",
    "image": "plusmark/products/metallic-premium-notice-board",
    "subcategories": [
     {
@@ -143,61 +151,42 @@
    ]
   },
   {
-   "id": "double-sided-boards",
-   "name": "Double-Sided Boards",
-   "subject": "Double sided board",
-   "description": "Two writing faces on one frame - chalk on one side, marker on the other.",
-   "image": "plusmark/products/eco-premium-both-side-board",
-   "subcategories": []
-  },
-  {
-   "id": "schedule-boards",
-   "name": "Schedule Boards",
-   "subject": "Schedule board",
-   "description": "Dry-wipe timetable boards made in the design and size you ask for.",
-   "image": "plusmark/products/dry-wipe-schedule-board",
-   "subcategories": []
-  },
-  {
-   "id": "display-boards",
-   "name": "Display Boards",
-   "subject": "Display board",
-   "description": "Acrylic folder boards for reports, charts and production data.",
-   "image": "plusmark/products/acrylic-folder-display-board",
+   "id": "acrylic-door-cover-notice-boards",
+   "name": "Acrylic Door Cover Notice Boards",
+   "subject": "ADC Notice Board",
+   "description": "Lockable notice boards with transparent acrylic door covers that protect notices from dust and handling.",
+   "image": "plusmark/products/deluxe-45mm-adc-notice-board-double-door",
    "subcategories": []
   },
   {
    "id": "specialty-boards",
    "name": "Specialty Display Boards",
-   "subject": "Specialty board",
-   "description": "Grooved coloured boards, perforated boards, practice boards and key hangers.",
+   "subject": "Specialty Display Board",
+   "description": "Acrylic folder display boards for organised display of charts, reports, SOPs and production data.",
+   "image": "plusmark/products/acrylic-folder-display-board",
+   "subcategories": []
+  },
+  {
+   "id": "board-study-essentials",
+   "name": "Board & Study Essentials",
+   "subject": "Study Essential",
+   "description": "Practice boards for handwriting, lockable key hanger boards and a foldable homework table.",
+   "image": "plusmark/products/four-line-square-line-practice-board",
+   "subcategories": []
+  },
+  {
+   "id": "display-boards",
+   "name": "Display Boards",
+   "subject": "Display Board",
+   "description": "Grooved boards and black perforated boards with letter and figure sets for information display.",
    "image": "plusmark/products/grooved-boards",
    "subcategories": []
   },
   {
-   "id": "clipboards",
-   "name": "Clipboards",
-   "subject": "Clipboard",
-   "description": "Acrylic and MDF base clipboards with chrome electroplated clips.",
-   "image": "plusmark/products/laminate-mdf-base-clipboard",
-   "subcategories": [
-    {
-     "id": "clipboards-mdf",
-     "name": "MDF Base",
-     "image": "plusmark/products/laminate-mdf-base-clipboard"
-    },
-    {
-     "id": "clipboards-acrylic",
-     "name": "Acrylic Base",
-     "image": "plusmark/products/heavy-duty-clear-acrylic-clipboard"
-    }
-   ]
-  },
-  {
    "id": "board-stands",
    "name": "Board Stands & Storage",
-   "subject": "Board stand",
-   "description": "Mobile and fixed stands, racks and storage units for boards up to 8 ft.",
+   "subject": "Board Stand",
+   "description": "Board stands, newspaper and magazine stands, file racks, first aid boxes and letter boxes.",
    "image": "plusmark/products/four-leg-stand",
    "subcategories": [
     {
@@ -213,19 +202,38 @@
    ]
   },
   {
+   "id": "clipboards",
+   "name": "Clipboards",
+   "subject": "Clipboard",
+   "description": "MDF and acrylic clipboards with Chrome Electroplated Clips and Dual-Side Cap Rivets.",
+   "image": "plusmark/products/laminate-mdf-base-clipboard",
+   "subcategories": [
+    {
+     "id": "clipboards-mdf",
+     "name": "MDF Base",
+     "image": "plusmark/products/laminate-mdf-base-clipboard"
+    },
+    {
+     "id": "clipboards-acrylic",
+     "name": "Acrylic Base",
+     "image": "plusmark/products/heavy-duty-clear-acrylic-clipboard"
+    }
+   ]
+  },
+  {
    "id": "school-benches",
    "name": "School Benches",
-   "subject": "School bench",
-   "description": "Cast-iron and wooden benches and study tables for classrooms and labs.",
-   "image": "plusmark/products/pds-sb-801",
+   "subject": "School Bench",
+   "description": "School bench models PDS-SB 801 to PDS-SB 815 for schools and educational institutions.",
+   "image": "plusmark/products/pds-sb-807",
    "subcategories": []
   },
   {
-   "id": "board-study-essentials",
-   "name": "Board & Study Essentials",
-   "subject": "Study essential",
-   "description": "Letters and figures sets and classroom accessories.",
-   "image": "plusmark/products/letters-and-figures-set",
+   "id": "schedule-boards",
+   "name": "Schedule Boards",
+   "subject": "Schedule Board",
+   "description": "Dry wipe schedule boards available in any design and any size, made to the customer's sketch.",
+   "image": "plusmark/products/dry-wipe-schedule-board",
    "subcategories": []
   }
  ],
@@ -235,7 +243,9 @@
    "name": "Metallic Premium White Board",
    "categoryId": "white-boards",
    "seriesId": "metallic-premium",
-   "subcategoryIds": [],
+   "subcategoryIds": [
+    "white-boards-non-magnetic"
+   ],
    "magnetic": false,
    "doubleSided": false,
    "sizes": [
@@ -252,14 +262,49 @@
    "videoId": "plusmark/videos/metallic-premium-white-board",
    "surface": "High Gloss Marker Grade HPL Sheet",
    "frame": "Aluminium anodized frame, heavy-duty",
-   "corners": "Signature Dual-Tone corners - red cap over black connector"
+   "corners": "Signature Dual-Tone corners - red cap over black connector",
+   "boardType": "non-magnetic",
+   "surfaceKind": "marker",
+   "enquiryOnly": false,
+   "needsData": false,
+   "customisation": null,
+   "specs": [
+    {
+     "label": "Type",
+     "value": "Non-Magnetic White Board"
+    },
+    {
+     "label": "Material",
+     "value": "High-quality, durable materials with High Gloss Marker Grade HPL Sheet"
+    },
+    {
+     "label": "Design",
+     "value": "Heavy-duty framing with Signature Dual-Tone Corners"
+    },
+    {
+     "label": "Frame",
+     "value": "Aluminium Anodized Frame"
+    },
+    {
+     "label": "Surface",
+     "value": "Ultra-smooth, high-gloss surface for effortless writing and easy erasing"
+    },
+    {
+     "label": "Durability",
+     "value": "Extremely long-lasting and highly resistant to wear and tear"
+    }
+   ],
+   "sourceDescription": "The Metallic Premium White Board is built from high-quality, durable materials with a High Gloss Marker Grade HPL Sheet. Heavy-duty framing with Signature Dual-Tone Corners frames an ultra-smooth, high-gloss surface for effortless writing and easy erasing. It is extremely long-lasting and highly resistant to wear and tear.",
+   "published": true
   },
   {
    "slug": "metallic-premium-chalk-board",
    "name": "Metallic Premium Chalk Board",
    "categoryId": "chalk-boards",
    "seriesId": "metallic-premium",
-   "subcategoryIds": [],
+   "subcategoryIds": [
+    "chalk-boards-non-magnetic"
+   ],
    "magnetic": false,
    "doubleSided": false,
    "sizes": [
@@ -276,7 +321,40 @@
    "videoId": "plusmark/videos/metallic-premium-chalk-board",
    "surface": "High Gloss Marker Grade HPL Sheet",
    "frame": "Aluminium anodized frame, heavy-duty",
-   "corners": "Signature Dual-Tone corners - red cap over black connector"
+   "corners": "Signature Dual-Tone corners - red cap over black connector",
+   "boardType": "non-magnetic",
+   "surfaceKind": "chalk",
+   "enquiryOnly": false,
+   "needsData": false,
+   "customisation": null,
+   "specs": [
+    {
+     "label": "Type",
+     "value": "Non-Magnetic Chalk Board"
+    },
+    {
+     "label": "Material",
+     "value": "High-quality materials with rigid core construction"
+    },
+    {
+     "label": "Design",
+     "value": "Heavy-duty aluminium framing with Signature Dual-Tone Corners"
+    },
+    {
+     "label": "Surface",
+     "value": "Hardcore Chalk Grade HPL Sheet with enhanced scratch resistance; non-reflective, glare-free, with clear visibility from all angles"
+    },
+    {
+     "label": "Durability",
+     "value": "Designed for intensive daily institutional use"
+    },
+    {
+     "label": "Installation",
+     "value": "Wall-mountable, easy to install"
+    }
+   ],
+   "sourceDescription": "The Metallic Premium Chalk Board is made from high-quality materials with rigid core construction. Heavy-duty aluminium framing with Signature Dual-Tone Corners surrounds a Hardcore Chalk Grade HPL Sheet with enhanced scratch resistance — non-reflective, glare-free, with clear visibility from all angles. Designed for intensive daily institutional use and wall-mountable for easy installation.",
+   "published": true
   },
   {
    "slug": "metallic-premium-magnetic-board",
@@ -302,7 +380,36 @@
    "videoId": null,
    "surface": "High Gloss Marker Grade HPL Sheet",
    "frame": "Aluminium anodized frame, heavy-duty",
-   "corners": "Signature Dual-Tone corners - red cap over black connector"
+   "corners": "Signature Dual-Tone corners - red cap over black connector",
+   "boardType": "magnetic",
+   "surfaceKind": "marker",
+   "enquiryOnly": false,
+   "needsData": false,
+   "customisation": null,
+   "specs": [
+    {
+     "label": "Type",
+     "value": "Resin Coated Steel Magnetic Board"
+    },
+    {
+     "label": "Surface",
+     "value": "Resin coated writing surface suitable for marker (white) and chalk (green) boards"
+    },
+    {
+     "label": "Magnetic Use",
+     "value": "Compatible with magnetic accessories such as magnets, charts, and holders"
+    },
+    {
+     "label": "Design",
+     "value": "Heavy-duty aluminium framing with Signature Dual-Tone Corners"
+    },
+    {
+     "label": "Finish",
+     "value": "Smooth writing surface for regular writing and erasing"
+    }
+   ],
+   "sourceDescription": "The Metallic Premium Magnetic Board is a Resin Coated Steel Magnetic Board that accepts magnets. Its resin coated writing surface is suitable for marker (white) and chalk (green) boards and is compatible with magnetic accessories such as magnets, charts and holders. Heavy-duty aluminium framing with Signature Dual-Tone Corners surrounds a smooth writing surface for regular writing and erasing.",
+   "published": true
   },
   {
    "slug": "metallic-premium-magnetic-chalk-board",
@@ -328,7 +435,36 @@
    "videoId": null,
    "surface": "High Gloss Marker Grade HPL Sheet",
    "frame": "Aluminium anodized frame, heavy-duty",
-   "corners": "Signature Dual-Tone corners - red cap over black connector"
+   "corners": "Signature Dual-Tone corners - red cap over black connector",
+   "boardType": "magnetic",
+   "surfaceKind": "chalk",
+   "enquiryOnly": false,
+   "needsData": false,
+   "customisation": null,
+   "specs": [
+    {
+     "label": "Type",
+     "value": "Resin Coated Steel Magnetic Chalk Board"
+    },
+    {
+     "label": "Surface",
+     "value": "Resin coated green chalk surface; accepts magnets"
+    },
+    {
+     "label": "Magnetic Use",
+     "value": "Compatible with magnetic pins, dusters, and charts"
+    },
+    {
+     "label": "Design",
+     "value": "Heavy-duty aluminium framing with Signature Dual-Tone Corners"
+    },
+    {
+     "label": "Finish",
+     "value": "Smooth green writing surface for regular chalk writing and erasing"
+    }
+   ],
+   "sourceDescription": "The Metallic Premium Magnetic Chalk Board is a Resin Coated Steel Magnetic Board designed for chalk writing. It accepts magnets and is compatible with magnetic accessories such as magnetic pins, charts, and holders. Heavy-duty aluminium framing with Signature Dual-Tone Corners surrounds a durable, non-reflective green chalk surface.",
+   "published": true
   },
   {
    "slug": "metallic-premium-ceramic-board",
@@ -354,7 +490,44 @@
    "videoId": null,
    "surface": "High Gloss Marker Grade HPL Sheet",
    "frame": "Aluminium anodized frame, heavy-duty",
-   "corners": "Signature Dual-Tone corners - red cap over black connector"
+   "corners": "Signature Dual-Tone corners - red cap over black connector",
+   "boardType": "ceramic",
+   "surfaceKind": "marker",
+   "enquiryOnly": false,
+   "needsData": false,
+   "customisation": null,
+   "specs": [
+    {
+     "label": "Type",
+     "value": "Ceramic Steel Magnetic Board"
+    },
+    {
+     "label": "Surface",
+     "value": "Ceramic steel / porcelain enamel steel surface, available in White Board (marker writing) and Chalk Board (chalk writing) options"
+    },
+    {
+     "label": "Product Life",
+     "value": "Designed for very long product life under regular institutional use"
+    },
+    {
+     "label": "Performance",
+     "value": "Hard, non-porous surface suitable for continuous writing and frequent cleaning"
+    },
+    {
+     "label": "Finish",
+     "value": "Smooth writing surface with consistent performance over time"
+    },
+    {
+     "label": "Maintenance",
+     "value": "Easy to clean and maintain for daily classroom use"
+    },
+    {
+     "label": "Design",
+     "value": "Aluminium frame with Signature Dual-Tone Corners"
+    }
+   ],
+   "sourceDescription": "The Metallic Premium Ceramic Board has a ceramic steel / porcelain enamel steel surface, available in White Board (marker writing) and Chalk Board (chalk writing) options. The hard, non-porous surface is suitable for continuous writing and frequent cleaning, with consistent performance over time, and is designed for very long product life under regular institutional use. Aluminium frame with Signature Dual-Tone Corners.",
+   "published": true
   },
   {
    "slug": "metallic-premium-ceramic-chalk-board",
@@ -378,14 +551,41 @@
    "videoId": null,
    "surface": "High Gloss Marker Grade HPL Sheet",
    "frame": "Aluminium anodized frame, heavy-duty",
-   "corners": "Signature Dual-Tone corners - red cap over black connector"
+   "corners": "Signature Dual-Tone corners - red cap over black connector",
+   "boardType": "ceramic",
+   "surfaceKind": "chalk",
+   "enquiryOnly": false,
+   "needsData": false,
+   "customisation": null,
+   "specs": [
+    {
+     "label": "Type",
+     "value": "Ceramic Steel Magnetic Chalk Board"
+    },
+    {
+     "label": "Surface",
+     "value": "Ceramic steel / porcelain enamel green chalk surface; accepts magnets"
+    },
+    {
+     "label": "Product Life",
+     "value": "Designed for very long product life under regular institutional use"
+    },
+    {
+     "label": "Design",
+     "value": "Aluminium frame with Signature Dual-Tone Corners"
+    }
+   ],
+   "sourceDescription": "The Metallic Premium Ceramic Chalk Board has a porcelain enamel / ceramic steel green surface that accepts magnets. The ultra-hard, scratch-resistant surface is built for decades of intensive institutional use with glare-free chalk writing and effortless cleaning. Heavy-duty aluminium framing with Signature Dual-Tone Corners.",
+   "published": true
   },
   {
    "slug": "metallic-premium-notice-board",
    "name": "Metallic Premium Notice Board",
    "categoryId": "notice-boards",
    "seriesId": "metallic-premium",
-   "subcategoryIds": [],
+   "subcategoryIds": [
+    "notice-boards-pin-up"
+   ],
    "magnetic": false,
    "doubleSided": false,
    "sizes": [
@@ -402,7 +602,32 @@
    "videoId": "plusmark/videos/metallic-premium-notice-board",
    "surface": "High Gloss Marker Grade HPL Sheet",
    "frame": "Aluminium anodized frame, heavy-duty",
-   "corners": "Signature Dual-Tone corners - red cap over black connector"
+   "corners": "Signature Dual-Tone corners - red cap over black connector",
+   "boardType": "n/a",
+   "surfaceKind": "pin-up",
+   "enquiryOnly": false,
+   "needsData": false,
+   "customisation": null,
+   "specs": [
+    {
+     "label": "Material",
+     "value": "Premium aluminium construction with Signature Dual-Tone Corners"
+    },
+    {
+     "label": "Surface",
+     "value": "2 mm Blazer Cloth with long-lasting colour retention"
+    },
+    {
+     "label": "Core",
+     "value": "Soft pin-friendly core for frequent and heavy pin usage"
+    },
+    {
+     "label": "Durability",
+     "value": "Highest grade, designed for long-term institutional use"
+    }
+   ],
+   "sourceDescription": "The Metallic Premium Notice Board combines premium aluminium construction and Signature Dual-Tone Corners with 2 mm Blazer Cloth that offers long-lasting colour retention. Its soft pin-friendly core is made for frequent and heavy pin usage. Highest grade, designed for long-term institutional use.",
+   "published": true
   },
   {
    "slug": "eco-premium-white-board",
@@ -429,7 +654,40 @@
    "videoId": "plusmark/videos/eco-premium-white-board",
    "surface": "Marker Grade HPL Sheet",
    "frame": "Ribbed aluminium anodized frame",
-   "corners": "ABS Dual-Tone corners"
+   "corners": "ABS Dual-Tone corners",
+   "boardType": "non-magnetic",
+   "surfaceKind": "marker",
+   "enquiryOnly": false,
+   "needsData": false,
+   "customisation": null,
+   "specs": [
+    {
+     "label": "Type",
+     "value": "Non-Magnetic White Board"
+    },
+    {
+     "label": "Material",
+     "value": "Premium-grade materials with High Gloss Marker Grade HPL Sheet for enhanced durability"
+    },
+    {
+     "label": "Design",
+     "value": "ABS Dual-Tone Corner Design for added strength and refined appearance"
+    },
+    {
+     "label": "Frame",
+     "value": "Aluminium Anodized Frame"
+    },
+    {
+     "label": "Surface",
+     "value": "Smooth, high-gloss surface ensuring seamless writing experience"
+    },
+    {
+     "label": "Durability",
+     "value": "Reliable and long-lasting for daily institutional use"
+    }
+   ],
+   "sourceDescription": "The Eco Premium White Board uses premium-grade materials with High Gloss Marker Grade HPL Sheet for enhanced durability. Its ABS Dual-Tone Corner Design adds strength and a refined appearance, and the smooth, high-gloss surface ensures a seamless writing experience. Reliable and long-lasting for daily institutional use.",
+   "published": true
   },
   {
    "slug": "eco-premium-chalk-board",
@@ -456,7 +714,36 @@
    "videoId": "plusmark/videos/eco-premium-chalk-board",
    "surface": "Marker Grade HPL Sheet",
    "frame": "Ribbed aluminium anodized frame",
-   "corners": "ABS Dual-Tone corners"
+   "corners": "ABS Dual-Tone corners",
+   "boardType": "non-magnetic",
+   "surfaceKind": "chalk",
+   "enquiryOnly": false,
+   "needsData": false,
+   "customisation": null,
+   "specs": [
+    {
+     "label": "Type",
+     "value": "Non-Magnetic Chalk Board"
+    },
+    {
+     "label": "Material",
+     "value": "Premium-grade strong materials"
+    },
+    {
+     "label": "Design",
+     "value": "ABS Dual-Tone Corner Design for added strength"
+    },
+    {
+     "label": "Surface",
+     "value": "Hardcore Chalk Grade HPL Sheet with enhanced scratch resistance; non-reflective and glare-free with clear visibility from all angles"
+    },
+    {
+     "label": "Durability",
+     "value": "Reliable and long-lasting for regular institutional use"
+    }
+   ],
+   "sourceDescription": "The Eco Premium Chalk Board is built from premium-grade strong materials with an ABS Dual-Tone Corner Design for added strength. Its Hardcore Chalk Grade HPL Sheet offers enhanced scratch resistance and is non-reflective and glare-free, with clear visibility from all angles. Reliable and long-lasting for regular institutional use.",
+   "published": true
   },
   {
    "slug": "eco-premium-notice-board",
@@ -483,7 +770,32 @@
    "videoId": "plusmark/videos/eco-premium-notice-board",
    "surface": "Marker Grade HPL Sheet",
    "frame": "Ribbed aluminium anodized frame",
-   "corners": "ABS Dual-Tone corners"
+   "corners": "ABS Dual-Tone corners",
+   "boardType": "n/a",
+   "surfaceKind": "pin-up",
+   "enquiryOnly": false,
+   "needsData": false,
+   "customisation": null,
+   "specs": [
+    {
+     "label": "Material",
+     "value": "Premium-grade construction for reliable performance"
+    },
+    {
+     "label": "Surface",
+     "value": "2 mm Blazer Cloth suitable for regular institutional use"
+    },
+    {
+     "label": "Core",
+     "value": "Soft core material for repeated pinning"
+    },
+    {
+     "label": "Durability",
+     "value": "Long-lasting with consistent performance"
+    }
+   ],
+   "sourceDescription": "The Eco Premium Notice Board uses premium-grade construction for reliable performance. The 2 mm Blazer Cloth surface is suitable for regular institutional use, over a soft core material for repeated pinning. Long-lasting with consistent performance.",
+   "published": true
   },
   {
    "slug": "eco-premium-both-side-board",
@@ -508,7 +820,36 @@
    "videoId": "plusmark/videos/eco-premium-both-side",
    "surface": "Marker Grade HPL Sheet",
    "frame": "Ribbed aluminium anodized frame",
-   "corners": "ABS Dual-Tone corners"
+   "corners": "ABS Dual-Tone corners",
+   "boardType": "non-magnetic",
+   "surfaceKind": "marker",
+   "enquiryOnly": false,
+   "needsData": false,
+   "customisation": null,
+   "specs": [
+    {
+     "label": "Type",
+     "value": "Non-Magnetic Both Side Board"
+    },
+    {
+     "label": "Surfaces",
+     "value": "Front: White Board (marker writing) · Back: Chalk Board (chalk writing)"
+    },
+    {
+     "label": "Frame",
+     "value": "Premium Aluminium Anodised Frame"
+    },
+    {
+     "label": "Design",
+     "value": "ABS Dual-Tone Edge"
+    },
+    {
+     "label": "Installation",
+     "value": "Quick wall-mount installation, horizontal or vertical"
+    }
+   ],
+   "sourceDescription": "The Eco Premium Both Side Board puts two writing surfaces in one frame: a white board on the front for marker and a chalk board on the back for chalk. The non-magnetic, easy-to-clean surfaces sit in a premium aluminium anodised frame with ABS dual-tone edges, and quick wall-mount installation lets the board hang horizontally or vertically.",
+   "published": true
   },
   {
    "slug": "eco-regular-white-board",
@@ -538,7 +879,36 @@
    "videoId": null,
    "surface": "High gloss melamine writing surface",
    "frame": "Lightweight ribbed aluminium anodized frame",
-   "corners": "Standard plastic corners"
+   "corners": "Standard plastic corners",
+   "boardType": "non-magnetic",
+   "surfaceKind": "marker",
+   "enquiryOnly": false,
+   "needsData": false,
+   "customisation": null,
+   "specs": [
+    {
+     "label": "Type",
+     "value": "Non-Magnetic White Board"
+    },
+    {
+     "label": "Material",
+     "value": "Cost-effective, regular materials"
+    },
+    {
+     "label": "Design",
+     "value": "Lightweight frame with standard plastic corners, easy to handle and install"
+    },
+    {
+     "label": "Surface",
+     "value": "High Gloss Melamine Writing Surface suitable for basic writing needs"
+    },
+    {
+     "label": "Durability",
+     "value": "Good for light use and budget-friendly applications"
+    }
+   ],
+   "sourceDescription": "The Eco Regular White Board uses cost-effective, regular materials. A lightweight frame with standard plastic corners makes it easy to handle and install, and the High Gloss Melamine Writing Surface suits basic writing needs. Good for light use and budget-friendly applications.",
+   "published": true
   },
   {
    "slug": "eco-regular-chalk-board",
@@ -568,7 +938,36 @@
    "videoId": null,
    "surface": "High gloss melamine writing surface",
    "frame": "Lightweight ribbed aluminium anodized frame",
-   "corners": "Standard plastic corners"
+   "corners": "Standard plastic corners",
+   "boardType": "non-magnetic",
+   "surfaceKind": "chalk",
+   "enquiryOnly": false,
+   "needsData": false,
+   "customisation": null,
+   "specs": [
+    {
+     "label": "Type",
+     "value": "Non-Magnetic Chalk Board"
+    },
+    {
+     "label": "Material",
+     "value": "Cost-effective, regular materials"
+    },
+    {
+     "label": "Design",
+     "value": "Lightweight frame with standard plastic corners"
+    },
+    {
+     "label": "Surface",
+     "value": "Chalk Grade HPL Sheet; non-reflective, glare-free, with clear visibility from all angles"
+    },
+    {
+     "label": "Durability",
+     "value": "Suitable for light and economical use"
+    }
+   ],
+   "sourceDescription": "The Eco Regular Chalk Board uses cost-effective, regular materials with a lightweight frame and standard plastic corners. The Chalk Grade HPL Sheet is non-reflective and glare-free, with clear visibility from all angles. Suitable for light and economical use.",
+   "published": true
   },
   {
    "slug": "eco-regular-magnetic-board",
@@ -598,7 +997,40 @@
    "videoId": null,
    "surface": "High gloss melamine writing surface",
    "frame": "Lightweight ribbed aluminium anodized frame",
-   "corners": "Standard plastic corners"
+   "corners": "Standard plastic corners",
+   "boardType": "magnetic",
+   "surfaceKind": "marker",
+   "enquiryOnly": false,
+   "needsData": false,
+   "customisation": null,
+   "specs": [
+    {
+     "label": "Type",
+     "value": "Resin Coated Steel Magnetic Board"
+    },
+    {
+     "label": "Surface",
+     "value": "Resin coated writing surface in white and green variants"
+    },
+    {
+     "label": "Magnetic Use",
+     "value": "Supports basic magnetic accessories"
+    },
+    {
+     "label": "Design",
+     "value": "Lightweight aluminium frame with standard plastic corners"
+    },
+    {
+     "label": "Finish",
+     "value": "Functional writing surface for basic requirements"
+    },
+    {
+     "label": "Build",
+     "value": "Economical option designed for light usage"
+    }
+   ],
+   "sourceDescription": "The Eco Regular Magnetic Board accepts magnets and supports basic magnetic accessories. Its resin coated writing surface comes in white and green variants, set in a lightweight aluminium frame with standard plastic corners. A functional writing surface for basic requirements — an economical option designed for light usage.",
+   "published": true
   },
   {
    "slug": "eco-regular-magnetic-chalk-board",
@@ -628,7 +1060,32 @@
    "videoId": null,
    "surface": "High gloss melamine writing surface",
    "frame": "Lightweight ribbed aluminium anodized frame",
-   "corners": "Standard plastic corners"
+   "corners": "Standard plastic corners",
+   "boardType": "magnetic",
+   "surfaceKind": "chalk",
+   "enquiryOnly": false,
+   "needsData": false,
+   "customisation": null,
+   "specs": [
+    {
+     "label": "Type",
+     "value": "Resin Coated Steel Magnetic Chalk Board"
+    },
+    {
+     "label": "Surface",
+     "value": "Resin coated green chalk writing surface; accepts magnets"
+    },
+    {
+     "label": "Magnetic Use",
+     "value": "Supports basic magnetic accessories"
+    },
+    {
+     "label": "Design",
+     "value": "Lightweight aluminium frame with standard plastic corners"
+    }
+   ],
+   "sourceDescription": "The Eco Regular Magnetic Chalk Board accepts magnets and supports basic magnetic accessories. Its resin coated green chalk writing surface comes in a lightweight aluminium frame with standard plastic corners — an economical option designed for light and budget-friendly institutional use.",
+   "published": true
   },
   {
    "slug": "eco-regular-notice-board",
@@ -658,7 +1115,32 @@
    "videoId": null,
    "surface": "High gloss melamine writing surface",
    "frame": "Lightweight ribbed aluminium anodized frame",
-   "corners": "Standard plastic corners"
+   "corners": "Standard plastic corners",
+   "boardType": "n/a",
+   "surfaceKind": "pin-up",
+   "enquiryOnly": false,
+   "needsData": false,
+   "customisation": null,
+   "specs": [
+    {
+     "label": "Material",
+     "value": "Economical materials with standard plastic corners"
+    },
+    {
+     "label": "Surface",
+     "value": "Super Fine Velvet Cloth for basic pin-up needs"
+    },
+    {
+     "label": "Core",
+     "value": "Soft core for light pin usage"
+    },
+    {
+     "label": "Durability",
+     "value": "Suitable for light and occasional use"
+    }
+   ],
+   "sourceDescription": "The Eco Regular Notice Board uses economical materials with standard plastic corners. Super Fine Velvet Cloth covers basic pin-up needs, over a soft core for light pin usage. Suitable for light and occasional use.",
+   "published": true
   },
   {
    "slug": "deluxe-standard-white-board",
@@ -684,7 +1166,36 @@
    "videoId": null,
    "surface": "High gloss melamine writing surface",
    "frame": "Deluxe anodized aluminium frame",
-   "corners": "Electroplated chrome corners"
+   "corners": "Electroplated chrome corners",
+   "boardType": "non-magnetic",
+   "surfaceKind": "marker",
+   "enquiryOnly": false,
+   "needsData": false,
+   "customisation": null,
+   "specs": [
+    {
+     "label": "Type",
+     "value": "Non-Magnetic White Board"
+    },
+    {
+     "label": "Material",
+     "value": "Regular quality materials"
+    },
+    {
+     "label": "Design",
+     "value": "Electroplated Chrome Corners for a clean and professional look"
+    },
+    {
+     "label": "Surface",
+     "value": "High Gloss Melamine Writing Surface, smooth and easy to clean"
+    },
+    {
+     "label": "Durability",
+     "value": "Dependable for regular use"
+    }
+   ],
+   "sourceDescription": "The Deluxe Standard White Board is made from regular quality materials, with Electroplated Chrome Corners for a clean and professional look. Its High Gloss Melamine Writing Surface is smooth and easy to clean, and the board is dependable for regular use.",
+   "published": true
   },
   {
    "slug": "deluxe-standard-chalk-board",
@@ -710,7 +1221,36 @@
    "videoId": null,
    "surface": "High gloss melamine writing surface",
    "frame": "Deluxe anodized aluminium frame",
-   "corners": "Electroplated chrome corners"
+   "corners": "Electroplated chrome corners",
+   "boardType": "non-magnetic",
+   "surfaceKind": "chalk",
+   "enquiryOnly": false,
+   "needsData": false,
+   "customisation": null,
+   "specs": [
+    {
+     "label": "Type",
+     "value": "Non-Magnetic Chalk Board"
+    },
+    {
+     "label": "Material",
+     "value": "Regular quality materials with balanced performance"
+    },
+    {
+     "label": "Design",
+     "value": "Electroplated Chrome Corners for a clean finish"
+    },
+    {
+     "label": "Surface",
+     "value": "Chalk Grade HPL Sheet; non-reflective, glare-free, with clear visibility from all angles"
+    },
+    {
+     "label": "Durability",
+     "value": "Durable and dependable for everyday use"
+    }
+   ],
+   "sourceDescription": "The Deluxe Standard Chalk Board uses regular quality materials with balanced performance and Electroplated Chrome Corners for a clean finish. The Chalk Grade HPL Sheet is non-reflective and glare-free, with clear visibility from all angles. Durable and dependable for everyday use.",
+   "published": true
   },
   {
    "slug": "deluxe-standard-magnetic-board",
@@ -736,7 +1276,40 @@
    "videoId": null,
    "surface": "High gloss melamine writing surface",
    "frame": "Deluxe anodized aluminium frame",
-   "corners": "Electroplated chrome corners"
+   "corners": "Electroplated chrome corners",
+   "boardType": "magnetic",
+   "surfaceKind": "marker",
+   "enquiryOnly": false,
+   "needsData": false,
+   "customisation": null,
+   "specs": [
+    {
+     "label": "Type",
+     "value": "Resin Coated Steel Magnetic Board"
+    },
+    {
+     "label": "Surface",
+     "value": "Resin coated writing surface available in white and green options"
+    },
+    {
+     "label": "Magnetic Use",
+     "value": "Suitable for standard magnetic accessories"
+    },
+    {
+     "label": "Design",
+     "value": "Aluminium frame with Electroplated Chrome Corners"
+    },
+    {
+     "label": "Finish",
+     "value": "Smooth surface suitable for daily classroom or office writing"
+    },
+    {
+     "label": "Build",
+     "value": "Balanced construction for regular use"
+    }
+   ],
+   "sourceDescription": "The Deluxe Standard Magnetic Board accepts magnets and has a resin coated writing surface available in white and green options, suitable for standard magnetic accessories. An aluminium frame with Electroplated Chrome Corners and balanced construction make it suitable for daily classroom or office writing.",
+   "published": true
   },
   {
    "slug": "deluxe-standard-magnetic-chalk-board",
@@ -762,7 +1335,32 @@
    "videoId": null,
    "surface": "High gloss melamine writing surface",
    "frame": "Deluxe anodized aluminium frame",
-   "corners": "Electroplated chrome corners"
+   "corners": "Electroplated chrome corners",
+   "boardType": "magnetic",
+   "surfaceKind": "chalk",
+   "enquiryOnly": false,
+   "needsData": false,
+   "customisation": null,
+   "specs": [
+    {
+     "label": "Type",
+     "value": "Resin Coated Steel Magnetic Chalk Board"
+    },
+    {
+     "label": "Surface",
+     "value": "Resin coated green chalk writing surface; accepts magnets"
+    },
+    {
+     "label": "Magnetic Use",
+     "value": "Suitable for standard magnetic accessories"
+    },
+    {
+     "label": "Design",
+     "value": "Aluminium frame with Electroplated Chrome Corners"
+    }
+   ],
+   "sourceDescription": "The Deluxe Standard Magnetic Chalk Board accepts magnets and has a resin coated green chalk writing surface suitable for standard magnetic accessories. An aluminium frame with Electroplated Chrome Corners and balanced construction make it dependable for daily school and coaching use.",
+   "published": true
   },
   {
    "slug": "deluxe-standard-ceramic-board",
@@ -788,7 +1386,93 @@
    "videoId": null,
    "surface": "High gloss melamine writing surface",
    "frame": "Deluxe anodized aluminium frame",
-   "corners": "Electroplated chrome corners"
+   "corners": "Electroplated chrome corners",
+   "boardType": "ceramic",
+   "surfaceKind": "marker",
+   "enquiryOnly": false,
+   "needsData": false,
+   "customisation": null,
+   "specs": [
+    {
+     "label": "Type",
+     "value": "Ceramic Steel Magnetic Board"
+    },
+    {
+     "label": "Surface",
+     "value": "Ceramic steel / porcelain enamel steel surface, available in White Board (marker writing) and Chalk Board (chalk writing) options"
+    },
+    {
+     "label": "Product Life",
+     "value": "Designed for very long product life under regular institutional use"
+    },
+    {
+     "label": "Performance",
+     "value": "Hard, non-porous surface suitable for continuous writing and frequent cleaning"
+    },
+    {
+     "label": "Finish",
+     "value": "Smooth writing surface with consistent performance over time"
+    },
+    {
+     "label": "Maintenance",
+     "value": "Easy to clean and maintain for daily classroom use"
+    },
+    {
+     "label": "Design",
+     "value": "Aluminium frame with Electroplated Chrome Corners"
+    }
+   ],
+   "sourceDescription": "The Deluxe Standard Ceramic Board has a ceramic steel / porcelain enamel steel surface, available in White Board (marker writing) and Chalk Board (chalk writing) options, designed for very long product life under regular institutional use. The hard, non-porous surface is suitable for continuous writing and is easy to clean and maintain. Aluminium frame with Electroplated Chrome Corners.",
+   "published": true
+  },
+  {
+   "slug": "deluxe-standard-ceramic-chalk-board",
+   "name": "Deluxe Standard Ceramic Chalk Board",
+   "categoryId": "chalk-boards",
+   "seriesId": "deluxe-standard",
+   "subcategoryIds": [
+    "chalk-boards-ceramic"
+   ],
+   "magnetic": true,
+   "doubleSided": false,
+   "sizes": [
+    "3 x 4 ft",
+    "4 x 4 ft",
+    "5 x 4 ft",
+    "6 x 4 ft",
+    "8 x 4 ft"
+   ],
+   "images": [],
+   "imageSource": "none",
+   "videoId": null,
+   "surface": "Ceramic steel green chalk surface; accepts magnets",
+   "frame": "Aluminium frame",
+   "corners": "Electroplated Chrome Corners",
+   "boardType": "ceramic",
+   "surfaceKind": "chalk",
+   "enquiryOnly": false,
+   "needsData": true,
+   "customisation": null,
+   "specs": [
+    {
+     "label": "Type",
+     "value": "Ceramic Steel Magnetic Chalk Board"
+    },
+    {
+     "label": "Surface",
+     "value": "Ceramic steel green chalk surface; accepts magnets"
+    },
+    {
+     "label": "Product Life",
+     "value": "Designed for very long product life under regular institutional use"
+    },
+    {
+     "label": "Design",
+     "value": "Aluminium frame with Electroplated Chrome Corners"
+    }
+   ],
+   "sourceDescription": "The Deluxe Standard Ceramic Chalk Board combines a porcelain enamel / ceramic steel green chalk surface that accepts magnets with an aluminium frame and Electroplated Chrome Corners. Ideal for colleges and institutions requiring long surface life with standard framing.",
+   "published": false
   },
   {
    "slug": "deluxe-standard-notice-board",
@@ -814,16 +1498,39 @@
    "videoId": null,
    "surface": "High gloss melamine writing surface",
    "frame": "Deluxe anodized aluminium frame",
-   "corners": "Electroplated chrome corners"
+   "corners": "Electroplated chrome corners",
+   "boardType": "n/a",
+   "surfaceKind": "pin-up",
+   "enquiryOnly": false,
+   "needsData": false,
+   "customisation": null,
+   "specs": [
+    {
+     "label": "Material",
+     "value": "Standard quality materials with Electroplated Chrome Corners"
+    },
+    {
+     "label": "Surface",
+     "value": "Super Fine Velvet Cloth for everyday pin usage"
+    },
+    {
+     "label": "Core",
+     "value": "Soft core suitable for normal pin use"
+    },
+    {
+     "label": "Durability",
+     "value": "Reliable for daily use"
+    }
+   ],
+   "sourceDescription": "The Deluxe Standard Notice Board is made from standard quality materials with Electroplated Chrome Corners. Its Super Fine Velvet Cloth surface is made for everyday pin usage over a soft core suitable for normal pin use. Reliable for daily use.",
+   "published": true
   },
   {
    "slug": "deluxe-45mm-adc-notice-board-double-door",
-   "name": "Deluxe 45 MM ADC Notice Board (Double Door)",
-   "categoryId": "notice-boards",
+   "name": "Deluxe 45 mm ADC Notice Board (Double Door)",
+   "categoryId": "acrylic-door-cover-notice-boards",
    "seriesId": "deluxe-standard",
-   "subcategoryIds": [
-    "notice-boards-adc"
-   ],
+   "subcategoryIds": [],
    "magnetic": false,
    "doubleSided": false,
    "sizes": [
@@ -840,16 +1547,39 @@
    "videoId": null,
    "surface": "High gloss melamine writing surface",
    "frame": "Deluxe anodized aluminium frame",
-   "corners": "Electroplated chrome corners"
+   "corners": "Electroplated chrome corners",
+   "boardType": "n/a",
+   "surfaceKind": "pin-up",
+   "enquiryOnly": false,
+   "needsData": false,
+   "customisation": null,
+   "specs": [
+    {
+     "label": "Type",
+     "value": "Acrylic Door Covered Notice Board (Double Door Design)"
+    },
+    {
+     "label": "Framing",
+     "value": "Deluxe 45 mm Triple Aluminium Framing for added strength and premium appearance"
+    },
+    {
+     "label": "Cover",
+     "value": "Transparent acrylic door cover to protect notices from dust and handling"
+    },
+    {
+     "label": "Locking",
+     "value": "Secure double-door system suitable for controlled notice display"
+    }
+   ],
+   "sourceDescription": "The Deluxe 45 mm Acrylic Door Cover (ADC) Notice Board (Double Door) is a notice board with a double-door acrylic cover. Deluxe 45 mm Triple Aluminium Framing adds strength and a premium appearance, while the transparent acrylic door cover protects notices from dust and handling. A secure double-door system is suitable for controlled notice display.",
+   "published": true
   },
   {
    "slug": "eco-adc-notice-board-single-door",
    "name": "Eco ADC Notice Board (Single Door)",
-   "categoryId": "notice-boards",
+   "categoryId": "acrylic-door-cover-notice-boards",
    "seriesId": "eco-regular",
-   "subcategoryIds": [
-    "notice-boards-adc"
-   ],
+   "subcategoryIds": [],
    "magnetic": false,
    "doubleSided": false,
    "sizes": [
@@ -870,11 +1600,44 @@
    "videoId": null,
    "surface": "High gloss melamine writing surface",
    "frame": "Lightweight ribbed aluminium anodized frame",
-   "corners": "Standard plastic corners"
+   "corners": "Standard plastic corners",
+   "boardType": "n/a",
+   "surfaceKind": "pin-up",
+   "enquiryOnly": false,
+   "needsData": false,
+   "customisation": null,
+   "specs": [
+    {
+     "label": "Type",
+     "value": "Acrylic door covered notice board with single door design"
+    },
+    {
+     "label": "Framing",
+     "value": "Lightweight aluminium framing for economical and practical use"
+    },
+    {
+     "label": "Cover",
+     "value": "Transparent acrylic door cover to protect notices from dust and handling"
+    },
+    {
+     "label": "Locking",
+     "value": "Single-door locking system for safe and controlled notice display"
+    },
+    {
+     "label": "Performance",
+     "value": "Smooth door operation with clear visibility of displayed notices"
+    },
+    {
+     "label": "Finish",
+     "value": "Clean and simple finish suitable for regular indoor applications"
+    }
+   ],
+   "sourceDescription": "The Eco Acrylic Door Cover (ADC) Notice Board (Single Door) is a notice board with a single-door acrylic cover and lightweight aluminium framing for economical and practical use. A transparent acrylic door cover protects notices from dust and handling, with a single-door locking system, smooth door operation and a clean, simple finish for regular indoor applications.",
+   "published": true
   },
   {
    "slug": "laminate-mdf-base-clipboard",
-   "name": "Laminate MDF Base Clipboard",
+   "name": "Laminate MDF Base Clipboard (Wood Finish)",
    "categoryId": "clipboards",
    "seriesId": null,
    "subcategoryIds": [
@@ -893,7 +1656,36 @@
    "videoId": null,
    "surface": null,
    "frame": null,
-   "corners": null
+   "corners": null,
+   "boardType": "n/a",
+   "surfaceKind": "other",
+   "enquiryOnly": false,
+   "needsData": true,
+   "customisation": null,
+   "specs": [
+    {
+     "label": "Base",
+     "value": "Laminate MDF Base (Wood Finish) — HPL Sheet Wood Grade"
+    },
+    {
+     "label": "Clip",
+     "value": "Chrome Electroplated Clip — Rust-Resistant Finish"
+    },
+    {
+     "label": "Finish",
+     "value": "Smooth & Premium Appearance — Uniform Finish on Both Sides"
+    },
+    {
+     "label": "Edge",
+     "value": "Rounded Edge — Safe & Clean Finish"
+    },
+    {
+     "label": "Rivets",
+     "value": "Dual-Side Cap Rivets"
+    }
+   ],
+   "sourceDescription": "The Laminate MDF Base Clipboard (Wood Finish) uses an HPL Sheet Wood Grade base for a smooth and premium appearance with a uniform finish on both sides. A Chrome Electroplated Clip with rust-resistant finish, Dual-Side Cap Rivets and rounded edges for a safe and clean finish complete the design.",
+   "published": true
   },
   {
    "slug": "graphic-mdf-base-clipboard",
@@ -916,11 +1708,36 @@
    "videoId": null,
    "surface": null,
    "frame": null,
-   "corners": null
+   "corners": null,
+   "boardType": "n/a",
+   "surfaceKind": "other",
+   "enquiryOnly": false,
+   "needsData": true,
+   "customisation": null,
+   "specs": [
+    {
+     "label": "Base",
+     "value": "Graphic MDF Base"
+    },
+    {
+     "label": "Clip",
+     "value": "Chrome Electroplated Clip — Rust-Resistant Finish"
+    },
+    {
+     "label": "Printing",
+     "value": "Premium Graphic Printing — Sharp & Fade-Resistant"
+    },
+    {
+     "label": "Rivets",
+     "value": "Dual-Side Cap Rivets — Uniform Finish on Both Sides"
+    }
+   ],
+   "sourceDescription": "Graphic MDF base with premium graphic printing that is sharp and fade-resistant, a Chrome Electroplated Clip and Dual-Side Cap Rivets.",
+   "published": true
   },
   {
    "slug": "pre-lam-mdf-base-clipboard",
-   "name": "Pre-Lam MDF Base Clipboard",
+   "name": "Pre-Lam MDF Base Clipboard (Wood Finish)",
    "categoryId": "clipboards",
    "seriesId": null,
    "subcategoryIds": [
@@ -939,7 +1756,32 @@
    "videoId": null,
    "surface": null,
    "frame": null,
-   "corners": null
+   "corners": null,
+   "boardType": "n/a",
+   "surfaceKind": "other",
+   "enquiryOnly": false,
+   "needsData": true,
+   "customisation": null,
+   "specs": [
+    {
+     "label": "Base",
+     "value": "Pre-Lam MDF Base (Wood Finish)"
+    },
+    {
+     "label": "Clip",
+     "value": "Chrome Electroplated Clip — Rust-Resistant Finish"
+    },
+    {
+     "label": "Finish",
+     "value": "Pre-Lam wood Finish — Smooth Wood Finish"
+    },
+    {
+     "label": "Rivets",
+     "value": "Dual-Side Cap Rivets"
+    }
+   ],
+   "sourceDescription": "Pre-Lam MDF base with a smooth wood finish, Chrome Electroplated Clip with rust-resistant finish and Dual-Side Cap Rivets.",
+   "published": true
   },
   {
    "slug": "crystal-clear-base-clipboard",
@@ -962,7 +1804,28 @@
    "videoId": null,
    "surface": null,
    "frame": null,
-   "corners": null
+   "corners": null,
+   "boardType": "n/a",
+   "surfaceKind": "other",
+   "enquiryOnly": false,
+   "needsData": true,
+   "customisation": null,
+   "specs": [
+    {
+     "label": "Base",
+     "value": "Crystal Clear Base — Glass-Like Clarity with Modern Appeal"
+    },
+    {
+     "label": "Clip",
+     "value": "Chrome Electroplated Clip — Rust-Resistant Finish"
+    },
+    {
+     "label": "Rivets",
+     "value": "Dual-Side Cap Rivets — Uniform Look on Both Sides"
+    }
+   ],
+   "sourceDescription": "Crystal clear base with glass-like clarity and modern appeal, Chrome Electroplated Clip and Dual-Side Cap Rivets for a uniform look on both sides.",
+   "published": true
   },
   {
    "slug": "crystal-colour-base-clipboard",
@@ -985,7 +1848,32 @@
    "videoId": null,
    "surface": null,
    "frame": null,
-   "corners": null
+   "corners": null,
+   "boardType": "n/a",
+   "surfaceKind": "other",
+   "enquiryOnly": false,
+   "needsData": true,
+   "customisation": null,
+   "specs": [
+    {
+     "label": "Base",
+     "value": "Crystal-Tint Acrylic Base — Modern Transparent Colour with Elegant Appeal"
+    },
+    {
+     "label": "Edge",
+     "value": "Rounded Edge — Soft Rounded Corners for Safety & Comfort"
+    },
+    {
+     "label": "Clip",
+     "value": "Chrome Electroplated Clip — Anti-Rust Protection"
+    },
+    {
+     "label": "Rivets",
+     "value": "Dual-Cap Rivet System — Balanced & Neat Appearance"
+    }
+   ],
+   "sourceDescription": "Crystal-tint acrylic base in a modern transparent colour with elegant appeal, soft rounded corners and an anti-rust Chrome Electroplated Clip.",
+   "published": true
   },
   {
    "slug": "heavy-duty-clear-acrylic-clipboard",
@@ -1008,7 +1896,20 @@
    "videoId": null,
    "surface": null,
    "frame": null,
-   "corners": null
+   "corners": null,
+   "boardType": "n/a",
+   "surfaceKind": "other",
+   "enquiryOnly": false,
+   "needsData": true,
+   "customisation": null,
+   "specs": [
+    {
+     "label": "Base",
+     "value": "Heavy-Duty Clear Acrylic — High Impact Strength & Shatter-Resistant"
+    }
+   ],
+   "sourceDescription": "Heavy-duty clear acrylic clipboard with high impact strength and a shatter-resistant build.",
+   "published": true
   },
   {
    "slug": "cork-notice-board",
@@ -1031,7 +1932,36 @@
    "videoId": null,
    "surface": null,
    "frame": null,
-   "corners": null
+   "corners": null,
+   "boardType": "n/a",
+   "surfaceKind": "pin-up",
+   "enquiryOnly": false,
+   "needsData": true,
+   "customisation": null,
+   "specs": [
+    {
+     "label": "Surface",
+     "value": "High-quality natural cork surface suitable for repeated pin use"
+    },
+    {
+     "label": "Core",
+     "value": "Soft and resilient base material designed specially for smooth pin insertion and firm holding"
+    },
+    {
+     "label": "Performance",
+     "value": "Allows frequent pinning and removal without surface damage or loss of grip"
+    },
+    {
+     "label": "Finish",
+     "value": "Uniform cork texture with a neat and professional appearance"
+    },
+    {
+     "label": "Durability",
+     "value": "Long-lasting surface performance for regular notice display use"
+    }
+   ],
+   "sourceDescription": "The Cork Notice Board has a high-quality natural cork surface suitable for repeated pin use. Its soft and resilient base material is designed specially for smooth pin insertion and firm holding, allowing frequent pinning and removal without surface damage or loss of grip. A uniform cork texture gives a neat, professional appearance with long-lasting surface performance.",
+   "published": true
   },
   {
    "slug": "fabric-notice-board",
@@ -1054,12 +1984,41 @@
    "videoId": null,
    "surface": null,
    "frame": null,
-   "corners": null
+   "corners": null,
+   "boardType": "n/a",
+   "surfaceKind": "pin-up",
+   "enquiryOnly": false,
+   "needsData": true,
+   "customisation": "Fabric colour and board layout are made to customer requirement.",
+   "specs": [
+    {
+     "label": "Surface",
+     "value": "Fabric notice board suitable for repeated pin use"
+    },
+    {
+     "label": "Color Options",
+     "value": "Available in customer's preferred fabric colour"
+    },
+    {
+     "label": "Customization",
+     "value": "Fabric colour and board layout can be provided as per customer requirement"
+    },
+    {
+     "label": "Core",
+     "value": "Soft core material for easy pin insertion and firm holding"
+    },
+    {
+     "label": "Performance",
+     "value": "Durable fabric surface suitable for regular notice display"
+    }
+   ],
+   "sourceDescription": "The Fabric Notice Board is suitable for repeated pin use and is available in the customer's preferred fabric colour. Fabric colour and board layout can be provided as per customer requirement. A soft core material allows easy pin insertion and firm holding, and the durable fabric surface suits regular notice display.",
+   "published": true
   },
   {
    "slug": "acrylic-folder-display-board",
    "name": "Acrylic Folder Display Board",
-   "categoryId": "display-boards",
+   "categoryId": "specialty-boards",
    "seriesId": null,
    "subcategoryIds": [],
    "magnetic": false,
@@ -1075,7 +2034,28 @@
    "videoId": null,
    "surface": null,
    "frame": null,
-   "corners": null
+   "corners": null,
+   "boardType": "n/a",
+   "surfaceKind": "other",
+   "enquiryOnly": false,
+   "needsData": true,
+   "customisation": "Folder size and quantity are made to customer requirement.",
+   "specs": [
+    {
+     "label": "Folders",
+     "value": "Transparent front folders"
+    },
+    {
+     "label": "Layout",
+     "value": "Folder size and quantity as per customer requirement"
+    },
+    {
+     "label": "Frame",
+     "value": "Strong aluminium frame suitable for industrial use"
+    }
+   ],
+   "sourceDescription": "The Acrylic Folder Display Board gives clear visibility through transparent front folders for easy document viewing. It is ideal for organised display of charts, reports, SOPs and production data, and papers can be inserted and replaced quickly. Folder size and quantity are made as per customer requirement, in a strong aluminium frame suitable for industrial use.",
+   "published": true
   },
   {
    "slug": "dry-wipe-schedule-board",
@@ -1096,12 +2076,37 @@
    "videoId": null,
    "surface": null,
    "frame": null,
-   "corners": null
+   "corners": null,
+   "boardType": "n/a",
+   "surfaceKind": "marker",
+   "enquiryOnly": false,
+   "needsData": true,
+   "customisation": "Any design and any size. Share the quantity, sizes and a sketch (CorelDRAW, Photoshop or Word file) before ordering; design work by Plusmark is chargeable.",
+   "specs": [
+    {
+     "label": "Design",
+     "value": "Any design"
+    },
+    {
+     "label": "Size",
+     "value": "Any size"
+    },
+    {
+     "label": "Required before order",
+     "value": "Quantity of board, sizes of board, sketch of board as per customer requirements"
+    },
+    {
+     "label": "Sketch format",
+     "value": "CorelDRAW, Photoshop or Word file"
+    }
+   ],
+   "sourceDescription": "The Dry Wipe Schedule Board is available in any design and any size. Before ordering, provide the quantity of boards, the sizes of the boards and a sketch of the board as per your requirements. The sketch should be in CorelDRAW, Photoshop or Word file format. When Plusmark makes the design of a board, additional charges are applicable.",
+   "published": true
   },
   {
    "slug": "four-line-square-line-practice-board",
    "name": "Four Line & Square Line Practice Board",
-   "categoryId": "specialty-boards",
+   "categoryId": "board-study-essentials",
    "seriesId": null,
    "subcategoryIds": [],
    "magnetic": false,
@@ -1117,12 +2122,33 @@
    "videoId": null,
    "surface": null,
    "frame": null,
-   "corners": null
+   "corners": null,
+   "boardType": "n/a",
+   "surfaceKind": "other",
+   "enquiryOnly": false,
+   "needsData": true,
+   "customisation": "Four-line and square-line marking is provided as per school or customer requirement.",
+   "specs": [
+    {
+     "label": "Line layout",
+     "value": "Four line and square grid sections"
+    },
+    {
+     "label": "Line marking",
+     "value": "Provided as per School / Customer Requirements"
+    },
+    {
+     "label": "Surface",
+     "value": "Smooth Writing Surface Suitable for Daily Classroom Use"
+    }
+   ],
+   "sourceDescription": "The Four Line & Square Line Practice Board is specially designed for handwriting improvement and ensures proper letter size, spacing and alignment. Its square grid section supports accurate number writing and basic maths practice. Line marking is provided as per school / customer requirements, on a smooth writing surface suitable for daily classroom use.",
+   "published": true
   },
   {
    "slug": "grooved-boards",
-   "name": "Grooved Coloured Display Board",
-   "categoryId": "specialty-boards",
+   "name": "Grooved Boards",
+   "categoryId": "display-boards",
    "seriesId": null,
    "subcategoryIds": [],
    "magnetic": false,
@@ -1138,12 +2164,25 @@
    "videoId": null,
    "surface": null,
    "frame": null,
-   "corners": null
+   "corners": null,
+   "boardType": "n/a",
+   "surfaceKind": "other",
+   "enquiryOnly": false,
+   "needsData": true,
+   "customisation": null,
+   "specs": [
+    {
+     "label": "Sizes",
+     "value": "Nine sizes in landscape and portrait"
+    }
+   ],
+   "sourceDescription": "Grooved Boards are suitable for use in hotels, reception areas, leisure centres and similar spaces, and are available in nine sizes in landscape and portrait orientation.",
+   "published": true
   },
   {
    "slug": "perforated-board",
-   "name": "Perforated Display Board",
-   "categoryId": "specialty-boards",
+   "name": "Perforated Board",
+   "categoryId": "display-boards",
    "seriesId": null,
    "subcategoryIds": [],
    "magnetic": false,
@@ -1159,12 +2198,33 @@
    "videoId": null,
    "surface": null,
    "frame": null,
-   "corners": null
+   "corners": null,
+   "boardType": "n/a",
+   "surfaceKind": "other",
+   "enquiryOnly": false,
+   "needsData": true,
+   "customisation": null,
+   "specs": [
+    {
+     "label": "Board",
+     "value": "Black perforated board"
+    },
+    {
+     "label": "Frame",
+     "value": "Golden Anodized frame"
+    },
+    {
+     "label": "Felt colors",
+     "value": "Red, Maroon"
+    }
+   ],
+   "sourceDescription": "Black perforated boards are very popular boards to display information vertically as well as horizontally. Used in offices, hotels and many other public places, with a golden anodized frame and felt available in red and maroon.",
+   "published": true
   },
   {
    "slug": "key-hanger-board",
    "name": "Key Hanger Board",
-   "categoryId": "specialty-boards",
+   "categoryId": "board-study-essentials",
    "seriesId": null,
    "subcategoryIds": [],
    "magnetic": false,
@@ -1180,12 +2240,41 @@
    "videoId": null,
    "surface": null,
    "frame": null,
-   "corners": null
+   "corners": null,
+   "boardType": "n/a",
+   "surfaceKind": "other",
+   "enquiryOnly": false,
+   "needsData": true,
+   "customisation": null,
+   "specs": [
+    {
+     "label": "1 × 1.5 ft",
+     "value": "15 / 20 Keys"
+    },
+    {
+     "label": "1.5 × 2 ft",
+     "value": "30 Keys"
+    },
+    {
+     "label": "2 × 2 ft",
+     "value": "50 Keys"
+    },
+    {
+     "label": "2 × 3 ft",
+     "value": "100 Keys"
+    },
+    {
+     "label": "3 × 4 ft",
+     "value": "150 Keys"
+    }
+   ],
+   "sourceDescription": "The Key Hanger Board is a secure key management system with locking facility. A lockable acrylic door gives clear visibility of keys, in a professional and durable design suitable for offices, companies and workshops.",
+   "published": true
   },
   {
    "slug": "letters-and-figures-set",
    "name": "Letters and Figures Set",
-   "categoryId": "board-study-essentials",
+   "categoryId": "display-boards",
    "seriesId": null,
    "subcategoryIds": [],
    "magnetic": false,
@@ -1201,7 +2290,68 @@
    "videoId": null,
    "surface": null,
    "frame": null,
-   "corners": null
+   "corners": null,
+   "boardType": "n/a",
+   "surfaceKind": "other",
+   "enquiryOnly": false,
+   "needsData": true,
+   "customisation": null,
+   "specs": [
+    {
+     "label": "Letters A E I O",
+     "value": "5 each — 20 pcs"
+    },
+    {
+     "label": "Letters C N R S T",
+     "value": "4 each — 20 pcs"
+    },
+    {
+     "label": "Letters B D F G H K",
+     "value": "3 each — 18 pcs"
+    },
+    {
+     "label": "Letters L M P U W Y",
+     "value": "3 each — 18 pcs"
+    },
+    {
+     "label": "Letters J Q V",
+     "value": "2 each — 06 pcs"
+    },
+    {
+     "label": "Letters X Z",
+     "value": "1 each — 02 pcs"
+    },
+    {
+     "label": "Punctuation & symbols",
+     "value": "Remaining pieces of the set (. , {} & % / and others)"
+    },
+    {
+     "label": "Letters set total",
+     "value": "112 pcs"
+    },
+    {
+     "label": "Figures 1 5 0",
+     "value": "14 each — 42 pcs"
+    },
+    {
+     "label": "Figure 2",
+     "value": "10 pcs"
+    },
+    {
+     "label": "Figures 3 4 6",
+     "value": "8 each — 24 pcs"
+    },
+    {
+     "label": "Figures 7 8 9",
+     "value": "8 each — 24 pcs"
+    },
+    {
+     "label": "Figures set total",
+     "value": "100 pcs"
+    }
+   ],
+   "sourceDescription": "The display board range includes a letters set of 112 pieces and a figures set of 100 pieces, each offered in 12 mm, 18 mm, 24 mm and 36 mm letter sizes.",
+   "published": true
   },
   {
    "slug": "combination-board",
@@ -1222,16 +2372,43 @@
    "videoId": null,
    "surface": null,
    "frame": null,
-   "corners": null
+   "corners": null,
+   "boardType": "n/a",
+   "surfaceKind": "pin-up",
+   "enquiryOnly": false,
+   "needsData": true,
+   "customisation": null,
+   "specs": [
+    {
+     "label": "Surface",
+     "value": "Dry wipe white board on one side and fabric notice board on the other"
+    },
+    {
+     "label": "Functionality",
+     "value": "Writing with markers plus pin-up display in a single board"
+    },
+    {
+     "label": "Customization",
+     "value": "Allows frequent pinning and removal without surface damage or loss of grip"
+    },
+    {
+     "label": "Performance",
+     "value": "Smooth marker writing with easy erase and durable fabric surface for repeated pin use"
+    },
+    {
+     "label": "Durability",
+     "value": "Long-lasting surface performance for regular notice display use"
+    }
+   ],
+   "sourceDescription": "The Combination Board has a dry wipe white board on one side and a fabric notice board on the other, combining writing with markers and pin-up display in a single board. It offers smooth marker writing with easy erase, and a durable fabric surface for repeated pin use with long-lasting surface performance.",
+   "published": true
   },
   {
    "slug": "deluxe-45mm-adc-notice-board-single-door",
    "name": "Deluxe 45 mm ADC Notice Board (Single Door)",
-   "categoryId": "notice-boards",
+   "categoryId": "acrylic-door-cover-notice-boards",
    "seriesId": "deluxe-standard",
-   "subcategoryIds": [
-    "notice-boards-adc"
-   ],
+   "subcategoryIds": [],
    "magnetic": false,
    "doubleSided": false,
    "sizes": [
@@ -1248,11 +2425,44 @@
    "videoId": null,
    "surface": "High gloss melamine writing surface",
    "frame": "Deluxe anodized aluminium frame",
-   "corners": "Electroplated chrome corners"
+   "corners": "Electroplated chrome corners",
+   "boardType": "n/a",
+   "surfaceKind": "pin-up",
+   "enquiryOnly": false,
+   "needsData": false,
+   "customisation": null,
+   "specs": [
+    {
+     "label": "Type",
+     "value": "Acrylic door covered notice board with single door design"
+    },
+    {
+     "label": "Framing",
+     "value": "Deluxe 45 mm triple aluminium framing for strength, stability, and long-term durability"
+    },
+    {
+     "label": "Cover",
+     "value": "Transparent acrylic door cover to protect displayed notices from dust, moisture, and handling"
+    },
+    {
+     "label": "Locking",
+     "value": "Secure single-door locking system for controlled and safe notice display"
+    },
+    {
+     "label": "Performance",
+     "value": "Smooth door operation with clear visibility of notices"
+    },
+    {
+     "label": "Finish",
+     "value": "Neat and professional finish suitable for regular indoor use"
+    }
+   ],
+   "sourceDescription": "The Deluxe 45 mm Acrylic Door Cover (ADC) Notice Board (Single Door) is a notice board with a single-door acrylic cover. Deluxe 45 mm triple aluminium framing provides strength, stability and long-term durability. The transparent acrylic door cover protects displayed notices from dust, moisture and handling, with a secure single-door locking system, smooth door operation and clear visibility of notices.",
+   "published": true
   },
   {
    "slug": "four-leg-stand",
-   "name": "Four Leg Board Stand",
+   "name": "Four Leg Stand",
    "categoryId": "board-stands",
    "seriesId": null,
    "subcategoryIds": [
@@ -1271,11 +2481,19 @@
    "videoId": null,
    "surface": null,
    "frame": null,
-   "corners": null
+   "corners": null,
+   "boardType": "n/a",
+   "surfaceKind": "other",
+   "enquiryOnly": true,
+   "needsData": true,
+   "customisation": null,
+   "specs": [],
+   "sourceDescription": "The Four Leg Stand is part of the Plusmark range of board stands, newspaper stands, magazine stands and storage products. Plusmark manufactures all types of board stands. Please request an enquiry for the current specifications, sizes and finishes of this model.",
+   "published": true
   },
   {
    "slug": "three-leg-stand",
-   "name": "Three Leg Board Stand",
+   "name": "Three Leg Stand",
    "categoryId": "board-stands",
    "seriesId": null,
    "subcategoryIds": [
@@ -1294,11 +2512,19 @@
    "videoId": null,
    "surface": null,
    "frame": null,
-   "corners": null
+   "corners": null,
+   "boardType": "n/a",
+   "surfaceKind": "other",
+   "enquiryOnly": true,
+   "needsData": true,
+   "customisation": null,
+   "specs": [],
+   "sourceDescription": "The Three Leg Stand is part of the Plusmark range of board stands, newspaper stands, magazine stands and storage products. Plusmark manufactures all types of board stands. Please request an enquiry for the current specifications, sizes and finishes of this model.",
+   "published": true
   },
   {
    "slug": "zig-zag-stand",
-   "name": "Zig Zag Board Stand",
+   "name": "Zig Zag Stand",
    "categoryId": "board-stands",
    "seriesId": null,
    "subcategoryIds": [
@@ -1317,11 +2543,19 @@
    "videoId": null,
    "surface": null,
    "frame": null,
-   "corners": null
+   "corners": null,
+   "boardType": "n/a",
+   "surfaceKind": "other",
+   "enquiryOnly": true,
+   "needsData": true,
+   "customisation": null,
+   "specs": [],
+   "sourceDescription": "The Zig Zag Stand is part of the Plusmark range of board stands, newspaper stands, magazine stands and storage products. Plusmark manufactures all types of board stands. Please request an enquiry for the current specifications, sizes and finishes of this model.",
+   "published": true
   },
   {
    "slug": "revolving-stand",
-   "name": "Revolving Board Stand",
+   "name": "Revolving Stand",
    "categoryId": "board-stands",
    "seriesId": null,
    "subcategoryIds": [
@@ -1340,11 +2574,19 @@
    "videoId": null,
    "surface": null,
    "frame": null,
-   "corners": null
+   "corners": null,
+   "boardType": "n/a",
+   "surfaceKind": "other",
+   "enquiryOnly": true,
+   "needsData": true,
+   "customisation": null,
+   "specs": [],
+   "sourceDescription": "The Revolving Stand is part of the Plusmark range of board stands, newspaper stands, magazine stands and storage products. Plusmark manufactures all types of board stands. Please request an enquiry for the current specifications, sizes and finishes of this model.",
+   "published": true
   },
   {
    "slug": "telescopic-stand",
-   "name": "Telescopic Board Stand",
+   "name": "Telescopic Stand",
    "categoryId": "board-stands",
    "seriesId": null,
    "subcategoryIds": [
@@ -1363,7 +2605,15 @@
    "videoId": null,
    "surface": null,
    "frame": null,
-   "corners": null
+   "corners": null,
+   "boardType": "n/a",
+   "surfaceKind": "other",
+   "enquiryOnly": true,
+   "needsData": true,
+   "customisation": null,
+   "specs": [],
+   "sourceDescription": "The Telescopic Stand is part of the Plusmark range of board stands, newspaper stands, magazine stands and storage products. Plusmark manufactures all types of board stands. Please request an enquiry for the current specifications, sizes and finishes of this model.",
+   "published": true
   },
   {
    "slug": "file-rack",
@@ -1386,7 +2636,15 @@
    "videoId": null,
    "surface": null,
    "frame": null,
-   "corners": null
+   "corners": null,
+   "boardType": "n/a",
+   "surfaceKind": "other",
+   "enquiryOnly": false,
+   "needsData": true,
+   "customisation": null,
+   "specs": [],
+   "sourceDescription": "The File Rack is part of the Plusmark range of board stands, newspaper stands, magazine stands and storage products. Plusmark manufactures all types of board stands. Please request an enquiry for the current specifications, sizes and finishes of this model.",
+   "published": true
   },
   {
    "slug": "magazine-stand",
@@ -1409,7 +2667,15 @@
    "videoId": null,
    "surface": null,
    "frame": null,
-   "corners": null
+   "corners": null,
+   "boardType": "n/a",
+   "surfaceKind": "other",
+   "enquiryOnly": false,
+   "needsData": true,
+   "customisation": null,
+   "specs": [],
+   "sourceDescription": "The Magazine Stand is part of the Plusmark range of board stands, newspaper stands, magazine stands and storage products. Plusmark manufactures all types of board stands. Please request an enquiry for the current specifications, sizes and finishes of this model.",
+   "published": true
   },
   {
    "slug": "newspaper-stand",
@@ -1432,7 +2698,15 @@
    "videoId": null,
    "surface": null,
    "frame": null,
-   "corners": null
+   "corners": null,
+   "boardType": "n/a",
+   "surfaceKind": "other",
+   "enquiryOnly": false,
+   "needsData": true,
+   "customisation": null,
+   "specs": [],
+   "sourceDescription": "The Newspaper Stand is part of the Plusmark range of board stands, newspaper stands, magazine stands and storage products. Plusmark manufactures all types of board stands. Please request an enquiry for the current specifications, sizes and finishes of this model.",
+   "published": true
   },
   {
    "slug": "letter-box",
@@ -1455,14 +2729,24 @@
    "videoId": null,
    "surface": null,
    "frame": null,
-   "corners": null
+   "corners": null,
+   "boardType": "n/a",
+   "surfaceKind": "other",
+   "enquiryOnly": false,
+   "needsData": true,
+   "customisation": null,
+   "specs": [],
+   "sourceDescription": "The Letter Box is part of the Plusmark range of board stands, newspaper stands, magazine stands and storage products. Plusmark manufactures all types of board stands. Please request an enquiry for the current specifications, sizes and finishes of this model.",
+   "published": true
   },
   {
    "slug": "first-aid-box",
    "name": "First Aid Box",
-   "categoryId": "board-study-essentials",
+   "categoryId": "board-stands",
    "seriesId": null,
-   "subcategoryIds": [],
+   "subcategoryIds": [
+    "board-stands-storage"
+   ],
    "magnetic": false,
    "doubleSided": false,
    "sizes": [
@@ -1476,12 +2760,20 @@
    "videoId": null,
    "surface": null,
    "frame": null,
-   "corners": null
+   "corners": null,
+   "boardType": "n/a",
+   "surfaceKind": "other",
+   "enquiryOnly": false,
+   "needsData": true,
+   "customisation": null,
+   "specs": [],
+   "sourceDescription": "The First Aid Box is part of the Plusmark range of board stands, newspaper stands, magazine stands and storage products. Plusmark manufactures all types of board stands. Please request an enquiry for the current specifications, sizes and finishes of this model.",
+   "published": true
   },
   {
    "slug": "student-study-table",
-   "name": "Student Study Table",
-   "categoryId": "school-benches",
+   "name": "Homework Table",
+   "categoryId": "board-study-essentials",
    "seriesId": null,
    "subcategoryIds": [],
    "magnetic": false,
@@ -1497,12 +2789,41 @@
    "videoId": null,
    "surface": null,
    "frame": null,
-   "corners": null
+   "corners": null,
+   "boardType": "n/a",
+   "surfaceKind": "other",
+   "enquiryOnly": false,
+   "needsData": true,
+   "customisation": null,
+   "specs": [
+    {
+     "label": "Writing Area Size",
+     "value": "16 × 24 inches"
+    },
+    {
+     "label": "Height",
+     "value": "9.5 inches"
+    },
+    {
+     "label": "Surface",
+     "value": "Smooth White Board Writing Surface"
+    },
+    {
+     "label": "Top",
+     "value": "Tilting top with support stand (Adjust Your Height) and Table Top Clip"
+    },
+    {
+     "label": "Design",
+     "value": "Foldable & Space-Saving Design"
+    }
+   ],
+   "sourceDescription": "The Plusmark Homework Table is a foldable student study table, ideal for daily study and homework. Its smooth white board writing surface is easy to clean and maintain, a table top clip holds papers in place, and the top tilts up on a support stand to adjust the writing height. Foldable and space-saving, it doubles as a reading and laptop table. Writing area: 16 × 24 inches; height: 9.5 inches.",
+   "published": true
   },
   {
    "slug": "pds-500",
-   "name": "PDS 500 Classroom Bench",
-   "categoryId": "school-benches",
+   "name": "PDS-500",
+   "categoryId": "board-stands",
    "seriesId": null,
    "subcategoryIds": [],
    "magnetic": false,
@@ -1518,11 +2839,19 @@
    "videoId": null,
    "surface": null,
    "frame": null,
-   "corners": null
+   "corners": null,
+   "boardType": "n/a",
+   "surfaceKind": "other",
+   "enquiryOnly": true,
+   "needsData": true,
+   "customisation": null,
+   "specs": [],
+   "sourceDescription": "The PDS-500 is part of the Plusmark range of board stands, newspaper stands, magazine stands and storage products. Plusmark manufactures all types of board stands. Please request an enquiry for the current specifications, sizes and finishes of this model.",
+   "published": true
   },
   {
    "slug": "pds-sb-801",
-   "name": "PDS SB-801 School Bench",
+   "name": "School Bench PDS-SB 801",
    "categoryId": "school-benches",
    "seriesId": null,
    "subcategoryIds": [],
@@ -1539,11 +2868,24 @@
    "videoId": null,
    "surface": null,
    "frame": null,
-   "corners": null
+   "corners": null,
+   "boardType": "n/a",
+   "surfaceKind": "other",
+   "enquiryOnly": true,
+   "needsData": true,
+   "customisation": null,
+   "specs": [
+    {
+     "label": "Model",
+     "value": "PDS-SB 801"
+    }
+   ],
+   "sourceDescription": "PDS-SB 801 is one of fifteen school bench models listed in the Plusmark catalog. Plusmark is expanding into the manufacturing of School Benches, supporting educational infrastructure development. Please request an enquiry for the dimensions, materials and seating configuration of this model.",
+   "published": true
   },
   {
    "slug": "pds-sb-802",
-   "name": "PDS SB-802 School Bench",
+   "name": "School Bench PDS-SB 802",
    "categoryId": "school-benches",
    "seriesId": null,
    "subcategoryIds": [],
@@ -1560,11 +2902,24 @@
    "videoId": null,
    "surface": null,
    "frame": null,
-   "corners": null
+   "corners": null,
+   "boardType": "n/a",
+   "surfaceKind": "other",
+   "enquiryOnly": true,
+   "needsData": true,
+   "customisation": null,
+   "specs": [
+    {
+     "label": "Model",
+     "value": "PDS-SB 802"
+    }
+   ],
+   "sourceDescription": "PDS-SB 802 is one of fifteen school bench models listed in the Plusmark catalog. Plusmark is expanding into the manufacturing of School Benches, supporting educational infrastructure development. Please request an enquiry for the dimensions, materials and seating configuration of this model.",
+   "published": true
   },
   {
    "slug": "pds-sb-803",
-   "name": "PDS SB-803 School Bench",
+   "name": "School Bench PDS-SB 803",
    "categoryId": "school-benches",
    "seriesId": null,
    "subcategoryIds": [],
@@ -1581,11 +2936,24 @@
    "videoId": null,
    "surface": null,
    "frame": null,
-   "corners": null
+   "corners": null,
+   "boardType": "n/a",
+   "surfaceKind": "other",
+   "enquiryOnly": true,
+   "needsData": true,
+   "customisation": null,
+   "specs": [
+    {
+     "label": "Model",
+     "value": "PDS-SB 803"
+    }
+   ],
+   "sourceDescription": "PDS-SB 803 is one of fifteen school bench models listed in the Plusmark catalog. Plusmark is expanding into the manufacturing of School Benches, supporting educational infrastructure development. Please request an enquiry for the dimensions, materials and seating configuration of this model.",
+   "published": true
   },
   {
    "slug": "pds-sb-804",
-   "name": "PDS SB-804 School Bench",
+   "name": "School Bench PDS-SB 804",
    "categoryId": "school-benches",
    "seriesId": null,
    "subcategoryIds": [],
@@ -1602,11 +2970,24 @@
    "videoId": null,
    "surface": null,
    "frame": null,
-   "corners": null
+   "corners": null,
+   "boardType": "n/a",
+   "surfaceKind": "other",
+   "enquiryOnly": true,
+   "needsData": true,
+   "customisation": null,
+   "specs": [
+    {
+     "label": "Model",
+     "value": "PDS-SB 804"
+    }
+   ],
+   "sourceDescription": "PDS-SB 804 is one of fifteen school bench models listed in the Plusmark catalog. Plusmark is expanding into the manufacturing of School Benches, supporting educational infrastructure development. Please request an enquiry for the dimensions, materials and seating configuration of this model.",
+   "published": true
   },
   {
    "slug": "pds-sb-805",
-   "name": "PDS SB-805 School Bench",
+   "name": "School Bench PDS-SB 805",
    "categoryId": "school-benches",
    "seriesId": null,
    "subcategoryIds": [],
@@ -1623,11 +3004,24 @@
    "videoId": null,
    "surface": null,
    "frame": null,
-   "corners": null
+   "corners": null,
+   "boardType": "n/a",
+   "surfaceKind": "other",
+   "enquiryOnly": true,
+   "needsData": true,
+   "customisation": null,
+   "specs": [
+    {
+     "label": "Model",
+     "value": "PDS-SB 805"
+    }
+   ],
+   "sourceDescription": "PDS-SB 805 is one of fifteen school bench models listed in the Plusmark catalog. Plusmark is expanding into the manufacturing of School Benches, supporting educational infrastructure development. Please request an enquiry for the dimensions, materials and seating configuration of this model.",
+   "published": true
   },
   {
    "slug": "pds-sb-806",
-   "name": "PDS SB-806 School Bench",
+   "name": "School Bench PDS-SB 806",
    "categoryId": "school-benches",
    "seriesId": null,
    "subcategoryIds": [],
@@ -1644,11 +3038,24 @@
    "videoId": null,
    "surface": null,
    "frame": null,
-   "corners": null
+   "corners": null,
+   "boardType": "n/a",
+   "surfaceKind": "other",
+   "enquiryOnly": true,
+   "needsData": true,
+   "customisation": null,
+   "specs": [
+    {
+     "label": "Model",
+     "value": "PDS-SB 806"
+    }
+   ],
+   "sourceDescription": "PDS-SB 806 is one of fifteen school bench models listed in the Plusmark catalog. Plusmark is expanding into the manufacturing of School Benches, supporting educational infrastructure development. Please request an enquiry for the dimensions, materials and seating configuration of this model.",
+   "published": true
   },
   {
    "slug": "pds-sb-807",
-   "name": "PDS SB-807 School Bench",
+   "name": "School Bench PDS-SB 807",
    "categoryId": "school-benches",
    "seriesId": null,
    "subcategoryIds": [],
@@ -1665,11 +3072,24 @@
    "videoId": null,
    "surface": null,
    "frame": null,
-   "corners": null
+   "corners": null,
+   "boardType": "n/a",
+   "surfaceKind": "other",
+   "enquiryOnly": true,
+   "needsData": true,
+   "customisation": null,
+   "specs": [
+    {
+     "label": "Model",
+     "value": "PDS-SB 807"
+    }
+   ],
+   "sourceDescription": "PDS-SB 807 is one of fifteen school bench models listed in the Plusmark catalog. Plusmark is expanding into the manufacturing of School Benches, supporting educational infrastructure development. Please request an enquiry for the dimensions, materials and seating configuration of this model.",
+   "published": true
   },
   {
    "slug": "pds-sb-808",
-   "name": "PDS SB-808 School Bench",
+   "name": "School Bench PDS-SB 808",
    "categoryId": "school-benches",
    "seriesId": null,
    "subcategoryIds": [],
@@ -1686,11 +3106,24 @@
    "videoId": null,
    "surface": null,
    "frame": null,
-   "corners": null
+   "corners": null,
+   "boardType": "n/a",
+   "surfaceKind": "other",
+   "enquiryOnly": true,
+   "needsData": true,
+   "customisation": null,
+   "specs": [
+    {
+     "label": "Model",
+     "value": "PDS-SB 808"
+    }
+   ],
+   "sourceDescription": "PDS-SB 808 is one of fifteen school bench models listed in the Plusmark catalog. Plusmark is expanding into the manufacturing of School Benches, supporting educational infrastructure development. Please request an enquiry for the dimensions, materials and seating configuration of this model.",
+   "published": true
   },
   {
    "slug": "pds-sb-809",
-   "name": "PDS SB-809 School Bench",
+   "name": "School Bench PDS-SB 809",
    "categoryId": "school-benches",
    "seriesId": null,
    "subcategoryIds": [],
@@ -1707,11 +3140,24 @@
    "videoId": null,
    "surface": null,
    "frame": null,
-   "corners": null
+   "corners": null,
+   "boardType": "n/a",
+   "surfaceKind": "other",
+   "enquiryOnly": true,
+   "needsData": true,
+   "customisation": null,
+   "specs": [
+    {
+     "label": "Model",
+     "value": "PDS-SB 809"
+    }
+   ],
+   "sourceDescription": "PDS-SB 809 is one of fifteen school bench models listed in the Plusmark catalog. Plusmark is expanding into the manufacturing of School Benches, supporting educational infrastructure development. Please request an enquiry for the dimensions, materials and seating configuration of this model.",
+   "published": true
   },
   {
    "slug": "pds-sb-810",
-   "name": "PDS SB-810 School Bench",
+   "name": "School Bench PDS-SB 810",
    "categoryId": "school-benches",
    "seriesId": null,
    "subcategoryIds": [],
@@ -1728,11 +3174,24 @@
    "videoId": null,
    "surface": null,
    "frame": null,
-   "corners": null
+   "corners": null,
+   "boardType": "n/a",
+   "surfaceKind": "other",
+   "enquiryOnly": true,
+   "needsData": true,
+   "customisation": null,
+   "specs": [
+    {
+     "label": "Model",
+     "value": "PDS-SB 810"
+    }
+   ],
+   "sourceDescription": "PDS-SB 810 is one of fifteen school bench models listed in the Plusmark catalog. Plusmark is expanding into the manufacturing of School Benches, supporting educational infrastructure development. Please request an enquiry for the dimensions, materials and seating configuration of this model.",
+   "published": true
   },
   {
    "slug": "pds-sb-811",
-   "name": "PDS SB-811 School Bench",
+   "name": "School Bench PDS-SB 811",
    "categoryId": "school-benches",
    "seriesId": null,
    "subcategoryIds": [],
@@ -1749,11 +3208,24 @@
    "videoId": null,
    "surface": null,
    "frame": null,
-   "corners": null
+   "corners": null,
+   "boardType": "n/a",
+   "surfaceKind": "other",
+   "enquiryOnly": true,
+   "needsData": true,
+   "customisation": null,
+   "specs": [
+    {
+     "label": "Model",
+     "value": "PDS-SB 811"
+    }
+   ],
+   "sourceDescription": "PDS-SB 811 is one of fifteen school bench models listed in the Plusmark catalog. Plusmark is expanding into the manufacturing of School Benches, supporting educational infrastructure development. Please request an enquiry for the dimensions, materials and seating configuration of this model.",
+   "published": true
   },
   {
    "slug": "pds-sb-812",
-   "name": "PDS SB-812 School Bench",
+   "name": "School Bench PDS-SB 812",
    "categoryId": "school-benches",
    "seriesId": null,
    "subcategoryIds": [],
@@ -1770,11 +3242,24 @@
    "videoId": null,
    "surface": null,
    "frame": null,
-   "corners": null
+   "corners": null,
+   "boardType": "n/a",
+   "surfaceKind": "other",
+   "enquiryOnly": true,
+   "needsData": true,
+   "customisation": null,
+   "specs": [
+    {
+     "label": "Model",
+     "value": "PDS-SB 812"
+    }
+   ],
+   "sourceDescription": "PDS-SB 812 is one of fifteen school bench models listed in the Plusmark catalog. Plusmark is expanding into the manufacturing of School Benches, supporting educational infrastructure development. Please request an enquiry for the dimensions, materials and seating configuration of this model.",
+   "published": true
   },
   {
    "slug": "pds-sb-813",
-   "name": "PDS SB-813 School Bench",
+   "name": "School Bench PDS-SB 813",
    "categoryId": "school-benches",
    "seriesId": null,
    "subcategoryIds": [],
@@ -1791,11 +3276,24 @@
    "videoId": null,
    "surface": null,
    "frame": null,
-   "corners": null
+   "corners": null,
+   "boardType": "n/a",
+   "surfaceKind": "other",
+   "enquiryOnly": true,
+   "needsData": true,
+   "customisation": null,
+   "specs": [
+    {
+     "label": "Model",
+     "value": "PDS-SB 813"
+    }
+   ],
+   "sourceDescription": "PDS-SB 813 is one of fifteen school bench models listed in the Plusmark catalog. Plusmark is expanding into the manufacturing of School Benches, supporting educational infrastructure development. Please request an enquiry for the dimensions, materials and seating configuration of this model.",
+   "published": true
   },
   {
    "slug": "pds-sb-814",
-   "name": "PDS SB-814 School Bench",
+   "name": "School Bench PDS-SB 814",
    "categoryId": "school-benches",
    "seriesId": null,
    "subcategoryIds": [],
@@ -1812,11 +3310,24 @@
    "videoId": null,
    "surface": null,
    "frame": null,
-   "corners": null
+   "corners": null,
+   "boardType": "n/a",
+   "surfaceKind": "other",
+   "enquiryOnly": true,
+   "needsData": true,
+   "customisation": null,
+   "specs": [
+    {
+     "label": "Model",
+     "value": "PDS-SB 814"
+    }
+   ],
+   "sourceDescription": "PDS-SB 814 is one of fifteen school bench models listed in the Plusmark catalog. Plusmark is expanding into the manufacturing of School Benches, supporting educational infrastructure development. Please request an enquiry for the dimensions, materials and seating configuration of this model.",
+   "published": true
   },
   {
    "slug": "pds-sb-815",
-   "name": "PDS SB-815 School Bench",
+   "name": "School Bench PDS-SB 815",
    "categoryId": "school-benches",
    "seriesId": null,
    "subcategoryIds": [],
@@ -1833,7 +3344,20 @@
    "videoId": null,
    "surface": null,
    "frame": null,
-   "corners": null
+   "corners": null,
+   "boardType": "n/a",
+   "surfaceKind": "other",
+   "enquiryOnly": true,
+   "needsData": true,
+   "customisation": null,
+   "specs": [
+    {
+     "label": "Model",
+     "value": "PDS-SB 815"
+    }
+   ],
+   "sourceDescription": "PDS-SB 815 is one of fifteen school bench models listed in the Plusmark catalog. Plusmark is expanding into the manufacturing of School Benches, supporting educational infrastructure development. Please request an enquiry for the dimensions, materials and seating configuration of this model.",
+   "published": true
   }
  ],
  "institutions": [

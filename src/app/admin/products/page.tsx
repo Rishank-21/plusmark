@@ -25,9 +25,10 @@ interface Filters {
   seriesId: string;
   priceMode: string;
   published: string;
+  needsData: string;
 }
 
-const INITIAL: Filters = { query: "", categoryId: ALL, seriesId: ALL, priceMode: ALL, published: ALL };
+const INITIAL: Filters = { query: "", categoryId: ALL, seriesId: ALL, priceMode: ALL, published: ALL, needsData: ALL };
 
 export default function AdminProductsPage() {
   const toast = useToast();
@@ -54,6 +55,7 @@ export default function AdminProductsPage() {
       if (filters.seriesId !== ALL && (product.seriesId ?? "none") !== filters.seriesId) return false;
       if (filters.priceMode !== ALL && product.priceMode !== filters.priceMode) return false;
       if (filters.published !== ALL && String(product.published) !== filters.published) return false;
+      if (filters.needsData !== ALL && String(product.needsData) !== filters.needsData) return false;
       if (!needle) return true;
       const haystack = [product.name, product.slug, product.surface, ...product.variants.map((variant) => variant.sku)]
         .filter(Boolean)
@@ -103,7 +105,11 @@ export default function AdminProductsPage() {
       sortValue: (p) => p.name,
       render: (p) => (
         <span className="flex min-w-0 flex-col leading-tight">
-          <TableLink href={`/admin/products/${p.slug}/edit`}>{p.name}</TableLink>
+          <span className="flex items-center gap-1.5">
+            <TableLink href={`/admin/products/${p.slug}/edit`}>{p.name}</TableLink>
+            {p.needsData && <Badge tone="warning">Needs data</Badge>}
+            {p.enquiryOnly && <Badge tone="neutral">Enquiry</Badge>}
+          </span>
           <span className="truncate text-caption text-graphite">{p.slug}</span>
         </span>
       )
@@ -275,6 +281,16 @@ export default function AdminProductsPage() {
             { value: "false", label: "Draft" }
           ]}
         />
+        <FilterSelect
+          label="Data"
+          value={filters.needsData}
+          onChange={(value) => setFilters((current) => ({ ...current, needsData: value }))}
+          options={[
+            { value: ALL, label: "Any record" },
+            { value: "true", label: "Needs data" },
+            { value: "false", label: "Complete" }
+          ]}
+        />
       </FilterBar>
 
       <DataTable
@@ -282,7 +298,7 @@ export default function AdminProductsPage() {
         columns={columns}
         rows={rows}
         keyFor={(product) => product.id}
-        resetKey={`${filters.query}|${filters.categoryId}|${filters.seriesId}|${filters.priceMode}|${filters.published}`}
+        resetKey={`${filters.query}|${filters.categoryId}|${filters.seriesId}|${filters.priceMode}|${filters.published}|${filters.needsData}`}
         pageSize={12}
         defaultSort={{ id: "name", dir: "asc" }}
         loading={query.loading}

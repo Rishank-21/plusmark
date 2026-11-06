@@ -29,7 +29,7 @@ export function ProductStory({ slug, name }: { slug: string; name: string }) {
               key={panel}
               src={imageUrl(panel, { fit: "scale", width: isBrand ? 1464 : 2000 })}
               loader={cloudinaryLoader}
-              alt={isBrand ? "Plusmark Retail" : `${name} — Plusmark A+ listing panel ${index}`}
+              alt={isBrand ? "Plusmark" : `${name} — Plusmark A+ listing panel ${index}`}
               width={isBrand ? 1464 : 4100}
               height={isBrand ? 600 : 1680}
               sizes="(max-width: 639px) calc(100vw - 2rem), (max-width: 1439px) calc(100vw - 4rem), 1376px"

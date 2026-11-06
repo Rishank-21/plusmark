@@ -84,25 +84,33 @@ const products = raw.products.map((p) => {
     double_sided: Boolean(p.doubleSided),
     usage: `General ${subject} use.`,
     blurb: `${p.name}${facts.length ? `: ${facts[0]}` : ""}. Made to order in the sizes listed here.`,
-    description: [
-      `${p.name} is made by Plusmark in Ahmedabad and dispatched across India.`,
-      facts.length ? `Specification on record: ${facts.join(" · ")}.` : "",
-      p.sizes.length ? `Standard sizes: ${p.sizes.join(", ")}. Larger or non-standard sizes are made to order.` : ""
-    ].filter(Boolean).join("\n\n"),
+    description:
+      p.sourceDescription ??
+      [
+        `${p.name} is made by Plusmark in Ahmedabad and dispatched across India.`,
+        facts.length ? `Specification on record: ${facts.join(" · ")}.` : "",
+        p.sizes.length ? `Standard sizes: ${p.sizes.join(", ")}. Larger or non-standard sizes are made to order.` : ""
+      ].filter(Boolean).join("\n\n"),
     features: facts,
+    board_type: p.boardType ?? "n/a",
+    surface_kind: p.surfaceKind ?? "other",
+    enquiry_only: Boolean(p.enquiryOnly),
+    needs_data: Boolean(p.needsData),
+    customisation: p.customisation ?? null,
+    specs: p.specs ?? [],
     media: p.images.filter((id) => !id.startsWith("plusmark/videos/")).map((publicId) => ({
       publicId,
-      alt: `${p.name} — Plusmark product`,
+      alt: `${p.name} - Plusmark product`,
       width: 1400,
       height: 1400,
       source: p.imageSource === "video-poster" ? "video-poster" : "product"
     })),
     video_id: p.videoId,
-    price_mode: "fixed",
+    price_mode: p.enquiryOnly ? "on_request" : "fixed",
     gst_rate_percent: 12,
     hsn_code: null,
     bulk_suggestion_quantity: 10,
-    published: true,
+    published: p.published !== false,
     featured: false
   };
 });
@@ -152,8 +160,8 @@ if (seeded && !force) {
         product_id: productId,
         size_label: label,
         sku: skuFor(p, label, productIndex),
-        price_mode: "fixed",
-        price_inr: priceFor(p, label),
+        price_mode: p.enquiryOnly ? "on_request" : "fixed",
+        price_inr: p.enquiryOnly ? null : priceFor(p, label),
         stock: null,
         track_inventory: false,
         available: true,

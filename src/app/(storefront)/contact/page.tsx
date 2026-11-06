@@ -2,15 +2,37 @@ import type { Metadata } from "next";
 import { Mail, MessageCircle, PenLine, Phone } from "lucide-react";
 import { ContactForm } from "@/components/static/ContactForm";
 import { FactList, LinkRail, PageHeader, Section } from "@/components/static/Editorial";
-import { brand } from "@/lib/catalog";
+import { brand, getProduct } from "@/lib/catalog";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Contact & support",
+  path: "/contact",
   description: "Contact Plusmark in Ahmedabad about board sizes, custom layouts, orders, delivery and returns."
-};
+});
 
-export default function ContactPage() {
+export default async function ContactPage({
+  searchParams
+}: {
+  searchParams: Promise<{ product?: string | string[]; size?: string | string[]; quantity?: string | string[] }>;
+}) {
   const address = brand.address;
+  const params = await searchParams;
+  const slug = typeof params.product === "string" ? params.product : "";
+  const product = slug ? getProduct(slug) : undefined;
+  const size = typeof params.size === "string" ? params.size : "";
+  const quantity = typeof params.quantity === "string" && /^\d+$/.test(params.quantity) ? params.quantity : "";
+  const prefill = product
+    ? {
+        topic: "custom",
+        message: [
+          `I would like a quotation for ${product.name}.`,
+          size ? `Size: ${size}.` : "",
+          quantity ? `Quantity: ${quantity}.` : "",
+          "Delivery city:"
+        ].filter(Boolean).join("\n")
+      }
+    : undefined;
   return (
     <>
       <PageHeader
@@ -54,7 +76,7 @@ export default function ContactPage() {
           </div>
           <div className="rounded-sm border border-hair bg-sand/35 p-5 sm:p-6">
             <div className="mb-5 flex items-center gap-3"><PenLine className="size-5 text-navy-deep" aria-hidden /><h2 className="font-sans text-h3">Write down your requirement</h2></div>
-            <ContactForm />
+            <ContactForm prefill={prefill} />
           </div>
         </div>
       </Section>

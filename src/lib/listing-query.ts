@@ -21,6 +21,8 @@ export function parseFilters(params: URLSearchParams): ProductFilterState {
     categoryId: params.get("category") ?? EMPTY_FILTERS.categoryId,
     subcategoryId: params.get("subcategory") ?? EMPTY_FILTERS.subcategoryId,
     seriesIds: list("series"),
+    boardType: oneOf(params.get("boardType"), ["any", "non-magnetic", "magnetic", "ceramic"], "any"),
+    surfaceKind: oneOf(params.get("surface"), ["any", "marker", "chalk", "pin-up", "other"], "any"),
     magnetic: oneOf(params.get("magnetic"), ["any", "yes", "no"], "any"),
     doubleSided: oneOf(params.get("doubleSided"), ["any", "yes", "no"], "any"),
     sizeIds: list("size"),
@@ -62,6 +64,8 @@ export function filtersToQuery(
   if (filters.categoryId) params.set("category", filters.categoryId);
   if (filters.subcategoryId) params.set("subcategory", filters.subcategoryId);
   if (filters.seriesIds.length) params.set("series", filters.seriesIds.join(","));
+  if (filters.boardType !== "any") params.set("boardType", filters.boardType);
+  if (filters.surfaceKind !== "any") params.set("surface", filters.surfaceKind);
   if (filters.magnetic !== "any") params.set("magnetic", filters.magnetic);
   if (filters.doubleSided !== "any") params.set("doubleSided", filters.doubleSided);
   if (filters.sizeIds.length) params.set("size", filters.sizeIds.join(","));

@@ -7,12 +7,15 @@ import { buildSize, demoPackPriceInr, demoUnitPriceInr } from "@/lib/demo-pricin
 import { imageUrl } from "@/lib/media";
 import { localCategoryImage, localProductImages } from "@/lib/local-assets";
 import type {
+  BoardType,
   Category,
   FaqItem,
   MediaAsset,
   Product,
+  ProductSpec,
   Series,
   Subcategory,
+  SurfaceKind,
   Variant
 } from "@/types";
 
@@ -49,6 +52,14 @@ interface RawProduct {
   surface: string | null;
   frame: string | null;
   corners: string | null;
+  boardType?: BoardType;
+  surfaceKind?: SurfaceKind;
+  enquiryOnly?: boolean;
+  needsData?: boolean;
+  customisation?: string | null;
+  specs?: ProductSpec[];
+  sourceDescription?: string | null;
+  published?: boolean;
 }
 
 const SERIES_ORDER = ["metallic-premium", "eco-premium", "deluxe-standard", "eco-regular"] as const;
@@ -111,8 +122,9 @@ function sizeId(label: string): string {
     .replace(/^-|-$/g, "");
 }
 
-function mediaFor(product: RawProduct): MediaAsset[] {
-  const alt = `${product.name} — Plusmark ${CATEGORY_SUBJECT[product.categoryId] ?? "product"}`;
+function mediaFor(product: RawProduct, series: Series | null): MediaAsset[] {
+  const type = CATEGORY_SUBJECT[product.categoryId] ?? "product";
+  const alt = `${product.name} - ${series ? `${series.name} ` : ""}${type} by Plusmark`;
   const local = localProductImages(product.slug);
   if (local) {
     return local.map((publicId) => ({ publicId, alt, width: 1400, height: 1400, source: "product" }));
@@ -151,6 +163,8 @@ function descriptionFor(product: RawProduct, series: Series | null, copy?: Catal
         `Standard sizes on this page are ${dimensionalSizes.join(", ")}. Larger or non-standard sizes are made to order — send the size you need and the team will quote it.`
       );
     }
+  } else if (product.sourceDescription) {
+    paragraphs.push(product.sourceDescription);
   } else {
     paragraphs.push(
       `${product.name} is part of the Plusmark ${subject.toLowerCase()} range${
@@ -195,10 +209,12 @@ function buildVariants(product: RawProduct): Variant[] {
   const series = product.seriesId ? seriesById.get(product.seriesId) ?? null : null;
   const offers = PACK_OFFERS[product.slug] ?? {};
   const variants: Variant[] = [];
+  // Enquiry-only models are quoted by the order desk; no figure is published.
+  const pricingAllowed = DEMO_PRICING_ENABLED && !product.enquiryOnly;
 
   for (const label of product.sizes) {
     const id = `${product.slug}--${sizeId(label)}`;
-    const priceInr = DEMO_PRICING_ENABLED
+    const priceInr = pricingAllowed
       ? demoUnitPriceInr({ slug: product.slug, categoryId: product.categoryId, series, sizeLabel: label })
       : null;
     const size = buildSize(id.split("--")[1], label);
@@ -208,7 +224,7 @@ function buildVariants(product: RawProduct): Variant[] {
       productId: product.slug,
       sku: skuFor(product, label),
       size,
-      priceMode: DEMO_PRICING_ENABLED && priceInr !== null ? "fixed" : "on_request",
+      priceMode: priceInr !== null ? "fixed" : "on_request",
       priceInr,
       compareAtInr: null,
       // Plusmark works make-to-order, so no on-hand quantity is published.
@@ -219,7 +235,7 @@ function buildVariants(product: RawProduct): Variant[] {
     });
 
     for (const packQty of offers[label] ?? []) {
-      const packPriceInr = DEMO_PRICING_ENABLED
+      const packPriceInr = pricingAllowed
         ? demoPackPriceInr({ slug: product.slug, sizeLabel: label, packQty })
         : null;
       variants.push({
@@ -279,7 +295,8 @@ const FEATURED = new Set([
   "cork-notice-board"
 ]);
 
-export const products: Product[] = (raw.products as RawProduct[])
+/** Every catalogue record, including drafts — admin and seed scripts only. */
+export const allProducts: Product[] = (raw.products as RawProduct[])
   .map((p) => {
     const series = p.seriesId ? seriesById.get(p.seriesId) ?? null : null;
     const copy = CATALOG_COPY[p.slug];
@@ -296,11 +313,14 @@ export const products: Product[] = (raw.products as RawProduct[])
       corners: copy?.corners !== undefined ? copy.corners : p.corners,
       magnetic: Boolean(p.magnetic),
       doubleSided: Boolean(p.doubleSided),
+      boardType: p.boardType ?? "n/a",
+      surfaceKind: p.surfaceKind ?? "other",
       usage: copy?.usage ?? categoryById.get(p.categoryId)?.description ?? "Classrooms, offices and workspaces",
       blurb: blurbFor(p, copy),
       description: descriptionFor(p, series, copy),
       features: copy?.built ?? featuresFor(p),
-      media: mediaFor(p),
+      customisation: p.customisation ?? null,
+      media: mediaFor(p, series),
       videoId: p.videoId,
       variants,
       priceMode: variants.every((v) => v.priceMode === "on_request") ? "on_request" : "fixed",
@@ -308,12 +328,18 @@ export const products: Product[] = (raw.products as RawProduct[])
       hsnCode: null,
       minimumOrderQuantity: 1,
       bulkSuggestionQuantity: 10,
-      published: true,
+      specs: p.specs ?? [],
+      enquiryOnly: Boolean(p.enquiryOnly),
+      needsData: Boolean(p.needsData),
+      published: p.published !== false,
       featured: FEATURED.has(p.slug),
       createdAt: "2026-01-01T09:30:00.000Z"
     } satisfies Product;
   })
   .sort((a, b) => (a.seriesId ? 0 : 1) - (b.seriesId ? 0 : 1) || a.name.localeCompare(b.name));
+
+/** Storefront catalogue — drafts never reach the site, sitemap or search. */
+export const products: Product[] = allProducts.filter((product) => product.published);
 
 export const industries = (raw.media as { industries: string[] }).industries.map((publicId) => ({
   publicId,

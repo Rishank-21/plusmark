@@ -57,7 +57,7 @@ export function QuickView({ product, open, onClose }: { product: Product | null;
         <div className="flex min-w-0 flex-col gap-4">
           <p className="line-clamp-3 text-body-sm leading-relaxed text-graphite">{product.blurb}</p>
 
-          <PriceRange product={product} variant={selected} size="lg" showDiscount />
+          <PriceRange product={product} variant={selected} size="lg" />
 
           <SizeSelector product={product} selectedId={selected?.id ?? null} onSelect={(v) => setChoice({ ...current, variantId: v.id })} />
 

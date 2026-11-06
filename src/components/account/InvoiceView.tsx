@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowLeft, Printer } from "lucide-react";
 import { paymentMethodLabel } from "@/components/checkout/order-display";
+import { brand } from "@/lib/catalog";
 import { Button, ButtonLink } from "@/components/ui/Button";
 import { Notice, Skeleton } from "@/components/ui/States";
 import { formatDate, formatInr } from "@/lib/format";
@@ -97,7 +98,7 @@ export function InvoiceView({ orderId }: { orderId: string }) {
       <div className="pm-invoice rounded-md border border-hair bg-white p-6 shadow-card sm:p-10">
         <div className="flex flex-wrap items-start justify-between gap-6 border-b border-hair pb-6">
           <div>
-            <p className="text-[1.35rem] font-semibold tracking-[-0.01em] text-ink">Plusmark Retail</p>
+            <p className="text-[1.35rem] font-semibold tracking-[-0.01em] text-ink">{brand.legalName}</p>
             <p className="mt-1 text-caption leading-relaxed text-graphite">
               Writing &amp; display boards
               <br />

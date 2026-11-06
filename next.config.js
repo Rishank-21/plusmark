@@ -5,6 +5,17 @@ const cloudinaryCloud = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || "drt0rp
 const nextConfig = {
   reactStrictMode: true,
   devIndicators: false,
+  async redirects() {
+    return [
+      // ADC notice boards became their own top-level category in the Nov 2026
+      // catalogue sync; the old subcategory URL stays reachable.
+      {
+        source: "/shop/notice-boards/notice-boards-adc",
+        destination: "/shop/acrylic-door-cover-notice-boards",
+        permanent: true
+      }
+    ];
+  },
   images: {
     remotePatterns: [
       {

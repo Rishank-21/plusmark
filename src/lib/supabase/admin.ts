@@ -21,6 +21,7 @@ import type {
   Order,
   OrderLine,
   Product,
+  ProductSpec,
   ShippingMethod,
   Variant
 } from "@/types";
@@ -90,6 +91,18 @@ function mediaFromJson(value: unknown): MediaAsset[] {
   });
 }
 
+function specsFromJson(value: unknown): ProductSpec[] {
+  if (!Array.isArray(value)) return [];
+  return value.flatMap((item) => {
+    if (!item || typeof item !== "object") return [];
+    const raw = item as { label?: unknown; value?: unknown };
+    if (typeof raw.label !== "string" || typeof raw.value !== "string") return [];
+    const label = raw.label.trim();
+    const specValue = raw.value.trim();
+    return label && specValue ? [{ label, value: specValue }] : [];
+  });
+}
+
 function variantFromRow(row: ProductVariantRow): Variant {
   return {
     id: row.id,
@@ -120,10 +133,14 @@ export function productFromRow(row: ProductRow & { product_variants?: ProductVar
     corners: row.corners,
     magnetic: row.magnetic,
     doubleSided: row.double_sided,
+    boardType: row.board_type,
+    surfaceKind: row.surface_kind,
     usage: row.usage,
     blurb: row.blurb,
     description: row.description,
     features: row.features ?? [],
+    specs: specsFromJson(row.specs),
+    customisation: row.customisation,
     media: mediaFromJson(row.media),
     videoId: row.video_id,
     variants,
@@ -132,6 +149,8 @@ export function productFromRow(row: ProductRow & { product_variants?: ProductVar
     hsnCode: row.hsn_code,
     minimumOrderQuantity: 1,
     bulkSuggestionQuantity: row.bulk_suggestion_quantity,
+    enquiryOnly: row.enquiry_only,
+    needsData: row.needs_data,
     published: row.published,
     featured: row.featured,
     createdAt: row.created_at
@@ -239,16 +258,22 @@ export interface AdminProductInput {
   corners: string;
   magnetic: boolean;
   doubleSided: boolean;
+  boardType: "non-magnetic" | "magnetic" | "ceramic" | "n/a";
+  surfaceKind: "marker" | "chalk" | "pin-up" | "other";
   usage: string;
   blurb: string;
   description: string;
   features: string[];
+  specs: ProductSpec[];
+  customisation: string | null;
   media: MediaAsset[];
   videoId: string | null;
   priceMode: "fixed" | "on_request";
   gstRatePercent: number;
   hsnCode: string | null;
   bulkSuggestionQuantity: number;
+  enquiryOnly: boolean;
+  needsData: boolean;
   published: boolean;
   featured: boolean;
   variants: AdminVariantInput[];
@@ -266,10 +291,14 @@ function productDbRow(input: AdminProductInput) {
     corners: input.corners || null,
     magnetic: input.magnetic,
     double_sided: input.doubleSided,
+    board_type: input.boardType,
+    surface_kind: input.surfaceKind,
     usage: input.usage,
     blurb: input.blurb,
     description: input.description,
     features: input.features,
+    specs: input.specs as unknown as Json,
+    customisation: input.customisation || null,
     media: input.media.map((asset) => ({
       publicId: asset.publicId,
       alt: asset.alt,
@@ -282,6 +311,8 @@ function productDbRow(input: AdminProductInput) {
     gst_rate_percent: input.gstRatePercent,
     hsn_code: input.hsnCode || null,
     bulk_suggestion_quantity: input.bulkSuggestionQuantity,
+    enquiry_only: input.enquiryOnly,
+    needs_data: input.needsData,
     published: input.published,
     featured: input.featured
   };

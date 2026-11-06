@@ -2,8 +2,9 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { CheckCircle2, Heart, MapPin, Truck } from "lucide-react";
+import { CheckCircle2, Heart, MapPin, MessageCircle, Truck } from "lucide-react";
 import { Modal } from "@/components/ui/Modal";
+import { brand } from "@/lib/catalog";
 import { STORAGE_KEYS } from "@/lib/config";
 import { classNames, formatInr, variantLabel } from "@/lib/format";
 import { readJson, writeJson } from "@/lib/storage";
@@ -63,10 +64,17 @@ export function PurchasePanel({
     toast.push("Delivery PIN code saved for this browser.", "info");
   };
 
-  const priced = variant?.priceInr ?? firstListedPrice(product);
+  const priced = product.enquiryOnly ? null : variant?.priceInr ?? firstListedPrice(product);
   const compareAt = variant?.compareAtInr ?? null;
   const total = priced === null ? null : priced * quantity;
   const madeToOrder = variant ? !variant.available || variant.trackInventory === false : true;
+  const enquiryMessage = `Hi Plusmark, I would like a quotation for ${product.name}${
+    variant ? ` (${variant.size.label})` : ""
+  }, quantity ${quantity}.`;
+  const whatsappHref = `https://wa.me/${brand.whatsapp}?text=${encodeURIComponent(enquiryMessage)}`;
+  const contactHref = `/contact?product=${encodeURIComponent(product.slug)}${
+    variant ? `&size=${encodeURIComponent(variant.size.label)}` : ""
+  }&quantity=${quantity}`;
 
   return (
     <aside
@@ -98,8 +106,11 @@ export function PurchasePanel({
           <span>
             <span className="font-medium text-ink">Pan-India dispatch</span> from the Ahmedabad works. Freight and the
             delivery date are confirmed by the order desk for your PIN code.{" "}
-            <Link href="/policies/shipping" className="text-blue-deep underline-offset-4 hover:underline">
-              Details
+            <Link
+              href="/policies/shipping"
+              className="text-blue-deep underline decoration-blue-deep/40 underline-offset-4 hover:decoration-blue-deep"
+            >
+              Shipping details
             </Link>
           </span>
         </p>
@@ -148,24 +159,49 @@ export function PurchasePanel({
       </div>
 
       <div className="flex flex-col gap-2">
-        <button
-          type="button"
-          onClick={onAdd}
-          className="h-11 w-full rounded-full border border-blue bg-surface text-body-sm font-semibold text-blue-deep transition-colors hover:bg-blue-wash"
-        >
-          Add to cart
-        </button>
-        <button
-          type="button"
-          onClick={onBuyNow}
-          className="h-11 w-full rounded-full bg-blue text-body-sm font-semibold text-white transition-colors hover:bg-blue-deep"
-        >
-          Buy Now
-        </button>
-        {total !== null && (
-          <p className="text-center text-caption text-graphite">
-            Total for {quantity}: <span className="tabular font-medium text-ink">{formatInr(total)}</span> + GST
-          </p>
+        {product.enquiryOnly ? (
+          <>
+            <a
+              href={whatsappHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex h-11 w-full items-center justify-center gap-2 rounded-full bg-brand text-body-sm font-semibold text-white transition-colors hover:bg-brand-deep"
+            >
+              <MessageCircle className="size-4" aria-hidden />
+              Ask on WhatsApp
+            </a>
+            <Link
+              href={contactHref}
+              className="flex h-11 w-full items-center justify-center rounded-full border border-blue bg-surface text-body-sm font-semibold text-blue-deep transition-colors hover:bg-blue-wash"
+            >
+              Send an enquiry
+            </Link>
+            <p className="text-center text-caption leading-relaxed text-graphite">
+              Price on request — the order desk quotes the exact size and quantity.
+            </p>
+          </>
+        ) : (
+          <>
+            <button
+              type="button"
+              onClick={onAdd}
+              className="h-11 w-full rounded-full border border-blue bg-surface text-body-sm font-semibold text-blue-deep transition-colors hover:bg-blue-wash"
+            >
+              Add to cart
+            </button>
+            <button
+              type="button"
+              onClick={onBuyNow}
+              className="h-11 w-full rounded-full bg-blue text-body-sm font-semibold text-white transition-colors hover:bg-blue-deep"
+            >
+              Buy Now
+            </button>
+            {total !== null && (
+              <p className="text-center text-caption text-graphite">
+                Total for {quantity}: <span className="tabular font-medium text-ink">{formatInr(total)}</span> + GST
+              </p>
+            )}
+          </>
         )}
       </div>
 
@@ -192,14 +228,16 @@ export function PurchasePanel({
           <Heart className={classNames("size-4", saved && "fill-current")} aria-hidden />
           {saved ? "Saved" : "Add to wishlist"}
         </button>
-        <Link href="/contact" className="-my-2 inline-flex min-h-11 items-center text-caption text-graphite underline decoration-hair-strong underline-offset-4 hover:text-ink lg:my-0 lg:min-h-0">
+        <Link href={product.enquiryOnly ? contactHref : "/contact"} className="-my-2 inline-flex min-h-11 items-center text-caption text-graphite underline decoration-hair-strong underline-offset-4 hover:text-ink lg:my-0 lg:min-h-0">
           Ask about this board
         </Link>
       </div>
 
-      <p className="text-[0.6875rem] leading-relaxed text-graphite-light">
-        Demo price — not a Plusmark quotation. Prices, stock and GST are confirmed by the order desk for the exact size
-        and quantity. {variant ? `Selected: ${variantLabel(variant)}.` : ""}
+      <p className="text-[0.6875rem] leading-relaxed text-graphite">
+        {product.enquiryOnly
+          ? "This product is quoted individually. Share the size, quantity and delivery city and the order desk confirms the price."
+          : "Demo price — not a Plusmark quotation. Prices, stock and GST are confirmed by the order desk for the exact size and quantity."}{" "}
+        {variant ? `Selected: ${variantLabel(variant)}.` : ""}
       </p>
 
       <Modal open={pincodeOpen} onClose={() => setPincodeOpen(false)} title="Check delivery" description="Save a PIN code for this browser. Nothing is sent to Plusmark." size="sm">

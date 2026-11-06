@@ -9,15 +9,21 @@ export const IMAGE_WIDTHS = [320, 480, 640, 768, 960, 1200, 1600, 2000] as const
 /** Named widths used by the storefront so every surface stays consistent. */
 export const IMAGE_PRESETS = {
   thumbnail: 200,
-  card: 600,
+  card: 800,
   gallery: 1200,
   hero: 1600,
   zoom: 2000
 } as const;
 
+/** Delivery ladders per surface. Cards never request above 800 px. */
+export const CARD_WIDTHS = [320, 480, 640, 800] as const;
+export const GALLERY_WIDTHS = [640, 960, 1200] as const;
+export const HERO_WIDTHS = [640, 960, 1280, 1600] as const;
+export const ZOOM_WIDTHS = [800, 1200, 1600, 2000] as const;
+
 interface TransformOptions {
-  /** Crop to fill (tiles, cards) or scale down keeping ratio (galleries). */
-  fit?: "fill" | "scale" | "pad";
+  /** Crop to fill (tiles, cards), scale, or limit so the image is never upscaled. */
+  fit?: "fill" | "scale" | "pad" | "limit";
   gravity?: string;
   width?: number;
   height?: number;
@@ -40,6 +46,24 @@ function segments({ fit = "fill", gravity = "auto", width, height, format = "aut
   if (blur) parts.push(`e_blur:${blur}`);
   return parts.join(",");
 }
+
+function snapWidth(width: number, ladder: readonly number[]): number {
+  let chosen = ladder[0];
+  for (const step of ladder) {
+    if (step <= width) chosen = step;
+  }
+  return chosen;
+}
+
+function ladderLoader(ladder: readonly number[]) {
+  return ({ src, width }: { src: string; width: number; quality?: number }) =>
+    cloudinaryResize(src, snapWidth(width, ladder));
+}
+
+export const cardLoader = ladderLoader(CARD_WIDTHS);
+export const galleryLoader = ladderLoader(GALLERY_WIDTHS);
+export const heroLoader = ladderLoader(HERO_WIDTHS);
+export const zoomLoader = ladderLoader(ZOOM_WIDTHS);
 
 /** Absolute Cloudinary URL — or a local `/public` path, served untouched. */
 export function imageUrl(publicId: string, options: TransformOptions = {}): string {

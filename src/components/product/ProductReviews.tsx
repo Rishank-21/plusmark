@@ -7,7 +7,7 @@ import { TextArea, TextField } from "@/components/ui/Field";
 import { ConfirmDialog } from "@/components/ui/Modal";
 import { Notice } from "@/components/ui/States";
 import { formatDate } from "@/lib/format";
-import { customerReviews, GOOGLE_REVIEW_SUMMARY } from "@/lib/reviews";
+import { customerReviews, GOOGLE_REVIEW_SUMMARY, GOOGLE_REVIEW_URL } from "@/lib/reviews";
 import {
   deleteProductReview,
   listProductReviews,
@@ -262,7 +262,16 @@ export function ProductReviews({ productName, productSlug }: { productName: stri
             </div>
             <p className="pt-1.5 text-caption leading-relaxed text-graphite">
               {GOOGLE_REVIEW_SUMMARY.count} ratings on the business profile. These quotes are about Plusmark as a whole,
-              not this specific board.
+              not this specific board.{" "}
+              <a
+                href={GOOGLE_REVIEW_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-ink underline decoration-hair-strong underline-offset-4 hover:decoration-ink"
+              >
+                See the profile on Google
+              </a>
+              .
             </p>
             {showGoogle && (
               <ul className="flex flex-col divide-y divide-hair pt-2">

@@ -6,6 +6,7 @@ import { collections, getCollection, relatedCollections, seriesFacts } from "@/c
 import { PageHeader, Section } from "@/components/static/Editorial";
 import { ProductGrid } from "@/components/static/Policy";
 import { ProductImage } from "@/components/ui/ProductImage";
+import { pageMetadata } from "@/lib/seo";
 
 export function generateStaticParams() {
   return collections.map((collection) => ({ slug: collection.slug }));
@@ -13,7 +14,13 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const collection = getCollection((await params).slug);
-  return collection ? { title: collection.name, description: collection.blurb } : {};
+  return collection
+    ? pageMetadata({
+        title: collection.name,
+        path: `/collections/${collection.slug}`,
+        description: collection.blurb
+      })
+    : {};
 }
 
 export default async function CollectionPage({ params }: { params: Promise<{ slug: string }> }) {

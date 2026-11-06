@@ -5,6 +5,8 @@ export const EMPTY_FILTERS: ProductFilterState = {
   categoryId: null,
   subcategoryId: null,
   seriesIds: [],
+  boardType: "any",
+  surfaceKind: "any",
   magnetic: "any",
   doubleSided: "any",
   sizeIds: [],
@@ -45,6 +47,8 @@ export function filterProducts(state: ProductFilterState): Product[] {
   const sub = state.subcategoryId;
   if (sub) list = list.filter((p) => p.subcategoryIds.includes(sub));
   if (state.seriesIds.length) list = list.filter((p) => p.seriesId && state.seriesIds.includes(p.seriesId));
+  if (state.boardType !== "any") list = list.filter((p) => p.boardType === state.boardType);
+  if (state.surfaceKind !== "any") list = list.filter((p) => p.surfaceKind === state.surfaceKind);
   if (state.magnetic !== "any") {
     const want = state.magnetic === "yes";
     list = list.filter((p) => p.magnetic === want);
@@ -108,7 +112,10 @@ function matches(p: Product, q: string): boolean {
     p.surface,
     p.frame,
     p.corners,
+    p.boardType,
+    p.surfaceKind,
     p.usage,
+    ...p.specs.map((spec) => `${spec.label} ${spec.value}`),
     categories.find((c) => c.id === p.categoryId)?.name,
     seriesList.find((s) => s.id === p.seriesId)?.name,
     ...p.variants.map((v) => v.sku),
@@ -169,6 +176,8 @@ export function activeFilterCount(state: ProductFilterState): number {
   let n = 0;
   if (state.subcategoryId) n += 1;
   if (state.seriesIds.length) n += 1;
+  if (state.boardType !== "any") n += 1;
+  if (state.surfaceKind !== "any") n += 1;
   if (state.magnetic !== "any") n += 1;
   if (state.doubleSided !== "any") n += 1;
   if (state.sizeIds.length) n += state.sizeIds.length;

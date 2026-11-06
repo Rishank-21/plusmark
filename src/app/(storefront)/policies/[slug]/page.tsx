@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { PageHeader, Prose, Section } from "@/components/static/Editorial";
 import { DraftPolicyNotice, PendingValue, PolicySection, PolicyStatusPanel } from "@/components/static/Policy";
 import { getPolicy, policies } from "@/components/static/policy-data";
+import { pageMetadata } from "@/lib/seo";
 
 export function generateStaticParams() {
   return policies.map((policy) => ({ slug: policy.slug }));
@@ -10,7 +11,13 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const policy = getPolicy((await params).slug);
-  return policy ? { title: policy.title, description: policy.summary } : {};
+  return policy
+    ? pageMetadata({
+        title: policy.title,
+        path: `/policies/${policy.slug}`,
+        description: policy.summary
+      })
+    : {};
 }
 
 export default async function PolicyPage({ params }: { params: Promise<{ slug: string }> }) {

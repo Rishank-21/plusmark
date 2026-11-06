@@ -23,7 +23,6 @@ import {
   ReceiptText,
   Ruler,
   School,
-  ShieldCheck,
   Truck,
   Users,
   Wrench
@@ -318,7 +317,7 @@ export function ProductDetailSections({
 
   const highlights = [
     { icon: Factory, label: "Made to order" },
-    { icon: ShieldCheck, label: "Warranty included" },
+    { icon: Package, label: "Order a single board" },
     { icon: ReceiptText, label: product.hsnCode ? "GST invoice with HSN" : "GST invoice" },
     { icon: Truck, label: "Free Ahmedabad pickup" }
   ];
@@ -467,14 +466,12 @@ export function ProductDetailSections({
                     {glanceSpecs.map((spec) => {
                       const Icon = SPEC_ICONS[spec.term] ?? Info;
                       return (
-                        <div key={spec.term} className="flex items-start gap-3 px-4 py-2.5">
+                        <div key={spec.term} className="grid grid-cols-[auto_minmax(0,1fr)] items-start gap-x-3 px-4 py-2.5">
                           <Icon className="mt-0.5 size-4 shrink-0 text-graphite" strokeWidth={1.75} aria-hidden />
-                          <div className="min-w-0 flex-1">
-                            <dt className="text-[0.6875rem] font-semibold uppercase tracking-[0.06em] text-graphite">
-                              {spec.term}
-                            </dt>
-                            <dd className="mt-0.5 text-[0.875rem] font-medium leading-snug text-ink-soft">{spec.detail}</dd>
-                          </div>
+                          <dt className="col-start-2 text-[0.6875rem] font-semibold uppercase tracking-[0.06em] text-graphite">
+                            {spec.term}
+                          </dt>
+                          <dd className="col-start-2 mt-0.5 text-[0.875rem] font-medium leading-snug text-ink-soft">{spec.detail}</dd>
                         </div>
                       );
                     })}

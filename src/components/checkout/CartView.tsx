@@ -242,6 +242,7 @@ function CartRow({
           asset={line.product.media[0] ?? line.variant?.imageOverride ?? null}
           name={line.product.name}
           categoryId={line.product.categoryId}
+          preset="thumb"
           sizes="96px"
           className="size-full object-contain"
         />

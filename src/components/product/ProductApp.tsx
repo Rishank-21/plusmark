@@ -10,6 +10,7 @@ import {
   ChevronRight,
   Headset,
   MapPin,
+  MessageCircle,
   Package,
   ReceiptText,
   Star,
@@ -26,7 +27,7 @@ import { RelatedProducts } from "@/components/product/RelatedProducts";
 import { Modal } from "@/components/ui/Modal";
 import { Breadcrumbs } from "@/components/ui/Nav";
 import { SizeSelector } from "@/components/commerce/SizeSelector";
-import { categories, getSeries } from "@/lib/catalog";
+import { brand, categories, getSeries } from "@/lib/catalog";
 import { aPlusPanelsFor } from "@/lib/local-assets";
 import { GOOGLE_REVIEW_SUMMARY } from "@/lib/reviews";
 import { classNames, formatInr, variantLabel } from "@/lib/format";
@@ -96,7 +97,7 @@ export function ProductApp({ product, related }: { product: Product; related: Pr
   const socialProof = PRODUCT_SOCIAL_PROOF[product.slug];
 
   const prices = selectable.map((item) => item.priceInr).filter((value): value is number => value !== null);
-  const price = variant?.priceInr ?? (prices.length ? Math.min(...prices) : null);
+  const price = product.enquiryOnly ? null : variant?.priceInr ?? (prices.length ? Math.min(...prices) : null);
   const mrp = variant?.compareAtInr ?? null;
   const discount = mrp !== null && price !== null && mrp > price ? Math.round((1 - price / mrp) * 100) : null;
 
@@ -113,6 +114,10 @@ export function ProductApp({ product, related }: { product: Product; related: Pr
   };
 
   const addToCart = (then: "drawer" | "checkout") => {
+    if (product.enquiryOnly) {
+      toast.push("This product is quoted on request. Use WhatsApp or send an enquiry.", "info");
+      return;
+    }
     if (!variant) {
       requestSize();
       return;
@@ -165,7 +170,7 @@ export function ProductApp({ product, related }: { product: Product; related: Pr
 
               <a
                 href="#customer-reviews"
-                aria-label={`${GOOGLE_REVIEW_SUMMARY.rating.toFixed(1)} out of 5 from ${GOOGLE_REVIEW_SUMMARY.count} ratings`}
+                aria-label={`${GOOGLE_REVIEW_SUMMARY.rating.toFixed(1)} (${GOOGLE_REVIEW_SUMMARY.count}) ratings — rated ${GOOGLE_REVIEW_SUMMARY.rating.toFixed(1)} out of 5`}
                 className="-my-2 flex min-h-10 w-fit items-center gap-1.5 rounded-sm text-body-sm text-blue-deep"
               >
                 <span className="font-medium text-ink">{GOOGLE_REVIEW_SUMMARY.rating.toFixed(1)}</span>
@@ -192,7 +197,7 @@ export function ProductApp({ product, related }: { product: Product; related: Pr
                   )}
                   {!variant && price !== null && <span className="text-body-sm text-graphite">From</span>}
                   {price !== null ? <Amount value={price} size="lg" /> : <span className="text-h3 font-medium text-graphite">Price on request</span>}
-                  <span className="text-body-sm text-graphite">+ GST extra</span>
+                  {price !== null && <span className="text-body-sm text-graphite">+ GST extra</span>}
                 </div>
                 {mrp !== null && price !== null && (
                   <p className="pt-1 text-caption text-graphite">
@@ -200,9 +205,11 @@ export function ProductApp({ product, related }: { product: Product; related: Pr
                   </p>
                 )}
                 <p className="pt-1 text-caption text-graphite">
-                  {variant
-                    ? "Price for the selected size, excluding GST. Plusmark confirms the final figure before dispatch."
-                    : "Select a size to see its exact price. Prices exclude GST."}
+                  {product.enquiryOnly
+                    ? "This product is quoted by the Plusmark order desk for the exact size and quantity."
+                    : variant
+                      ? "Price for the selected size, excluding GST. Plusmark confirms the final figure before dispatch."
+                      : "Select a size to see its exact price. Prices exclude GST."}
                 </p>
               </div>
 
@@ -227,8 +234,11 @@ export function ProductApp({ product, related }: { product: Product; related: Pr
                     Select a size so we can price and reserve the right board.
                   </p>
                 )}
-                <p className="pt-2 text-[0.6875rem] leading-relaxed text-graphite-light">
-                  Demo price — not a Plusmark quotation. Sizes outside the published range are made to order.
+                <p className="pt-2 text-[0.6875rem] leading-relaxed text-graphite">
+                  {product.enquiryOnly
+                    ? "Quoted individually by the order desk."
+                    : "Demo price — not a Plusmark quotation."}{" "}
+                  Sizes outside the published range are made to order.
                   {series ? ` ${series.name} series.` : ""}
                 </p>
               </div>
@@ -377,7 +387,10 @@ function ServicesRow() {
       <div
         ref={track}
         onScroll={update}
-        className="grid grid-cols-3 gap-x-2 gap-y-5 lg:flex lg:gap-5 lg:overflow-x-auto lg:pb-1 lg:no-scrollbar"
+        tabIndex={0}
+        role="group"
+        aria-label="Service highlights"
+        className="grid grid-cols-3 gap-x-2 gap-y-5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-blue lg:flex lg:gap-5 lg:overflow-x-auto lg:pb-1 lg:no-scrollbar"
       >
         {PDP_SERVICES.map((service) => {
           const Icon = service.icon;
@@ -458,7 +471,14 @@ function StickyBuyBar({
     .filter((item) => (item.packQty ?? 1) === 1)
     .map((item) => item.priceInr)
     .filter((value): value is number => value !== null);
-  const price = variant?.priceInr ?? (prices.length ? Math.min(...prices) : null);
+  const price = product.enquiryOnly ? null : variant?.priceInr ?? (prices.length ? Math.min(...prices) : null);
+  const enquiryMessage = `Hi Plusmark, I would like a quotation for ${product.name}${
+    variant ? ` (${variant.size.label})` : ""
+  }, quantity ${quantity}.`;
+  const whatsappHref = `https://wa.me/${brand.whatsapp}?text=${encodeURIComponent(enquiryMessage)}`;
+  const contactHref = `/contact?product=${encodeURIComponent(product.slug)}${
+    variant ? `&size=${encodeURIComponent(variant.size.label)}` : ""
+  }&quantity=${quantity}`;
 
   useEffect(() => {
     const onScroll = () => setVisible(window.scrollY > 420);
@@ -474,6 +494,7 @@ function StickyBuyBar({
         visible ? "translate-y-0" : "translate-y-full invisible"
       )}
       aria-hidden={!visible}
+      inert={!visible}
     >
       <div className="mx-auto flex max-w-page flex-col gap-2 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
         <div className="flex items-center justify-between gap-3">
@@ -482,25 +503,45 @@ function StickyBuyBar({
           </p>
           <p className="shrink-0 text-body-sm font-semibold text-ink">
             {price !== null ? formatInr(price) : "Price on request"}
-            <span className="pl-1 text-caption font-normal text-graphite">+ GST</span>
+            {price !== null && <span className="pl-1 text-caption font-normal text-graphite">+ GST</span>}
           </p>
         </div>
-        <div className="grid grid-cols-2 gap-2">
-          <button
-            type="button"
-            onClick={onAdd}
-            className="h-11 rounded-full border border-blue bg-surface text-body-sm font-semibold text-blue-deep hover:bg-blue-wash"
-          >
-            Add to cart
-          </button>
-          <button
-            type="button"
-            onClick={onBuyNow}
-            className="h-11 rounded-full bg-blue text-body-sm font-semibold text-white hover:bg-blue-deep"
-          >
-            Buy Now
-          </button>
-        </div>
+        {product.enquiryOnly ? (
+          <div className="grid grid-cols-2 gap-2">
+            <a
+              href={whatsappHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex h-11 items-center justify-center gap-1.5 rounded-full border border-brand bg-surface text-body-sm font-semibold text-brand"
+            >
+              <MessageCircle className="size-4" aria-hidden />
+              WhatsApp
+            </a>
+            <Link
+              href={contactHref}
+              className="flex h-11 items-center justify-center rounded-full bg-blue text-body-sm font-semibold text-white hover:bg-blue-deep"
+            >
+              Enquire
+            </Link>
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 gap-2">
+            <button
+              type="button"
+              onClick={onAdd}
+              className="h-11 rounded-full border border-blue bg-surface text-body-sm font-semibold text-blue-deep hover:bg-blue-wash"
+            >
+              Add to cart
+            </button>
+            <button
+              type="button"
+              onClick={onBuyNow}
+              className="h-11 rounded-full bg-blue text-body-sm font-semibold text-white hover:bg-blue-deep"
+            >
+              Buy Now
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -28,13 +28,14 @@ export function Footer() {
       <div className="pm-shell py-14 lg:py-16">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.35fr_1fr_1fr_1fr] lg:gap-12">
           <div className="flex flex-col gap-4 sm:col-span-2 lg:col-span-1">
-            <Link href="/" className="w-fit rounded-xs" aria-label="Plusmark Retail home">
+            <Link href="/" className="w-fit rounded-xs" aria-label="Plusmark home">
               <Image
-                src="/images/plusmark/brand/plusmark-retail-white.png"
-                alt="Plusmark Retail"
-                width={1375}
-                height={480}
-                className="h-20 w-auto"
+                src="/images/plusmark/brand/plusmark-white.png"
+                alt="Plusmark"
+                width={1304}
+                height={261}
+                sizes="239px"
+                className="h-12 w-auto"
               />
             </Link>
             <p className="max-w-sm text-body-sm leading-relaxed text-white/72">
@@ -93,7 +94,6 @@ export function Footer() {
             </ul>
             <div className="mt-5 flex flex-col items-start gap-2.5">
               <FooterLink href="/collections">Browse by collection</FooterLink>
-              <FooterLink href="/admin">Admin sign in</FooterLink>
             </div>
           </FooterColumn>
         </div>

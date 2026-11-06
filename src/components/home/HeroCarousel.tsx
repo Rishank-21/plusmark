@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { cloudinaryLoader, imageUrl } from "@/lib/media";
+import { heroLoader, imageUrl } from "@/lib/media";
 import type { Product } from "@/types";
 
 type HeroProduct = { product: Product; label: string; image: string };
@@ -57,10 +57,11 @@ export function HeroCarousel({
   const renderSlide = (index: number, role: "incoming" | "outgoing") => {
     const [, title, description, href] = copy[index];
     const slide = slides[index];
+    const Heading = role === "incoming" ? "h1" : "p";
     return (
       <div key={`${slide.label}-${role}`} className={`pm-hero-slide pm-hero-slide-${role}`}>
         <div className="pm-hero-slide-copy relative z-10 flex flex-col justify-center bg-white px-4 sm:px-6 lg:px-0 lg:pr-12 xl:pr-20">
-          <h1 id={role === "incoming" ? "hero-heading" : undefined} className="pm-hero-heading mt-4 max-w-[12ch] font-sans text-[clamp(2.7rem,5vw,5rem)] font-normal leading-[0.98] tracking-[-0.04em] text-[#142D49]">{title}</h1>
+          <Heading id={role === "incoming" ? "hero-heading" : undefined} className="pm-hero-heading mt-4 max-w-[12ch] font-sans text-[clamp(2.7rem,5vw,5rem)] font-normal leading-[0.98] tracking-[-0.04em] text-[#142D49]">{title}</Heading>
           <p className="pm-hero-description mt-5 max-w-[32rem] text-[1rem] leading-7 text-[#66768A] sm:text-[1.05rem]">{description}</p>
           <Link href={href} className="pm-hero-cta mt-7 inline-flex min-h-11 w-fit items-center gap-2 rounded-md bg-brand px-5 text-sm font-semibold uppercase tracking-[0.06em] text-white transition-colors hover:bg-brand-deep">
             Shop {slide.label} <ArrowRight className="size-4" aria-hidden />
@@ -69,11 +70,11 @@ export function HeroCarousel({
         <div className="pm-hero-slide-product relative min-h-[12rem] bg-white sm:min-h-[17rem] md:min-h-[26rem] lg:min-h-[29rem]">
           <Link href={`/product/${slide.product.slug}`} className="absolute inset-[5%_12%_5%_12%] block focus-visible:outline-2 focus-visible:outline-[#F28C28]" aria-label={`View ${slide.product.name}`}>
             <Image
-              src={imageUrl(slide.image, { fit: "scale", width: 1400 })}
-              loader={cloudinaryLoader}
+              src={imageUrl(slide.image, { fit: "limit", width: 1600 })}
+              loader={heroLoader}
               alt={`${slide.product.name} — Plusmark ${slide.label.slice(0, -1)}`}
-              width={1400}
-              height={1400}
+              width={1600}
+              height={1600}
               sizes="(max-width: 639px) 80vw, 48vw"
               priority={index === 0}
               className="pm-hero-product-image h-full w-full object-contain transition-transform duration-500 hover:scale-[1.025]"
@@ -88,11 +89,11 @@ export function HeroCarousel({
     const slide = slides[index];
     const picture = (
       <Image
-        src={imageUrl(slide.image, { fit: "scale", width: 1400 })}
-        loader={cloudinaryLoader}
+        src={imageUrl(slide.image, { fit: "limit", width: 1600 })}
+        loader={heroLoader}
         alt={`${slide.product.name} — Plusmark ${slide.label.slice(0, -1)}`}
-        width={1400}
-        height={1400}
+        width={1600}
+        height={1600}
         sizes="(max-width: 639px) 92vw, 55vw"
         priority={role === "in" && index === 0}
         className="relative z-10 h-full w-full object-contain"
@@ -121,7 +122,6 @@ export function HeroCarousel({
   return (
     <>
       <section
-        aria-labelledby="hero-heading-mobile"
         className="relative overflow-hidden bg-[linear-gradient(180deg,#F7F5F0_0%,#FFFFFF_100%)] lg:hidden"
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
