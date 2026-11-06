@@ -1,6 +1,12 @@
 import { NextResponse } from "next/server";
 import { requestUser } from "@/lib/server/request-auth";
-import { fetchRazorpayPayment, razorpayConfig, RazorpayError, verifyPaymentSignature } from "@/lib/server/razorpay";
+import {
+  captureRazorpayPayment,
+  fetchRazorpayPayment,
+  razorpayConfig,
+  RazorpayError,
+  verifyPaymentSignature
+} from "@/lib/server/razorpay";
 import { serverSupabase } from "@/lib/server/supabase-admin";
 
 export const dynamic = "force-dynamic";
@@ -51,13 +57,20 @@ export async function POST(request: Request) {
   }
 
   try {
-    const payment = await fetchRazorpayPayment(paymentId, config);
+    let payment = await fetchRazorpayPayment(paymentId, config);
     const expectedAmount = Math.round(Number(order.total ?? 0) * 100);
     if (payment.order_id !== razorpayOrderId) {
       return NextResponse.json({ error: "The payment does not belong to this order." }, { status: 400 });
     }
     if (payment.currency !== "INR" || payment.amount !== expectedAmount) {
       return NextResponse.json({ error: "The paid amount does not match the order total." }, { status: 409 });
+    }
+    if (payment.status === "authorized" && !payment.captured) {
+      payment = await captureRazorpayPayment(
+        paymentId,
+        { amountPaise: expectedAmount, currency: "INR" },
+        config
+      );
     }
     if (payment.status !== "captured" && !payment.captured) {
       return NextResponse.json(

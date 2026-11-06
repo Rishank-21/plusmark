@@ -107,6 +107,22 @@ export async function fetchOrderPayments(
   return result.items ?? [];
 }
 
+/** Capture an authorized payment when the account is not set to auto-capture. */
+export async function captureRazorpayPayment(
+  paymentId: string,
+  input: { amountPaise: number; currency: string },
+  config: RazorpayConfig
+): Promise<RazorpayPayment> {
+  return call<RazorpayPayment>(
+    `/payments/${encodeURIComponent(paymentId)}/capture`,
+    {
+      method: "POST",
+      body: JSON.stringify({ amount: input.amountPaise, currency: input.currency })
+    },
+    config
+  );
+}
+
 function safeEqual(expected: string, received: string): boolean {
   const a = Buffer.from(expected, "utf8");
   const b = Buffer.from(received, "utf8");
