@@ -40,7 +40,17 @@ export default async function ContactPage({
         compact
         bordered={false}
         title="Talk to the Plusmark desk"
-        lead="For a useful answer, share the board type, size, quantity and delivery city. For a schedule or printed board, include the layout or sketch. The published phone and WhatsApp channels reach the business directly."
+        lead={
+          <>
+            <span className="lg:hidden">
+              Share the board type, size, quantity and delivery city — or call and WhatsApp the desk directly.
+            </span>
+            <span className="hidden lg:inline">
+              For a useful answer, share the board type, size, quantity and delivery city. For a schedule or printed
+              board, include the layout or sketch. The published phone and WhatsApp channels reach the business directly.
+            </span>
+          </>
+        }
       />
       <Section id="contact-details" title="Reach the manufacturer" bordered={false} tight>
         <div className="mb-6 grid grid-cols-2 gap-2 lg:hidden">
@@ -67,15 +77,41 @@ export default async function ContactPage({
             </div>
             <div className="[&_dl]:border-y-0">
               <FactList rows={[
-                { term: "WhatsApp", detail: <a href={`https://wa.me/${brand.whatsapp}`} target="_blank" rel="noopener noreferrer" className="underline decoration-line-strong underline-offset-4">Message Plusmark</a> },
-                { term: "Works", detail: address ? `${address.streetAddress}, ${address.addressLocality}, ${address.addressRegion} ${address.postalCode}, India` : "Ahmedabad, Gujarat" },
-                { term: "About a board", detail: "The product name, the size you want and your delivery city. One board is enough; there is no minimum order." },
-                { term: "About an existing order", detail: "Share the Plusmark order reference and the contact details used for the purchase. Prototype references are not live business records." }
+                { term: "WhatsApp", mobileHidden: true, detail: <a href={`https://wa.me/${brand.whatsapp}`} target="_blank" rel="noopener noreferrer" className="underline decoration-line-strong underline-offset-4">Message Plusmark</a> },
+                {
+                  term: "Works",
+                  detail: address ? (
+                    <>
+                      <span className="sm:hidden">{`Narol, ${address.addressLocality}, ${address.addressRegion} ${address.postalCode}`}</span>
+                      <span className="hidden sm:inline">{`${address.streetAddress}, ${address.addressLocality}, ${address.addressRegion} ${address.postalCode}, India`}</span>
+                    </>
+                  ) : (
+                    "Ahmedabad, Gujarat"
+                  )
+                },
+                {
+                  term: "About a board",
+                  detail: (
+                    <>
+                      <span className="sm:hidden">Product name, size and delivery city.</span>
+                      <span className="hidden sm:inline">The product name, the size you want and your delivery city. One board is enough; there is no minimum order.</span>
+                    </>
+                  )
+                },
+                {
+                  term: "About an existing order",
+                  detail: (
+                    <>
+                      <span className="sm:hidden">Order reference and the contact details used to buy.</span>
+                      <span className="hidden sm:inline">Share the Plusmark order reference and the contact details used for the purchase. Prototype references are not live business records.</span>
+                    </>
+                  )
+                }
               ]} />
             </div>
           </div>
-          <div className="rounded-2xl border border-line bg-subtle/60 p-5 sm:p-6">
-            <div className="mb-5 flex items-center gap-3"><PenLine className="size-5 text-ink" aria-hidden /><h2 className="font-display text-h3 font-bold text-ink">Write down your requirement</h2></div>
+          <div className="rounded-2xl border border-line bg-subtle/60 p-4 sm:p-6">
+            <div className="mb-4 flex items-center gap-3 sm:mb-5"><PenLine className="size-5 text-ink" aria-hidden /><h2 className="font-display text-h3 font-bold text-ink">Write down your requirement</h2></div>
             <ContactForm prefill={prefill} />
           </div>
         </div>
@@ -83,10 +119,10 @@ export default async function ContactPage({
       <Section id="support-links" title="The right page for the next step" tone="sand" bordered={false}>
         <div className="max-w-3xl [&_ul]:border-y-0">
           <LinkRail links={[
-            { label: "Browse the catalogue", href: "/shop", note: "Every board and size" },
-            { label: "Track a local prototype order", href: "/track-order", note: "Reference & email" },
-            { label: "Read the published Plusmark FAQ", href: "/faq", note: "Products & ordering" },
-            { label: "Review draft shipping and return terms", href: "/policies", note: "Pending sign-off" }
+            { label: "Browse the catalogue", shortLabel: "Browse the catalogue", href: "/shop", note: "Every board and size" },
+            { label: "Track a local prototype order", shortLabel: "Track an order", href: "/track-order", note: "Reference & email" },
+            { label: "Read the published Plusmark FAQ", shortLabel: "Plusmark FAQ", href: "/faq", note: "Products & ordering" },
+            { label: "Review draft shipping and return terms", shortLabel: "Shipping & returns", href: "/policies", note: "Pending sign-off" }
           ]} />
         </div>
       </Section>

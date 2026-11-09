@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/Button";
 import { SelectField, TextArea, TextField } from "@/components/ui/Field";
-import { Notice } from "@/components/ui/States";
 import { required, validateEmail, validateName, validatePhone, type FieldError } from "@/lib/validation";
 
 const TOPICS = [
@@ -73,19 +72,15 @@ export function ContactForm({ prefill }: { prefill?: { topic?: string; message?:
 
   return (
     <div className="flex flex-col gap-5">
-      <Notice tone="neutral" title="Prototype behaviour — nothing leaves this page">
-        <p>
-          This form has no server behind it: your message stays in this browser tab and is never sent, emailed or
-          stored. To reach the desk today, call or WhatsApp using the numbers above.
-        </p>
-      </Notice>
-
       {submitted ? (
         <div role="status" className="flex flex-col gap-4 rounded-sm border border-success/30 bg-success-wash p-5">
           <p className="font-sans text-h4 leading-snug text-ink">Recorded in this tab — not sent</p>
           <p className="text-body-sm leading-relaxed text-muted">
-            {submitted.summary}. Because this is a prototype, there is no ticket number and no reply will arrive. Call or
-            WhatsApp the desk on the numbers above and describe the same details.
+            <span className="sm:hidden">{submitted.summary}. Nothing was sent — call or WhatsApp the desk.</span>
+            <span className="hidden sm:inline">
+              {submitted.summary}. Because this is a prototype, there is no ticket number and no reply will arrive. Call
+              or WhatsApp the desk on the numbers above and describe the same details.
+            </span>
           </p>
           <div className="flex flex-wrap gap-3">
             <Button
@@ -129,7 +124,12 @@ export function ContactForm({ prefill }: { prefill?: { topic?: string; message?:
               autoComplete="tel"
               inputMode="tel"
               placeholder="10-digit mobile"
-              hint="Helps if we need to call you back."
+              hint={
+                <>
+                  <span className="sm:hidden">Only if we need to call back.</span>
+                  <span className="hidden sm:inline">Helps if we need to call you back.</span>
+                </>
+              }
               value={form.phone}
               onChange={(e) => update("phone")(e.target.value)}
               error={errorFor("phone")}
@@ -154,8 +154,13 @@ export function ContactForm({ prefill }: { prefill?: { topic?: string; message?:
             label="Message"
             required
             rows={6}
-            placeholder="Product, size and quantity if you know them. For a custom board, add a sketch or the layout you need."
-            hint="For schedule boards, Plusmark asks for quantity, sizes and a sketch — CorelDRAW, Photoshop or Word are all accepted."
+            placeholder="Board type, size and quantity. Add a sketch for custom boards."
+            hint={
+              <>
+                <span className="sm:hidden">For schedule boards, include sizes and a sketch.</span>
+                <span className="hidden sm:inline">For schedule boards, Plusmark asks for quantity, sizes and a sketch — CorelDRAW, Photoshop or Word are all accepted.</span>
+              </>
+            }
             value={form.message}
             onChange={(e) => update("message")(e.target.value)}
             error={errorFor("message")}
@@ -163,7 +168,7 @@ export function ContactForm({ prefill }: { prefill?: { topic?: string; message?:
 
           <div className="flex flex-wrap items-center gap-4">
             <Button type="submit" className="h-12 w-full sm:w-auto lg:h-11">Record my message</Button>
-            <p className="text-caption text-muted">No account needed. Fields marked * are required.</p>
+            <p className="hidden text-caption text-muted sm:block">No account needed. Fields marked * are required.</p>
           </div>
 
           {errors.length > 0 && (

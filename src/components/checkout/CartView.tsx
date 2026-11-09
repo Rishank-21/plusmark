@@ -68,7 +68,7 @@ export function CartView() {
   if (!cart.hydrated) return <CartSkeleton />;
 
   return (
-    <div className="pm-shell pb-10 pt-5 lg:py-20">
+    <div className="pm-shell pb-[calc(var(--pm-nav-h)+env(safe-area-inset-bottom)+4.5rem)] pt-5 lg:py-20">
       <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Cart" }]} />
 
       <header className="mt-4 flex flex-wrap items-end justify-between gap-3 lg:mt-xl lg:gap-4">
@@ -241,7 +241,7 @@ export function CartView() {
       )}
 
       {cart.views.length > 0 && (
-        <div className="fixed inset-x-0 bottom-0 z-[210] border-t border-line bg-surface px-4 pb-[max(0.5rem,env(safe-area-inset-bottom))] pt-2 shadow-card lg:hidden">
+        <div className="fixed inset-x-0 bottom-[calc(var(--pm-nav-h)+env(safe-area-inset-bottom))] z-[210] border-t border-line bg-surface px-4 pb-2 pt-2 shadow-card lg:hidden">
           <div className="mx-auto flex max-w-page items-center gap-3">
             <div className="min-w-0 flex-1">
               <p className="text-[0.75rem] leading-4 text-muted">Total</p>

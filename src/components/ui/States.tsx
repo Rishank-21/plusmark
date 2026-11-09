@@ -111,7 +111,7 @@ export function Notice({
   icon
 }: {
   tone?: "neutral" | "info" | "warning" | "success" | "danger";
-  title?: string;
+  title?: React.ReactNode;
   children: React.ReactNode;
   icon?: React.ReactNode;
 }) {

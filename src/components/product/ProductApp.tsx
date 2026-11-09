@@ -490,13 +490,13 @@ function StickyBuyBar({
   return (
     <div
       className={classNames(
-        "fixed inset-x-0 bottom-0 z-[210] border-t border-line bg-surface/97 px-4 pt-2.5 backdrop-blur-sm transition-transform duration-300 lg:hidden",
+        "fixed inset-x-0 bottom-[calc(var(--pm-nav-h)+env(safe-area-inset-bottom))] z-[210] border-t border-line bg-surface/97 px-4 pt-2.5 backdrop-blur-sm transition-transform duration-300 lg:hidden",
         visible ? "translate-y-0" : "translate-y-full invisible"
       )}
       aria-hidden={!visible}
       inert={!visible}
     >
-      <div className="mx-auto flex max-w-page items-center gap-2 pb-[max(0.5rem,env(safe-area-inset-bottom))]">
+      <div className="mx-auto flex max-w-page items-center gap-2 pb-2">
         <div className="min-w-0 flex-1">
           <p className="truncate text-[0.75rem] leading-4 text-muted">
             {variant ? variantLabel(variant) : "Select a size"} · Qty {quantity}

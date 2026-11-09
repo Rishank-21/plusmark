@@ -18,7 +18,7 @@ function FieldShell({
 }: {
   id: string;
   label: string;
-  hint?: string;
+  hint?: React.ReactNode;
   error?: string | null;
   required?: boolean;
   optional?: boolean;
@@ -45,7 +45,7 @@ function FieldShell({
 
 interface BaseProps {
   label: string;
-  hint?: string;
+  hint?: React.ReactNode;
   error?: string | null;
   optional?: boolean;
   className?: string;

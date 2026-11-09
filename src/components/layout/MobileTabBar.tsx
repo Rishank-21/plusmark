@@ -7,14 +7,11 @@ import { classNames } from "@/lib/format";
 import { useCart } from "@/state/cart";
 import { useMobileChrome } from "@/components/layout/MobileChrome";
 
-const HIDDEN_PREFIXES = ["/product/", "/cart", "/checkout"];
-
 export function MobileTabBar() {
   const pathname = usePathname();
   const cart = useCart();
   const chrome = useMobileChrome();
 
-  if (HIDDEN_PREFIXES.some((prefix) => pathname.startsWith(prefix))) return null;
   if (chrome.menuOpen || chrome.categoriesOpen) return null;
 
   const active = {
@@ -29,7 +26,7 @@ export function MobileTabBar() {
       aria-label="Quick navigation"
       className="fixed inset-x-0 bottom-0 z-[190] border-t border-line bg-surface pb-[env(safe-area-inset-bottom)] lg:hidden"
     >
-      <ul className="grid h-[var(--pm-nav-h)] grid-cols-5">
+      <ul className="grid h-[calc(var(--pm-nav-h)-1px)] grid-cols-5">
         <Tab href="/" label="Home" active={active.home}>
           <Home className="size-6" aria-hidden />
         </Tab>

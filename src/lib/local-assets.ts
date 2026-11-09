@@ -182,7 +182,7 @@ const PRODUCT_IMAGE_MAP: Record<string, string[]> = {
   "first-aid-box": ["first-aid-box"],
   "letter-box": ["letter-box"],
   "file-rack": ["file-rack"],
-  "acrylic-folder-display-board": ["acrylic-folder-display-board", "acrylic-folder-display-board-2", "acrylic-folder-display-board-3"],
+  "acrylic-folder-display-board": ["acrylic-folder-display-board"],
   "laminate-mdf-base-clipboard": ["laminate-mdf-base-clipboard", "laminate-mdf-base-clipboard-2", "laminate-mdf-base-clipboard-3"],
   "pre-lam-mdf-base-clipboard": ["pre-lam-mdf-base-clipboard", "pre-lam-mdf-base-clipboard-2", "pre-lam-mdf-base-clipboard-3"],
   "crystal-clear-base-clipboard": ["crystal-clear-base-clipboard"],

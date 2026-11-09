@@ -912,7 +912,7 @@ export function CheckoutFlow() {
         </aside>
       </div>
 
-      <div className="sticky bottom-0 z-20 -mx-md mt-xl border-t border-line bg-page/95 px-md py-3 backdrop-blur sm:-mx-lg sm:px-lg lg:hidden">
+      <div className="sticky bottom-[calc(var(--pm-nav-h)+env(safe-area-inset-bottom))] z-20 -mx-md mt-xl border-t border-line bg-page/95 px-md py-3 backdrop-blur sm:-mx-lg sm:px-lg lg:hidden">
         <div className="flex items-center justify-between gap-3">
           <div className="flex flex-col">
             <span className="text-caption text-muted">Total</span>

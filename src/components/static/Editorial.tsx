@@ -20,7 +20,7 @@ export function PageHeader({
 }: {
   trail: Crumb[];
   title: string;
-  lead?: string;
+  lead?: React.ReactNode;
   aside?: React.ReactNode;
   /** Optional visual column — collection pages lead with a real product photo. */
   media?: React.ReactNode;
@@ -108,7 +108,7 @@ export function Section({
       aria-labelledby={headingId}
     >
       <div className={classNames(narrow ? "mx-auto w-full max-w-reading px-md sm:px-lg xl:px-2xl" : "pm-shell")}>
-        <header className="mb-10 flex flex-col gap-3 md:flex-row md:items-end md:justify-between md:gap-8">
+        <header className="mb-6 flex flex-col gap-3 md:flex-row md:items-end md:justify-between md:gap-8 lg:mb-10">
           <div className="flex min-w-0 flex-col gap-2">
             <h2
               id={headingId}
@@ -154,11 +154,11 @@ export function Prose({ children, className }: { children: React.ReactNode; clas
 }
 
 /** Definition row used across institutional pages (term + plain detail). */
-export function FactList({ rows }: { rows: { term: string; detail: React.ReactNode }[] }) {
+export function FactList({ rows }: { rows: { term: string; detail: React.ReactNode; mobileHidden?: boolean }[] }) {
   return (
     <dl className="divide-y divide-line border-y border-line">
       {rows.map((row) => (
-        <div key={row.term} className="grid gap-1 py-4 sm:grid-cols-[minmax(0,0.38fr)_minmax(0,0.62fr)] sm:gap-4">
+        <div key={row.term} className={classNames("grid gap-1 py-3.5 sm:grid-cols-[minmax(0,0.38fr)_minmax(0,0.62fr)] sm:gap-4 sm:py-4", row.mobileHidden && "hidden sm:grid")}>
           <dt className="text-body-sm font-semibold text-ink">{row.term}</dt>
           <dd className="text-body-sm leading-relaxed text-muted">{row.detail}</dd>
         </div>
@@ -168,7 +168,7 @@ export function FactList({ rows }: { rows: { term: string; detail: React.ReactNo
 }
 
 /** Editorial link rail — a plain hairline list, no cards, no icon squares. */
-export function LinkRail({ links, title }: { title?: string; links: { label: string; href: string; note?: string }[] }) {
+export function LinkRail({ links, title }: { title?: string; links: { label: string; shortLabel?: string; href: string; note?: string }[] }) {
   return (
     <nav aria-label={title ?? "Related pages"} className="flex flex-col">
       {title && <p className="mb-3 text-caption font-semibold text-muted">{title}</p>}
@@ -179,8 +179,17 @@ export function LinkRail({ links, title }: { title?: string; links: { label: str
               href={link.href}
               className="group flex min-h-11 items-center justify-between gap-4 rounded-md py-3 text-body-sm font-medium text-ink transition-colors hover:text-primary"
             >
-              <span className="min-w-0">{link.label}</span>
-              {link.note && <span className="shrink-0 text-caption text-muted">{link.note}</span>}
+              <span className="min-w-0">
+                {link.shortLabel ? (
+                  <>
+                    <span className="sm:hidden">{link.shortLabel}</span>
+                    <span className="hidden sm:inline">{link.label}</span>
+                  </>
+                ) : (
+                  link.label
+                )}
+              </span>
+              {link.note && <span className="hidden shrink-0 text-caption text-muted sm:inline">{link.note}</span>}
             </Link>
           </li>
         ))}
