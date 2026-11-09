@@ -72,7 +72,7 @@ export function QuickView({ product, open, onClose }: { product: Product | null;
             <span className="text-caption text-muted">Order a single board or as many as you need.</span>
           </div>
 
-          <div className="sticky bottom-0 -mx-1 flex flex-col gap-2 border-t border-line bg-surface px-1 pb-1 pt-3 sm:static sm:flex-row sm:border-0 sm:bg-transparent sm:p-0">
+          <div className="sticky bottom-0 flex flex-col gap-2 border-t border-line bg-surface pb-1 pt-3 sm:static sm:flex-row sm:border-0 sm:bg-transparent sm:p-0">
             <Button
               className="w-full sm:flex-1"
               disabled={!selected}
