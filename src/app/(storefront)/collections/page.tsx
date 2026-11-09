@@ -30,10 +30,8 @@ export default function CollectionsPage() {
     <>
       <PageHeader
         trail={[{ label: "Home", href: "/" }, { label: "Collections" }]}
-        eyebrow="The catalogue, organised by the decision you are making"
         title="The Plusmark collections"
         lead="Compare construction, choose a writing surface, fit out a particular room or start with the wall size. No collection is labelled bestselling or trending because Plusmark publishes no sales ranking."
-        sansHeading
         compact
         bordered={false}
       />

@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
-import { DM_Serif_Display, Inter } from "next/font/google";
+import { Inter, Manrope } from "next/font/google";
 import { Providers } from "@/components/Providers";
 import { DevThemeSwitcher } from "@/components/dev/DevThemeSwitcher";
 import { META_TITLE_SUFFIX, SITE_URL } from "@/lib/config";
 import { DEFAULT_OG_IMAGE } from "@/lib/seo";
 import "./globals.css";
 
-const serif = DM_Serif_Display({
+const display = Manrope({
   subsets: ["latin"],
-  weight: ["400"],
+  weight: ["500", "600", "700", "800"],
   display: "swap",
-  variable: "--font-serif"
+  variable: "--font-display"
 });
 
 const sans = Inter({
@@ -49,11 +49,16 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en-IN" data-theme="warm-modern" className={`${serif.variable} ${sans.variable}`}>
-      <body className="min-h-dvh bg-canvas text-ink">
+    <html
+      lang="en-IN"
+      data-theme="aurora-indigo"
+      className={`${display.variable} ${sans.variable}`}
+      suppressHydrationWarning
+    >
+      <body className="min-h-dvh bg-page text-ink">
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[999] focus:rounded-md focus:bg-navy focus:px-4 focus:py-2 focus:text-body-sm focus:text-white"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[999] focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-body-sm focus:text-onprimary"
         >
           Skip to content
         </a>

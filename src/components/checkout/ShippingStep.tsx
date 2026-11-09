@@ -24,7 +24,7 @@ export function ShippingStep({
 
   return (
     <div className="flex flex-col gap-md">
-      <p className="text-body-sm text-graphite">
+      <p className="text-body-sm text-muted">
         Only the dispatch methods configured in the operations desk are offered. A method without a configured charge
         means the freight figure is fixed on the invoice, after the pincode and load are known.
       </p>

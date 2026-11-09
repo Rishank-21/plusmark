@@ -3,81 +3,106 @@ import type { Config } from "tailwindcss";
 /**
  * Plusmark design system.
  *
- * Every colour is a CSS variable so the storefront can switch between the
- * three client-review palettes (clean-retail, premium-corporate, warm-modern)
- * without touching a component. Defaults live in globals.css under :root.
+ * Semantic tokens (page, surface, ink, muted, line, primary, shell, scrim…)
+ * are owned by the theme layer in globals.css. Components consume the
+ * semantic names. The legacy palette names (canvas, sand, navy, blue, brand,
+ * terra, hair) are kept as aliases so older markup inherits the same values.
  */
 const config: Config = {
   content: ["./src/**/*.{ts,tsx}"],
   theme: {
     extend: {
       colors: {
-        canvas: "rgb(var(--c-canvas) / <alpha-value>)",
-        sand: {
-          DEFAULT: "rgb(var(--c-sand) / <alpha-value>)",
-          deep: "rgb(var(--c-sand-deep) / <alpha-value>)"
-        },
+        page: "rgb(var(--c-bg) / <alpha-value>)",
+        canvas: "rgb(var(--c-bg) / <alpha-value>)",
         surface: "rgb(var(--c-surface) / <alpha-value>)",
+        subtle: "rgb(var(--c-surface-muted) / <alpha-value>)",
+        sunken: "rgb(var(--c-sunken) / <alpha-value>)",
+        sand: {
+          DEFAULT: "rgb(var(--c-surface-muted) / <alpha-value>)",
+          deep: "rgb(var(--c-sunken) / <alpha-value>)"
+        },
         ink: {
-          DEFAULT: "rgb(var(--c-ink) / <alpha-value>)",
-          soft: "rgb(var(--c-ink-soft) / <alpha-value>)"
+          DEFAULT: "rgb(var(--c-text) / <alpha-value>)",
+          soft: "rgb(var(--c-text) / <alpha-value>)"
         },
+        muted: "rgb(var(--c-text-muted) / <alpha-value>)",
         graphite: {
-          DEFAULT: "rgb(var(--c-graphite) / <alpha-value>)",
-          light: "rgb(var(--c-graphite-light) / <alpha-value>)"
+          DEFAULT: "rgb(var(--c-text-muted) / <alpha-value>)",
+          light: "rgb(var(--c-text-muted) / <alpha-value>)"
         },
+        primary: {
+          DEFAULT: "rgb(var(--c-primary) / <alpha-value>)",
+          strong: "rgb(var(--c-primary-strong) / <alpha-value>)",
+          soft: "rgb(var(--c-primary-soft) / <alpha-value>)"
+        },
+        onprimary: "rgb(var(--c-on-primary) / <alpha-value>)",
         navy: {
-          DEFAULT: "rgb(var(--c-navy) / <alpha-value>)",
-          deep: "rgb(var(--c-navy-deep) / <alpha-value>)",
-          wash: "rgb(var(--c-navy-wash) / <alpha-value>)"
+          DEFAULT: "rgb(var(--c-text) / <alpha-value>)",
+          deep: "rgb(var(--c-text) / <alpha-value>)",
+          wash: "rgb(var(--c-primary-soft) / <alpha-value>)"
         },
         blue: {
-          DEFAULT: "rgb(var(--c-blue) / <alpha-value>)",
-          deep: "rgb(var(--c-blue-deep) / <alpha-value>)",
-          wash: "rgb(var(--c-blue-wash) / <alpha-value>)"
+          DEFAULT: "rgb(var(--c-primary) / <alpha-value>)",
+          deep: "rgb(var(--c-primary-strong) / <alpha-value>)",
+          wash: "rgb(var(--c-primary-soft) / <alpha-value>)"
         },
         brand: {
-          DEFAULT: "rgb(var(--c-brand) / <alpha-value>)",
-          deep: "rgb(var(--c-brand-deep) / <alpha-value>)",
-          wash: "rgb(var(--c-brand-wash) / <alpha-value>)"
+          DEFAULT: "rgb(var(--c-primary) / <alpha-value>)",
+          deep: "rgb(var(--c-primary-strong) / <alpha-value>)",
+          wash: "rgb(var(--c-primary-soft) / <alpha-value>)"
         },
+        shell: {
+          DEFAULT: "rgb(var(--c-shell) / <alpha-value>)",
+          on: "rgb(var(--c-on-shell) / <alpha-value>)"
+        },
+        scrim: "rgb(var(--c-scrim) / <alpha-value>)",
         terra: {
-          DEFAULT: "rgb(var(--c-terra) / <alpha-value>)",
-          deep: "rgb(var(--c-terra-deep) / <alpha-value>)",
-          wash: "rgb(var(--c-terra-wash) / <alpha-value>)"
+          DEFAULT: "rgb(var(--c-rating) / <alpha-value>)",
+          deep: "rgb(var(--c-rating) / <alpha-value>)",
+          wash: "rgb(var(--c-warning-soft) / <alpha-value>)"
         },
+        rating: "rgb(var(--c-rating) / <alpha-value>)",
         hair: {
-          DEFAULT: "rgb(var(--c-hair) / <alpha-value>)",
-          strong: "rgb(var(--c-hair-strong) / <alpha-value>)"
+          DEFAULT: "rgb(var(--c-border) / <alpha-value>)",
+          strong: "rgb(var(--c-border-strong) / <alpha-value>)"
+        },
+        line: {
+          DEFAULT: "rgb(var(--c-border) / <alpha-value>)",
+          strong: "rgb(var(--c-border-strong) / <alpha-value>)"
         },
         danger: {
           DEFAULT: "rgb(var(--c-danger) / <alpha-value>)",
-          wash: "rgb(var(--c-danger-wash) / <alpha-value>)"
+          wash: "rgb(var(--c-danger-soft) / <alpha-value>)",
+          soft: "rgb(var(--c-danger-soft) / <alpha-value>)"
         },
         success: {
           DEFAULT: "rgb(var(--c-success) / <alpha-value>)",
-          wash: "rgb(var(--c-success-wash) / <alpha-value>)"
+          wash: "rgb(var(--c-success-soft) / <alpha-value>)",
+          soft: "rgb(var(--c-success-soft) / <alpha-value>)"
         },
         warning: {
           DEFAULT: "rgb(var(--c-warning) / <alpha-value>)",
-          wash: "rgb(var(--c-warning-wash) / <alpha-value>)"
+          wash: "rgb(var(--c-warning-soft) / <alpha-value>)",
+          soft: "rgb(var(--c-warning-soft) / <alpha-value>)"
         }
       },
       fontFamily: {
-        display: ["var(--font-serif)", "Georgia", "serif"],
-        sans: ["var(--font-sans)", "system-ui", "sans-serif"]
+        display: ["var(--font-display)", "Manrope", "ui-sans-serif", "system-ui", "sans-serif"],
+        sans: ["var(--font-sans)", "Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+        mono: ["var(--font-mono)", "JetBrains Mono", "ui-monospace", "monospace"]
       },
       fontSize: {
-        display: ["clamp(2.75rem, 6vw, 5rem)", { lineHeight: "1.02", letterSpacing: "-0.02em" }],
-        "display-sm": ["clamp(2.25rem, 4.5vw, 3.5rem)", { lineHeight: "1.06", letterSpacing: "-0.015em" }],
-        h1: ["clamp(2rem, 3.5vw, 3rem)", { lineHeight: "1.12", letterSpacing: "-0.015em" }],
-        h2: ["clamp(1.5rem, 2.4vw, 2rem)", { lineHeight: "1.2", letterSpacing: "-0.01em" }],
-        h3: ["1.25rem", { lineHeight: "1.3", letterSpacing: "-0.005em" }],
+        display: ["clamp(3.5rem, 7vw, 5rem)", { lineHeight: "1.05", letterSpacing: "-0.03em" }],
+        "display-sm": ["clamp(2.75rem, 5vw, 4rem)", { lineHeight: "1.06", letterSpacing: "-0.025em" }],
+        h1: ["clamp(2.25rem, 4vw, 3.25rem)", { lineHeight: "1.08", letterSpacing: "-0.02em" }],
+        h2: ["clamp(1.75rem, 2.6vw, 2.25rem)", { lineHeight: "1.15", letterSpacing: "-0.015em" }],
+        h3: ["1.25rem", { lineHeight: "1.3", letterSpacing: "-0.01em" }],
         h4: ["1.0625rem", { lineHeight: "1.4" }],
-        body: ["1rem", { lineHeight: "1.65" }],
+        body: ["1rem", { lineHeight: "1.6" }],
         "body-sm": ["0.9375rem", { lineHeight: "1.6" }],
         caption: ["0.8125rem", { lineHeight: "1.5" }],
-        label: ["0.6875rem", { lineHeight: "1.4", letterSpacing: "0.12em" }],
+        label: ["0.75rem", { lineHeight: "1.4", letterSpacing: "0.08em" }],
         price: ["1.375rem", { lineHeight: "1.2", letterSpacing: "-0.01em" }],
         "price-xl": ["1.75rem", { lineHeight: "1.15", letterSpacing: "-0.015em" }]
       },
@@ -96,25 +121,25 @@ const config: Config = {
       },
       borderRadius: {
         none: "0",
-        xs: "2px",
-        sm: "3px",
-        md: "6px",
-        lg: "8px",
-        xl: "10px",
-        "2xl": "14px",
-        "3xl": "18px"
+        xs: "0.25rem",
+        sm: "0.5rem",
+        md: "0.75rem",
+        lg: "1rem",
+        xl: "1.25rem",
+        "2xl": "1.5rem",
+        "3xl": "1.75rem"
       },
       boxShadow: {
-        card: "0 1px 2px rgb(var(--c-shadow) / 0.06)",
-        lift: "0 12px 32px -16px rgb(var(--c-shadow) / 0.20)",
-        drawer: "-24px 0 48px -24px rgb(var(--c-shadow) / 0.24)"
+        card: "0 1px 2px rgb(var(--c-shadow) / 0.05), 0 12px 32px -24px rgb(var(--c-shadow) / 0.12)",
+        lift: "0 12px 32px -8px rgb(var(--c-shadow) / 0.12)",
+        drawer: "0 24px 64px -12px rgb(var(--c-shadow) / 0.24)"
       },
       transitionDuration: {
         DEFAULT: "200ms"
       },
       maxWidth: {
-        reading: "68ch",
-        page: "84rem"
+        reading: "44rem",
+        page: "80rem"
       },
       keyframes: {
         "fade-up": {

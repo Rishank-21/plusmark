@@ -8,7 +8,7 @@ export default function StorefrontNotFound() {
         <div className="flex flex-col items-start gap-5">
           <p className="pm-eyebrow">404 · Page not found</p>
           <h1 className="balance max-w-[16ch] font-display text-display">This page is not on the board.</h1>
-          <p className="max-w-reading text-body leading-relaxed text-graphite">The address may have changed, or the product or collection may no longer be published. The full catalogue and the Plusmark desk are both still available.</p>
+          <p className="max-w-reading text-body leading-relaxed text-muted">The address may have changed, or the product or collection may no longer be published. The full catalogue and the Plusmark desk are both still available.</p>
           <div className="flex flex-wrap gap-3 pt-2"><ButtonLink href="/shop" size="lg">Browse all products</ButtonLink><ButtonLink href="/contact" variant="secondary" size="lg">Contact support</ButtonLink></div>
         </div>
         <LinkRail title="Useful destinations" links={[

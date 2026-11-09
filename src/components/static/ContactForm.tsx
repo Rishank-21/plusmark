@@ -83,7 +83,7 @@ export function ContactForm({ prefill }: { prefill?: { topic?: string; message?:
       {submitted ? (
         <div role="status" className="flex flex-col gap-4 rounded-sm border border-success/30 bg-success-wash p-5">
           <p className="font-sans text-h4 leading-snug text-ink">Recorded in this tab — not sent</p>
-          <p className="text-body-sm leading-relaxed text-graphite">
+          <p className="text-body-sm leading-relaxed text-muted">
             {submitted.summary}. Because this is a prototype, there is no ticket number and no reply will arrive. Call or
             WhatsApp the desk on the numbers above and describe the same details.
           </p>
@@ -163,7 +163,7 @@ export function ContactForm({ prefill }: { prefill?: { topic?: string; message?:
 
           <div className="flex flex-wrap items-center gap-4">
             <Button type="submit" className="h-12 w-full sm:w-auto lg:h-11">Record my message</Button>
-            <p className="text-caption text-graphite">No account needed. Fields marked * are required.</p>
+            <p className="text-caption text-muted">No account needed. Fields marked * are required.</p>
           </div>
 
           {errors.length > 0 && (
@@ -171,7 +171,7 @@ export function ContactForm({ prefill }: { prefill?: { topic?: string; message?:
               <p className="text-body-sm font-medium text-danger">
                 {errors.length} {errors.length === 1 ? "field needs" : "fields need"} attention
               </p>
-              <ul className="mt-1 list-disc pl-5 text-caption text-graphite">
+              <ul className="mt-1 list-disc pl-5 text-caption text-muted">
                 {errors.map((error) => (
                   <li key={error.field}>{error.message}</li>
                 ))}

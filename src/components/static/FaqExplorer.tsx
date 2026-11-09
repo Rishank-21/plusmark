@@ -43,26 +43,26 @@ export function FaqExplorer({ items }: { items: FaqItem[] }) {
 
   return (
     <div className="flex flex-col gap-8">
-      <div className="flex flex-col gap-5 rounded-sm border border-hair bg-surface p-5">
+      <div className="flex flex-col gap-5 rounded-sm border border-line bg-surface p-5">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div className="w-full lg:max-w-md">
             <label htmlFor="faq-search" className="text-caption font-medium text-ink">
               Search the questions
             </label>
             <div className="relative mt-1.5">
-              <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-graphite" aria-hidden />
+              <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted" aria-hidden />
               <input
                 id="faq-search"
                 type="search"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Size, magnetic, surface, warranty, delivery"
-                className="h-11 w-full rounded-xs border border-hair-strong bg-surface pl-9 pr-3 text-body-sm text-ink placeholder:text-graphite-light focus-visible:border-navy-deep"
+                className="h-11 w-full rounded-xs border border-line-strong bg-surface pl-9 pr-3 text-body-sm text-ink placeholder:text-muted focus-visible:border-navy-deep"
               />
             </div>
           </div>
 
-          <p aria-live="polite" className="text-caption text-graphite">
+          <p aria-live="polite" className="text-caption text-muted">
             {filtered.length === 0
               ? "No questions match your search."
               : `Showing ${filtered.length} ${filtered.length === 1 ? "question" : "questions"} — ${verifiedCount} answered by Plusmark${
@@ -82,7 +82,7 @@ export function FaqExplorer({ items }: { items: FaqItem[] }) {
                 onClick={() => setSection(option)}
                 className={classNames(
                   "min-h-11 rounded-xs border px-3.5 text-caption font-medium transition-colors",
-                  active ? "border-blue bg-blue text-white" : "border-hair-strong text-navy hover:bg-sand/70"
+                  active ? "border-primary bg-primary text-onprimary" : "border-line-strong text-ink hover:bg-subtle/70"
                 )}
               >
                 {option === ALL ? "All sections" : option}
@@ -91,12 +91,12 @@ export function FaqExplorer({ items }: { items: FaqItem[] }) {
           })}
         </div>
 
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-hair pt-4">
-          <span className="flex items-center gap-2 text-caption text-graphite">
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-line pt-4">
+          <span className="flex items-center gap-2 text-caption text-muted">
             <Badge tone="navy">As answered by Plusmark</Badge>
             taken from the FAQ published on plusmarkboards.com
           </span>
-          <span className="flex items-center gap-2 text-caption text-graphite">
+          <span className="flex items-center gap-2 text-caption text-muted">
             <Badge tone="demo">Awaiting the desk</Badge>
             the answer is not published yet — shown as a placeholder, never invented
           </span>
@@ -120,9 +120,9 @@ export function FaqExplorer({ items }: { items: FaqItem[] }) {
                 <div className="flex flex-col gap-3">
                   <p>{item.answer}</p>
                   {item.source === "demo" && (
-                    <p className="rounded-sm border border-dashed border-graphite/40 bg-sand/40 px-3 py-2 text-caption text-graphite">
+                    <p className="rounded-sm border border-dashed border-graphite/40 bg-subtle/40 px-3 py-2 text-caption text-muted">
                       Configurable answer — Plusmark has not published this yet. The desk handling your order confirms it;
-                      see <Link href="/contact" className="underline decoration-hair-strong underline-offset-4">contact &amp; support</Link>.
+                      see <Link href="/contact" className="underline decoration-line-strong underline-offset-4">contact &amp; support</Link>.
                     </p>
                   )}
                 </div>

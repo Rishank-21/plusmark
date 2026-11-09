@@ -196,7 +196,7 @@ export function CheckoutFlow() {
     setRecovery(null);
     writeDraft({
       savedAt: new Date().toISOString(),
-      lines: cart.lines.map((line) => ({ productId: line.productId, variantId: line.variantId, quantity: line.quantity })),
+      lines: cart.lines.map((line) => ({ productId: line.productId, variantId: line.variantId, colour: line.colour ?? null, quantity: line.quantity })),
       contact: { email: "", fullName: "", phone: "" },
       shippingMethodId: cart.shippingMethod.id
     });
@@ -351,7 +351,7 @@ export function CheckoutFlow() {
     if (!recovery) return;
     let added = 0;
     for (const line of recovery.lines) {
-      const result = cart.add({ productId: line.productId, variantId: line.variantId, quantity: line.quantity });
+      const result = cart.add({ productId: line.productId, variantId: line.variantId, colour: line.colour ?? null, quantity: line.quantity });
       if (result.ok) added += 1;
     }
     if (added === 0) {
@@ -411,7 +411,7 @@ export function CheckoutFlow() {
               id: line.id,
               name: line.product.name,
               slug: line.product.slug,
-              variantLabel: variantLabel(line.variant),
+              variantLabel: `${variantLabel(line.variant)}${line.colour ? ` · ${line.colour}` : ""}`,
               sku: line.variant.sku,
               quantity: line.quantity,
               unitPriceInr: line.variant.priceInr,
@@ -504,7 +504,7 @@ export function CheckoutFlow() {
       return (
         <div className="pm-shell py-2xl lg:py-3xl">
           <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Checkout" }]} />
-          <h1 className="mt-md font-display text-display-sm">Checkout</h1>
+          <h1 className="mt-md font-display text-h1 font-extrabold text-ink">Checkout</h1>
           <div className="mt-2xl">
             <Notice tone="warning" title="Your cart is empty, but this browser still holds the lines you checked out with" icon={<TriangleAlert className="size-4" aria-hidden />}>
               The cart record was cleared — a completed order clears it, and a storage reset can too. Put the lines back
@@ -512,7 +512,8 @@ export function CheckoutFlow() {
               <ul className="mt-2 list-disc pl-5">
                 {recovery.lines.map((line) => (
                   <li key={line.variantId} className="tabular text-caption">
-                    {line.productId} · {line.variantId.split("--")[1]?.replace(/-/g, " ")} · ×{line.quantity}
+                    {line.productId} · {line.variantId.split("--")[1]?.replace(/-/g, " ")}
+                    {line.colour ? ` · ${line.colour}` : ""} · ×{line.quantity}
                   </li>
                 ))}
               </ul>
@@ -533,7 +534,7 @@ export function CheckoutFlow() {
     return (
       <div className="pm-shell py-2xl lg:py-3xl">
         <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Checkout" }]} />
-        <h1 className="mt-md font-display text-display-sm">Checkout</h1>
+        <h1 className="mt-md font-display text-h1 font-extrabold text-ink">Checkout</h1>
         <div className="mt-2xl">
           <EmptyState
             title="There is nothing to check out"
@@ -550,7 +551,7 @@ export function CheckoutFlow() {
     return (
       <div className="pm-shell py-2xl lg:py-3xl">
         <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Checkout" }]} />
-        <h1 className="mt-md font-display text-display-sm">Checkout</h1>
+        <h1 className="mt-md font-display text-h1 font-extrabold text-ink">Checkout</h1>
         <div className="mt-2xl flex flex-col gap-lg">
           <Notice tone="danger" title="Checkout is blocked: a line has no price" icon={<ShieldAlert className="size-4" aria-hidden />}>
             Plusmark publishes no list prices, so a line without a figure in the demo rate card cannot be totalled, and an
@@ -580,21 +581,21 @@ export function CheckoutFlow() {
       <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Cart", href: "/cart" }, { label: "Checkout" }]} />
 
       <header className="mt-md flex flex-wrap items-end justify-between gap-3">
-        <h1 className="font-display text-display-sm">Checkout</h1>
-        <p className="tabular text-caption text-graphite">
+        <h1 className="font-display text-h1 font-extrabold text-ink">Checkout</h1>
+        <p className="tabular text-caption text-muted">
           {cart.count} {cart.count === 1 ? "unit" : "units"} · {formatInr(totals.subtotalInr ?? 0)} of goods
         </p>
       </header>
 
-      <details className="group mt-lg rounded-lg border border-hair bg-surface lg:hidden">
+      <details className="group mt-lg rounded-lg border border-line bg-surface lg:hidden">
         <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-md py-3 text-body-sm">
           <span className="font-medium text-ink">Order summary</span>
           <span className="flex items-center gap-2">
             <span className="tabular text-body-sm font-medium text-ink">{totalLabel}</span>
-            <ChevronDown className="size-4 text-graphite transition-transform group-open:rotate-180" aria-hidden />
+            <ChevronDown className="size-4 text-muted transition-transform group-open:rotate-180" aria-hidden />
           </span>
         </summary>
-        <div className="border-t border-hair p-md">
+        <div className="border-t border-line p-md">
           <OrderSummary
             lines={cart.views}
             totals={totals}
@@ -625,11 +626,11 @@ export function CheckoutFlow() {
             </h2>
 
             {useSaved && savedAddress ? (
-              <div className="flex flex-col gap-3 rounded-lg border border-hair bg-surface p-md">
+              <div className="flex flex-col gap-3 rounded-lg border border-line bg-surface p-md">
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex flex-col gap-0.5">
                     <p className="text-body-sm font-medium text-ink">{savedAddress.recipientName}</p>
-                    <p className="tabular text-caption text-graphite">{savedAddress.phone}</p>
+                    <p className="tabular text-caption text-muted">{savedAddress.phone}</p>
                   </div>
                   <button
                     type="button"
@@ -640,18 +641,18 @@ export function CheckoutFlow() {
                       setUseSaved(false);
                       setErrors({});
                     }}
-                    className="text-caption font-medium text-ink underline decoration-hair-strong underline-offset-4 transition-colors hover:decoration-ink"
+                    className="text-caption font-medium text-ink underline decoration-line-strong underline-offset-4 transition-colors hover:decoration-ink"
                   >
                     Change
                   </button>
                 </div>
-                <p className="text-body-sm leading-relaxed text-graphite">
+                <p className="text-body-sm leading-relaxed text-muted">
                   {savedAddress.line1}
                   {savedAddress.landmark ? `, ${savedAddress.landmark}` : ""}
                   <br />
                   {savedAddress.city}, {savedAddress.state} {savedAddress.pincode}
                 </p>
-                <p className="border-t border-hair pt-3 text-caption text-graphite">
+                <p className="border-t border-line pt-3 text-caption text-muted">
                   Order updates go to <span className="text-ink">{accountEmail}</span>.
                 </p>
               </div>
@@ -687,7 +688,7 @@ export function CheckoutFlow() {
                   />
 
                   {signedIn ? (
-                    <p className="text-caption text-graphite">
+                    <p className="text-caption text-muted">
                       Order updates go to <span className="text-ink">{accountEmail}</span>.
                     </p>
                   ) : (
@@ -785,7 +786,7 @@ export function CheckoutFlow() {
                           setLandmarkOpen(false);
                           updateField("landmark", "");
                         }}
-                        className="inline-flex items-center gap-1 self-start text-caption text-graphite underline decoration-hair-strong underline-offset-4 hover:text-ink"
+                        className="inline-flex items-center gap-1 self-start text-caption text-muted underline decoration-line-strong underline-offset-4 hover:text-ink"
                       >
                         <X className="size-3.5" aria-hidden />
                         Remove landmark
@@ -798,7 +799,7 @@ export function CheckoutFlow() {
                         setLandmarkOpen(true);
                         window.requestAnimationFrame(() => document.getElementById(FIELD_IDS.landmark)?.focus());
                       }}
-                      className="inline-flex items-center gap-1.5 self-start text-body-sm font-medium text-ink underline decoration-hair-strong underline-offset-4 transition-colors hover:decoration-ink"
+                      className="inline-flex items-center gap-1.5 self-start text-body-sm font-medium text-ink underline decoration-line-strong underline-offset-4 transition-colors hover:decoration-ink"
                     >
                       <Plus className="size-4" aria-hidden />
                       Add landmark
@@ -809,7 +810,7 @@ export function CheckoutFlow() {
                     <button
                       type="button"
                       onClick={() => setUseSaved(true)}
-                      className="self-start text-caption text-graphite underline decoration-hair-strong underline-offset-4 hover:text-ink"
+                      className="self-start text-caption text-muted underline decoration-line-strong underline-offset-4 hover:text-ink"
                     >
                       Use my saved address instead
                     </button>
@@ -827,9 +828,9 @@ export function CheckoutFlow() {
                 )}
 
                 {!signedIn && (
-                  <p className="text-caption leading-relaxed text-graphite">
+                  <p className="text-caption leading-relaxed text-muted">
                     Checking out as a guest.{" "}
-                    <Link href="/login?next=/checkout" className="underline decoration-hair-strong underline-offset-4 hover:text-ink">
+                    <Link href="/login?next=/checkout" className="underline decoration-line-strong underline-offset-4 hover:text-ink">
                       Sign in
                     </Link>{" "}
                     to use a saved address and pay online.
@@ -849,7 +850,7 @@ export function CheckoutFlow() {
                   const method = dispatchOptions.find((option) => option.id === event.target.value);
                   if (method) cart.setShippingMethod(method);
                 }}
-                className="h-12 w-full rounded-lg border border-hair-strong bg-surface px-3.5 text-body-sm text-ink transition-colors hover:border-graphite-light focus-visible:border-navy focus-visible:outline-none"
+                className="h-12 w-full rounded-lg border border-line-strong bg-surface px-3.5 text-body-sm text-ink transition-colors hover:border-graphite-light focus-visible:border-navy focus-visible:outline-none"
               >
                 {dispatchOptions.map((method) => (
                   <option key={method.id} value={method.id}>
@@ -857,7 +858,7 @@ export function CheckoutFlow() {
                   </option>
                 ))}
               </select>
-              <p className="text-caption text-graphite">
+              <p className="text-caption text-muted">
                 {selectedDispatch.priceInr === null
                   ? "Freight is confirmed on the invoice."
                   : selectedDispatch.priceInr === 0
@@ -911,37 +912,37 @@ export function CheckoutFlow() {
         </aside>
       </div>
 
-      <div className="sticky bottom-0 z-20 -mx-md mt-xl border-t border-hair bg-canvas/95 px-md py-3 backdrop-blur sm:-mx-lg sm:px-lg lg:hidden">
+      <div className="sticky bottom-0 z-20 -mx-md mt-xl border-t border-line bg-page/95 px-md py-3 backdrop-blur sm:-mx-lg sm:px-lg lg:hidden">
         <div className="flex items-center justify-between gap-3">
           <div className="flex flex-col">
-            <span className="text-caption text-graphite">Total</span>
+            <span className="text-caption text-muted">Total</span>
             <span className="tabular text-h4 font-medium text-ink">{totalLabel}</span>
           </div>
           <Button size="lg" loading={placing} disabled={placing} onClick={() => void place()} className="min-w-40">
             {placing ? "Placing…" : placeLabel}
           </Button>
         </div>
-        <p className="mt-1.5 text-[0.6875rem] leading-snug text-graphite">
+        <p className="mt-1.5 text-[0.6875rem] leading-snug text-muted">
           By placing this order you agree to our{" "}
           <Link href="/policies/terms" className="underline underline-offset-2 hover:text-ink">Terms</Link> and{" "}
           <Link href="/policies/privacy" className="underline underline-offset-2 hover:text-ink">Privacy Policy</Link>.
         </p>
       </div>
 
-      <p className="hidden pb-2xl pt-md text-caption text-graphite lg:block">{DEMO_PRICING_LABEL}.</p>
+      <p className="hidden pb-2xl pt-md text-caption text-muted lg:block">{DEMO_PRICING_LABEL}.</p>
     </div>
   );
 }
 
 function TermsNote() {
   return (
-    <p className="text-caption leading-relaxed text-graphite">
+    <p className="text-caption leading-relaxed text-muted">
       By placing this order you agree to our{" "}
-      <Link href="/policies/terms" className="underline decoration-hair-strong underline-offset-4 hover:text-ink">
+      <Link href="/policies/terms" className="underline decoration-line-strong underline-offset-4 hover:text-ink">
         Terms
       </Link>{" "}
       and{" "}
-      <Link href="/policies/privacy" className="underline decoration-hair-strong underline-offset-4 hover:text-ink">
+      <Link href="/policies/privacy" className="underline decoration-line-strong underline-offset-4 hover:text-ink">
         Privacy Policy
       </Link>
       . Billing uses the same address.
@@ -954,12 +955,12 @@ function OpeningPaymentPanel({ order }: { order: { reference: string; id: string
     <div className="pm-shell py-3xl" role="status" aria-live="polite">
       <div className="mx-auto flex max-w-reading flex-col items-start gap-4">
         <Badge tone="warning">Payment pending</Badge>
-        <h1 className="font-display text-display-sm">Opening secure payment</h1>
-        <p className="text-body-sm text-graphite">
+        <h1 className="font-display text-h2 font-extrabold text-ink">Opening secure payment</h1>
+        <p className="text-body-sm text-muted">
           Order {order.reference} is saved. Razorpay&apos;s window should open on top of this page; the order stays
           payment pending until the server verifies the captured amount.
         </p>
-        <p className="text-caption leading-relaxed text-graphite">
+        <p className="text-caption leading-relaxed text-muted">
           If the window was blocked or closed, nothing has been charged. No card or UPI details are entered on this page.
         </p>
         <ButtonLink href={`/account/orders/${order.id}`} variant="secondary">
@@ -975,14 +976,14 @@ function PlacedPanel({ reference, signedIn }: { reference: string; signedIn: boo
     <div className="pm-shell py-3xl" role="status" aria-live="polite">
       <div className="mx-auto flex max-w-reading flex-col items-start gap-4">
         <Badge tone="navy">Recorded</Badge>
-        <h1 className="font-display text-display-sm">Order {reference} is in</h1>
-        <p className="text-body-sm text-graphite">
+        <h1 className="font-display text-h2 font-extrabold text-ink">Order {reference} is in</h1>
+        <p className="text-body-sm text-muted">
           {signedIn
             ? "The order is saved to your account. Taking you to the confirmation now."
             : "The order is recorded on this browser. Taking you to the confirmation now."}
         </p>
         {!signedIn && (
-          <p className="text-caption leading-relaxed text-graphite">
+          <p className="text-caption leading-relaxed text-muted">
             Create an account to keep this order and track future ones from any device.
           </p>
         )}

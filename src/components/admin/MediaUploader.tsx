@@ -420,7 +420,7 @@ export function MediaUploader({
                   className="size-full object-cover"
                 />
                 {index === 0 && (
-                  <span className="absolute left-0 top-0 inline-flex items-center gap-0.5 bg-blue px-1 py-0.5 text-[0.5625rem] font-semibold uppercase tracking-wide text-white">
+                  <span className="absolute left-0 top-0 inline-flex items-center gap-0.5 bg-blue px-1 py-0.5 text-[0.5625rem] font-semibold uppercase tracking-wide text-onprimary">
                     <Star className="size-2.5 fill-current" aria-hidden /> Primary
                   </span>
                 )}

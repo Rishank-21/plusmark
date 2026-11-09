@@ -20,7 +20,7 @@ function AppliedCoupon({ code, totals, onClear }: { code: string; totals: CartTo
   const belowMinimum = coupon !== null && !couponMeetsMinimum(coupon, totals.subtotalInr);
 
   return (
-    <div className="flex flex-col gap-2 rounded-sm border border-hair bg-sand/40 p-3.5">
+    <div className="flex flex-col gap-2 rounded-sm border border-line bg-subtle/40 p-3.5">
       <div className="flex items-center justify-between gap-3">
         <p className="flex items-center gap-2 text-body-sm font-medium text-ink">
           <BadgeCheck className="size-4 text-success" aria-hidden />
@@ -30,13 +30,13 @@ function AppliedCoupon({ code, totals, onClear }: { code: string; totals: CartTo
         <button
           type="button"
           onClick={onClear}
-          className="inline-flex items-center gap-1.5 rounded-xs px-1.5 py-1 text-caption text-graphite transition-colors hover:bg-sand hover:text-danger"
+          className="inline-flex items-center gap-1.5 rounded-xs px-1.5 py-1 text-caption text-muted transition-colors hover:bg-subtle hover:text-danger"
         >
           <X className="size-3.5" aria-hidden />
           Remove
         </button>
       </div>
-      {coupon && <p className="text-caption leading-relaxed text-graphite">{coupon.description}</p>}
+      {coupon && <p className="text-caption leading-relaxed text-muted">{coupon.description}</p>}
       {totals.discountInr > 0 ? (
         <p className="text-caption leading-relaxed text-success">
           Discount of {formatInr(totals.discountInr)} is included in the totals below.
@@ -124,7 +124,7 @@ export function CouponControl({
           Apply
         </Button>
       </div>
-      {message?.tone === "info" && <p className="text-caption text-graphite">{message.text}</p>}
+      {message?.tone === "info" && <p className="text-caption text-muted">{message.text}</p>}
     </form>
   );
 }

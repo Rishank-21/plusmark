@@ -15,7 +15,7 @@ interface CartContextValue {
   count: number;
   hydrated: boolean;
   drawerOpen: boolean;
-  add: (input: { productId: string; variantId: string; quantity?: number }) => { ok: boolean; message: string };
+  add: (input: { productId: string; variantId: string; colour?: string | null; quantity?: number }) => { ok: boolean; message: string };
   setQuantity: (lineId: string, quantity: number) => void;
   remove: (lineId: string) => void;
   clear: () => void;
@@ -84,7 +84,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     };
   }, [drawerOpen]);
 
-  const add = useCallback<CartContextValue["add"]>(({ productId, variantId, quantity = 1 }) => {
+  const add = useCallback<CartContextValue["add"]>(({ productId, variantId, colour = null, quantity = 1 }) => {
     const product = getProduct(productId);
     if (!product) return { ok: false, message: "That product is no longer listed." };
     const variant = variantOf(product, variantId);
@@ -94,22 +94,24 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       return { ok: false, message: "This size is quoted on request. Use Request a Bulk Quote instead." };
     }
 
-    let message = `Added ${product.name} — ${variantLabel(variant)} to your cart.`;
+    const colourSuffix = colour ? ` · ${colour}` : "";
+    let message = `Added ${product.name} — ${variantLabel(variant)}${colourSuffix} to your cart.`;
     setLines((current) => {
-      const matchIndex = current.findIndex((l) => l.variantId === variantId);
+      const matchIndex = current.findIndex((l) => l.variantId === variantId && (l.colour ?? null) === (colour ?? null));
       if (matchIndex >= 0) {
         const next = [...current];
         const existing = next[matchIndex];
         next[matchIndex] = { ...existing, quantity: Math.min(existing.quantity + quantity, 999) };
-        message = `Updated ${product.name} — ${variantLabel(variant)} to ${next[matchIndex].quantity}.`;
+        message = `Updated ${product.name} — ${variantLabel(variant)}${colourSuffix} to ${next[matchIndex].quantity}.`;
         return next;
       }
       return [
         ...current,
         {
-          id: `${variantId}-${Date.now().toString(36)}`,
+          id: `${variantId}-${colour ? colour.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") : "default"}-${Date.now().toString(36)}`,
           productId,
           variantId,
+          colour: colour ?? null,
           quantity: Math.max(product.minimumOrderQuantity, quantity),
           addedAt: new Date().toISOString()
         }

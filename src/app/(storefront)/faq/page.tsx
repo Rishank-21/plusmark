@@ -28,7 +28,6 @@ export default function FaqPage() {
       />
       <PageHeader
         trail={[{ label: "Home", href: "/" }, { label: "FAQ" }]}
-        eyebrow="Published answers, clearly separated from open questions"
         title="Questions about boards, sizes and supply"
         lead="Search the Plusmark FAQ by material, size, surface, delivery or returns. Where the business has not published an answer, the entry says so instead of filling the gap with a guessed policy."
       />

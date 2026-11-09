@@ -138,6 +138,9 @@ export function ProductDetailSections({
   const [descFull, setDescFull] = useState(0);
   const [featuresExpanded, setFeaturesExpanded] = useState(false);
   const [revealed, setRevealed] = useState<Record<string, boolean>>({});
+  // Below 1024px the detail sections become accordions, matching the mobile
+  // brief; the desktop tab bar and open sections stay exactly as published.
+  const [mobile, setMobile] = useState(false);
 
   const rootRef = useRef<HTMLDivElement>(null);
   const descRef = useRef<HTMLDivElement>(null);
@@ -285,6 +288,14 @@ export function ProductDetailSections({
     setFeaturesExpanded(false);
   }, [product.slug]);
 
+  useEffect(() => {
+    const query = window.matchMedia("(max-width: 1023px)");
+    const sync = () => setMobile(query.matches);
+    sync();
+    query.addEventListener("change", sync);
+    return () => query.removeEventListener("change", sync);
+  }, []);
+
   const scrollTo = (id: string) => {
     const target = document.getElementById(id);
     if (!target) return;
@@ -340,10 +351,10 @@ export function ProductDetailSections({
         <>
           <div
             ref={barRef}
-            className={classNames("sticky z-40 bg-surface transition-shadow", stuck && "shadow-card")}
+            className={classNames("sticky z-40 hidden bg-surface transition-shadow lg:block", stuck && "shadow-card")}
             style={{ top: headerH }}
           >
-            <div className="relative border-b border-hair">
+            <div className="relative border-b border-line">
               <nav ref={navRef} aria-label="Product information sections" className="relative flex overflow-x-auto no-scrollbar">
                 {visibleLinks.map((link) => {
                   const isActive = active === link.id;
@@ -357,8 +368,8 @@ export function ProductDetailSections({
                       onClick={(event) => handleAnchor(event, link.id)}
                       aria-current={isActive ? "true" : undefined}
                       className={classNames(
-                        "relative flex h-[52px] shrink-0 items-center px-3.5 text-[0.8125rem] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-blue",
-                        isActive ? "font-semibold text-blue" : "font-medium text-graphite hover:text-ink"
+                        "relative flex h-[52px] shrink-0 items-center px-3.5 text-[0.8125rem] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary",
+                        isActive ? "font-semibold text-primary" : "font-medium text-muted hover:text-ink"
                       )}
                     >
                       {link.label}
@@ -368,7 +379,7 @@ export function ProductDetailSections({
                 {indicator && (
                   <span
                     aria-hidden
-                    className="pointer-events-none absolute bottom-0 h-[2px] rounded-full bg-blue transition-[left,width] duration-300 ease-out motion-reduce:transition-none"
+                    className="pointer-events-none absolute bottom-0 h-[2px] rounded-full bg-primary transition-[left,width] duration-300 ease-out motion-reduce:transition-none"
                     style={{ left: indicator.left, width: indicator.width }}
                   />
                 )}
@@ -387,15 +398,16 @@ export function ProductDetailSections({
       )}
 
       {content.description.length > 0 && (
-        <section
+        <details
+          open={!mobile}
           id="pdp-description"
           aria-labelledby="pdp-description-heading"
           data-reveal-id="pdp-description"
-          className={classNames("py-6 lg:py-7", revealClass("pdp-description"))}
+          className={classNames("group py-3 lg:py-7", revealClass("pdp-description"))}
           style={sectionStyle}
         >
-          <SectionHeading id="pdp-description-heading" kicker="Product details" title="Description" />
-          <div className="mt-5 grid gap-6 lg:grid-cols-[minmax(0,1fr)_20rem] lg:items-start lg:gap-10 xl:gap-16">
+          <DisclosureSummary id="pdp-description-heading" title="Description" />
+          <div className="grid gap-6 pt-4 lg:grid-cols-[minmax(0,1fr)_20rem] lg:items-start lg:gap-10 lg:pt-5 xl:gap-16">
             <div className="min-w-0">
               <div className="relative">
                 <div
@@ -425,7 +437,7 @@ export function ProductDetailSections({
                     onClick={() => setDescExpanded((value) => !value)}
                     aria-expanded={descExpanded}
                     aria-controls="pdp-description-body"
-                    className="inline-flex h-10 items-center gap-1 rounded-sm text-[0.875rem] font-semibold text-blue-deep hover:text-navy-deep focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue focus-visible:ring-offset-2 focus-visible:ring-offset-surface lg:h-8"
+                    className="inline-flex h-11 items-center gap-1 rounded-sm text-[0.875rem] font-semibold text-primary-strong hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-surface lg:h-8"
                   >
                     {descExpanded ? "Read less" : "Read more"}
                     <ChevronDown
@@ -440,7 +452,7 @@ export function ProductDetailSections({
                 {highlights.map(({ icon: Icon, label }) => (
                   <li
                     key={label}
-                    className="flex items-center gap-1.5 rounded-md bg-blue-wash px-2.5 py-1.5 text-[0.8125rem] font-medium leading-none text-blue-deep"
+                    className="flex items-center gap-1.5 rounded-md bg-primary-soft px-2.5 py-1.5 text-[0.8125rem] font-medium leading-none text-primary-strong"
                   >
                     <Icon className="size-3.5 shrink-0" strokeWidth={1.75} aria-hidden />
                     {label}
@@ -455,20 +467,20 @@ export function ProductDetailSections({
                 className="lg:sticky"
                 style={{ top: `${offset + 20}px` }}
               >
-                <div className="overflow-hidden rounded-lg border border-hair bg-surface">
-                  <div className="flex items-center gap-2 border-b border-hair bg-blue-wash/60 px-4 py-3">
-                    <Info className="size-4 shrink-0 text-blue-deep" strokeWidth={1.75} aria-hidden />
-                    <h3 id="pdp-glance-heading" className="font-sans text-[0.9375rem] font-semibold text-ink">
+                <div className="overflow-hidden rounded-lg border border-line bg-surface">
+                  <div className="flex items-center gap-2 border-b border-line bg-primary-soft/60 px-4 py-3">
+                    <Info className="size-4 shrink-0 text-primary-strong" strokeWidth={1.75} aria-hidden />
+                    <h3 id="pdp-glance-heading" className="font-display text-body font-bold text-ink">
                       At a glance
                     </h3>
                   </div>
-                  <dl className="divide-y divide-hair">
+                  <dl className="divide-y divide-line">
                     {glanceSpecs.map((spec) => {
                       const Icon = SPEC_ICONS[spec.term] ?? Info;
                       return (
                         <div key={spec.term} className="grid grid-cols-[auto_minmax(0,1fr)] items-start gap-x-3 px-4 py-2.5">
-                          <Icon className="mt-0.5 size-4 shrink-0 text-graphite" strokeWidth={1.75} aria-hidden />
-                          <dt className="col-start-2 text-[0.6875rem] font-semibold uppercase tracking-[0.06em] text-graphite">
+                          <Icon className="mt-0.5 size-4 shrink-0 text-muted" strokeWidth={1.75} aria-hidden />
+                          <dt className="col-start-2 text-[0.6875rem] font-semibold uppercase tracking-[0.06em] text-muted">
                             {spec.term}
                           </dt>
                           <dd className="col-start-2 mt-0.5 text-[0.875rem] font-medium leading-snug text-ink-soft">{spec.detail}</dd>
@@ -479,7 +491,7 @@ export function ProductDetailSections({
                   <a
                     href="#pdp-specs"
                     onClick={(event) => handleAnchor(event, "pdp-specs")}
-                    className="flex items-center justify-between gap-2 border-t border-hair px-4 py-3 text-[0.8125rem] font-semibold text-blue-deep transition-colors hover:bg-sand/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-blue"
+                    className="flex items-center justify-between gap-2 border-t border-line px-4 py-3 text-[0.8125rem] font-semibold text-primary-strong transition-colors hover:bg-subtle/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary"
                   >
                     View all specifications
                     <ChevronRight className="size-4 shrink-0" strokeWidth={1.75} aria-hidden />
@@ -488,31 +500,33 @@ export function ProductDetailSections({
               </aside>
             )}
           </div>
-        </section>
+        </details>
       )}
 
       {content.features.length > 0 && (
-        <section
+        <details
+          open={!mobile}
           id="pdp-features"
           aria-labelledby="pdp-features-heading"
           data-reveal-id="pdp-features"
-          className={classNames("py-6 lg:py-7", revealClass("pdp-features"))}
+          className={classNames("group py-3 lg:py-7", revealClass("pdp-features"))}
           style={sectionStyle}
         >
-          <SectionHeading id="pdp-features-heading" kicker="Key features" title="About this item" />
-          <ul className="mt-5 grid gap-3 sm:grid-cols-2">
+          <DisclosureSummary id="pdp-features-heading" title="About this item" />
+          <div className="pt-4 lg:pt-5">
+          <ul className="grid gap-3 sm:grid-cols-2">
             {visibleFeatures.map((feature, index) => (
               <li
                 key={`${feature.title}-${index}`}
-                className="flex h-full gap-3 rounded-lg border border-hair bg-surface p-4 transition-colors hover:border-hair-strong"
+                className="flex h-full gap-3 rounded-lg border border-line bg-surface p-4 transition-colors hover:border-line-strong"
               >
-                <span className="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full bg-blue-wash text-blue-deep">
+                <span className="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full bg-primary-soft text-primary-strong">
                   <Check className="size-3.5" strokeWidth={1.75} aria-hidden />
                 </span>
                 <div className="min-w-0">
-                  <h3 className="font-sans text-[0.9375rem] font-semibold leading-snug text-ink">{feature.title}</h3>
+                  <h3 className="font-display text-body font-bold leading-snug text-ink">{feature.title}</h3>
                   {feature.detail ? (
-                    <p className="mt-1 text-[0.875rem] leading-relaxed text-graphite">{feature.detail}</p>
+                    <p className="mt-1 text-[0.875rem] leading-relaxed text-muted">{feature.detail}</p>
                   ) : null}
                 </div>
               </li>
@@ -524,7 +538,7 @@ export function ProductDetailSections({
                 type="button"
                 onClick={() => setFeaturesExpanded((value) => !value)}
                 aria-expanded={featuresExpanded}
-                className="inline-flex h-8 items-center gap-1 rounded-sm text-[0.875rem] font-semibold text-blue-deep hover:text-navy-deep focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
+                className="inline-flex h-11 items-center gap-1 rounded-sm text-[0.875rem] font-semibold text-primary-strong hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-surface lg:h-8"
               >
                 {featuresExpanded ? "Show less" : "See more"}
                 <ChevronDown
@@ -535,20 +549,23 @@ export function ProductDetailSections({
               </button>
             </div>
           )}
-        </section>
+          </div>
+        </details>
       )}
 
       {content.specs.length > 0 && (
-        <section
+        <details
+          open={!mobile}
           id="pdp-specs"
           aria-labelledby="pdp-specs-heading"
           data-reveal-id="pdp-specs"
-          className={classNames("py-6 lg:py-7", revealClass("pdp-specs"))}
+          className={classNames("group py-3 lg:py-7", revealClass("pdp-specs"))}
           style={sectionStyle}
         >
-          <SectionHeading id="pdp-specs-heading" kicker="Product information" title="Specifications" />
-          <div className="mt-5 overflow-hidden rounded-lg border border-hair">
-            <table className="w-full table-fixed border-collapse text-left [&>tbody>tr:first-child]:border-t-0">
+          <DisclosureSummary id="pdp-specs-heading" title="Specifications" />
+          <div className="pt-4 lg:pt-5">
+          <div className="overflow-hidden rounded-lg border border-line">
+            <table className="w-full table-fixed border-collapse text-left max-lg:[&>tbody>tr:nth-child(odd)]:bg-subtle/30 [&>tbody>tr:first-child]:border-t-0">
               <caption className="sr-only">Technical details for {product.name}</caption>
               <colgroup>
                 <col className="w-[34%]" />
@@ -558,21 +575,21 @@ export function ProductDetailSections({
                 {specGroups.map((group, groupIndex) => (
                   <Fragment key={group.name ?? `group-${groupIndex}`}>
                     {hasSpecGroups && group.name && (
-                      <tr className="border-t border-hair">
+                      <tr className="border-t border-line">
                         <th
                           scope="colgroup"
                           colSpan={2}
-                          className="bg-sand/80 px-4 py-2 text-left text-[0.75rem] font-semibold uppercase tracking-[0.08em] text-graphite"
+                          className="bg-subtle/80 px-4 py-2 text-left text-[0.75rem] font-semibold uppercase tracking-[0.08em] text-muted"
                         >
                           {group.name}
                         </th>
                       </tr>
                     )}
                     {group.rows.map((row, rowIndex) => (
-                      <tr key={`${row.term}-${rowIndex}`} className="border-t border-hair">
+                      <tr key={`${row.term}-${rowIndex}`} className="border-t border-line">
                         <th
                           scope="row"
-                          className="border-r border-hair bg-sand/40 px-4 py-3 align-top text-[0.875rem] font-medium leading-relaxed text-ink-soft"
+                          className="border-r border-line bg-subtle/40 px-4 py-3 align-top text-[0.875rem] font-medium leading-relaxed text-ink-soft"
                         >
                           {row.term}
                         </th>
@@ -584,20 +601,23 @@ export function ProductDetailSections({
               </tbody>
             </table>
           </div>
-        </section>
+          </div>
+        </details>
       )}
 
       {selectable.length > 0 && (
-        <section
+        <details
+          open={!mobile}
           id="pdp-sizes"
           aria-labelledby="pdp-sizes-heading"
           data-reveal-id="pdp-sizes"
-          className={classNames("py-6 lg:py-7", revealClass("pdp-sizes"))}
+          className={classNames("group py-3 lg:py-7", revealClass("pdp-sizes"))}
           style={sectionStyle}
         >
-          <SectionHeading id="pdp-sizes-heading" kicker="Available sizes & SKUs" title="Sizes & SKUs" />
+          <DisclosureSummary id="pdp-sizes-heading" title="Sizes & SKUs" />
+          <div className="pt-4 lg:pt-5">
           <div
-            className="relative mt-5 overflow-x-auto rounded-lg border border-hair lg:overflow-x-clip"
+            className="relative overflow-x-auto rounded-lg border border-line lg:overflow-x-clip"
             style={{ "--pdp-offset": `${offset}px` } as CSSProperties}
           >
             <table className="w-full min-w-[46rem] border-collapse text-left lg:min-w-0 [&>tbody>tr:first-child]:border-t-0">
@@ -616,9 +636,9 @@ export function ProductDetailSections({
                       key={label}
                       scope="col"
                       className={classNames(
-                        "bg-sand px-4 py-3 text-[0.8125rem] font-semibold text-graphite",
+                        "bg-subtle px-4 py-3 text-[0.8125rem] font-semibold text-muted",
                         index === 0
-                          ? "sticky left-0 z-30 border-r border-hair lg:top-[var(--pdp-offset)]"
+                          ? "sticky left-0 z-30 border-r border-line lg:top-[var(--pdp-offset)]"
                           : "lg:sticky lg:top-[var(--pdp-offset)] lg:z-20"
                       )}
                     >
@@ -627,7 +647,7 @@ export function ProductDetailSections({
                   ))}
                   <th
                     scope="col"
-                    className="bg-sand px-4 py-3 text-right text-[0.8125rem] font-semibold text-graphite lg:sticky lg:top-[var(--pdp-offset)] lg:z-20"
+                    className="bg-subtle px-4 py-3 text-right text-[0.8125rem] font-semibold text-muted lg:sticky lg:top-[var(--pdp-offset)] lg:z-20"
                   >
                     <span className="sr-only">Select this size</span>
                   </th>
@@ -641,32 +661,32 @@ export function ProductDetailSections({
                       key={variant.id}
                       onClick={() => choose(variant)}
                       className={classNames(
-                        "group cursor-pointer border-t border-hair transition-colors",
-                        selected ? "bg-blue-wash/70" : "hover:bg-sand/40"
+                        "group cursor-pointer border-t border-line transition-colors",
+                        selected ? "bg-primary-soft/70" : "hover:bg-subtle/40"
                       )}
                     >
                       <th
                         scope="row"
                         className={classNames(
-                          "sticky left-0 z-10 border-r border-hair px-4 py-3 text-left text-[0.875rem] font-medium text-ink transition-colors",
-                          selected ? "bg-blue-wash" : "bg-surface group-hover:bg-sand/40"
+                          "sticky left-0 z-10 border-r border-line px-4 py-3 text-left text-[0.875rem] font-medium text-ink transition-colors",
+                          selected ? "bg-primary-soft" : "bg-surface group-hover:bg-subtle/40"
                         )}
                       >
-                        {selected && <span aria-hidden className="absolute inset-y-0 left-0 w-[3px] bg-blue" />}
+                        {selected && <span aria-hidden className="absolute inset-y-0 left-0 w-[3px] bg-primary" />}
                         <span className="relative flex flex-wrap items-center gap-2">
                           {variantLabel(variant)}
                           {selected && (
-                            <span className="rounded-sm bg-blue px-1.5 py-0.5 text-[0.6875rem] font-semibold leading-none text-white">
+                            <span className="rounded-sm bg-primary px-1.5 py-0.5 text-[0.6875rem] font-semibold leading-none text-onprimary">
                               Selected
                             </span>
                           )}
                         </span>
                       </th>
-                      <td className="tabular whitespace-nowrap px-4 py-3 text-[0.875rem] text-graphite">{variant.sku}</td>
-                      <td className="tabular whitespace-nowrap px-4 py-3 text-[0.875rem] text-graphite">{mm}</td>
+                      <td className="tabular whitespace-nowrap px-4 py-3 text-[0.875rem] text-muted">{variant.sku}</td>
+                      <td className="tabular whitespace-nowrap px-4 py-3 text-[0.875rem] text-muted">{mm}</td>
                       <td className="tabular whitespace-nowrap px-4 py-3 text-[0.875rem] font-medium text-ink">
                         {price}
-                        {variant.priceInr !== null && <span className="font-normal text-graphite"> + GST</span>}
+                        {variant.priceInr !== null && <span className="font-normal text-muted"> + GST</span>}
                       </td>
                       <td className="whitespace-nowrap px-4 py-3 text-right">
                         <button
@@ -677,10 +697,10 @@ export function ProductDetailSections({
                           }}
                           aria-pressed={selected}
                           className={classNames(
-                            "h-10 rounded-full border px-3.5 text-[0.8125rem] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-blue lg:h-8",
+                            "h-11 rounded-full border px-3.5 text-[0.8125rem] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary lg:h-8",
                             selected
-                              ? "border-blue bg-blue text-white"
-                              : "border-hair-strong bg-surface text-ink hover:border-blue hover:text-blue-deep"
+                              ? "border-primary bg-primary text-onprimary"
+                              : "border-line-strong bg-surface text-ink hover:border-primary hover:text-primary-strong"
                           )}
                         >
                           {selected ? "Selected" : "Select"}
@@ -692,39 +712,42 @@ export function ProductDetailSections({
               </tbody>
             </table>
           </div>
-          <p className="mt-3 text-[0.875rem] leading-relaxed text-graphite">
+          <p className="mt-3 text-[0.875rem] leading-relaxed text-muted">
             Custom sizes are made to order. Confirm the exact specification before dispatch.
           </p>
-        </section>
+          </div>
+        </details>
       )}
 
       {content.care.cards.length > 0 && (
-        <section
+        <details
+          open={!mobile}
           id="pdp-care"
           aria-labelledby="pdp-care-heading"
           data-reveal-id="pdp-care"
-          className={classNames("py-6 lg:py-7", revealClass("pdp-care"))}
+          className={classNames("group py-3 lg:py-7", revealClass("pdp-care"))}
           style={sectionStyle}
         >
-          <SectionHeading id="pdp-care-heading" kicker="Product care" title="Care & Delivery" />
-          <div className="mt-5 grid gap-4 sm:grid-cols-2">
+          <DisclosureSummary id="pdp-care-heading" title="Care & Delivery" />
+          <div className="pt-4 lg:pt-5">
+          <div className="grid gap-4 sm:grid-cols-2">
             {content.care.cards.map((card) => {
               const Icon = card.icon === "care" ? Droplets : Truck;
               return (
                 <div
                   key={card.id}
-                  className="flex h-full flex-col rounded-lg border border-hair bg-surface p-5 transition-colors hover:border-hair-strong"
+                  className="flex h-full flex-col rounded-lg border border-line bg-surface p-5 transition-colors hover:border-line-strong"
                 >
                   <div className="flex items-center gap-3">
-                    <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-blue-wash text-blue-deep">
+                    <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-primary-soft text-primary-strong">
                       <Icon className="size-[1.125rem]" strokeWidth={1.75} aria-hidden />
                     </span>
-                    <h3 className="font-sans text-[0.9375rem] font-semibold text-ink">{card.title}</h3>
+                    <h3 className="font-display text-body font-bold text-ink">{card.title}</h3>
                   </div>
                   <ul className="mt-4 flex flex-col gap-2.5">
                     {card.points.map((point) => (
                       <li key={point} className="flex gap-2.5 text-[0.875rem] leading-relaxed text-ink-soft">
-                        <Check className="mt-0.5 size-3.5 shrink-0 text-blue" strokeWidth={1.75} aria-hidden />
+                        <Check className="mt-0.5 size-3.5 shrink-0 text-primary" strokeWidth={1.75} aria-hidden />
                         <span>{point}</span>
                       </li>
                     ))}
@@ -733,44 +756,48 @@ export function ProductDetailSections({
               );
             })}
           </div>
-          <div className="mt-4 flex items-start gap-2.5 rounded-lg border border-hair bg-sand/50 px-4 py-3">
-            <Info className="mt-0.5 size-4 shrink-0 text-blue-deep" strokeWidth={1.75} aria-hidden />
+          <div className="mt-4 flex items-start gap-2.5 rounded-lg border border-line bg-subtle/50 px-4 py-3">
+            <Info className="mt-0.5 size-4 shrink-0 text-primary-strong" strokeWidth={1.75} aria-hidden />
             <p className="text-[0.875rem] leading-relaxed text-ink-soft">{content.care.note}</p>
           </div>
-        </section>
+          </div>
+        </details>
       )}
 
       {content.applications.length > 0 && (
-        <section
+        <details
+          open={!mobile}
           id="pdp-applications"
           aria-labelledby="pdp-applications-heading"
           data-reveal-id="pdp-applications"
-          className={classNames("py-6 lg:py-7", revealClass("pdp-applications"))}
+          className={classNames("group py-3 lg:py-7", revealClass("pdp-applications"))}
           style={sectionStyle}
         >
-          <SectionHeading id="pdp-applications-heading" kicker="Where you can use it" title="Applications" />
-          <ul className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          <DisclosureSummary id="pdp-applications-heading" title="Applications" />
+          <div className="pt-4 lg:pt-5">
+          <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {content.applications.map((application) => {
               const Icon = APPLICATION_ICONS[application.icon];
               return (
                 <li
                   key={application.title}
-                  className="flex h-full gap-3 rounded-lg border border-hair bg-surface p-4 transition-colors hover:border-hair-strong"
+                  className="flex h-full gap-3 rounded-lg border border-line bg-surface p-4 transition-colors hover:border-line-strong"
                 >
-                  <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-blue-wash text-blue-deep">
+                  <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-primary-soft text-primary-strong">
                     <Icon className="size-5" strokeWidth={1.75} aria-hidden />
                   </span>
                   <div className="min-w-0">
-                    <h3 className="font-sans text-[0.9375rem] font-semibold leading-snug text-ink">
+                    <h3 className="font-display text-body font-bold leading-snug text-ink">
                       {application.title}
                     </h3>
-                    <p className="mt-1 text-[0.875rem] leading-relaxed text-graphite">{application.description}</p>
+                    <p className="mt-1 text-[0.875rem] leading-relaxed text-muted">{application.description}</p>
                   </div>
                 </li>
               );
             })}
           </ul>
-        </section>
+          </div>
+        </details>
       )}
 
       {children}
@@ -778,16 +805,18 @@ export function ProductDetailSections({
   );
 }
 
-function SectionHeading({ id, kicker, title }: { id: string; kicker: string; title: string }) {
+function DisclosureSummary({ id, title }: { id: string; title: string }) {
   return (
-    <div className="border-b border-hair pb-4">
-      <p className="text-[0.75rem] font-semibold uppercase leading-none tracking-[0.08em] text-blue">{kicker}</p>
-      <h2
-        id={id}
-        className="mt-3 font-sans text-[1.375rem] font-bold leading-snug tracking-[-0.01em] text-ink lg:text-[1.5rem]"
-      >
+    <summary
+      onClick={(event) => {
+        if (window.matchMedia("(min-width: 1024px)").matches) event.preventDefault();
+      }}
+      className="flex min-h-12 list-none items-center justify-between gap-3 [&::-webkit-details-marker]:hidden lg:pointer-events-none lg:min-h-0"
+    >
+      <h2 id={id} className="font-display text-[1.125rem] font-extrabold leading-6 text-ink lg:text-h2 lg:leading-[1.15]">
         {title}
       </h2>
-    </div>
+      <ChevronDown className="size-5 shrink-0 text-muted transition-transform group-open:rotate-180 lg:hidden" aria-hidden />
+    </summary>
   );
 }

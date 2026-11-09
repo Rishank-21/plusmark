@@ -120,8 +120,8 @@ export function Gallery({ product }: { product: Product }) {
             aria-current={!playing && index === active}
             aria-label={`Show image ${index + 1} of ${media.length} for ${product.name}`}
             className={classNames(
-              "relative aspect-square w-16 shrink-0 overflow-hidden rounded-sm border-2 bg-white transition-colors",
-              !playing && index === active ? "border-blue" : "border-hair hover:border-graphite-light"
+              "relative aspect-square w-16 shrink-0 overflow-hidden rounded-sm border-2 bg-surface transition-colors",
+              !playing && index === active ? "border-primary" : "border-line hover:border-graphite-light"
             )}
           >
             <Image
@@ -141,8 +141,8 @@ export function Gallery({ product }: { product: Product }) {
             onClick={() => setPlaying(true)}
             aria-label={`Play the video for ${product.name}`}
             className={classNames(
-              "relative aspect-square w-16 shrink-0 overflow-hidden rounded-sm border-2 bg-white transition-colors",
-              playing ? "border-blue" : "border-hair hover:border-graphite-light"
+              "relative aspect-square w-16 shrink-0 overflow-hidden rounded-sm border-2 bg-surface transition-colors",
+              playing ? "border-primary" : "border-line hover:border-graphite-light"
             )}
           >
             <Image
@@ -153,12 +153,12 @@ export function Gallery({ product }: { product: Product }) {
               {...deliveryProps(product.videoId, cloudinaryLoader)}
               className="absolute inset-0 size-full object-cover"
             />
-            <span className="absolute inset-0 flex items-center justify-center bg-navy-deep/20">
-              <span className="flex size-6 items-center justify-center rounded-full bg-canvas/95 text-ink">
+            <span className="absolute inset-0 flex items-center justify-center bg-scrim/20">
+              <span className="flex size-6 items-center justify-center rounded-full bg-page/95 text-ink">
                 <Play className="size-2.5 fill-current" aria-hidden />
               </span>
             </span>
-            <span className="absolute inset-x-0 bottom-0 bg-navy-deep/85 py-0.5 text-center text-[0.5625rem] font-semibold uppercase tracking-[0.1em] text-white">
+            <span className="absolute inset-x-0 bottom-0 bg-scrim/85 py-0.5 text-center text-[0.5625rem] font-semibold uppercase tracking-[0.1em] text-onprimary">
               Video
             </span>
           </button>
@@ -169,7 +169,7 @@ export function Gallery({ product }: { product: Product }) {
             type="button"
             onClick={() => setShowAll(true)}
             aria-label={`+${hiddenCount} more images — show all ${media.length} for ${product.name}`}
-            className="flex aspect-square w-16 shrink-0 items-center justify-center rounded-sm border-2 border-hair bg-surface text-body-sm font-medium text-ink transition-colors hover:border-graphite-light"
+            className="flex aspect-square w-16 shrink-0 items-center justify-center rounded-sm border-2 border-line bg-surface text-body-sm font-medium text-ink transition-colors hover:border-graphite-light"
           >
             +{hiddenCount}
           </button>
@@ -181,18 +181,18 @@ export function Gallery({ product }: { product: Product }) {
           <span className="sr-only" role="status" aria-live="polite">
             {shareNote}
           </span>
-          {shareNote && <span className="pr-2 text-caption text-graphite">{shareNote}</span>}
+          {shareNote && <span className="pr-2 text-caption text-muted">{shareNote}</span>}
           <button
             type="button"
             onClick={share}
             aria-label={`Share ${product.name}`}
-            className="flex size-11 items-center justify-center rounded-full text-graphite transition-colors hover:bg-sand hover:text-ink lg:size-9"
+            className="flex size-11 items-center justify-center rounded-full text-muted transition-colors hover:bg-subtle hover:text-ink lg:size-9"
           >
             <Share2 className="size-4" aria-hidden />
           </button>
         </div>
 
-        <div className="relative overflow-hidden rounded-lg bg-white">
+        <div className="relative overflow-hidden rounded-lg bg-surface max-md:-mx-md max-md:rounded-none">
           {playing && product.videoId ? (
             <video
               src={videoUrl(product.videoId)}
@@ -200,7 +200,7 @@ export function Gallery({ product }: { product: Product }) {
               controls
               playsInline
               preload="metadata"
-              className="aspect-[4/3] w-full bg-navy-deep object-contain"
+              className="aspect-[4/3] w-full bg-subtle object-contain"
               aria-label={`Plusmark product video for ${product.name}`}
             />
           ) : (
@@ -220,17 +220,26 @@ export function Gallery({ product }: { product: Product }) {
               onMouseMove={trackPointer}
               onClick={() => setLightboxIndex(active)}
               className={classNames(
-                "aspect-[4/3] w-full cursor-zoom-in bg-white object-contain transition-transform duration-300",
+                "aspect-[4/3] w-full cursor-zoom-in bg-surface object-contain transition-transform duration-300",
                 zoomed && "scale-[2] xl:scale-100"
               )}
               style={zoomed ? { transformOrigin: origin } : undefined}
             />
           )}
 
+          {!playing && media.length > 1 && (
+            <span
+              aria-hidden
+              className="pointer-events-none absolute bottom-2 right-2 rounded-full bg-surface/95 px-2.5 py-1 text-[0.75rem] font-semibold tabular text-ink shadow-card md:hidden"
+            >
+              {active + 1} / {media.length}
+            </span>
+          )}
+
           {pointer && !playing && (
             <div
               aria-hidden
-              className="pointer-events-none absolute z-20 hidden -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-full bg-white shadow-[0_18px_45px_-18px_rgb(var(--c-shadow)/0.4)] ring-1 ring-navy/15 xl:block"
+              className="pointer-events-none absolute z-20 hidden -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-full bg-surface shadow-[0_18px_45px_-18px_rgb(var(--c-shadow)/0.4)] ring-1 ring-navy/15 xl:block"
               style={{
                 width: LENS,
                 height: LENS,
@@ -264,7 +273,7 @@ export function Gallery({ product }: { product: Product }) {
           <button
             type="button"
             onClick={() => setLightboxIndex(playing ? 0 : active)}
-            className="-my-2 inline-flex min-h-11 items-center px-3 text-body-sm text-blue-deep underline-offset-4 hover:underline"
+            className="-my-2 inline-flex min-h-11 items-center px-3 text-body-sm text-primary-strong underline-offset-4 hover:underline"
           >
             Click to see full view
           </button>
@@ -280,7 +289,7 @@ export function Gallery({ product }: { product: Product }) {
       >
         {lightboxAsset && lightboxIndex !== null && (
           <div className="flex flex-col gap-3">
-            <div className="relative flex items-center justify-center rounded-md bg-white">
+            <div className="relative flex items-center justify-center rounded-md bg-surface">
               <Image
                 src={imageUrl(lightboxAsset.publicId, { fit: "limit", width: 2000 })}
                 alt={lightboxAsset.alt}
@@ -294,7 +303,7 @@ export function Gallery({ product }: { product: Product }) {
                 type="button"
                 onClick={() => setLightboxIndex((lightboxIndex - 1 + media.length) % media.length)}
                 aria-label="Previous image"
-                className="absolute left-0 flex size-11 items-center justify-center rounded-full border border-hair bg-surface/95 text-ink shadow-card hover:bg-sand lg:size-9"
+                className="absolute left-0 flex size-11 items-center justify-center rounded-full border border-line bg-surface/95 text-ink shadow-card hover:bg-subtle lg:size-9"
               >
                 <ChevronLeft className="size-4" aria-hidden />
               </button>
@@ -302,7 +311,7 @@ export function Gallery({ product }: { product: Product }) {
                 type="button"
                 onClick={() => setLightboxIndex((lightboxIndex + 1) % media.length)}
                 aria-label="Next image"
-                className="absolute right-0 flex size-11 items-center justify-center rounded-full border border-hair bg-surface/95 text-ink shadow-card hover:bg-sand lg:size-9"
+                className="absolute right-0 flex size-11 items-center justify-center rounded-full border border-line bg-surface/95 text-ink shadow-card hover:bg-subtle lg:size-9"
               >
                 <ChevronRight className="size-4" aria-hidden />
               </button>
@@ -316,8 +325,8 @@ export function Gallery({ product }: { product: Product }) {
                   aria-label={`Show image ${index + 1} of ${media.length}`}
                   aria-current={index === lightboxIndex}
                   className={classNames(
-                    "size-12 overflow-hidden rounded-sm border-2 bg-white",
-                    index === lightboxIndex ? "border-blue" : "border-hair hover:border-graphite-light"
+                    "size-12 overflow-hidden rounded-sm border-2 bg-surface",
+                    index === lightboxIndex ? "border-primary" : "border-line hover:border-graphite-light"
                   )}
                 >
                   <Image

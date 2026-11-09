@@ -11,24 +11,19 @@ export type Crumb = { label: string; href?: string };
  */
 export function PageHeader({
   trail,
-  eyebrow,
   title,
   lead,
   aside,
   media,
-  sansHeading = false,
   compact = false,
   bordered = true
 }: {
   trail: Crumb[];
-  eyebrow?: string;
   title: string;
   lead?: string;
   aside?: React.ReactNode;
   /** Optional visual column — collection pages lead with a real product photo. */
   media?: React.ReactNode;
-  /** Storefront collections use the regular sans face instead of the serif display. */
-  sansHeading?: boolean;
   /** Dense form tools and legal pages use a smaller display step. */
   compact?: boolean;
   /** Collection pages run without hairline dividers between blocks. */
@@ -36,20 +31,15 @@ export function PageHeader({
 }) {
   const copy = (
     <div className="flex min-w-0 flex-col gap-4">
-      {eyebrow && <p className="pm-eyebrow">{eyebrow}</p>}
       <h1
         className={classNames(
-          "balance max-w-[24ch]",
-          sansHeading
-            ? "font-sans font-normal text-h1 text-navy"
-            : compact
-              ? "font-display text-h1"
-              : "font-display text-display"
+          "balance max-w-[24ch] font-display font-extrabold text-ink",
+          "text-h1"
         )}
       >
         {title}
       </h1>
-      {lead && <p className="pretty max-w-reading text-body leading-relaxed text-graphite">{lead}</p>}
+      {lead && <p className="pretty max-w-reading text-body leading-relaxed text-muted">{lead}</p>}
       {media && aside && <div className="flex min-w-0 flex-col gap-3 pt-1">{aside}</div>}
     </div>
   );
@@ -57,9 +47,9 @@ export function PageHeader({
   return (
     <section
       className={classNames(
-        "bg-canvas",
-        bordered && "border-b border-hair",
-        compact ? "py-xl lg:py-2xl" : "py-3xl lg:py-4xl"
+        "bg-page",
+        bordered && "border-b border-line",
+        compact ? "py-10 lg:py-14" : "py-12 lg:py-16"
       )}
     >
       <div className="pm-shell flex flex-col gap-6">
@@ -83,25 +73,24 @@ export function PageHeader({
 /** Numbered editorial section — the same rhythm as the homepage story blocks. */
 export function Section({
   id,
-  index,
   title,
   lead,
   tone = "canvas",
   actions,
-  sansHeading = false,
   narrow = false,
   bordered = true,
+  tight = false,
   children
 }: {
   id: string;
-  index?: string;
   title: string;
   lead?: string;
   tone?: "canvas" | "sand" | "surface";
   actions?: React.ReactNode;
-  sansHeading?: boolean;
   narrow?: boolean;
   bordered?: boolean;
+  /** Tight vertical rhythm for sections that directly continue the page header. */
+  tight?: boolean;
   children: React.ReactNode;
 }) {
   const headingId = `${id}-heading`;
@@ -109,28 +98,28 @@ export function Section({
     <section
       id={id}
       className={classNames(
-        "scroll-mt-48 py-3xl lg:scroll-mt-52 lg:py-4xl",
-        bordered && "border-b border-hair",
-        tone === "sand" && "bg-sand/35",
+        "scroll-mt-48 lg:scroll-mt-52",
+        tight ? "pb-16 pt-4 lg:pb-24 lg:pt-6" : "py-16 lg:py-24",
+        bordered && "border-b border-line",
+        tone === "sand" && "bg-subtle/60",
         tone === "surface" && "bg-surface",
-        tone === "canvas" && "bg-canvas"
+        tone === "canvas" && "bg-page"
       )}
       aria-labelledby={headingId}
     >
       <div className={classNames(narrow ? "mx-auto w-full max-w-reading px-md sm:px-lg xl:px-2xl" : "pm-shell")}>
         <header className="mb-10 flex flex-col gap-3 md:flex-row md:items-end md:justify-between md:gap-8">
           <div className="flex min-w-0 flex-col gap-2">
-            {index && <p className="pm-eyebrow">{index}</p>}
             <h2
               id={headingId}
               className={classNames(
-                "balance max-w-[24ch]",
-                sansHeading ? "font-sans font-normal text-h2 text-navy" : "font-display text-display-sm"
+                "balance max-w-[24ch] font-display font-extrabold text-ink",
+                "text-h2"
               )}
             >
               {title}
             </h2>
-            {lead && <p className="pretty max-w-reading pt-1 text-body leading-relaxed text-graphite">{lead}</p>}
+            {lead && <p className="pretty max-w-reading pt-1 text-body leading-relaxed text-muted">{lead}</p>}
           </div>
           {actions && <div className="flex shrink-0 flex-wrap items-center gap-3 pt-2 md:pt-0">{actions}</div>}
         </header>
@@ -149,12 +138,12 @@ export function Prose({ children, className }: { children: React.ReactNode; clas
     <div
       className={classNames(
         "flex max-w-reading flex-col gap-5",
-        "[&_a]:text-ink [&_a]:underline [&_a]:decoration-hair-strong [&_a]:underline-offset-4 [&_a]:hover:decoration-ink",
+        "[&_a]:text-ink [&_a]:underline [&_a]:decoration-line-strong [&_a]:underline-offset-4 [&_a]:hover:decoration-primary",
         "[&_h2]:pt-3 [&_h2]:font-display [&_h2]:text-h2 [&_h2]:leading-tight [&_h2]:text-ink",
         "[&_h3]:font-display [&_h3]:text-h3 [&_h3]:leading-snug [&_h3]:text-ink",
-        "[&_li]:text-body-sm [&_li]:leading-relaxed [&_li]:text-graphite",
+        "[&_li]:text-body-sm [&_li]:leading-relaxed [&_li]:text-muted",
         "[&_ol]:list-decimal [&_ol]:space-y-2 [&_ol]:pl-5",
-        "[&_p]:text-body-sm [&_p]:leading-relaxed [&_p]:text-graphite",
+        "[&_p]:text-body-sm [&_p]:leading-relaxed [&_p]:text-muted",
         "[&_ul]:list-disc [&_ul]:space-y-2 [&_ul]:pl-5",
         className
       )}
@@ -167,11 +156,11 @@ export function Prose({ children, className }: { children: React.ReactNode; clas
 /** Definition row used across institutional pages (term + plain detail). */
 export function FactList({ rows }: { rows: { term: string; detail: React.ReactNode }[] }) {
   return (
-    <dl className="divide-y divide-hair border-y border-hair">
+    <dl className="divide-y divide-line border-y border-line">
       {rows.map((row) => (
         <div key={row.term} className="grid gap-1 py-4 sm:grid-cols-[minmax(0,0.38fr)_minmax(0,0.62fr)] sm:gap-4">
-          <dt className="text-body-sm font-medium text-ink">{row.term}</dt>
-          <dd className="text-body-sm leading-relaxed text-graphite">{row.detail}</dd>
+          <dt className="text-body-sm font-semibold text-ink">{row.term}</dt>
+          <dd className="text-body-sm leading-relaxed text-muted">{row.detail}</dd>
         </div>
       ))}
     </dl>
@@ -182,16 +171,16 @@ export function FactList({ rows }: { rows: { term: string; detail: React.ReactNo
 export function LinkRail({ links, title }: { title?: string; links: { label: string; href: string; note?: string }[] }) {
   return (
     <nav aria-label={title ?? "Related pages"} className="flex flex-col">
-      {title && <p className="pm-eyebrow mb-3">{title}</p>}
-      <ul className="divide-y divide-hair border-y border-hair">
+      {title && <p className="mb-3 text-caption font-semibold text-muted">{title}</p>}
+      <ul className="divide-y divide-line border-y border-line">
         {links.map((link) => (
           <li key={`${link.label}-${link.href}`}>
             <Link
               href={link.href}
-              className="group flex min-h-11 items-center justify-between gap-4 rounded-xs py-3 text-body-sm text-ink transition-colors hover:text-navy-deep"
+              className="group flex min-h-11 items-center justify-between gap-4 rounded-md py-3 text-body-sm font-medium text-ink transition-colors hover:text-primary"
             >
               <span className="min-w-0">{link.label}</span>
-              {link.note && <span className="shrink-0 text-caption text-graphite">{link.note}</span>}
+              {link.note && <span className="shrink-0 text-caption text-muted">{link.note}</span>}
             </Link>
           </li>
         ))}

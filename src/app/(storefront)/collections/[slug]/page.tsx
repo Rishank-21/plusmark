@@ -40,13 +40,12 @@ export default async function CollectionPage({ params }: { params: Promise<{ slu
         trail={[{ label: "Home", href: "/" }, { label: "Collections", href: "/collections" }, { label: collection.name }]}
         title={collection.name}
         lead={collection.blurb}
-        sansHeading
         compact
         bordered={false}
         aside={
           <a
             href="#collection-products"
-            className="inline-flex h-11 w-fit items-center gap-2 rounded-md border border-brand/25 px-5 text-body-sm font-medium text-brand transition-colors hover:border-brand hover:bg-brand-wash"
+            className="inline-flex h-11 w-fit items-center gap-2 rounded-md border border-primary/25 px-5 text-body-sm font-medium text-brand transition-colors hover:border-primary hover:bg-primary-soft"
           >
             See all {selected.length} {selected.length === 1 ? "item" : "items"}
             <ArrowDown className="size-4" aria-hidden />
@@ -70,12 +69,12 @@ export default async function CollectionPage({ params }: { params: Promise<{ slu
       {series && (
         <section
           id="series-facts"
-          className="scroll-mt-48 bg-canvas py-16 lg:scroll-mt-52 lg:py-24"
+          className="scroll-mt-48 bg-page py-16 lg:scroll-mt-52 lg:py-24"
           aria-labelledby="series-facts-heading"
         >
           <div className="pm-shell">
             <header className="mx-auto mb-12 max-w-reading text-center lg:mb-16">
-              <h2 id="series-facts-heading" className="balance font-sans font-normal text-h2 text-navy">
+              <h2 id="series-facts-heading" className="balance font-display text-h2 font-extrabold text-ink">
                 What distinguishes this series
               </h2>
             </header>
@@ -89,8 +88,8 @@ export default async function CollectionPage({ params }: { params: Promise<{ slu
                 const Icon = row.icon;
                 return (
                   <div key={row.term} className="flex flex-col items-center text-center">
-                    <Icon className="size-7 text-navy" strokeWidth={1.4} aria-hidden />
-                    <dt className="mt-5 text-caption font-medium uppercase tracking-[0.14em] text-graphite">{row.term}</dt>
+                    <Icon className="size-7 text-ink" strokeWidth={1.4} aria-hidden />
+                    <dt className="mt-5 text-caption font-medium uppercase tracking-[0.14em] text-muted">{row.term}</dt>
                     <dd className="mt-2 max-w-[22ch] text-body leading-relaxed text-ink">{row.detail}</dd>
                   </div>
                 );
@@ -99,10 +98,10 @@ export default async function CollectionPage({ params }: { params: Promise<{ slu
           </div>
         </section>
       )}
-      <Section id="collection-products" title="Every catalogue item in this collection" sansHeading bordered={false}>
+      <Section id="collection-products" title="Every catalogue item in this collection" bordered={false}>
         <ProductGrid products={selected} />
       </Section>
-      <Section id="related-collections" title="Related ways to narrow the catalogue" tone="sand" sansHeading bordered={false}>
+      <Section id="related-collections" title="Related ways to narrow the catalogue" tone="sand" bordered={false}>
         <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {related.map(({ item, count, photo }) => (
             <li key={item.slug}>
@@ -110,7 +109,7 @@ export default async function CollectionPage({ params }: { params: Promise<{ slu
                 href={`/collections/${item.slug}`}
                 className="group flex h-full items-center gap-4 rounded-lg bg-surface p-3 transition-shadow hover:shadow-card"
               >
-                <span className="size-20 shrink-0 overflow-hidden rounded-md bg-canvas">
+                <span className="size-20 shrink-0 overflow-hidden rounded-md bg-page">
                   {photo && (
                     <ProductImage
                       asset={photo.media[0]}
@@ -122,13 +121,13 @@ export default async function CollectionPage({ params }: { params: Promise<{ slu
                   )}
                 </span>
                 <span className="min-w-0">
-                  <span className="block text-[0.625rem] font-medium uppercase tracking-[0.12em] text-graphite">
+                  <span className="block text-[0.625rem] font-medium uppercase tracking-[0.12em] text-muted">
                     {item.kind}
                   </span>
-                  <span className="mt-1 block text-body-sm font-medium leading-snug text-navy group-hover:text-blue-deep">
+                  <span className="mt-1 block text-body-sm font-medium leading-snug text-ink group-hover:text-primary-strong">
                     {item.name}
                   </span>
-                  <span className="mt-1 block tabular text-caption text-graphite">{count} items</span>
+                  <span className="mt-1 block tabular text-caption text-muted">{count} items</span>
                 </span>
               </Link>
             </li>

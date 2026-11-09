@@ -135,6 +135,8 @@ export interface CartLine {
   id: string;
   productId: string;
   variantId: string;
+  /** Published colour the shopper picked, when the product offers a list. */
+  colour?: string | null;
   quantity: number;
   addedAt: IsoDate;
 }

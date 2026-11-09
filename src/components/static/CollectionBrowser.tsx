@@ -37,9 +37,9 @@ export function CollectionBrowser({ items }: { items: BrowseCollection[] }) {
 
   return (
     <>
-      <div className="bg-canvas">
+      <div className="sticky top-[var(--pm-header-h)] z-30 border-b border-line bg-page lg:border-0">
         <div className="pm-shell">
-          <div className="flex flex-wrap gap-x-4 text-[0.8125rem] sm:flex-nowrap sm:gap-x-6 sm:overflow-x-auto sm:text-body-sm" role="group" aria-label="Filter collections by kind">
+          <div className="no-scrollbar flex flex-nowrap gap-x-4 overflow-x-auto text-[0.8125rem] sm:gap-x-6 sm:text-body-sm" role="group" aria-label="Filter collections by kind">
             {KINDS.map((option) => {
               const active = option === kind;
               return (
@@ -49,12 +49,12 @@ export function CollectionBrowser({ items }: { items: BrowseCollection[] }) {
                   onClick={() => setKind(option)}
                   aria-pressed={active}
                   className={classNames(
-                    "relative -mb-px flex shrink-0 items-center gap-1.5 border-b-2 px-1 py-4 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-blue",
-                    active ? "border-navy font-medium text-ink" : "border-transparent text-graphite hover:text-ink"
+                    "relative -mb-px flex h-11 shrink-0 items-center gap-1.5 border-b-2 px-1 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary sm:h-auto sm:py-4",
+                    active ? "border-navy font-medium text-ink" : "border-transparent text-muted hover:text-ink"
                   )}
                 >
                   {option}
-                  <span className="tabular text-caption text-graphite">{counts[option]}</span>
+                  <span className="tabular text-caption text-muted">{counts[option]}</span>
                 </button>
               );
             })}
@@ -62,18 +62,18 @@ export function CollectionBrowser({ items }: { items: BrowseCollection[] }) {
         </div>
       </div>
 
-      <section className="bg-canvas py-12 lg:py-16" aria-labelledby="collections-list-heading">
+      <section className="bg-page py-8 lg:py-16" aria-labelledby="collections-list-heading">
         <div className="pm-shell">
-          <div className="mb-8 flex flex-wrap items-baseline justify-between gap-3">
-            <h2 id="collections-list-heading" className="font-sans font-normal text-h2 text-navy">
+          <div className="mb-5 flex flex-wrap items-baseline justify-between gap-3 sm:mb-8">
+            <h2 id="collections-list-heading" className="font-display text-[1.375rem] font-extrabold leading-7 text-ink sm:text-h2 sm:leading-[1.15]">
               {kind === "All" ? "All collections" : `${kind} collections`}
             </h2>
-            <p aria-live="polite" className="tabular text-caption text-graphite">
+            <p aria-live="polite" className="tabular text-caption text-muted">
               {visible.length} of {items.length}
             </p>
           </div>
 
-          <ul className="grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+          <ul className="grid grid-cols-2 gap-x-3 gap-y-6 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
             {visible.map((collection) => (
               <li key={collection.slug}>
                 <Link href={`/collections/${collection.slug}`} className="group flex h-full flex-col">
@@ -88,17 +88,17 @@ export function CollectionBrowser({ items }: { items: BrowseCollection[] }) {
                       />
                     )}
                   </div>
-                  <p className="mt-4 text-[0.6875rem] font-medium uppercase tracking-[0.12em] text-graphite">
+                  <p className="mt-4 text-[0.6875rem] font-medium uppercase tracking-[0.12em] text-muted">
                     {collection.kind}
                   </p>
-                  <h3 className="mt-1 text-[1.0625rem] font-medium leading-snug text-navy group-hover:text-blue-deep">
+                  <h3 className="mt-1 text-[1.0625rem] font-medium leading-snug text-ink group-hover:text-primary-strong">
                     {collection.name}
                   </h3>
-                  <p className="mt-1 line-clamp-2 text-[0.8125rem] leading-relaxed text-graphite">{collection.blurb}</p>
-                  <span className="mt-3 flex items-center gap-2 text-caption text-graphite">
+                  <p className="mt-1 line-clamp-2 text-[0.8125rem] leading-relaxed text-muted">{collection.blurb}</p>
+                  <span className="mt-3 flex items-center gap-2 text-caption text-muted">
                     <span className="tabular">{collection.count} items</span>
                     <ArrowRight
-                      className="size-3.5 text-blue transition-transform group-hover:translate-x-0.5"
+                      className="size-3.5 text-primary transition-transform group-hover:translate-x-0.5"
                       aria-hidden
                     />
                   </span>

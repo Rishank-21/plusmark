@@ -169,7 +169,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
 
       {drawerOpen && (
         <div id="pm-admin-drawer" className="fixed inset-0 z-[70] lg:hidden">
-          <div className="absolute inset-0 bg-navy-deep/50" onClick={closeDrawer} aria-hidden />
+          <div className="absolute inset-0 bg-scrim/50" onClick={closeDrawer} aria-hidden />
           <div
             ref={drawerPanel}
             role="dialog"
@@ -242,7 +242,7 @@ function SidebarNav() {
 /** Thin band above every admin screen. */
 export function AdminBand() {
   return (
-    <div className="flex h-[1.75rem] items-center gap-2 bg-navy-deep px-3 text-white sm:h-9 sm:px-4">
+    <div className="flex h-[1.75rem] items-center gap-2 bg-shell px-3 text-shell-on sm:h-9 sm:px-4">
       <ShieldCheck className="size-3.5 shrink-0" aria-hidden />
       <p className="truncate text-[0.625rem] font-medium uppercase tracking-[0.12em] sm:text-[0.6875rem]">
         Plusmark operations desk

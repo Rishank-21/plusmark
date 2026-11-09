@@ -13,24 +13,22 @@ export interface AccordionEntry {
 
 export function Accordion({
   items,
-  defaultOpenId,
-  normalQuestions = false
+  defaultOpenId
 }: {
   items: AccordionEntry[];
   defaultOpenId?: string;
-  normalQuestions?: boolean;
 }) {
   const [openId, setOpenId] = useState<string | null>(defaultOpenId ?? items[0]?.id ?? null);
   const baseId = useId();
 
   return (
-    <div className="border-t border-hair">
+    <div className="flex flex-col gap-2">
       {items.map((item) => {
         const open = openId === item.id;
         const panelId = `${baseId}-${item.id}-panel`;
         const buttonId = `${baseId}-${item.id}-button`;
         return (
-          <div key={item.id} className="border-b border-hair">
+          <div key={item.id} className="rounded-xl border border-line bg-surface px-5">
             <h3>
               <button
                 id={buttonId}
@@ -42,20 +40,20 @@ export function Accordion({
               >
                 <span
                   className={classNames(
-                    normalQuestions ? "font-sans font-normal text-h4 leading-snug transition-colors sm:text-h3" : "font-display text-h4 leading-snug transition-colors sm:text-h3",
-                    open ? "text-blue-deep" : "text-ink group-hover:text-navy-deep"
+                    "font-display text-h4 font-semibold leading-snug transition-colors sm:text-h3",
+                    open ? "text-primary-strong" : "text-ink"
                   )}
                 >
                   {item.question}
                 </span>
                 <span className="flex shrink-0 items-center gap-4">
-                  {item.meta && <span className="pm-eyebrow hidden md:inline">{item.meta}</span>}
+                  {item.meta && <span className="hidden text-caption text-muted md:inline">{item.meta}</span>}
                   <span
                     className={classNames(
                       "flex size-8 items-center justify-center rounded-full border transition-colors",
                       open
-                        ? "border-brand bg-brand text-white"
-                        : "border-hair bg-surface text-navy group-hover:border-brand"
+                        ? "border-primary bg-primary text-onprimary"
+                        : "border-line bg-surface text-ink group-hover:border-primary"
                     )}
                   >
                     {open ? <Minus className="size-4" aria-hidden /> : <Plus className="size-4" aria-hidden />}
@@ -68,7 +66,7 @@ export function Accordion({
               role="region"
               aria-labelledby={buttonId}
               hidden={!open}
-              className="max-w-reading pb-6 pr-0 text-body-sm leading-relaxed text-graphite sm:pr-14"
+              className="max-w-reading pb-6 pr-0 text-body-sm leading-relaxed text-muted sm:pr-14"
             >
               {item.answer}
             </div>
@@ -91,7 +89,7 @@ export function Collapsible({
   const [open, setOpen] = useState(defaultOpen);
   const id = useId();
   return (
-    <div className="border-b border-hair">
+    <div className="border-b border-line">
       <button
         type="button"
         aria-expanded={open}
@@ -100,7 +98,7 @@ export function Collapsible({
         className="flex w-full items-center justify-between gap-4 py-3 text-left text-body-sm font-medium text-ink"
       >
         {title}
-        <ChevronDown className={classNames("size-4 text-graphite transition-transform", open && "rotate-180")} aria-hidden />
+        <ChevronDown className={classNames("size-4 text-muted transition-transform", open && "rotate-180")} aria-hidden />
       </button>
       <div id={id} hidden={!open} className="pb-4">
         {children}

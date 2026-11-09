@@ -71,44 +71,45 @@ export function Listing(
   const clearAll = () => push(lockedCategoryId ? { ...EMPTY_FILTERS, categoryId: lockedCategoryId, subcategoryId: null } : EMPTY_FILTERS, sort, 1);
 
   return (
-    <div className="pm-shell py-8 lg:py-10">
+    <div className="pm-shell py-5 lg:py-10">
       <Breadcrumbs trail={props.trail} />
 
-      <header className="flex flex-wrap items-end justify-between gap-x-8 gap-y-4 border-b border-hair pb-5 pt-4">
+      <header className="pb-3 pt-2 sm:pb-5 sm:pt-4">
         <div className="min-w-0 max-w-2xl">
-          <h1 className="font-sans font-normal text-h1 text-navy">{props.heading}</h1>
-        </div>
-
-        <div className="flex flex-wrap items-center gap-2">
-          <button
-            type="button"
-            onClick={() => setDrawerOpen(true)}
-            className="inline-flex h-11 items-center gap-2 rounded-md border border-hair-strong bg-surface px-4 text-body-sm font-medium text-brand transition-colors hover:border-brand hover:text-brand lg:hidden"
-          >
-            <SlidersHorizontal className="size-4" aria-hidden />
-            Filters
-            {chips.length > 0 && <span className="tabular rounded-full bg-blue px-1.5 text-caption leading-4 text-white">{chips.length}</span>}
-          </button>
-
-          <label className="flex items-center gap-2">
-            <span className="text-caption font-medium text-graphite">Sort</span>
-            <select
-              value={sort}
-              onChange={(event) => push(filters, event.target.value as SortKey, 1)}
-              className="h-11 appearance-none rounded-md border border-hair-strong bg-surface px-3 pr-8 text-body-sm text-navy transition-colors hover:border-blue focus:border-blue focus:outline-none focus:ring-2 focus:ring-blue/15"
-            >
-              {SORT_OPTIONS.map((option) => (
-                <option key={option.value} value={option.value} disabled={!option.available}>
-                  {option.label}
-                  {option.available ? "" : " — needs order data"}
-                </option>
-              ))}
-            </select>
-          </label>
+          <h1 className="font-display text-[1.75rem] font-extrabold leading-[2.125rem] text-ink sm:text-h1 sm:leading-[1.08]">{props.heading}</h1>
+          <p className="mt-1 text-caption text-muted">{total} products</p>
         </div>
       </header>
 
-      <div className="grid gap-10 pt-8 lg:grid-cols-[16rem_minmax(0,1fr)] lg:gap-14">
+      <div className="sticky top-[var(--pm-header-h)] z-30 -mx-md flex items-center gap-2 border-b border-line bg-page/95 px-md py-2 backdrop-blur-sm sm:static sm:mx-0 sm:border-0 sm:bg-transparent sm:px-0 sm:py-0 sm:pb-5 sm:backdrop-blur-none lg:hidden">
+        <button
+          type="button"
+          onClick={() => setDrawerOpen(true)}
+          className="inline-flex h-11 flex-1 items-center justify-center gap-2 rounded-md border border-line-strong bg-surface px-4 text-body-sm font-medium text-brand transition-colors hover:border-primary hover:text-primary-strong"
+        >
+          <SlidersHorizontal className="size-4" aria-hidden />
+          Filters
+          {chips.length > 0 && <span className="tabular rounded-full bg-primary px-1.5 text-caption leading-4 text-onprimary">{chips.length}</span>}
+        </button>
+
+        <label className="flex h-11 flex-1 items-center gap-2 rounded-md border border-line-strong bg-surface px-3">
+          <span className="sr-only">Sort</span>
+          <select
+            value={sort}
+            onChange={(event) => push(filters, event.target.value as SortKey, 1)}
+            className="h-full w-full appearance-none bg-transparent text-body-sm text-ink focus:outline-none"
+          >
+            {SORT_OPTIONS.map((option) => (
+              <option key={option.value} value={option.value} disabled={!option.available}>
+                {option.label}
+                {option.available ? "" : " — needs order data"}
+              </option>
+            ))}
+          </select>
+        </label>
+      </div>
+
+      <div className="grid gap-6 pt-4 sm:gap-10 sm:pt-8 lg:grid-cols-[16rem_minmax(0,1fr)] lg:gap-14">
         <aside className="hidden lg:block">
           <div className="sticky top-28">
             <FilterPanel
@@ -124,12 +125,12 @@ export function Listing(
 
         <div className="min-w-0">
           {chips.length > 0 && (
-            <ul className="flex flex-wrap items-center gap-2 pb-8">
+            <ul className="no-scrollbar -mx-md flex items-center gap-2 overflow-x-auto px-md pb-4 sm:mx-0 sm:flex-wrap sm:px-0 sm:pb-8">
               {chips.map((chip) => (
-                <li key={chip.label}>
+                <li key={chip.label} className="shrink-0">
                   <Link
                     href={chip.href}
-                    className="inline-flex h-10 items-center gap-1.5 rounded-md border border-brand/25 bg-brand-wash px-2.5 text-caption text-navy transition-colors hover:border-brand lg:h-8"
+                    className="inline-flex h-9 items-center gap-1.5 whitespace-nowrap rounded-full border border-primary/25 bg-primary-soft px-3 text-caption text-ink transition-colors hover:border-primary lg:h-8 lg:rounded-md lg:px-2.5"
                   >
                     {chip.label}
                     <X className="size-3" aria-hidden />
@@ -137,11 +138,11 @@ export function Listing(
                   </Link>
                 </li>
               ))}
-              <li>
+              <li className="shrink-0">
                 <button
                   type="button"
                   onClick={clearAll}
-                  className="inline-flex h-10 items-center rounded-xs px-2 text-caption font-medium text-blue underline decoration-blue/35 underline-offset-4 hover:decoration-blue lg:h-8"
+                  className="inline-flex h-9 items-center whitespace-nowrap rounded-full px-2 text-caption font-medium text-primary underline decoration-primary/35 underline-offset-4 hover:decoration-primary lg:h-8"
                 >
                   Clear all
                 </button>
@@ -158,7 +159,7 @@ export function Listing(
           ) : (
             <>
               <h2 className="sr-only">Products</h2>
-              <div className="grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 md:grid-cols-3">
+              <div className="grid grid-cols-2 gap-x-3 gap-y-6 sm:gap-x-6 sm:gap-y-10 md:grid-cols-3">
                 {results.map((product, index) => (
                   <ProductCard key={product.slug} product={product} priority={index < 4} onQuickView={setQuick} />
                 ))}
@@ -167,8 +168,8 @@ export function Listing(
             </>
           )}
 
-          <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-hair pt-6">
-            <p className="max-w-reading text-caption leading-relaxed text-graphite">
+          <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-line pt-6">
+            <p className="max-w-reading text-caption leading-relaxed text-muted">
               Every board on this page is available as a single unit, in the sizes listed on the product page.
             </p>
             <ButtonLink href="/shop" variant="secondary" size="sm">
@@ -183,7 +184,7 @@ export function Listing(
                 <Link
                   key={category.id}
                   href={`/shop/${category.slug}`}
-                  className="text-caption text-graphite underline decoration-hair-strong underline-offset-4 hover:text-ink"
+                  className="text-caption text-muted underline decoration-line-strong underline-offset-4 hover:text-ink"
                 >
                   {category.name}
                 </Link>

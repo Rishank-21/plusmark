@@ -173,12 +173,12 @@ export function AuthPanel({ mode, next }: { mode: Mode; next: string }) {
   if (pendingEmail) {
     return (
       <AuthShell mode={mode} nextPath={nextPath}>
-        <div className="flex flex-col gap-4 rounded-xl border border-hair bg-surface p-lg">
-          <span className="flex size-11 items-center justify-center rounded-full bg-blue-wash text-blue">
+        <div className="flex flex-col gap-4 rounded-xl border border-line bg-surface p-lg">
+          <span className="flex size-11 items-center justify-center rounded-full bg-primary-soft text-primary">
             <MailCheck className="size-5" aria-hidden />
           </span>
-          <h2 className="font-sans text-h2 text-navy">Check your email to verify</h2>
-          <p className="text-body-sm leading-relaxed text-graphite">
+          <h2 className="font-display text-h2 font-extrabold text-ink">Check your email to verify</h2>
+          <p className="text-body-sm leading-relaxed text-muted">
             We sent a confirmation link to <span className="font-medium text-ink">{pendingEmail}</span>. Open it on this
             device to finish setting up your account. The link expires after a short while.
           </p>
@@ -198,10 +198,10 @@ export function AuthPanel({ mode, next }: { mode: Mode; next: string }) {
 
   return (
     <AuthShell mode={mode} nextPath={nextPath}>
-      <form onSubmit={submit} noValidate className="flex flex-col gap-md rounded-xl border border-hair bg-surface p-lg">
+      <form onSubmit={submit} noValidate className="flex flex-col gap-md rounded-xl border border-line bg-surface p-lg">
         {session.user && mode === "sign-in" && (
           <Notice tone="info" title="You are already signed in">
-            <Link href="/account" className="underline decoration-hair-strong underline-offset-4">
+            <Link href="/account" className="underline decoration-line-strong underline-offset-4">
               Open your account
             </Link>{" "}
             or sign in with a different email below.
@@ -252,7 +252,7 @@ export function AuthPanel({ mode, next }: { mode: Mode; next: string }) {
               Mobile number <span className="text-danger">*</span>
             </label>
             <div className="flex">
-              <span className="flex h-11 items-center rounded-l-lg border border-r-0 border-hair-strong bg-sand/60 px-3 text-body-sm text-graphite">
+              <span className="flex h-11 items-center rounded-l-lg border border-r-0 border-line-strong bg-subtle/60 px-3 text-body-sm text-muted">
                 +91
               </span>
               <input
@@ -269,7 +269,7 @@ export function AuthPanel({ mode, next }: { mode: Mode; next: string }) {
                   validateField("phone", phone);
                 }}
                 aria-invalid={touched.phone && errors.phone ? true : undefined}
-                className="h-11 w-full rounded-r-lg border border-hair-strong bg-surface px-3.5 text-body-sm text-ink placeholder:text-graphite-light focus-visible:border-navy"
+                className="h-11 w-full rounded-r-lg border border-line-strong bg-surface px-3.5 text-body-sm text-ink placeholder:text-muted focus-visible:border-primary"
               />
             </div>
             {touched.phone && errors.phone ? (
@@ -277,7 +277,7 @@ export function AuthPanel({ mode, next }: { mode: Mode; next: string }) {
                 {errors.phone}
               </p>
             ) : (
-              <p className="text-caption text-graphite">Dispatch partners use this on the delivery day. It is never shown publicly.</p>
+              <p className="text-caption text-muted">Dispatch partners use this on the delivery day. It is never shown publicly.</p>
             )}
           </div>
         )}
@@ -302,7 +302,7 @@ export function AuthPanel({ mode, next }: { mode: Mode; next: string }) {
             type="button"
             onClick={() => setShowPassword((value) => !value)}
             aria-label={showPassword ? "Hide password" : "Show password"}
-            className="absolute right-1.5 bottom-1.5 flex size-8 items-center justify-center rounded-md text-graphite transition-colors hover:text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue"
+            className="absolute right-1.5 bottom-1.5 flex size-8 items-center justify-center rounded-md text-muted transition-colors hover:text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue"
           >
             {showPassword ? <EyeOff className="size-4" aria-hidden /> : <Eye className="size-4" aria-hidden />}
           </button>
@@ -321,7 +321,7 @@ export function AuthPanel({ mode, next }: { mode: Mode; next: string }) {
                 />
               ))}
             </div>
-            <p className="text-caption text-graphite">
+            <p className="text-caption text-muted">
               <span className="font-medium text-ink">{strength.label}</span> — {strength.hint}
             </p>
           </div>
@@ -331,7 +331,7 @@ export function AuthPanel({ mode, next }: { mode: Mode; next: string }) {
           <div className="flex justify-end">
             <Link
               href={`/forgot-password?next=${encodeURIComponent(nextPath)}`}
-              className="text-caption font-medium text-navy underline decoration-hair-strong underline-offset-4 hover:decoration-navy"
+              className="text-caption font-medium text-ink underline decoration-line-strong underline-offset-4 hover:decoration-navy"
             >
               Forgot password?
             </Link>
@@ -339,7 +339,7 @@ export function AuthPanel({ mode, next }: { mode: Mode; next: string }) {
         )}
 
         {mode === "register" && (
-          <div className="flex flex-col gap-3 border-t border-hair pt-md">
+          <div className="flex flex-col gap-3 border-t border-line pt-md">
             <CheckboxField
               id="auth-terms"
               label="I agree to the account and store terms."
@@ -371,7 +371,7 @@ export function AuthPanel({ mode, next }: { mode: Mode; next: string }) {
                 {busy === "google" ? "Opening Google…" : "Continue with Google"}
               </Button>
             )}
-            <p className="text-center text-caption text-graphite">
+            <p className="text-center text-caption text-muted">
               New to Plusmark?{" "}
               <ButtonLink href={`/register?next=${encodeURIComponent(nextPath)}`} variant="quiet" size="sm">
                 Create an account
@@ -381,7 +381,7 @@ export function AuthPanel({ mode, next }: { mode: Mode; next: string }) {
         )}
 
         {mode === "register" && (
-          <p className="text-center text-caption text-graphite">
+          <p className="text-center text-caption text-muted">
             Already have an account?{" "}
             <ButtonLink href={`/login?next=${encodeURIComponent(nextPath)}`} variant="quiet" size="sm">
               Sign in
@@ -395,27 +395,27 @@ export function AuthPanel({ mode, next }: { mode: Mode; next: string }) {
 
 function AuthShell({ mode, nextPath, children }: { mode: Mode; nextPath: string; children: React.ReactNode }) {
   return (
-    <div className="pm-shell py-2xl lg:py-3xl [&_h1]:font-sans [&_h2]:font-sans [&_h3]:font-sans [&_h4]:font-sans">
+    <div className="pm-shell py-16 lg:py-20">
       <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: mode === "register" ? "Create account" : "Sign in" }]} />
-      <div className="mx-auto mt-2xl grid max-w-5xl items-start gap-2xl md:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)]">
+      <div className="mx-auto mt-12 grid max-w-5xl items-start gap-12 md:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)]">
         <div className="flex flex-col gap-4">
-          <h1 className="font-sans text-h1 text-navy">
+          <h1 className="font-display text-h1 font-extrabold text-ink">
             {mode === "register" ? "Create your Plusmark account" : "Welcome back"}
           </h1>
-          <p className="max-w-reading text-body leading-relaxed text-graphite">
+          <p className="max-w-reading text-body leading-relaxed text-muted">
             {mode === "register"
               ? "One account keeps your delivery addresses, saved boards and order history in one place. Checkout still works as a guest."
               : "Sign in to see your saved addresses, saved boards and order history. Guest checkout stays available without an account."}
           </p>
           {mode === "sign-in" && nextPath !== "/account" && (
-            <p className="text-caption text-graphite">You will continue to {nextPath} after signing in.</p>
+            <p className="text-caption text-muted">You will continue to {nextPath} after signing in.</p>
           )}
-          <div className="mt-2 border-t border-hair pt-md">
+          <div className="mt-1">
             <a
               href={B2B_SITE_URL}
               target="_blank"
               rel="noreferrer noopener"
-              className="inline-flex items-center gap-1.5 text-caption font-medium text-graphite underline decoration-hair-strong underline-offset-4 hover:text-ink"
+              className="inline-flex items-center gap-1.5 text-caption font-medium text-muted underline decoration-line-strong underline-offset-4 hover:text-ink"
             >
               Buying for a school, office or dealer? Visit Plusmark Business
               <ExternalLink className="size-3.5" aria-hidden />

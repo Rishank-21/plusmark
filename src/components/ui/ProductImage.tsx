@@ -140,10 +140,10 @@ function PhotoPending({
   categoryId?: string;
 }) {
   return (
-    <div className={`flex flex-col items-center justify-center gap-2 bg-sand/70 text-center ${className ?? ""}`}>
+    <div className={`flex flex-col items-center justify-center gap-2 bg-subtle/70 text-center ${className ?? ""}`}>
       <BoardGlyph categoryId={categoryId} />
-      <p className="max-w-[16rem] px-3 text-caption leading-snug text-graphite">Photograph pending</p>
-      <p className="px-3 pb-1 text-[0.625rem] uppercase tracking-[0.12em] text-graphite-light">
+      <p className="max-w-[16rem] px-3 text-caption leading-snug text-muted">Photograph pending</p>
+      <p className="px-3 pb-1 text-[0.625rem] uppercase tracking-[0.12em] text-muted">
         Replace in admin · {name}
       </p>
     </div>
@@ -170,7 +170,7 @@ function BoardGlyph({ categoryId }: { categoryId?: string }) {
 
 export function BrokenImageFallback({ label }: { label: string }) {
   return (
-    <div className="flex h-full w-full flex-col items-center justify-center gap-2 bg-sand/60 text-graphite">
+    <div className="flex h-full w-full flex-col items-center justify-center gap-2 bg-subtle/60 text-muted">
       <ImageOff className="size-5" aria-hidden />
       <p className="text-caption">{label}</p>
     </div>

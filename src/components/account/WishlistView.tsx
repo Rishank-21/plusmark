@@ -15,7 +15,7 @@ import { useWishlist } from "@/state/wishlist";
 import { useState } from "react";
 import type { Product } from "@/types";
 
-const CARD = "rounded-[12px] border border-hair bg-surface shadow-card";
+const CARD = "rounded-[12px] border border-line bg-surface shadow-card";
 
 export function WishlistView({ inAccount = false }: { inAccount?: boolean }) {
   const wishlist = useWishlist();
@@ -29,17 +29,17 @@ export function WishlistView({ inAccount = false }: { inAccount?: boolean }) {
 
   if (inAccount) {
     return (
-      <div className="flex flex-col gap-4 [&_h1]:font-sans [&_h2]:font-sans [&_h3]:font-sans [&_h4]:font-sans">
+      <div className="flex flex-col gap-4">
         <header className="flex flex-wrap items-end justify-between gap-3">
           <div>
             <h2 className="text-[1.25rem] font-semibold leading-tight text-ink">Saved boards</h2>
-            <p className="mt-1 text-caption leading-relaxed text-graphite">
+            <p className="mt-1 text-caption leading-relaxed text-muted">
               {signedIn
                 ? "Saved to your account, so the same list opens on any device you sign in from."
                 : "Saved in this browser until you sign in."}
             </p>
           </div>
-          {wishlist.hydrated && <p className="tabular text-caption text-graphite">{products.length} saved</p>}
+          {wishlist.hydrated && <p className="tabular text-caption text-muted">{products.length} saved</p>}
         </header>
 
         {!wishlist.hydrated ? (
@@ -54,12 +54,12 @@ export function WishlistView({ inAccount = false }: { inAccount?: boolean }) {
             ))}
           </div>
         ) : products.length === 0 ? (
-          <div className="flex flex-col items-center gap-3 rounded-[12px] border border-dashed border-hair-strong bg-surface px-6 py-10 text-center sm:py-12">
-            <span className="grid size-12 place-items-center rounded-full bg-brand-wash text-brand">
+          <div className="flex flex-col items-center gap-3 rounded-[12px] border border-dashed border-line-strong bg-surface px-6 py-10 text-center sm:py-12">
+            <span className="grid size-12 place-items-center rounded-full bg-primary-soft text-brand">
               <Heart className="size-5" aria-hidden />
             </span>
             <h3 className="text-h4 font-semibold text-ink">Nothing saved yet</h3>
-            <p className="max-w-[38ch] text-body-sm leading-relaxed text-graphite">
+            <p className="max-w-[38ch] text-body-sm leading-relaxed text-muted">
               Use the heart on any product to keep it here. Saving a board does not reserve stock or send anything to Plusmark.
             </p>
             <ButtonLink href="/shop" size="sm" className="mt-1 h-11 rounded-lg px-4">Browse the catalogue</ButtonLink>
@@ -67,7 +67,7 @@ export function WishlistView({ inAccount = false }: { inAccount?: boolean }) {
         ) : (
           <>
             {!signedIn && (
-              <div className="rounded-[12px] border border-brand/10 bg-brand-wash/70 px-4 py-3 text-caption leading-relaxed text-graphite">
+              <div className="rounded-[12px] border border-primary/10 bg-primary-soft/70 px-4 py-3 text-caption leading-relaxed text-muted">
                 Saved in this browser only. Sign in and these boards move onto your account.
               </div>
             )}
@@ -79,18 +79,18 @@ export function WishlistView({ inAccount = false }: { inAccount?: boolean }) {
                     <LinkCardName product={product} />
                     <PriceRange product={product} className="mt-1" />
                   </div>
-                  <div className="flex items-center justify-between gap-2 border-t border-hair px-3 py-2.5">
+                  <div className="flex items-center justify-between gap-2 border-t border-line px-3 py-2.5">
                     <Button
                       variant="ghost"
                       size="sm"
-                      className="h-10 rounded-lg px-3 text-caption text-graphite hover:text-danger"
+                      className="h-11 rounded-lg px-3 text-caption text-muted hover:text-danger sm:h-10"
                       onClick={() => wishlist.toggle(product.slug)}
                       aria-label={`Remove ${product.name} from saved boards`}
                     >
                       <Trash2 className="size-4" aria-hidden />
                       Remove
                     </Button>
-                    <ButtonLink href={`/product/${product.slug}`} variant="secondary" size="sm" className="h-10 rounded-lg">
+                    <ButtonLink href={`/product/${product.slug}`} variant="secondary" size="sm" className="h-11 rounded-lg sm:h-10">
                       View product <ArrowUpRight className="size-4" aria-hidden />
                     </ButtonLink>
                   </div>
@@ -105,18 +105,18 @@ export function WishlistView({ inAccount = false }: { inAccount?: boolean }) {
   }
 
   return (
-    <div className="pm-shell py-2xl lg:py-3xl [&_h1]:font-sans [&_h2]:font-sans [&_h3]:font-sans [&_h4]:font-sans">
+    <div className="pm-shell py-16 lg:py-20">
       <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Wishlist" }]} />
-      <header className="flex flex-wrap items-end justify-between gap-4 border-b border-hair pb-lg">
+      <header className="flex flex-wrap items-end justify-between gap-4 border-b border-line pb-lg">
         <div>
-          <h1 className="font-sans text-h1 text-navy">Saved boards</h1>
-          <p className="mt-2 max-w-reading text-body-sm text-graphite">
+          <h1 className="font-display text-h1 font-extrabold text-ink">Saved boards</h1>
+          <p className="mt-2 max-w-reading text-body-sm text-muted">
             {signedIn
               ? "Saved to your account so you can compare sizes and series before you order."
               : "Saved in this browser so you can compare sizes and series before you order."}
           </p>
         </div>
-        {wishlist.hydrated && <p className="tabular text-caption text-graphite">{products.length} saved</p>}
+        {wishlist.hydrated && <p className="tabular text-caption text-muted">{products.length} saved</p>}
       </header>
 
       {!wishlist.hydrated ? (
@@ -133,7 +133,7 @@ export function WishlistView({ inAccount = false }: { inAccount?: boolean }) {
           {!signedIn && (
             <Notice tone="info" title="Saved in this browser only">
               Sign in to keep this list on your account and open it on another device.{" "}
-              <Link href="/login?next=/account/wishlist" className="underline decoration-hair-strong underline-offset-4 hover:text-ink">
+              <Link href="/login?next=/account/wishlist" className="underline decoration-line-strong underline-offset-4 hover:text-ink">
                 Sign in
               </Link>
             </Notice>
@@ -152,7 +152,7 @@ export function WishlistView({ inAccount = false }: { inAccount?: boolean }) {
 
 function LinkCardImage({ product }: { product: Product }) {
   return (
-    <Link href={`/product/${product.slug}`} className="relative block aspect-[4/3] overflow-hidden bg-white p-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-inset" aria-label={`${product.name} — view product`}>
+    <Link href={`/product/${product.slug}`} className="relative block aspect-[4/3] overflow-hidden bg-surface p-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset" aria-label={`${product.name} — view product`}>
       <ProductImage
         asset={product.media[0] ?? null}
         name={product.name}
@@ -166,7 +166,7 @@ function LinkCardImage({ product }: { product: Product }) {
 
 function LinkCardName({ product }: { product: Product }) {
   return (
-    <Link href={`/product/${product.slug}`} className="line-clamp-2 text-body-sm font-semibold text-ink transition-colors hover:text-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand">
+    <Link href={`/product/${product.slug}`} className="line-clamp-2 text-body-sm font-semibold text-ink transition-colors hover:text-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
       {product.name}
     </Link>
   );

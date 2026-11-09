@@ -4,7 +4,7 @@ import { useId } from "react";
 import { classNames } from "@/lib/format";
 
 const CONTROL =
-  "w-full rounded-lg border border-hair-strong bg-surface px-3.5 text-body-sm text-ink placeholder:text-graphite-light transition-colors hover:border-graphite-light focus-visible:border-navy disabled:bg-sand/50 disabled:text-graphite";
+  "w-full rounded-md border border-line-strong bg-surface px-3.5 text-body-sm text-ink placeholder:text-muted transition-colors hover:border-muted focus-visible:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/25 disabled:bg-subtle/60 disabled:text-muted";
 
 function FieldShell({
   id,
@@ -30,10 +30,10 @@ function FieldShell({
       <label htmlFor={id} className="flex items-baseline gap-2 text-caption font-medium text-ink">
         {label}
         {isRequired && <span className="text-danger">*</span>}
-        {optional && <span className="text-caption text-graphite">(optional)</span>}
+        {optional && <span className="text-caption text-muted">(optional)</span>}
       </label>
       {children}
-      {hint && !error && <p id={`${id}-hint`} className="text-caption text-graphite">{hint}</p>}
+      {hint && !error && <p id={`${id}-hint`} className="text-caption text-muted">{hint}</p>}
       {error && (
         <p id={`${id}-error`} role="alert" className="flex items-start gap-1.5 text-caption font-medium text-danger">
           {error}
@@ -94,7 +94,7 @@ export function PhoneField({
   return (
     <FieldShell id={fieldId} label={label} hint={hint} error={error} required={required} optional={optional} className={className}>
       <div className="relative">
-        <span className="pointer-events-none absolute inset-y-0 left-3.5 flex items-center text-body-sm text-graphite">
+        <span className="pointer-events-none absolute inset-y-0 left-3.5 flex items-center text-body-sm text-muted">
           +91
         </span>
         <input
@@ -158,7 +158,7 @@ export function SelectField({
         className={classNames(CONTROL, "h-11 appearance-none bg-[length:0.75rem] pr-9", error && "border-danger")}
         style={{
           backgroundImage:
-            "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2 4.5 6 8.5l4-4' fill='none' stroke='%2369675F' stroke-width='1.4'/%3E%3C/svg%3E\")",
+            "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2 4.5 6 8.5l4-4' fill='none' stroke='%2364748B' stroke-width='1.4'/%3E%3C/svg%3E\")",
           backgroundRepeat: "no-repeat",
           backgroundPosition: "right 0.875rem center"
         }}
@@ -191,7 +191,7 @@ export function CheckboxField({
         <input
           id={fieldId}
           type="checkbox"
-          className="mt-0.5 size-4 shrink-0 cursor-pointer appearance-none rounded-[2px] border border-hair-strong bg-surface transition-colors checked:border-blue checked:bg-blue checked:bg-[length:0.7rem] checked:bg-[position:center] checked:bg-[url('data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20viewBox=%270%200%2012%2012%27%3E%3Cpath%20d=%27M2.5%206.2%204.8%208.5%209.5%203.8%27%20fill=%27none%27%20stroke=%27%23FFFFFF%27%20stroke-width=%271.6%27/%3E%3C/svg%3E')]"
+          className="mt-0.5 size-4 shrink-0 cursor-pointer accent-primary"
           aria-invalid={error ? true : undefined}
           aria-describedby={error ? `${fieldId}-error` : hint ? `${fieldId}-hint` : undefined}
           {...rest}
@@ -200,7 +200,7 @@ export function CheckboxField({
           {label}
         </label>
       </div>
-      {hint && !error && <p className="pl-6.5 text-caption text-graphite">{hint}</p>}
+      {hint && !error && <p className="pl-6.5 text-caption text-muted">{hint}</p>}
       {error && (
         <p id={`${fieldId}-error`} role="alert" className="pl-6.5 text-caption font-medium text-danger">
           {error}
@@ -233,7 +233,7 @@ export function RadioCard({
     <label
       className={classNames(
         "flex cursor-pointer items-start gap-3 rounded-lg border p-3.5 transition-colors",
-        checked ? "border-blue bg-blue-wash" : "border-hair bg-surface hover:border-hair-strong",
+        checked ? "border-primary bg-primary-soft" : "border-line bg-surface hover:border-line-strong",
         disabled && "cursor-not-allowed opacity-50"
       )}
     >
@@ -244,14 +244,14 @@ export function RadioCard({
         checked={checked}
         disabled={disabled}
         onChange={() => onChange(value)}
-        className="mt-1 size-4 shrink-0 cursor-pointer appearance-none rounded-full border border-hair-strong bg-surface transition-colors checked:border-blue checked:bg-[radial-gradient(circle,rgb(var(--c-blue))_0_45%,transparent_45%)]"
+        className="mt-1 size-4 shrink-0 cursor-pointer appearance-none rounded-full border border-line-strong bg-surface transition-colors checked:border-primary checked:bg-[radial-gradient(circle,rgb(var(--c-primary))_0_45%,transparent_45%)]"
       />
       <span className="flex flex-1 flex-col gap-1">
         <span className="flex items-baseline justify-between gap-3">
           <span className="text-body-sm font-medium text-ink">{title}</span>
-          {meta && <span className="tabular text-caption text-graphite">{meta}</span>}
+          {meta && <span className="tabular text-caption text-muted">{meta}</span>}
         </span>
-        {description && <span className="text-caption leading-relaxed text-graphite">{description}</span>}
+        {description && <span className="text-caption leading-relaxed text-muted">{description}</span>}
       </span>
     </label>
   );

@@ -25,7 +25,7 @@ export default async function PolicyPage({ params }: { params: Promise<{ slug: s
   if (!policy) notFound();
   return (
     <>
-      <PageHeader compact trail={[{ label: "Home", href: "/" }, { label: "Policies", href: "/policies" }, { label: policy.title }]} eyebrow="Draft · pending business sign-off" title={policy.title} lead={policy.summary} />
+      <PageHeader compact trail={[{ label: "Home", href: "/" }, { label: "Policies", href: "/policies" }, { label: policy.title }]} title={policy.title} lead={policy.summary} />
       <Section id="policy-status" title="Status of this document" narrow>
         <div className="flex flex-col gap-8">
           <DraftPolicyNotice page={policy.title} />

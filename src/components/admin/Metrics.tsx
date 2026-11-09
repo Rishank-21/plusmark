@@ -154,7 +154,7 @@ export function DemoBars({
             </div>
             <div className="h-2 w-full border border-hair bg-sand/40">
               <div
-                className="h-full bg-navy"
+                className="h-full bg-primary"
                 style={{ width: `${Math.round((row.value / max) * 100)}%` }}
                 role="img"
                 aria-label={`${row.label}: ${row.value} ${unit} (${Math.round((row.value / max) * 100)}% of the largest in this set)`}

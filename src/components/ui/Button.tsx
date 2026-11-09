@@ -8,21 +8,21 @@ type Variant = "primary" | "navy" | "secondary" | "ghost" | "danger" | "quiet";
 type Size = "sm" | "md" | "lg";
 
 const BASE =
-  "inline-flex items-center justify-center gap-2 rounded-md font-sans font-medium tracking-[0.01em] transition-[background-color,color,border-color,opacity,transform] duration-200 active:scale-[0.99] disabled:pointer-events-none disabled:opacity-45 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue focus-visible:ring-offset-2";
+  "inline-flex items-center justify-center gap-2 rounded-md font-sans font-semibold tracking-[0.01em] transition-[background-color,color,border-color,opacity,transform] duration-200 active:scale-[0.99] disabled:pointer-events-none disabled:opacity-45 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-page";
 
 const VARIANTS: Record<Variant, string> = {
-  primary: "bg-brand text-white hover:bg-brand-deep focus-visible:bg-brand-deep",
-  navy: "bg-brand text-white hover:bg-brand-deep focus-visible:bg-brand-deep",
-  secondary: "border border-brand/25 bg-white text-brand hover:border-brand hover:bg-brand-wash",
-  ghost: "text-brand hover:bg-brand-wash",
-  danger: "bg-danger text-white hover:bg-danger/90",
-  quiet: "text-graphite underline decoration-hair-strong underline-offset-4 hover:text-ink hover:decoration-ink"
+  primary: "bg-primary text-onprimary shadow-[0_1px_2px_rgb(var(--c-shadow)/0.12)] hover:bg-primary-strong focus-visible:bg-primary-strong",
+  navy: "bg-shell text-shell-on hover:bg-shell/90 focus-visible:bg-shell/90",
+  secondary: "border border-line-strong bg-surface text-ink hover:border-primary/50 hover:bg-subtle",
+  ghost: "text-ink hover:bg-subtle",
+  danger: "bg-danger text-onprimary hover:bg-danger/90",
+  quiet: "text-muted underline decoration-line-strong underline-offset-4 hover:text-ink hover:decoration-ink"
 };
 
 const SIZES: Record<Size, string> = {
-  sm: "h-10 px-3.5 text-caption min-w-10 lg:h-9 lg:px-3 lg:min-w-9",
+  sm: "h-9 px-3 text-caption min-w-9",
   md: "h-11 px-5 text-body-sm min-w-11",
-  lg: "h-12 px-7 text-body min-w-12"
+  lg: "h-[3.25rem] px-7 text-body min-w-12"
 };
 
 interface Common {

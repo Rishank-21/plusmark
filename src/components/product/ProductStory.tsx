@@ -15,13 +15,13 @@ export function ProductStory({ slug, name }: { slug: string; name: string }) {
   return (
     <section
       id="product-story"
-      className="product-story py-12 lg:py-16"
+      className="product-story py-8 lg:py-16"
       aria-labelledby="product-story-heading"
     >
-      <h2 id="product-story-heading" className="font-sans text-2xl font-semibold leading-tight text-ink">
+      <h2 id="product-story-heading" className="font-display text-h2 font-extrabold text-ink max-lg:sr-only">
         Product Description
       </h2>
-      <div className="product-story-panels mt-8 lg:mt-10">
+      <div className="product-story-panels mt-0 lg:mt-10">
         {panels.map((panel, index) => {
           const isBrand = panel === APLUS_BRAND_PANEL;
           return (

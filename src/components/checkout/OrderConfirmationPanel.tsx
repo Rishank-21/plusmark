@@ -34,7 +34,7 @@ export function OrderConfirmationPanel({ reference }: { reference: string | null
       <div className="pm-shell py-2xl lg:py-3xl">
         <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Order confirmation" }]} />
         <h1 className="mt-md font-display text-display-sm">Which order?</h1>
-        <p className="mt-md max-w-reading text-body-sm text-graphite">
+        <p className="mt-md max-w-reading text-body-sm text-muted">
           A confirmation needs the reference the order was recorded under. Look one up publicly, or open your order
           history if you placed it in this browser.
         </p>
@@ -92,13 +92,13 @@ export function OrderConfirmationPanel({ reference }: { reference: string | null
         trail={[{ label: "Home", href: "/" }, { label: "Checkout", href: "/checkout" }, { label: `Order ${order.reference}` }]}
       />
 
-      <header className="mt-md flex flex-col gap-4 border-b border-hair pb-2xl">
+      <header className="mt-md flex flex-col gap-4 border-b border-line pb-2xl">
         <div className="flex flex-wrap items-center gap-3">
-          <CheckCircle2 className="size-7 text-navy-deep" aria-hidden />
+          <CheckCircle2 className="size-7 text-ink" aria-hidden />
           <h1 className="font-display text-display-sm">Order {order.reference} recorded</h1>
           <StatusBadge status={order.status} demo />
         </div>
-        <p className="max-w-reading text-body-sm text-graphite">
+        <p className="max-w-reading text-body-sm text-muted">
           {storedOnline ? (
             <>
               The order is recorded in your Plusmark account and the server has reserved stock against it.{" "}
@@ -123,21 +123,21 @@ export function OrderConfirmationPanel({ reference }: { reference: string | null
         </p>
         <dl className="flex flex-wrap gap-x-2xl gap-y-3 text-caption">
           <div>
-            <dt className="text-graphite-light">Placed</dt>
+            <dt className="text-muted">Placed</dt>
             <dd className="tabular mt-0.5 text-ink">{formatDate(order.placedAt)}</dd>
           </div>
           <div>
-            <dt className="text-graphite-light">Order email</dt>
+            <dt className="text-muted">Order email</dt>
             <dd className="mt-0.5 text-ink">{order.email}</dd>
           </div>
           <div>
-            <dt className="text-graphite-light">Total</dt>
+            <dt className="text-muted">Total</dt>
             <dd className="tabular mt-0.5 text-ink">
               {totals.totalInr === null ? "Confirmed with freight" : formatInr(totals.totalInr)}
             </dd>
           </div>
           <div>
-            <dt className="text-graphite-light">Stored</dt>
+            <dt className="text-muted">Stored</dt>
             <dd className="mt-0.5 flex items-center gap-1.5 text-ink">
               {storedOnline ? "Your account (Supabase)" : local ? "This browser (localStorage)" : "Demonstration record"}
               {!storedOnline && <DemoBadge />}
@@ -186,7 +186,7 @@ export function OrderConfirmationPanel({ reference }: { reference: string | null
             <h2 id="confirm-next" className="mb-md font-display text-h2">
               What happens next
             </h2>
-            <ol className="flex flex-col gap-3 border-y border-hair py-lg">
+            <ol className="flex flex-col gap-3 border-y border-line py-lg">
               {[
                 "In production, the Plusmark order desk reads the specification and confirms the size, series and finish with you.",
                 "Freight is fixed for your pincode and load, and the GST invoice is raised — until then the total above is not final.",
@@ -194,14 +194,14 @@ export function OrderConfirmationPanel({ reference }: { reference: string | null
                 "A dispatch note with the consignment label follows. The carrier feed is not connected here, so the last logged stage is what you will see."
               ].map((item, index) => (
                 <li key={item} className="flex gap-3">
-                  <span className="tabular mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full border border-hair-strong text-[0.6875rem] text-graphite">
+                  <span className="tabular mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full border border-line-strong text-[0.6875rem] text-muted">
                     {index + 1}
                   </span>
-                  <span className="text-body-sm text-graphite">{item}</span>
+                  <span className="text-body-sm text-muted">{item}</span>
                 </li>
               ))}
             </ol>
-            <p className="mt-md text-caption leading-relaxed text-graphite">
+            <p className="mt-md text-caption leading-relaxed text-muted">
               {storedOnline
                 ? `The order is in the store database. Manufacturing, courier booking and email delivery are handled manually in this build. ${DEMO_PRICING_LABEL}.`
                 : `In this prototype none of those steps is started automatically. ${DEMO_PRICING_LABEL}, and a recorded order is not a placed order with the works.`}
@@ -210,12 +210,12 @@ export function OrderConfirmationPanel({ reference }: { reference: string | null
         </div>
 
         <aside className="flex flex-col gap-lg lg:sticky lg:top-[calc(var(--header-h)+1.5rem)]">
-          <div className="rounded-sm border border-hair bg-surface p-md">
+          <div className="rounded-sm border border-line bg-surface p-md">
             <h2 className="mb-md font-display text-h4">Order value</h2>
             <TotalsTable order={order} />
           </div>
 
-          <nav aria-label="Order follow-up" className="flex flex-col gap-2 rounded-sm border border-hair bg-canvas p-md">
+          <nav aria-label="Order follow-up" className="flex flex-col gap-2 rounded-sm border border-line bg-page p-md">
             <h2 className="font-display text-h4">Keep an eye on it</h2>
             <ButtonLink href={`/track-order?ref=${encodeURIComponent(order.reference)}`} fullWidth>
               Track this order
@@ -231,8 +231,8 @@ export function OrderConfirmationPanel({ reference }: { reference: string | null
               Continue shopping
             </ButtonLink>
             {!storedOnline && !session.user && (
-              <div className="mt-1 flex flex-col gap-2 rounded-md border border-dashed border-hair-strong p-3">
-                <p className="text-caption leading-relaxed text-graphite">
+              <div className="mt-1 flex flex-col gap-2 rounded-md border border-dashed border-line-strong p-3">
+                <p className="text-caption leading-relaxed text-muted">
                   Keep this order and track future ones from any device.
                 </p>
                 <ButtonLink href="/register?next=/account" variant="secondary" fullWidth>
@@ -240,7 +240,7 @@ export function OrderConfirmationPanel({ reference }: { reference: string | null
                 </ButtonLink>
               </div>
             )}
-            <p className="text-caption leading-relaxed text-graphite">
+            <p className="text-caption leading-relaxed text-muted">
               {storedOnline
                 ? "This order is saved in your account, so the reference above is enough to reopen it on any device."
                 : "Tracking needs the reference above plus the email on the order. Keep both — this browser is the only place the record exists."}

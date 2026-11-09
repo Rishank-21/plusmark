@@ -18,14 +18,14 @@ const RESEND_SECONDS = 45;
 
 function Shell({ title, lede, children }: { title: string; lede: string; children: React.ReactNode }) {
   return (
-    <div className="pm-shell py-2xl lg:py-3xl [&_h1]:font-sans [&_h2]:font-sans [&_h3]:font-sans [&_h4]:font-sans">
+    <div className="pm-shell py-16 lg:py-20">
       <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Sign in", href: "/login" }, { label: title }]} />
       <div className="mx-auto mt-2xl grid max-w-5xl items-start gap-2xl md:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)]">
         <div className="flex flex-col gap-3">
-          <h1 className="font-sans text-h1 text-navy">{title}</h1>
-          <p className="max-w-reading text-body leading-relaxed text-graphite">{lede}</p>
+          <h1 className="font-display text-h1 font-extrabold text-ink">{title}</h1>
+          <p className="max-w-reading text-body leading-relaxed text-muted">{lede}</p>
         </div>
-        <div className="rounded-xl border border-hair bg-surface p-lg">{children}</div>
+        <div className="rounded-xl border border-line bg-surface p-lg">{children}</div>
       </div>
     </div>
   );
@@ -74,11 +74,11 @@ export function ForgotPasswordPanel({ next }: { next: string }) {
     return (
       <Shell title="Check your inbox" lede="Password reset links are single-use and expire quickly.">
         <div className="flex flex-col gap-3">
-          <p className="text-body-sm leading-relaxed text-graphite">
+          <p className="text-body-sm leading-relaxed text-muted">
             If an account exists for <span className="font-medium text-ink">{email.trim().toLowerCase()}</span>, we have sent
             a link to reset the password. Open it on this device, then choose a new password.
           </p>
-          <p className="text-caption text-graphite">Nothing arrived? Check spam, or wait a minute and try again.</p>
+          <p className="text-caption text-muted">Nothing arrived? Check spam, or wait a minute and try again.</p>
           <div className="flex flex-wrap gap-3">
             <Button
               variant="secondary"
@@ -120,7 +120,7 @@ export function ForgotPasswordPanel({ next }: { next: string }) {
           {busy ? "Sending…" : "Send reset link"}
           {!busy && <ArrowRight className="size-4" aria-hidden />}
         </Button>
-        <p className="text-center text-caption text-graphite">
+        <p className="text-center text-caption text-muted">
           Remembered it?{" "}
           <ButtonLink href={`/login?next=${encodeURIComponent(nextPath)}`} variant="quiet" size="sm">
             Sign in
@@ -200,7 +200,7 @@ export function ResetPasswordPanel() {
           <span className="flex size-11 items-center justify-center rounded-full bg-success-wash text-success">
             <CheckCircle2 className="size-5" aria-hidden />
           </span>
-          <p className="text-body-sm text-graphite">Use the new password the next time you sign in on another device.</p>
+          <p className="text-body-sm text-muted">Use the new password the next time you sign in on another device.</p>
           <div className="flex flex-wrap gap-3">
             <Button onClick={() => router.replace("/account")}>Go to your account</Button>
             <ButtonLink href="/login" variant="quiet">
@@ -231,7 +231,7 @@ export function ResetPasswordPanel() {
             type="button"
             onClick={() => setShow((value) => !value)}
             aria-label={show ? "Hide password" : "Show password"}
-            className="absolute right-1.5 bottom-1.5 flex size-8 items-center justify-center rounded-md text-graphite transition-colors hover:text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue"
+            className="absolute right-1.5 bottom-1.5 flex size-8 items-center justify-center rounded-md text-muted transition-colors hover:text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue"
           >
             {show ? <EyeOff className="size-4" aria-hidden /> : <Eye className="size-4" aria-hidden />}
           </button>
@@ -249,7 +249,7 @@ export function ResetPasswordPanel() {
                 />
               ))}
             </div>
-            <p className="text-caption text-graphite">
+            <p className="text-caption text-muted">
               <span className="font-medium text-ink">{strength.label}</span> — {strength.hint}
             </p>
           </div>
@@ -304,7 +304,7 @@ export function VerifyEmailPanel({ email: initialEmail, verified }: { email: str
   return (
     <Shell title="Verify your email" lede="Confirming your address protects your order history and keeps reset emails working.">
       <div className="flex flex-col gap-md">
-        <p className="text-body-sm leading-relaxed text-graphite">
+        <p className="text-body-sm leading-relaxed text-muted">
           Open the confirmation link we emailed you. It can take a minute to arrive — check spam as well. If you signed up
           with a different address, enter it below to resend.
         </p>
@@ -322,9 +322,9 @@ export function VerifyEmailPanel({ email: initialEmail, verified }: { email: str
         <Button onClick={resend} disabled={busy || cooldown > 0} fullWidth>
           {busy ? "Sending…" : cooldown > 0 ? `Resend in ${cooldown}s` : "Resend verification email"}
         </Button>
-        <p className="text-center text-caption text-graphite">
+        <p className="text-center text-caption text-muted">
           Already verified?{" "}
-          <Link href="/login" className="underline decoration-hair-strong underline-offset-4 hover:text-ink">
+          <Link href="/login" className="underline decoration-line-strong underline-offset-4 hover:text-ink">
             Sign in
           </Link>
         </p>

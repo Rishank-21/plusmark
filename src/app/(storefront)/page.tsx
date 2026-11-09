@@ -68,18 +68,14 @@ export default function HomePage() {
         products={featured}
         id="featured"
         heading="A board from every series"
-        eyebrow=""
         lead=""
-        normalHeading
       />
       <PromoBanner />
       <Selection
         products={more}
         id="more"
-        eyebrow=""
         heading="Keep browsing the catalogue"
         lead=""
-        normalHeading
         tone="canvas"
         showCustomSizeNote={false}
       />

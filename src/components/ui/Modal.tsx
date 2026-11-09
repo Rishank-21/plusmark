@@ -65,7 +65,7 @@ export function Modal({
   return createPortal(
     <div className="fixed inset-0 z-[900] flex items-end justify-center sm:items-center">
       <div
-        className="absolute inset-0 bg-navy-deep/50"
+        className="absolute inset-0 bg-scrim/50"
         onClick={onClose}
         aria-hidden
       />
@@ -75,22 +75,22 @@ export function Modal({
         aria-modal="true"
         aria-labelledby="pm-modal-title"
         className={classNames(
-          "relative flex w-full flex-col gap-4 rounded-t-md bg-canvas p-5 shadow-lift animate-slide-up sm:rounded-md sm:animate-fade-up sm:p-6",
+          "relative flex w-full flex-col gap-4 rounded-t-2xl border border-line bg-surface p-5 shadow-lift animate-slide-up sm:rounded-2xl sm:animate-fade-up sm:p-6",
           width
         )}
       >
         <div className="flex items-start justify-between gap-4">
           <div className="flex flex-col gap-1">
-            <h2 id="pm-modal-title" className="font-display text-h3 leading-tight">
+            <h2 id="pm-modal-title" className="font-display text-h3 font-bold leading-tight text-ink">
               {title}
             </h2>
-            {description && <p className="text-body-sm text-graphite">{description}</p>}
+            {description && <p className="text-body-sm text-muted">{description}</p>}
           </div>
           <button
             type="button"
             onClick={onClose}
             aria-label="Close dialog"
-            className="-m-1 rounded-xs p-1 text-graphite transition-colors hover:bg-sand hover:text-ink"
+            className="-m-1 rounded-xs p-1 text-muted transition-colors hover:bg-subtle hover:text-ink"
           >
             <X className="size-5" aria-hidden />
           </button>
@@ -103,7 +103,7 @@ export function Modal({
         >
           {children}
         </div>
-        {footer && <div className="flex flex-wrap justify-end gap-2 border-t border-hair pt-4">{footer}</div>}
+        {footer && <div className="flex flex-wrap justify-end gap-2 pt-1">{footer}</div>}
       </div>
     </div>,
     document.body
@@ -138,7 +138,7 @@ export function ConfirmDialog({
           <button
             type="button"
             onClick={onClose}
-            className="h-10 rounded-xs border border-hair-strong px-4 text-body-sm font-medium text-ink transition-colors hover:bg-sand"
+            className="h-10 rounded-md border border-line-strong px-4 text-body-sm font-medium text-ink transition-colors hover:bg-subtle"
           >
             Cancel
           </button>
@@ -150,7 +150,7 @@ export function ConfirmDialog({
             }}
             className={classNames(
               "h-10 rounded-xs px-4 text-body-sm font-medium transition-colors",
-              destructive ? "bg-danger text-white hover:bg-danger/90" : "bg-blue text-white hover:bg-blue-deep"
+              destructive ? "bg-danger text-onprimary hover:bg-danger/90" : "bg-primary text-onprimary hover:bg-primary-strong"
             )}
           >
             {confirmLabel}
@@ -158,7 +158,7 @@ export function ConfirmDialog({
         </>
       }
     >
-      <p className="text-body-sm leading-relaxed text-graphite">{body}</p>
+      <p className="text-body-sm leading-relaxed text-muted">{body}</p>
     </Modal>
   );
 }

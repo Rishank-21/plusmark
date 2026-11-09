@@ -50,13 +50,13 @@ export function PaymentStep({
       </fieldset>
 
       {!onlineEnabled && (
-        <p className="flex items-start gap-1.5 text-caption leading-relaxed text-graphite">
+        <p className="flex items-start gap-1.5 text-caption leading-relaxed text-muted">
           <Lock className="mt-0.5 size-3.5 shrink-0" aria-hidden />
           {onlineReason}
         </p>
       )}
 
-      <p className="tabular text-caption text-graphite">
+      <p className="tabular text-caption text-muted">
         {amountDue === null
           ? "Freight is confirmed on the invoice; the total is not final yet."
           : choice === "cod"

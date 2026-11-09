@@ -144,7 +144,7 @@ export function ProductApp({ product, related }: { product: Product; related: Pr
   return (
     <>
       <div className="product-page-shell">
-        <div className="pm-shell !max-w-[90rem] py-5 lg:py-6">
+        <div className="pm-shell !max-w-[90rem] py-3 lg:py-6">
           <Breadcrumbs
             trail={[
               { label: "Home", href: "/" },
@@ -154,7 +154,7 @@ export function ProductApp({ product, related }: { product: Product; related: Pr
           />
         </div>
 
-        <div className="pm-shell !max-w-[90rem] pb-36 lg:pb-10">
+        <div className="pm-shell !max-w-[90rem] pb-0 lg:pb-10">
           <div id="pdp-main" className="grid min-w-0 gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:items-start md:gap-x-6 md:gap-y-6 lg:grid-cols-[minmax(0,1.02fr)_minmax(0,1fr)] lg:gap-x-8 lg:gap-y-6 xl:grid-cols-[minmax(0,1.18fr)_minmax(0,1fr)_18rem] xl:gap-6">
             <div className="min-w-0 md:sticky md:top-40 md:self-start lg:static lg:row-span-2 lg:self-stretch xl:row-span-1">
               <Gallery product={product} />
@@ -162,8 +162,8 @@ export function ProductApp({ product, related }: { product: Product; related: Pr
 
             <div className="flex min-w-0 flex-col gap-4">
               <div>
-                <h1 className="line-clamp-3 font-sans text-[1.5rem] font-normal leading-[1.35] text-ink">{product.name}</h1>
-                <Link href="/shop" className="-my-2 mt-1 inline-flex min-h-10 items-center text-body-sm text-blue-deep underline-offset-4 hover:underline">
+                <h1 className="line-clamp-3 font-display text-[1.75rem] font-bold leading-[1.2] tracking-[-0.015em] text-ink sm:text-[1.625rem] lg:text-[1.875rem]">{product.name}</h1>
+                <Link href="/shop" className="-my-2 mt-1 inline-flex min-h-10 items-center text-body-sm text-primary-strong underline-offset-4 hover:underline">
                   Visit the Plusmark Store
                 </Link>
               </div>
@@ -171,7 +171,7 @@ export function ProductApp({ product, related }: { product: Product; related: Pr
               <a
                 href="#customer-reviews"
                 aria-label={`${GOOGLE_REVIEW_SUMMARY.rating.toFixed(1)} (${GOOGLE_REVIEW_SUMMARY.count}) ratings — rated ${GOOGLE_REVIEW_SUMMARY.rating.toFixed(1)} out of 5`}
-                className="-my-2 flex min-h-10 w-fit items-center gap-1.5 rounded-sm text-body-sm text-blue-deep"
+                className="-my-2 flex min-h-10 w-fit items-center gap-1.5 rounded-sm text-body-sm text-primary-strong"
               >
                 <span className="font-medium text-ink">{GOOGLE_REVIEW_SUMMARY.rating.toFixed(1)}</span>
                 <RatingStars rating={GOOGLE_REVIEW_SUMMARY.rating} />
@@ -180,31 +180,31 @@ export function ProductApp({ product, related }: { product: Product; related: Pr
               </a>
 
               {badge && (
-                <p className="flex flex-wrap items-center gap-2 text-body-sm text-graphite">
-                  <span className="rounded-sm bg-danger px-2 py-0.5 text-caption font-semibold text-white">{badge.label}</span>
+                <p className="flex flex-wrap items-center gap-2 text-body-sm text-muted">
+                  <span className="rounded-sm bg-danger px-2 py-0.5 text-caption font-semibold text-onprimary">{badge.label}</span>
                   <span>
-                    in <span className="text-blue-deep">{badge.context ?? category?.name ?? "Plusmark boards"}</span>
+                    in <span className="text-primary-strong">{badge.context ?? category?.name ?? "Plusmark boards"}</span>
                   </span>
                 </p>
               )}
 
               {socialProof && <p className="text-body-sm text-ink">{socialProof}</p>}
 
-              <div className="border-t border-hair pt-4">
+              <div className="border-t border-line pt-4">
                 <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
                   {discount !== null && (
                     <span className="text-[1.5rem] leading-none text-danger">-{discount}%</span>
                   )}
-                  {!variant && price !== null && <span className="text-body-sm text-graphite">From</span>}
-                  {price !== null ? <Amount value={price} size="lg" /> : <span className="text-h3 font-medium text-graphite">Price on request</span>}
-                  {price !== null && <span className="text-body-sm text-graphite">+ GST extra</span>}
+                  {!variant && price !== null && <span className="text-[0.75rem] text-muted sm:text-body-sm">From</span>}
+                  {price !== null ? <Amount value={price} size="lg" /> : <span className="text-h3 font-medium text-muted">Price on request</span>}
+                  {price !== null && <span className="text-[0.75rem] text-muted sm:text-body-sm">+ GST extra</span>}
                 </div>
                 {mrp !== null && price !== null && (
-                  <p className="pt-1 text-caption text-graphite">
+                  <p className="pt-1 text-[0.75rem] leading-relaxed text-muted sm:text-caption">
                     M.R.P.: <span className="line-through">{formatInr(mrp)}</span>
                   </p>
                 )}
-                <p className="pt-1 text-caption text-graphite">
+                <p className="pt-1 text-[0.75rem] leading-relaxed text-muted sm:text-caption">
                   {product.enquiryOnly
                     ? "This product is quoted by the Plusmark order desk for the exact size and quantity."
                     : variant
@@ -217,9 +217,9 @@ export function ProductApp({ product, related }: { product: Product; related: Pr
 
               <ServicesRow />
 
-              <div ref={sizeRef} className="scroll-mt-56 border-t border-hair pt-4">
+              <div ref={sizeRef} className="scroll-mt-56 border-t border-line pt-4">
                 <p className="pb-2.5 text-body-sm">
-                  <span className="text-graphite">Size: </span>
+                  <span className="text-muted">Size: </span>
                   <span className="font-semibold text-ink">{variant ? variantLabel(variant) : "Select a size"}</span>
                 </p>
                 <SizeSelector
@@ -234,7 +234,7 @@ export function ProductApp({ product, related }: { product: Product; related: Pr
                     Select a size so we can price and reserve the right board.
                   </p>
                 )}
-                <p className="pt-2 text-[0.6875rem] leading-relaxed text-graphite">
+                <p className="pt-2 text-[0.75rem] leading-relaxed text-muted">
                   {product.enquiryOnly
                     ? "Quoted individually by the order desk."
                     : "Demo price — not a Plusmark quotation."}{" "}
@@ -281,11 +281,11 @@ export function ProductApp({ product, related }: { product: Product; related: Pr
         title="Offers and order terms"
         description="What Plusmark publishes today. No bank, coupon or EMI promotion is being claimed."
       >
-        <ul className="flex flex-col divide-y divide-hair">
+        <ul className="flex flex-col divide-y divide-line">
           {PDP_OFFERS.map((offer) => (
             <li key={offer.id} className="flex flex-col gap-1 py-3 first:pt-0 last:pb-0">
               <span className="text-body-sm font-semibold text-ink">{offer.title}</span>
-              <span className="text-body-sm leading-relaxed text-graphite">{offer.description}</span>
+              <span className="text-body-sm leading-relaxed text-muted">{offer.description}</span>
             </li>
           ))}
         </ul>
@@ -303,7 +303,7 @@ function RatingStars({ rating }: { rating: number }) {
           <span key={index} className="relative inline-flex size-4 items-center justify-center">
             <Star className="absolute size-4 text-hair-strong" strokeWidth={1.5} />
             <span className="absolute inset-y-0 left-0 overflow-hidden" style={{ width: `${fill * 100}%` }}>
-              <Star className="size-4 fill-current text-blue" strokeWidth={0} />
+              <Star className="size-4 fill-current text-primary" strokeWidth={0} />
             </span>
           </span>
         );
@@ -333,10 +333,10 @@ function OffersRow({ onOpen }: { onOpen: () => void }) {
   const scroll = (direction: -1 | 1) => track.current?.scrollBy({ left: direction * 220, behavior: "smooth" });
 
   return (
-    <section className="border-t border-hair pt-4" aria-labelledby="pdp-offers-heading">
+    <section className="border-t border-line pt-4" aria-labelledby="pdp-offers-heading">
       <div className="flex items-center justify-between gap-3">
         <h2 id="pdp-offers-heading" className="flex items-center gap-1.5 text-body font-semibold text-ink">
-          <BadgePercent className="size-4 text-blue-deep" aria-hidden />
+          <BadgePercent className="size-4 text-primary-strong" aria-hidden />
           Offers
         </h2>
         <div className="hidden items-center gap-1.5 lg:flex">
@@ -351,11 +351,11 @@ function OffersRow({ onOpen }: { onOpen: () => void }) {
             key={offer.id}
             type="button"
             onClick={onOpen}
-            className="flex w-56 shrink-0 snap-start flex-col gap-1 rounded-lg border border-hair bg-surface p-3 text-left transition-colors hover:border-hair-strong sm:w-64"
+            className="flex w-56 shrink-0 snap-start flex-col gap-1 rounded-lg border border-line bg-surface p-3 text-left transition-colors hover:border-line-strong sm:w-64"
           >
             <span className="text-body-sm font-semibold text-ink">{offer.title}</span>
-            <span className="line-clamp-3 text-caption leading-relaxed text-graphite">{offer.description}</span>
-            <span className="pt-1 text-caption text-blue-deep">{offer.countLabel} ›</span>
+            <span className="line-clamp-3 text-caption leading-relaxed text-muted">{offer.description}</span>
+            <span className="pt-1 text-caption text-primary-strong">{offer.countLabel} ›</span>
           </button>
         ))}
       </div>
@@ -382,7 +382,7 @@ function ServicesRow() {
   }, []);
 
   return (
-    <section className="relative border-t border-hair pt-4" aria-label="Plusmark service information">
+    <section className="relative border-t border-line pt-4" aria-label="Plusmark service information">
       <h2 className="pb-3 text-body font-semibold text-ink">Service information</h2>
       <div
         ref={track}
@@ -390,16 +390,16 @@ function ServicesRow() {
         tabIndex={0}
         role="group"
         aria-label="Service highlights"
-        className="grid grid-cols-3 gap-x-2 gap-y-5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-blue lg:flex lg:gap-5 lg:overflow-x-auto lg:pb-1 lg:no-scrollbar"
+        className="grid grid-cols-3 gap-x-2 gap-y-5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary lg:flex lg:gap-5 lg:overflow-x-auto lg:pb-1 lg:no-scrollbar"
       >
         {PDP_SERVICES.map((service) => {
           const Icon = service.icon;
           return (
             <div key={service.id} className="flex min-w-0 flex-col items-center gap-1.5 text-center lg:w-[4.75rem] lg:shrink-0">
-              <span className="flex size-10 items-center justify-center rounded-full bg-sand text-navy">
+              <span className="flex size-10 items-center justify-center rounded-full bg-subtle text-ink">
                 <Icon className="size-4" aria-hidden />
               </span>
-              <span className="text-[0.75rem] leading-snug text-blue-deep">{service.label}</span>
+              <span className="text-[0.75rem] leading-snug text-primary-strong">{service.label}</span>
             </div>
           );
         })}
@@ -409,7 +409,7 @@ function ServicesRow() {
           type="button"
           onClick={() => track.current?.scrollBy({ left: -200, behavior: "smooth" })}
           aria-label="Scroll services left"
-          className="absolute -left-2 top-[62%] hidden size-8 -translate-y-1/2 items-center justify-center rounded-full border border-hair bg-surface text-ink shadow-card hover:bg-sand lg:flex"
+          className="absolute -left-2 top-[62%] hidden size-8 -translate-y-1/2 items-center justify-center rounded-full border border-line bg-surface text-ink shadow-card hover:bg-subtle lg:flex"
         >
           <ChevronLeft className="size-4" aria-hidden />
         </button>
@@ -419,7 +419,7 @@ function ServicesRow() {
           type="button"
           onClick={() => track.current?.scrollBy({ left: 200, behavior: "smooth" })}
           aria-label="Scroll services right"
-          className="absolute -right-2 top-[62%] hidden size-8 -translate-y-1/2 items-center justify-center rounded-full border border-hair bg-surface text-ink shadow-card hover:bg-sand lg:flex"
+          className="absolute -right-2 top-[62%] hidden size-8 -translate-y-1/2 items-center justify-center rounded-full border border-line bg-surface text-ink shadow-card hover:bg-subtle lg:flex"
         >
           <ChevronRight className="size-4" aria-hidden />
         </button>
@@ -446,7 +446,7 @@ function ScrollArrow({
       onClick={onClick}
       aria-label={label}
       disabled={disabled}
-      className="flex size-7 items-center justify-center rounded-full border border-hair bg-surface text-ink shadow-card transition-opacity hover:bg-sand disabled:opacity-40"
+      className="flex size-7 items-center justify-center rounded-full border border-line bg-surface text-ink shadow-card transition-opacity hover:bg-subtle disabled:opacity-40"
     >
       <Icon className="size-3.5" aria-hidden />
     </button>
@@ -490,57 +490,57 @@ function StickyBuyBar({
   return (
     <div
       className={classNames(
-        "fixed inset-x-0 bottom-0 z-[210] border-t border-hair bg-surface/97 px-4 pt-2.5 backdrop-blur-sm transition-transform duration-300 lg:hidden",
+        "fixed inset-x-0 bottom-0 z-[210] border-t border-line bg-surface/97 px-4 pt-2.5 backdrop-blur-sm transition-transform duration-300 lg:hidden",
         visible ? "translate-y-0" : "translate-y-full invisible"
       )}
       aria-hidden={!visible}
       inert={!visible}
     >
-      <div className="mx-auto flex max-w-page flex-col gap-2 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
-        <div className="flex items-center justify-between gap-3">
-          <p className="min-w-0 truncate text-caption text-graphite">
+      <div className="mx-auto flex max-w-page items-center gap-2 pb-[max(0.5rem,env(safe-area-inset-bottom))]">
+        <div className="min-w-0 flex-1">
+          <p className="truncate text-[0.75rem] leading-4 text-muted">
             {variant ? variantLabel(variant) : "Select a size"} · Qty {quantity}
           </p>
-          <p className="shrink-0 text-body-sm font-semibold text-ink">
+          <p className="truncate text-[1rem] font-semibold leading-5 text-ink">
             {price !== null ? formatInr(price) : "Price on request"}
-            {price !== null && <span className="pl-1 text-caption font-normal text-graphite">+ GST</span>}
+            {price !== null && <span className="pl-1 text-[0.75rem] font-normal text-muted">+ GST</span>}
           </p>
         </div>
         {product.enquiryOnly ? (
-          <div className="grid grid-cols-2 gap-2">
+          <>
             <a
               href={whatsappHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex h-11 items-center justify-center gap-1.5 rounded-full border border-brand bg-surface text-body-sm font-semibold text-brand"
+              className="flex h-11 shrink-0 items-center gap-1.5 rounded-full border border-primary bg-surface px-3 text-[0.8125rem] font-semibold text-brand"
             >
               <MessageCircle className="size-4" aria-hidden />
               WhatsApp
             </a>
             <Link
               href={contactHref}
-              className="flex h-11 items-center justify-center rounded-full bg-blue text-body-sm font-semibold text-white hover:bg-blue-deep"
+              className="flex h-11 shrink-0 items-center rounded-full bg-primary px-4 text-[0.8125rem] font-semibold text-onprimary hover:bg-primary-strong"
             >
               Enquire
             </Link>
-          </div>
+          </>
         ) : (
-          <div className="grid grid-cols-2 gap-2">
+          <>
             <button
               type="button"
               onClick={onAdd}
-              className="h-11 rounded-full border border-blue bg-surface text-body-sm font-semibold text-blue-deep hover:bg-blue-wash"
+              className="h-11 shrink-0 rounded-full border border-primary bg-surface px-3 text-[0.8125rem] font-semibold text-primary-strong hover:bg-primary-soft"
             >
               Add to cart
             </button>
             <button
               type="button"
               onClick={onBuyNow}
-              className="h-11 rounded-full bg-blue text-body-sm font-semibold text-white hover:bg-blue-deep"
+              className="h-11 shrink-0 rounded-full bg-primary px-4 text-[0.8125rem] font-semibold text-onprimary hover:bg-primary-strong"
             >
               Buy Now
             </button>
-          </div>
+          </>
         )}
       </div>
     </div>

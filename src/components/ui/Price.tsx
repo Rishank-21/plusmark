@@ -30,7 +30,7 @@ export function Price({
   if (onRequest) {
     return (
       <span className={classNames("inline-flex items-center gap-2", scale, className)}>
-        <span className={classNames(size === "xl" ? "text-[2rem]" : "text-body-sm", "font-medium text-graphite")}>Price on request</span>
+        <span className={classNames(size === "xl" ? "text-[2rem]" : "text-body-sm", "font-medium text-muted")}>Price on request</span>
       </span>
     );
   }
@@ -38,7 +38,7 @@ export function Price({
   return (
     <span className={classNames("inline-flex flex-wrap items-baseline gap-2", scale, className)}>
       <span className="tabular font-medium text-ink">{formatInr(amount)}</span>
-      <span className={classNames(size === "xl" ? "text-[1rem]" : "text-caption", "text-graphite")}>+ GST</span>
+      <span className={classNames(size === "xl" ? "text-[1rem]" : "text-caption", "text-muted")}>+ GST</span>
       {showDemoBadge && <DemoBadge label="Demo price" className={size === "xl" ? "text-[0.8125rem]" : undefined} />}
     </span>
   );
@@ -62,7 +62,7 @@ export function PriceRange({
   const amount = variant?.priceInr ?? (values.length ? Math.min(...values) : null);
   if (amount === null || !DEMO_PRICING_ENABLED) {
     return (
-      <span className={classNames(size === "lg" ? "text-body" : "text-caption", "font-medium text-graphite", className)}>
+      <span className={classNames(size === "lg" ? "text-body" : "text-caption", "font-medium text-muted", className)}>
         Price on request
       </span>
     );
@@ -70,12 +70,12 @@ export function PriceRange({
   const multipleSizes = !variant && new Set(values).size > 1;
   return (
     <span className={classNames("inline-flex flex-wrap items-baseline gap-1.5", className)}>
-      {multipleSizes && <span className={classNames(size === "lg" ? "text-body-sm" : "text-caption", "text-graphite")}>From</span>}
+      {multipleSizes && <span className={classNames(size === "lg" ? "text-[0.75rem] sm:text-body-sm" : "text-caption", "text-muted")}>From</span>}
       <span className="inline-flex items-baseline gap-1 whitespace-nowrap">
-        <span className={classNames(size === "lg" ? "text-price" : "text-body-sm", "tabular font-medium text-ink")}>
+        <span className={classNames(size === "lg" ? "text-[1.1875rem] sm:text-price" : "text-body-sm", "tabular font-medium text-ink")}>
           {formatInr(amount)}
         </span>
-        <span className={classNames(size === "lg" ? "text-body-sm" : "text-caption", "text-graphite")}>+ GST</span>
+        <span className={classNames(size === "lg" ? "text-[0.75rem] sm:text-body-sm" : "text-caption", "text-muted")}>+ GST</span>
       </span>
     </span>
   );

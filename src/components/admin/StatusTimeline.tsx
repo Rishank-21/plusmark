@@ -41,7 +41,7 @@ export function StatusTimeline({
             <span
               className={classNames(
                 "relative z-10 mt-0.5 flex size-[1.375rem] shrink-0 items-center justify-center rounded-full border",
-                done ? "border-navy/40 bg-navy-wash text-navy-deep" : isCurrent ? "border-blue bg-blue text-white" : "border-hair-strong bg-surface text-graphite"
+                done ? "border-navy/40 bg-navy-wash text-navy-deep" : isCurrent ? "border-blue bg-blue text-onprimary" : "border-hair-strong bg-surface text-graphite"
               )}
             >
               {done ? (

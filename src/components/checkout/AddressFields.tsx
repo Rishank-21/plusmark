@@ -209,9 +209,9 @@ export function AddressFields({
         />
       </div>
 
-      <p className="border-t border-hair pt-md text-caption leading-relaxed text-graphite">
+      <p className="border-t border-line pt-md text-caption leading-relaxed text-muted">
         Checkout uses one address for delivery and billing. For anything about invoicing, ask{" "}
-        <Link href="/contact" className="underline decoration-hair-strong underline-offset-4 hover:text-ink">
+        <Link href="/contact" className="underline decoration-line-strong underline-offset-4 hover:text-ink">
           the Plusmark team
         </Link>{" "}
         before you pay.

@@ -63,6 +63,7 @@ export function firstUnpricedLine(views: CartLineView[]): CartLineView | null {
 export interface DraftLine {
   productId: string;
   variantId: string;
+  colour?: string | null;
   quantity: number;
 }
 

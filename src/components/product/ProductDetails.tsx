@@ -46,7 +46,7 @@ export function ProductDetails({ product }: { product: Product }) {
       id: "installation",
       question: "Installation and care",
       answer: (
-        <div className="flex flex-col gap-3 text-body leading-relaxed text-graphite">
+        <div className="flex flex-col gap-3 text-body leading-relaxed text-muted">
           <p>
             Boards up to 4 × 3 ft are wall-mountable with standard anchors and a level; larger sizes are best fixed into
             a stud or with two fixings per edge. Plusmark ships fixing centres with the frame, and the frame has a
@@ -65,7 +65,7 @@ export function ProductDetails({ product }: { product: Product }) {
       id: "customisation",
       question: "Custom sizes, layouts and both-side boards",
       answer: (
-        <p className="text-body leading-relaxed text-graphite">
+        <p className="text-body leading-relaxed text-muted">
           Sizes outside the listed range, split layouts, ruled grids, perforated and grooved surfaces, printed headings
           and both-side construction are all made to order. Send the size and finish you need and Plusmark confirms the
           price before you order.
@@ -76,7 +76,7 @@ export function ProductDetails({ product }: { product: Product }) {
       id: "dispatch",
       question: "Dispatch and delivery",
       answer: (
-        <p className="text-body leading-relaxed text-graphite">
+        <p className="text-body leading-relaxed text-muted">
           Freight rules are still being finalised, so the transport method and delivery estimate for your pincode are
           confirmed when the invoice is raised. Pickup from the Narolgam works in Ahmedabad carries no transport
           charge.
@@ -86,14 +86,14 @@ export function ProductDetails({ product }: { product: Product }) {
   ];
 
   return (
-    <div className="product-details pm-shell !max-w-[90rem] border-t border-hair pt-12 lg:pt-16">
+    <div className="product-details pm-shell !max-w-[90rem] border-t border-line pt-12 lg:pt-16">
       <div className="product-details-stack">
         <section aria-labelledby="desc-heading" className="product-detail-row">
           <div className="product-detail-label">
             <span className="product-section-kicker">Product information</span>
             <h2 id="desc-heading" className="font-display text-h2 leading-tight text-ink">Description</h2>
           </div>
-          <div className="product-description max-w-reading text-[1.0625rem] leading-[1.8] text-graphite pretty">
+          <div className="product-description max-w-reading text-[1.0625rem] leading-[1.8] text-muted pretty">
             {descriptionParagraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
           </div>
         </section>
@@ -109,7 +109,7 @@ export function ProductDetails({ product }: { product: Product }) {
                 <CircleCheck className="product-feature-check" size={18} strokeWidth={2} aria-hidden />
                 <span className="flex min-w-0 flex-col gap-1">
                   <strong className="text-body font-medium text-ink">{title}</strong>
-                  <span className="text-[0.9375rem] leading-relaxed text-graphite">{detail}</span>
+                  <span className="text-[0.9375rem] leading-relaxed text-muted">{detail}</span>
                 </span>
               </li>
             ))}
@@ -124,7 +124,7 @@ export function ProductDetails({ product }: { product: Product }) {
           <dl className="product-spec-list">
             {specs.map((row) => (
               <div key={row.term} className="product-spec-row">
-                <dt className="text-[0.9375rem] font-medium uppercase tracking-[0.08em] text-graphite-light">{row.term}</dt>
+                <dt className="text-[0.9375rem] font-medium uppercase tracking-[0.08em] text-muted">{row.term}</dt>
                 <dd className="text-[1.0625rem] text-ink">{row.detail}</dd>
               </div>
             ))}
@@ -141,32 +141,32 @@ export function ProductDetails({ product }: { product: Product }) {
               <table className="w-full border-collapse text-left text-body">
                 <caption className="sr-only">Sizes, dimensions and SKUs offered for {product.name}</caption>
                 <thead>
-                  <tr className="border-b border-hair">
-                    <th scope="col" className="px-4 py-3 text-[0.9375rem] font-medium uppercase tracking-[0.08em] text-graphite">
+                  <tr className="border-b border-line">
+                    <th scope="col" className="px-4 py-3 text-[0.9375rem] font-medium uppercase tracking-[0.08em] text-muted">
                       Size
                     </th>
-                    <th scope="col" className="px-4 py-3 text-[0.9375rem] font-medium uppercase tracking-[0.08em] text-graphite">
+                    <th scope="col" className="px-4 py-3 text-[0.9375rem] font-medium uppercase tracking-[0.08em] text-muted">
                       Metric
                     </th>
-                    <th scope="col" className="px-4 py-3 text-[0.9375rem] font-medium uppercase tracking-[0.08em] text-graphite">
+                    <th scope="col" className="px-4 py-3 text-[0.9375rem] font-medium uppercase tracking-[0.08em] text-muted">
                       SKU
                     </th>
                   </tr>
                 </thead>
                 <tbody>
                   {sizes.map((row) => (
-                    <tr key={row.sku} className="border-b border-hair last:border-b-0 even:bg-sand/35">
+                    <tr key={row.sku} className="border-b border-line last:border-b-0 even:bg-subtle/35">
                       <td className="px-4 py-3 text-[1rem] font-medium text-ink">{row.label}</td>
-                      <td className="tabular whitespace-nowrap px-4 py-3 text-[1rem] text-graphite">{row.dimension}</td>
-                      <td className="tabular whitespace-nowrap px-4 py-3 text-[0.9375rem] text-graphite">{row.sku}</td>
+                      <td className="tabular whitespace-nowrap px-4 py-3 text-[1rem] text-muted">{row.dimension}</td>
+                      <td className="tabular whitespace-nowrap px-4 py-3 text-[0.9375rem] text-muted">{row.sku}</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
-            <p className="text-[0.9375rem] leading-relaxed text-graphite">
+            <p className="text-[0.9375rem] leading-relaxed text-muted">
               Need a size that is not listed? Boards are cut to order —{" "}
-              <Link href="/contact" className="underline decoration-hair-strong underline-offset-4 hover:text-ink">
+              <Link href="/contact" className="underline decoration-line-strong underline-offset-4 hover:text-ink">
                 ask Plusmark for the price
               </Link>
               .
@@ -186,7 +186,7 @@ export function ProductDetails({ product }: { product: Product }) {
             <div className="product-detail-label">
               <h2 id="applications-heading" className="font-display text-h2 leading-tight text-ink">Applications</h2>
             </div>
-            <p className="text-body leading-relaxed text-graphite">{product.usage}</p>
+            <p className="text-body leading-relaxed text-muted">{product.usage}</p>
           </section>
         )}
       </div>

@@ -17,7 +17,7 @@ export function PendingValue({ label, context }: { label: string; context?: stri
       <span className="inline-flex items-center rounded-xs border border-dashed border-warning/50 bg-warning-wash px-2 py-1 text-caption font-medium text-warning">
         To be confirmed · {label}
       </span>
-      {context && <span className="text-caption text-graphite">{context}</span>}
+      {context && <span className="text-caption text-muted">{context}</span>}
     </span>
   );
 }
@@ -45,7 +45,7 @@ export function DraftPolicyNotice({ page }: { page: string }) {
       </p>
       <p className="pt-1">
         Confirm the terms that apply to your order with the Plusmark desk before placing it — see{" "}
-        <Link href="/contact" className="underline decoration-hair-strong underline-offset-4 hover:decoration-ink">
+        <Link href="/contact" className="underline decoration-line-strong underline-offset-4 hover:decoration-ink">
           contact &amp; support
         </Link>
         .
@@ -63,23 +63,23 @@ export function PolicyStatusPanel({
   pending: string[];
 }) {
   return (
-    <div className="grid gap-px overflow-hidden rounded-sm border border-hair bg-hair sm:grid-cols-2">
+    <div className="grid gap-px overflow-hidden rounded-sm border border-line bg-hair sm:grid-cols-2">
       <div className="bg-surface p-5">
-        <p className="pm-eyebrow mb-3 text-navy-deep">Stated from published information</p>
+        <p className="mb-3 text-caption font-semibold text-ink">Stated from published information</p>
         <ul className="flex flex-col gap-2">
           {confirmed.map((item) => (
-            <li key={item} className="flex gap-2 text-body-sm leading-relaxed text-graphite">
-              <span className="mt-2 size-1.5 shrink-0 rounded-full bg-navy" aria-hidden />
+            <li key={item} className="flex gap-2 text-body-sm leading-relaxed text-muted">
+              <span className="mt-2 size-1.5 shrink-0 rounded-full bg-primary" aria-hidden />
               {item}
             </li>
           ))}
         </ul>
       </div>
-      <div className="bg-sand/50 p-5">
-        <p className="pm-eyebrow mb-3">Awaiting business sign-off</p>
+      <div className="bg-subtle/50 p-5">
+        <p className="mb-3 text-caption font-semibold text-muted">Awaiting business sign-off</p>
         <ul className="flex flex-col gap-2">
           {pending.map((item) => (
-            <li key={item} className="flex gap-2 text-body-sm leading-relaxed text-graphite">
+            <li key={item} className="flex gap-2 text-body-sm leading-relaxed text-muted">
               <span className="mt-2 size-1.5 shrink-0 rounded-full border border-warning" aria-hidden />
               {item}
             </li>
@@ -93,9 +93,9 @@ export function PolicyStatusPanel({
 /** Hairline section header for long-form policy copy. */
 export function PolicySection({ id, number, title, children }: { id: string; number: string; title: string; children: React.ReactNode }) {
   return (
-    <section className="border-t border-hair pt-8" aria-labelledby={id}>
+    <section className="border-t border-line pt-8" aria-labelledby={id}>
       <div className="mb-4 flex items-baseline gap-4">
-        <span className="tabular pm-eyebrow">{number}</span>
+        <span className="tabular text-caption font-semibold text-muted">{number}</span>
         <h2 id={id} className="font-display text-h2 leading-tight">
           {title}
         </h2>
@@ -112,14 +112,14 @@ export function PolicySection({ id, number, title, children }: { id: string; num
 export function ProductGrid({ products, sizesNote }: { products: Product[]; sizesNote?: string }) {
   if (products.length === 0) {
     return (
-      <p className="rounded-sm border border-dashed border-hair-strong bg-sand/35 p-5 text-body-sm text-graphite">
+      <p className="rounded-sm border border-dashed border-line-strong bg-subtle/35 p-5 text-body-sm text-muted">
         No catalogue items match this selection yet.
       </p>
     );
   }
   return (
     <>
-      {sizesNote && <p className="mb-6 max-w-reading text-caption leading-relaxed text-graphite">{sizesNote}</p>}
+      {sizesNote && <p className="mb-6 max-w-reading text-caption leading-relaxed text-muted">{sizesNote}</p>}
       <ul className="grid grid-cols-2 gap-x-4 gap-y-10 md:grid-cols-3">
         {products.map((product) => (
           <li key={product.slug}>
@@ -138,13 +138,13 @@ export function ProductGrid({ products, sizesNote }: { products: Product[]; size
 export function DemoPricingNote({ className }: { className?: string }) {
   if (!DEMO_PRICING_ENABLED) {
     return (
-      <p className={classNames("text-caption leading-relaxed text-graphite", className)}>
+      <p className={classNames("text-caption leading-relaxed text-muted", className)}>
         Every figure on this catalogue is quoted on request by the Plusmark desk. Plusmark publishes no list prices.
       </p>
     );
   }
   return (
-    <p className={classNames("flex flex-wrap items-center gap-2 text-caption leading-relaxed text-graphite", className)}>
+    <p className={classNames("flex flex-wrap items-center gap-2 text-caption leading-relaxed text-muted", className)}>
       <Badge tone="demo">{DEMO_PRICING_LABEL}</Badge>
       <span>
         Demo rate-card figures are shown so the cart, GST breakdown and checkout can be exercised locally. They are not

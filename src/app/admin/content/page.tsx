@@ -229,7 +229,7 @@ export default function AdminContentPage() {
                     <p className="text-body-sm leading-relaxed text-graphite">{hero.supporting || "Supporting line"}</p>
                   </div>
                   <div className="flex flex-wrap gap-2">
-                    <span className="inline-flex h-9 items-center rounded-md bg-navy px-4 text-caption font-medium text-white">{hero.primaryCta.label || "Primary"}</span>
+                    <span className="inline-flex h-9 items-center rounded-md bg-primary px-4 text-caption font-medium text-onprimary">{hero.primaryCta.label || "Primary"}</span>
                     <span className="inline-flex h-9 items-center rounded-xs border border-hair-strong px-4 text-caption font-medium text-ink">{hero.secondaryCta.label || "Secondary"}</span>
                   </div>
                 </div>

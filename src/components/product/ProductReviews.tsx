@@ -31,7 +31,7 @@ function Stars({ rating, size = "size-4" }: { rating: number; size?: string }) {
           <span key={index} className={`relative inline-flex ${size} items-center justify-center`} aria-hidden>
             <Star className={`absolute ${size} text-hair-strong`} strokeWidth={1.5} />
             <span className="absolute inset-y-0 left-0 overflow-hidden" style={{ width: `${fill * 100}%` }}>
-              <Star className={`${size} fill-current text-blue`} strokeWidth={0} />
+              <Star className={`${size} fill-current text-primary`} strokeWidth={0} />
             </span>
           </span>
         );
@@ -174,25 +174,25 @@ export function ProductReviews({ productName, productSlug }: { productName: stri
     <section
       id="customer-reviews"
       aria-label={`Customer reviews for ${productName}`}
-      className="scroll-mt-56 border-t border-hair pt-10 lg:pt-12"
+      className="scroll-mt-24 border-t border-line pt-8 lg:scroll-mt-56 lg:pt-12"
     >
       <div className="grid gap-8 lg:grid-cols-[minmax(0,19rem)_minmax(0,1fr)] lg:gap-14">
         <div className="min-w-0">
-          <h2 className="font-sans text-[1.5rem] font-normal leading-tight text-ink">Customer reviews</h2>
+          <h2 className="font-display text-[1.375rem] font-extrabold leading-7 text-ink sm:text-h2 sm:leading-[1.15]">Customer reviews</h2>
 
           {loading ? (
             <div className="flex flex-col gap-3 pt-5" aria-live="polite">
               <span className="sr-only">Loading customer reviews</span>
-              <div className="h-11 w-24 animate-pulse rounded-sm bg-sand" />
-              <div className="h-3 w-36 animate-pulse rounded-sm bg-sand" />
+              <div className="h-11 w-24 animate-pulse rounded-sm bg-subtle" />
+              <div className="h-3 w-36 animate-pulse rounded-sm bg-subtle" />
               {STAR_ROWS.map((star) => (
-                <div key={star} className="h-2.5 w-full animate-pulse rounded-sm bg-sand" />
+                <div key={star} className="h-2.5 w-full animate-pulse rounded-sm bg-subtle" />
               ))}
             </div>
           ) : summary.count === 0 ? (
             <div className="pt-4">
               <p className="text-body-sm font-medium text-ink">No customer ratings yet</p>
-              <p className="pt-1.5 text-caption leading-relaxed text-graphite">
+              <p className="pt-1.5 text-caption leading-relaxed text-muted">
                 Be the first to review this board. Reviews appear under the name on your Plusmark account.
               </p>
             </div>
@@ -202,7 +202,7 @@ export function ProductReviews({ productName, productSlug }: { productName: stri
                 <span className="text-[2.75rem] font-normal leading-none text-ink">{summary.average.toFixed(1)}</span>
                 <div className="flex flex-col gap-1">
                   <Stars rating={summary.average} />
-                  <p className="text-caption text-graphite">
+                  <p className="text-caption text-muted">
                     {summary.count} {summary.count === 1 ? "customer rating" : "customer ratings"}
                   </p>
                 </div>
@@ -210,10 +210,10 @@ export function ProductReviews({ productName, productSlug }: { productName: stri
 
               <ul className="flex flex-col gap-1.5 pt-5">
                 {summary.distribution.map((row) => (
-                  <li key={row.star} className="flex items-center gap-2.5 text-body-sm text-graphite">
+                  <li key={row.star} className="flex items-center gap-2.5 text-body-sm text-muted">
                     <span className="w-11 shrink-0">{row.star} star</span>
-                    <span className="h-2.5 flex-1 overflow-hidden rounded-sm bg-sand" aria-hidden>
-                      <span className="block h-full rounded-sm bg-blue" style={{ width: `${row.percent}%` }} />
+                    <span className="h-2.5 flex-1 overflow-hidden rounded-sm bg-subtle" aria-hidden>
+                      <span className="block h-full rounded-sm bg-primary" style={{ width: `${row.percent}%` }} />
                     </span>
                     <span className="w-16 shrink-0 text-right tabular text-caption">
                       {row.percent}% ({row.count})
@@ -247,38 +247,38 @@ export function ProductReviews({ productName, productSlug }: { productName: stri
             </div>
           )}
 
-          <p className="pt-4 text-caption leading-relaxed text-graphite">
+          <p className="pt-4 text-caption leading-relaxed text-muted">
             Reviews are written by signed-in customers on this product page. Plusmark does not seed ratings, and no review
             is marked as a verified purchase until server-side order records can confirm it.
           </p>
 
-          <div className="border-t border-hair pt-4">
+          <div className="border-t border-line pt-4">
             <div className="flex flex-wrap items-center justify-between gap-2">
               <h3 className="text-body-sm font-semibold text-ink">Plusmark on Google</h3>
               <div className="flex items-center gap-1.5">
                 <Stars rating={GOOGLE_REVIEW_SUMMARY.rating} size="size-3.5" />
-                <span className="tabular text-caption text-graphite">{GOOGLE_REVIEW_SUMMARY.rating.toFixed(1)}</span>
+                <span className="tabular text-caption text-muted">{GOOGLE_REVIEW_SUMMARY.rating.toFixed(1)}</span>
               </div>
             </div>
-            <p className="pt-1.5 text-caption leading-relaxed text-graphite">
+            <p className="pt-1.5 text-caption leading-relaxed text-muted">
               {GOOGLE_REVIEW_SUMMARY.count} ratings on the business profile. These quotes are about Plusmark as a whole,
               not this specific board.{" "}
               <a
                 href={GOOGLE_REVIEW_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-medium text-ink underline decoration-hair-strong underline-offset-4 hover:decoration-ink"
+                className="font-medium text-ink underline decoration-line-strong underline-offset-4 hover:decoration-ink"
               >
                 See the profile on Google
               </a>
               .
             </p>
             {showGoogle && (
-              <ul className="flex flex-col divide-y divide-hair pt-2">
+              <ul className="flex flex-col divide-y divide-line pt-2">
                 {customerReviews.map((review) => (
                   <li key={review.id} className="py-2.5">
                     <p className="text-caption font-medium text-ink">{review.name}</p>
-                    <blockquote className="pt-0.5 text-caption leading-relaxed text-graphite">“{review.quote}”</blockquote>
+                    <blockquote className="pt-0.5 text-caption leading-relaxed text-muted">“{review.quote}”</blockquote>
                   </li>
                 ))}
               </ul>
@@ -287,7 +287,7 @@ export function ProductReviews({ productName, productSlug }: { productName: stri
               type="button"
               onClick={() => setShowGoogle((value) => !value)}
               aria-expanded={showGoogle}
-              className="mt-2 text-caption font-medium text-ink underline decoration-hair-strong underline-offset-4 hover:decoration-ink"
+              className="mt-2 inline-flex min-h-11 items-center text-caption font-medium text-ink underline decoration-line-strong underline-offset-4 hover:decoration-ink sm:min-h-0"
             >
               {showGoogle ? "Hide Google reviews" : `Read ${customerReviews.length} Google reviews`}
             </button>
@@ -295,9 +295,9 @@ export function ProductReviews({ productName, productSlug }: { productName: stri
         </div>
 
         <div className="min-w-0">
-          <div className="flex flex-wrap items-baseline justify-between gap-2 border-b border-hair pb-3">
+          <div className="flex flex-wrap items-baseline justify-between gap-2 border-b border-line pb-3">
             <h3 className="text-body font-semibold text-ink">Reviews from Plusmark customers</h3>
-            <div className="flex items-center gap-2 text-caption text-graphite">
+            <div className="flex items-center gap-2 text-caption text-muted">
               <span>{summary.count} written {summary.count === 1 ? "review" : "reviews"}</span>
               {summary.count > 1 && (
                 <label className="flex items-center gap-1.5">
@@ -305,7 +305,7 @@ export function ProductReviews({ productName, productSlug }: { productName: stri
                   <select
                     value={sort}
                     onChange={(event) => setSort(event.target.value as SortOrder)}
-                    className="h-8 rounded-sm border border-hair bg-surface px-2 text-caption text-ink"
+                    className="h-11 rounded-sm border border-line bg-surface px-2 text-[0.8125rem] text-ink sm:h-8 sm:text-caption"
                   >
                     <option value="recent">Most recent</option>
                     <option value="highest">Highest rating</option>
@@ -323,11 +323,11 @@ export function ProductReviews({ productName, productSlug }: { productName: stri
           )}
 
           {formOpen && (
-            <div ref={formRef} className="scroll-mt-56 border-b border-hair py-5">
+            <div ref={formRef} className="scroll-mt-56 border-b border-line py-5">
               <form onSubmit={submit} noValidate className="flex flex-col gap-4">
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <h4 className="text-body font-semibold text-ink">{myReview ? "Edit your review" : "Write a review"}</h4>
-                  <button type="button" onClick={closeForm} className="text-caption text-graphite underline underline-offset-4 hover:text-ink">
+                  <button type="button" onClick={closeForm} className="text-caption text-muted underline underline-offset-4 hover:text-ink">
                     Cancel
                   </button>
                 </div>
@@ -345,16 +345,16 @@ export function ProductReviews({ productName, productSlug }: { productName: stri
                           setRating(value);
                           setFormErrors((current) => ({ ...current, rating: null }));
                         }}
-                        className="flex size-9 items-center justify-center rounded-sm transition-colors hover:bg-sand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue"
+                        className="flex size-11 items-center justify-center rounded-sm transition-colors hover:bg-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary sm:size-9"
                       >
                         <Star
-                          className={`size-6 ${value <= rating ? "fill-current text-blue" : "text-hair-strong"}`}
+                          className={`size-6 ${value <= rating ? "fill-current text-primary" : "text-hair-strong"}`}
                           strokeWidth={value <= rating ? 0 : 1.5}
                           aria-hidden
                         />
                       </button>
                     ))}
-                    {rating > 0 && <span className="pl-1 text-caption text-graphite">{rating} of 5</span>}
+                    {rating > 0 && <span className="pl-1 text-caption text-muted">{rating} of 5</span>}
                   </div>
                   {formErrors.rating && <p role="alert" className="text-caption font-medium text-danger">{formErrors.rating}</p>}
                 </fieldset>
@@ -394,7 +394,7 @@ export function ProductReviews({ productName, productSlug }: { productName: stri
                   </p>
                 )}
 
-                <p className="text-caption leading-relaxed text-graphite">
+                <p className="text-caption leading-relaxed text-muted">
                   Published publicly under {session.account?.fullName || session.user?.email}. It is not marked as a
                   verified purchase because checkout is not linked to a server order yet.
                 </p>
@@ -418,53 +418,53 @@ export function ProductReviews({ productName, productSlug }: { productName: stri
               <span className="sr-only">Loading reviews</span>
               {[0, 1].map((row) => (
                 <div key={row} className="flex flex-col gap-2">
-                  <div className="h-4 w-48 animate-pulse rounded-sm bg-sand" />
-                  <div className="h-3 w-full animate-pulse rounded-sm bg-sand" />
-                  <div className="h-3 w-3/4 animate-pulse rounded-sm bg-sand" />
+                  <div className="h-4 w-48 animate-pulse rounded-sm bg-subtle" />
+                  <div className="h-3 w-full animate-pulse rounded-sm bg-subtle" />
+                  <div className="h-3 w-3/4 animate-pulse rounded-sm bg-subtle" />
                 </div>
               ))}
             </div>
           ) : summary.count === 0 ? (
             <div className="py-8">
               <p className="text-body-sm font-medium text-ink">No reviews yet</p>
-              <p className="pt-1 text-caption leading-relaxed text-graphite">
+              <p className="pt-1 text-caption leading-relaxed text-muted">
                 {session.user
                   ? "Share how the board has held up in use — that is what the next customer needs."
                   : "Sign in to be the first customer to review this board."}
               </p>
             </div>
           ) : (
-            <div className="divide-y divide-hair">
+            <div className="divide-y divide-line">
               {visible.map((review) => {
                 const mine = review.userId === session.user?.id;
                 return (
                   <article key={review.id} className="flex gap-3 py-5">
                     <span
                       aria-hidden
-                      className="flex size-9 shrink-0 items-center justify-center rounded-full bg-sand text-caption font-semibold text-navy"
+                      className="flex size-9 shrink-0 items-center justify-center rounded-full bg-subtle text-caption font-semibold text-ink"
                     >
                       {initials(review.authorName)}
                     </span>
                     <div className="min-w-0">
                       <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
                         <p className="text-body-sm font-semibold text-ink">{review.authorName}</p>
-                        {mine && <span className="rounded-sm bg-sand px-1.5 py-0.5 text-[0.6875rem] text-graphite">Your review</span>}
+                        {mine && <span className="rounded-sm bg-subtle px-1.5 py-0.5 text-[0.6875rem] text-muted">Your review</span>}
                       </div>
                       <div className="flex flex-wrap items-center gap-2 pt-1">
                         <Stars rating={review.rating} />
                         <p className="text-body-sm font-semibold text-ink">{review.title}</p>
                       </div>
-                      <p className="pt-1 text-caption text-graphite">
+                      <p className="pt-1 text-caption text-muted">
                         Reviewed on {formatDate(review.createdAt)}
                         {review.updatedAt !== review.createdAt && " · edited"}
                       </p>
                       <p className="whitespace-pre-line pt-1.5 text-body-sm leading-relaxed text-ink">{review.body}</p>
                       {mine && (
                         <div className="flex items-center gap-3 pt-2">
-                          <button type="button" onClick={openForm} className="text-caption font-medium text-ink underline decoration-hair-strong underline-offset-4 hover:decoration-ink">
+                          <button type="button" onClick={openForm} className="text-caption font-medium text-ink underline decoration-line-strong underline-offset-4 hover:decoration-ink">
                             Edit
                           </button>
-                          <button type="button" onClick={() => setDeleteOpen(true)} className="text-caption font-medium text-graphite underline decoration-hair-strong underline-offset-4 hover:text-danger">
+                          <button type="button" onClick={() => setDeleteOpen(true)} className="text-caption font-medium text-muted underline decoration-line-strong underline-offset-4 hover:text-danger">
                             Delete
                           </button>
                         </div>
@@ -481,7 +481,7 @@ export function ProductReviews({ productName, productSlug }: { productName: stri
               type="button"
               onClick={() => setShowAll((value) => !value)}
               aria-expanded={showAll}
-              className="mt-4 h-10 rounded-full border border-hair-strong bg-surface px-5 text-body-sm font-medium text-ink hover:border-blue hover:bg-blue-wash"
+              className="mt-4 h-10 rounded-full border border-line-strong bg-surface px-5 text-body-sm font-medium text-ink hover:border-primary hover:bg-primary-soft"
             >
               {showAll ? "Show fewer reviews" : `See all ${sorted.length} reviews`}
             </button>

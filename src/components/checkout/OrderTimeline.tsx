@@ -29,10 +29,10 @@ const STATE_LABEL: Record<StepState, string> = {
 };
 
 const STATE_CLASS: Record<StepState, string> = {
-  complete: "border-navy bg-navy text-canvas",
-  current: "border-blue bg-blue text-white",
-  upcoming: "border-hair-strong bg-surface text-graphite-light",
-  not_recorded: "border-dashed border-hair-strong bg-surface text-graphite-light",
+  complete: "border-primary bg-primary text-onprimary",
+  current: "border-primary bg-primary text-onprimary",
+  upcoming: "border-line-strong bg-surface text-muted",
+  not_recorded: "border-dashed border-line-strong bg-surface text-muted",
   halted: "border-danger bg-danger-wash text-danger"
 };
 
@@ -57,7 +57,7 @@ export function OrderTimeline({ order, compact = false }: { order: Order; compac
                 aria-hidden
                 className={classNames(
                   "absolute left-[0.8125rem] top-8 h-[calc(100%-2rem)] w-px",
-                  entry.state === "complete" ? "bg-navy/40" : "bg-hair"
+                  entry.state === "complete" ? "bg-primary/40" : "bg-hair"
                 )}
               />
             )}
@@ -73,30 +73,30 @@ export function OrderTimeline({ order, compact = false }: { order: Order; compac
 
             <div className="flex min-w-0 flex-1 flex-col gap-1">
               <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                <p className={classNames("text-body-sm font-medium", muted ? "text-graphite" : "text-ink")}>
+                <p className={classNames("text-body-sm font-medium", muted ? "text-muted" : "text-ink")}>
                   {entry.label}
                 </p>
                 <span
                   className={classNames(
                     "rounded-xs border px-1.5 py-0.5 text-[0.625rem] font-medium uppercase tracking-[0.1em]",
-                    entry.state === "complete" && "border-navy/30 bg-navy-wash text-navy-deep",
-                    entry.state === "current" && "border-blue bg-blue text-white",
-                    entry.state === "upcoming" && "border-hair bg-surface text-graphite-light",
-                    entry.state === "not_recorded" && "border-dashed border-hair-strong bg-surface text-graphite-light",
+                    entry.state === "complete" && "border-navy/30 bg-primary-soft text-ink",
+                    entry.state === "current" && "border-primary bg-primary text-onprimary",
+                    entry.state === "upcoming" && "border-line bg-surface text-muted",
+                    entry.state === "not_recorded" && "border-dashed border-line-strong bg-surface text-muted",
                     entry.state === "halted" && "border-danger/30 bg-danger-wash text-danger"
                   )}
                 >
                   {STATE_LABEL[entry.state]}
                 </span>
                 {entry.at && (
-                  <span className="tabular text-caption text-graphite">
+                  <span className="tabular text-caption text-muted">
                     {compact ? formatDate(entry.at) : formatDateTime(entry.at)}
                   </span>
                 )}
               </div>
-              <p className="text-caption leading-relaxed text-graphite">{entry.detail}</p>
+              <p className="text-caption leading-relaxed text-muted">{entry.detail}</p>
               {entry.location && (
-                <p className="text-caption text-graphite-light">
+                <p className="text-caption text-muted">
                   {entry.state === "complete" || entry.state === "current" ? "Place: " : ""}
                   {entry.location}
                 </p>

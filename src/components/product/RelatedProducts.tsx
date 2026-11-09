@@ -11,13 +11,15 @@ export function RelatedProducts({ products, title }: { products: Product[]; titl
   if (products.length === 0) return null;
 
   return (
-    <section aria-labelledby={headingId} className="pm-shell !max-w-[90rem] border-t border-hair py-12 lg:py-16">
-      <h2 id={headingId} className="font-sans font-normal text-h2 leading-tight text-navy">
+    <section aria-labelledby={headingId} className="pm-shell !max-w-[90rem] border-t border-line py-8 lg:py-16">
+      <h2 id={headingId} className="font-display text-[1.375rem] font-extrabold leading-7 text-ink sm:text-h2 sm:leading-[1.15]">
         {title}
       </h2>
-      <div className="grid grid-cols-1 gap-x-4 gap-y-10 pt-8 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-4">
+      <div className="no-scrollbar -mx-md flex snap-x snap-mandatory scroll-pl-md gap-3 overflow-x-auto px-md pb-1 pt-5 sm:mx-0 sm:grid sm:scroll-pl-0 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 sm:overflow-visible sm:px-0 sm:pb-0 sm:pt-8 lg:grid-cols-4">
         {products.map((product) => (
-          <ProductCard key={product.slug} product={product} onQuickView={setQuick} />
+          <div key={product.slug} className="w-[76%] shrink-0 snap-start sm:w-auto sm:min-w-0">
+            <ProductCard product={product} onQuickView={setQuick} />
+          </div>
         ))}
       </div>
       <QuickView product={quick} open={quick !== null} onClose={() => setQuick(null)} />

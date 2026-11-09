@@ -62,23 +62,23 @@ export function CartDrawer() {
 
   return (
     <div className="fixed inset-0 z-[700]">
-      <div className="absolute inset-0 bg-navy-deep/50" onClick={cart.closeDrawer} aria-hidden />
+      <div className="absolute inset-0 bg-scrim/50" onClick={cart.closeDrawer} aria-hidden />
       <aside
         ref={panelRef}
         role="dialog"
         aria-modal="true"
         aria-label="Shopping cart"
-        className="absolute inset-y-0 right-0 flex w-[min(26rem,92vw)] flex-col bg-canvas shadow-drawer animate-slide-in-right"
+        className="absolute inset-y-0 right-0 flex w-[min(26rem,92vw)] flex-col bg-surface shadow-drawer animate-slide-in-right"
       >
-        <header className="flex items-center justify-between border-b border-hair px-5 py-4">
-          <h2 className="font-display text-h3">
-            Your cart{cart.count > 0 && <span className="ml-2 tabular text-body-sm text-graphite">({cart.count})</span>}
+        <header className="flex items-center justify-between px-5 pb-2 pt-5">
+          <h2 className="font-display text-h3 font-bold text-ink">
+            Your cart{cart.count > 0 && <span className="ml-2 tabular text-body-sm text-muted">({cart.count})</span>}
           </h2>
           <button
             type="button"
             onClick={cart.closeDrawer}
             aria-label="Close cart"
-            className="-mr-2 flex size-10 items-center justify-center rounded-xs text-graphite transition-colors hover:bg-sand hover:text-ink"
+            className="-mr-2 flex size-10 items-center justify-center rounded-xs text-muted transition-colors hover:bg-subtle hover:text-ink"
           >
             <X className="size-5" aria-hidden />
           </button>
@@ -105,16 +105,16 @@ export function CartDrawer() {
               action={{ label: "Browse the catalogue", href: "/shop" }}
             />
           ) : (
-            <ul className="flex flex-col divide-y divide-hair">
+            <ul className="flex flex-col gap-1">
               {cart.views.map((line) => (
-                <li key={line.id} className="flex gap-3.5 py-4">
-                  <Link href={`/product/${line.product.slug}`} onClick={cart.closeDrawer} className="size-20 shrink-0 overflow-hidden rounded-xs border border-hair bg-surface">
+                <li key={line.id} className="flex gap-3.5 rounded-xl px-2 py-3 transition-colors hover:bg-subtle/50">
+                  <Link href={`/product/${line.product.slug}`} onClick={cart.closeDrawer} className="size-[4.5rem] shrink-0 overflow-hidden rounded-md border border-line bg-surface lg:size-20 lg:rounded-lg">
                     <ProductImage
                       asset={line.product.media[0] ?? null}
                       name={line.product.name}
                       categoryId={line.product.categoryId}
                       preset="thumb"
-                      sizes="80px"
+                      sizes="72px"
                       className="size-full object-contain"
                     />
                   </Link>
@@ -123,7 +123,7 @@ export function CartDrawer() {
                       <Link
                         href={`/product/${line.product.slug}`}
                         onClick={cart.closeDrawer}
-                        className="text-body-sm font-medium leading-snug text-ink hover:text-navy-deep"
+                        className="line-clamp-2 text-[0.9375rem] font-semibold leading-5 text-ink hover:text-ink lg:text-body-sm lg:font-medium lg:leading-snug"
                       >
                         {line.product.name}
                       </Link>
@@ -131,14 +131,17 @@ export function CartDrawer() {
                         type="button"
                         onClick={() => cart.remove(line.id)}
                         aria-label={`Remove ${line.product.name} from cart`}
-                        className="-mr-1 flex size-10 shrink-0 items-center justify-center rounded-xs text-graphite transition-colors hover:bg-sand hover:text-danger"
+                        className="-mr-1 flex size-11 shrink-0 items-center justify-center rounded-xs text-muted transition-colors hover:bg-subtle hover:text-danger lg:size-10"
                       >
                         <Trash2 className="size-4" aria-hidden />
                       </button>
                     </div>
-                    <p className="text-caption text-graphite">
-                      {line.variant ? variantLabel(line.variant) : "Size no longer offered"}
-                      <span className="tabular ml-2 text-graphite-light">{line.variant?.sku}</span>
+                    <p className="flex flex-wrap items-center gap-1.5 text-[0.75rem] text-muted lg:text-caption">
+                      <span className="inline-flex items-center rounded-full bg-subtle px-2 py-0.5 leading-4 lg:bg-transparent lg:p-0 lg:leading-normal">
+                        {line.variant ? variantLabel(line.variant) : "Size no longer offered"}
+                        {line.colour ? ` · ${line.colour}` : ""}
+                      </span>
+                      <span className="tabular">{line.variant?.sku}</span>
                     </p>
                     {line.problem && (
                       <p className="text-caption font-medium text-danger">
@@ -167,14 +170,14 @@ export function CartDrawer() {
         </div>
 
         {cart.views.length > 0 && (
-          <footer className="border-t border-hair bg-canvas px-5 py-4">
+          <footer className="border-t border-line bg-subtle/60 px-5 pb-[max(1rem,env(safe-area-inset-bottom))] pt-4 lg:border-t-0">
             <div className="flex items-baseline justify-between">
-              <p className="text-body-sm text-graphite">Subtotal</p>
-              <p className="tabular text-price font-medium text-ink">
+              <p className="text-body-sm text-muted">Subtotal</p>
+              <p className="tabular font-display text-price font-bold text-ink">
                 {showSubtotal ? formatInr(cart.totals.subtotalInr ?? 0) : "Price on request"}
               </p>
             </div>
-            <p className="mt-1 text-caption text-graphite">
+            <p className="mt-1 text-caption text-muted">
               {showSubtotal
                 ? "GST and freight are confirmed at checkout. Shipping rules are still being configured by Plusmark."
                 : "Plusmark confirms the price for made-to-order sizes."}
@@ -189,7 +192,7 @@ export function CartDrawer() {
               <button
                 type="button"
                 onClick={cart.closeDrawer}
-                className="mt-1 text-caption text-graphite underline decoration-hair-strong underline-offset-4 hover:text-ink"
+                className="mt-1 min-h-11 text-[0.875rem] text-muted underline decoration-line-strong underline-offset-4 hover:text-ink lg:min-h-0 lg:text-caption"
               >
                 Continue shopping
               </button>

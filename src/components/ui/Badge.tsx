@@ -4,12 +4,12 @@ import { DEMO_PRICING_LABEL } from "@/lib/config";
 type Tone = "neutral" | "navy" | "success" | "danger" | "warning" | "demo";
 
 const TONES: Record<Tone, string> = {
-  neutral: "border-hair bg-sand/70 text-ink",
-  navy: "border-navy/30 bg-navy-wash text-navy-deep",
+  neutral: "border-line bg-subtle text-ink",
+  navy: "border-primary/25 bg-primary-soft text-primary-strong",
   success: "border-success/30 bg-success-wash text-success",
   danger: "border-danger/30 bg-danger-wash text-danger",
   warning: "border-warning/30 bg-warning-wash text-warning",
-  demo: "border-dashed border-graphite/40 bg-transparent text-graphite"
+  demo: "border-dashed border-line-strong bg-transparent text-muted"
 };
 
 export function Badge({
@@ -43,7 +43,7 @@ export function DemoBadge({ label, className }: { label?: string; className?: st
     <span
       title={DEMO_PRICING_LABEL}
       className={classNames(
-        "inline-flex items-center rounded-xs border border-dashed border-graphite/40 px-1.5 py-0.5 text-[0.625rem] font-medium uppercase tracking-[0.1em] text-graphite",
+        "inline-flex items-center rounded-xs border border-dashed border-line-strong px-1.5 py-0.5 text-[0.625rem] font-medium uppercase tracking-[0.1em] text-muted",
         className
       )}
     >

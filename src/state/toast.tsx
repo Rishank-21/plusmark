@@ -22,7 +22,7 @@ const ICONS: Record<ToastKind, typeof Check> = { success: Check, error: Triangle
 const TONES: Record<ToastKind, string> = {
   success: "border-success/35 bg-success-wash text-success",
   error: "border-danger/35 bg-danger-wash text-danger",
-  info: "border-hair bg-surface text-ink"
+  info: "border-line bg-surface text-ink"
 };
 
 export function ToastProvider({ children }: { children: React.ReactNode }) {
@@ -64,7 +64,7 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
               <button
                 type="button"
                 onClick={() => dismiss(toast.id)}
-                className="rounded-xs p-1 text-graphite transition-colors hover:bg-canvas hover:text-ink"
+                className="rounded-xs p-1 text-muted transition-colors hover:bg-page hover:text-ink"
                 aria-label="Dismiss notification"
               >
                 <X className="size-4" aria-hidden />

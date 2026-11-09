@@ -47,9 +47,9 @@ const NAV: { id: Exclude<AccountSection, "order">; label: string; href: string; 
   { id: "wishlist", label: "Saved boards", href: "/account/wishlist", icon: Heart }
 ];
 
-const CARD = "rounded-[12px] border border-hair bg-surface shadow-card";
-const FOCUS = "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2";
-const PAGE = "bg-[#F7F8FA] pm-account-fade [&_h1]:font-sans [&_h2]:font-sans [&_h3]:font-sans [&_h4]:font-sans";
+const CARD = "rounded-[12px] border border-line bg-surface shadow-card";
+const FOCUS = "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2";
+const PAGE = "bg-page pm-account-fade";
 const WIDTH = "mx-auto w-full max-w-[74rem] px-4 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10";
 
 /* ------------------------------ Orders data ------------------------------ */
@@ -112,7 +112,7 @@ export function AccountApp({ section, orderId }: { section: AccountSection; orde
             <div className="grid gap-6 md:grid-cols-[minmax(0,1fr)_minmax(0,18rem)] md:items-start">
               <div className="min-w-0">
                 <h1 className="text-[1.75rem] font-semibold leading-tight tracking-[-0.01em] text-ink sm:text-[2rem]">My account</h1>
-                <p className="mt-2 max-w-reading text-body-sm leading-relaxed text-graphite">
+                <p className="mt-2 max-w-reading text-body-sm leading-relaxed text-muted">
                   Sign in to see your orders, saved addresses and saved boards. Checkout also works as a guest.
                 </p>
                 {session.accountError && (
@@ -211,16 +211,16 @@ function AccountShell({ account, section, orderId }: { account: CustomerAccount;
         <header className="mt-6 flex items-center justify-between gap-3 sm:gap-4">
           <div className="flex min-w-0 items-center gap-3 sm:gap-4">
             <span
-              className="grid size-14 shrink-0 place-items-center rounded-full bg-brand-wash text-[1.125rem] font-semibold tracking-[0.02em] text-brand sm:size-16 sm:text-[1.375rem]"
+              className="grid size-14 shrink-0 place-items-center rounded-full bg-primary-soft text-[1.125rem] font-semibold tracking-[0.02em] text-brand sm:size-16 sm:text-[1.375rem]"
               aria-hidden
             >
               {initials}
             </span>
             <div className="min-w-0">
-              <h1 className="truncate text-[1.5rem] font-semibold leading-tight tracking-[-0.01em] text-ink sm:text-[1.6875rem]">
+              <h1 className="truncate font-display text-[1.5rem] font-bold leading-tight tracking-[-0.01em] text-ink sm:text-[1.6875rem]">
                 {account.fullName}
               </h1>
-              <p className="mt-0.5 truncate text-body-sm text-graphite">{account.email}</p>
+              <p className="mt-0.5 truncate text-body-sm text-muted">{account.email}</p>
             </div>
           </div>
           <Button
@@ -232,19 +232,42 @@ function AccountShell({ account, section, orderId }: { account: CustomerAccount;
               router.refresh();
             }}
             aria-label="Sign out"
-            className="!h-11 !w-11 shrink-0 !gap-0 rounded-lg !px-0 sm:!h-10 sm:!w-auto sm:!gap-2 sm:!px-4"
+            className="!h-11 shrink-0 !gap-1.5 rounded-lg !px-3 text-[0.8125rem] sm:!h-10 sm:!gap-2 sm:!px-4 sm:text-body-sm"
           >
             <LogOut className="size-4" aria-hidden />
-            <span className="hidden sm:inline">Sign out</span>
+            <span>Sign out</span>
           </Button>
         </header>
 
-        {session.legacyPrompt && <LegacyImportBanner onImported={orderData.reload} />}
+        {session.legacyPrompt && section === "overview" && <LegacyImportBanner onImported={orderData.reload} />}
 
-        <div className="mt-6 grid items-start gap-4 lg:grid-cols-[15rem_minmax(0,1fr)] lg:gap-6">
+        <div className="sticky top-[var(--pm-header-h)] z-30 -mx-4 mt-5 overflow-x-auto bg-page/95 px-4 py-2 backdrop-blur [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:-mx-6 sm:px-6 lg:hidden">
+          <nav aria-label="Account sections" className="flex w-max snap-x snap-mandatory scroll-pl-4 gap-1.5">
+            {NAV.map((item) => {
+              const active = activeId === item.id;
+              const Icon = item.icon;
+              return (
+                <Link
+                  key={item.id}
+                  ref={active ? activeTabRef : undefined}
+                  href={item.href}
+                  aria-current={active ? "page" : undefined}
+                  className={`inline-flex h-11 shrink-0 snap-start items-center gap-2 rounded-full border px-4 text-caption font-medium transition-colors ${FOCUS} ${
+                    active ? "border-primary/20 bg-primary-soft text-brand" : "border-line bg-surface text-muted hover:text-ink"
+                  }`}
+                >
+                  <Icon className="size-4" aria-hidden />
+                  {item.label}
+                </Link>
+              );
+            })}
+          </nav>
+        </div>
+
+        <div className="mt-4 grid items-start gap-4 lg:mt-6 lg:grid-cols-[15rem_minmax(0,1fr)] lg:gap-6">
           <nav
             aria-label="Account sections"
-            className="hidden lg:sticky lg:top-[13.75rem] lg:flex lg:flex-col lg:gap-1 lg:self-start lg:rounded-[12px] lg:border lg:border-hair lg:bg-surface lg:p-2 lg:shadow-card"
+            className="hidden lg:sticky lg:top-[13.75rem] lg:flex lg:flex-col lg:gap-1 lg:self-start lg:rounded-[12px] lg:border lg:border-line lg:bg-surface lg:p-2 lg:shadow-card"
           >
             {NAV.map((item) => {
               const active = activeId === item.id;
@@ -256,8 +279,8 @@ function AccountShell({ account, section, orderId }: { account: CustomerAccount;
                   aria-current={active ? "page" : undefined}
                   className={`relative flex h-11 items-center gap-3 rounded-lg px-3 text-body-sm font-medium transition-colors ${FOCUS} ${
                     active
-                      ? "bg-brand-wash text-brand before:absolute before:bottom-2 before:left-0 before:top-2 before:w-[3px] before:rounded-full before:bg-brand"
-                      : "text-graphite hover:bg-sand/70 hover:text-ink"
+                      ? "bg-primary-soft text-brand before:absolute before:bottom-2 before:left-0 before:top-2 before:w-[3px] before:rounded-full before:bg-primary"
+                      : "text-muted hover:bg-subtle/70 hover:text-ink"
                   }`}
                 >
                   <Icon className="size-4 shrink-0" aria-hidden />
@@ -266,29 +289,6 @@ function AccountShell({ account, section, orderId }: { account: CustomerAccount;
               );
             })}
           </nav>
-
-          <div className="-mx-4 overflow-x-auto px-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:-mx-6 sm:px-6 lg:hidden">
-            <nav aria-label="Account sections" className="flex w-max snap-x snap-mandatory gap-1.5">
-              {NAV.map((item) => {
-                const active = activeId === item.id;
-                const Icon = item.icon;
-                return (
-                  <Link
-                    key={item.id}
-                    ref={active ? activeTabRef : undefined}
-                    href={item.href}
-                    aria-current={active ? "page" : undefined}
-                    className={`inline-flex h-11 shrink-0 snap-start items-center gap-2 rounded-full border px-4 text-caption font-medium transition-colors ${FOCUS} ${
-                      active ? "border-brand/20 bg-brand-wash text-brand" : "border-hair bg-surface text-graphite hover:text-ink"
-                    }`}
-                  >
-                    <Icon className="size-4" aria-hidden />
-                    {item.label}
-                  </Link>
-                );
-              })}
-            </nav>
-          </div>
 
           <main className="min-w-0">
             <div key={section} className="pm-account-panel">
@@ -354,11 +354,11 @@ function LegacyImportBanner({ onImported }: { onImported: () => void }) {
   };
 
   return (
-    <div className="mt-5 rounded-[12px] border border-brand/15 bg-surface px-4 py-3.5 shadow-card">
+    <div className="mt-5 rounded-[12px] border border-primary/15 bg-surface px-4 py-3.5 shadow-card">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div className="min-w-0">
           <p className="text-body-sm font-semibold text-ink">This browser still has an old Plusmark profile</p>
-          <p className="mt-0.5 text-caption leading-relaxed text-graphite">
+          <p className="mt-0.5 text-caption leading-relaxed text-muted">
             {parts.join(", ")}. Move what is still valid onto your account — nothing is deleted until the copy succeeds.
           </p>
         </div>
@@ -458,7 +458,10 @@ function Overview({ account, orderCount }: { account: CustomerAccount; orderCoun
         <AccountStat icon={Heart} label="Saved boards" shortLabel="Saved" value={wishlist.slugs.length} href="/account/wishlist" />
       </div>
 
-      <section className={`${CARD} p-4 sm:p-5`} aria-labelledby="profile-completeness">
+      <section
+        className={`${CARD} p-4 sm:p-5${percent === 100 ? " max-lg:hidden" : ""}`}
+        aria-labelledby="profile-completeness"
+      >
         <div className="flex items-center justify-between gap-3">
           <p id="profile-completeness" className="text-caption font-semibold text-ink">
             Profile completeness
@@ -466,16 +469,16 @@ function Overview({ account, orderCount }: { account: CustomerAccount; orderCoun
           <span className="tabular text-caption font-semibold text-brand">{percent}%</span>
         </div>
         <div
-          className="mt-2 h-1.5 overflow-hidden rounded-full bg-sand"
+          className="mt-2 h-1.5 overflow-hidden rounded-full bg-subtle"
           role="progressbar"
           aria-labelledby="profile-completeness"
           aria-valuenow={percent}
           aria-valuemin={0}
           aria-valuemax={100}
         >
-          <div className="h-full rounded-full bg-brand transition-[width] duration-300" style={{ width: `${percent}%` }} />
+          <div className="h-full rounded-full bg-primary transition-[width] duration-300" style={{ width: `${percent}%` }} />
         </div>
-        <p className="mt-2 text-caption leading-relaxed text-graphite">
+        <p className="mt-2 text-caption leading-relaxed text-muted">
           {missing.length === 0
             ? "Your phone number and delivery address are on file for faster checkout."
             : `Add your ${missing.join(" and ")} for faster checkout.`}
@@ -521,7 +524,7 @@ function Overview({ account, orderCount }: { account: CustomerAccount; orderCoun
               onChange={(event) => setPhone(event.target.value)}
               error={errors.phone}
             />
-            <p className="text-caption leading-relaxed text-graphite sm:col-span-2">
+            <p className="text-caption leading-relaxed text-muted sm:col-span-2">
               Email changes need a confirmation link, so they are handled separately below.
             </p>
             <div className="flex flex-wrap gap-3 sm:col-span-2">
@@ -547,7 +550,7 @@ function Overview({ account, orderCount }: { account: CustomerAccount; orderCoun
         )}
 
         {editingEmail && (
-          <form onSubmit={saveEmail} noValidate className="mt-5 flex flex-col gap-3 rounded-lg border border-hair bg-sand/30 p-4">
+          <form onSubmit={saveEmail} noValidate className="mt-5 flex flex-col gap-3 rounded-lg border border-line bg-subtle/30 p-4">
             <TextField
               id="profile-email"
               label="New email"
@@ -595,18 +598,18 @@ function AccountStat({ icon: Icon, label, shortLabel, value, href }: { icon: Luc
   return (
     <Link
       href={href}
-      className={`group flex flex-col gap-2 rounded-[12px] border border-hair bg-surface p-3 shadow-card transition-[transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-lift sm:p-5 ${FOCUS}`}
+      className={`group flex flex-col gap-2 rounded-[12px] border border-line bg-surface p-3 shadow-card transition-[transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-lift sm:p-5 ${FOCUS}`}
     >
-      <span className="grid size-8 place-items-center rounded-lg bg-brand-wash text-brand sm:size-10">
+      <span className="grid size-8 place-items-center rounded-lg bg-primary-soft text-brand sm:size-10">
         <Icon className="size-4 sm:size-5" aria-hidden />
       </span>
       <span className="flex items-end justify-between gap-2">
         <span className="tabular text-[1.375rem] font-semibold leading-none text-ink sm:text-[1.875rem]">
-          {value === null ? <span className="inline-block h-6 w-8 animate-pulse rounded bg-sand sm:h-8" aria-hidden /> : value}
+          {value === null ? <span className="inline-block h-6 w-8 animate-pulse rounded bg-subtle sm:h-8" aria-hidden /> : value}
         </span>
-        <ArrowUpRight className="hidden size-4 text-graphite opacity-0 transition-opacity duration-200 group-hover:opacity-100 sm:block" aria-hidden />
+        <ArrowUpRight className="hidden size-4 text-muted opacity-0 transition-opacity duration-200 group-hover:opacity-100 sm:block" aria-hidden />
       </span>
-      <span className="text-caption leading-snug text-graphite">
+      <span className="text-caption leading-snug text-muted">
         <span className="sm:hidden">{shortLabel}</span>
         <span className="hidden sm:inline">{label}</span>
       </span>
@@ -629,11 +632,11 @@ function ProfileRow({
 }) {
   return (
     <div className="min-w-0">
-      <dt className="text-caption text-graphite">{term}</dt>
+      <dt className="text-caption text-muted">{term}</dt>
       {detail ? (
         <dd className="mt-1 flex flex-wrap items-center gap-2 text-body-sm font-medium text-ink">
           <span className="break-words">{detail}</span>
-          {badge && <span className="rounded-full bg-brand-wash px-2 py-0.5 text-[0.6875rem] font-medium text-brand">{badge}</span>}
+          {badge && <span className="rounded-full bg-primary-soft px-2 py-0.5 text-[0.6875rem] font-medium text-brand">{badge}</span>}
           {action && (
             <span className="text-caption font-medium">
               {action.href ? (
@@ -650,7 +653,7 @@ function ProfileRow({
         </dd>
       ) : (
         <dd className="mt-1 flex flex-wrap items-center gap-2">
-          <span className="text-body-sm italic text-graphite">Not added</span>
+          <span className="text-body-sm italic text-muted">Not added</span>
           {onAdd && (
             <button
               type="button"
@@ -678,12 +681,12 @@ function AccountEmpty({
   action?: { label: string; href?: string; onClick?: () => void };
 }) {
   return (
-    <div className="flex flex-col items-center gap-3 rounded-[12px] border border-dashed border-hair-strong bg-surface px-6 py-10 text-center sm:py-12">
-      <span className="grid size-12 place-items-center rounded-full bg-brand-wash text-brand">
+    <div className="flex flex-col items-center gap-3 rounded-[12px] border border-dashed border-line-strong bg-surface px-6 py-10 text-center sm:py-12">
+      <span className="grid size-12 place-items-center rounded-full bg-primary-soft text-brand">
         <Icon className="size-5" aria-hidden />
       </span>
       <h3 className="text-h4 font-semibold text-ink">{title}</h3>
-      <p className="max-w-[38ch] text-body-sm leading-relaxed text-graphite">{body}</p>
+      <p className="max-w-[38ch] text-body-sm leading-relaxed text-muted">{body}</p>
       {action &&
         (action.href ? (
           <ButtonLink href={action.href} size="sm" className="mt-1 h-11 rounded-lg px-4">
@@ -736,7 +739,7 @@ function OrderHistory({
     <div className="flex flex-col gap-4">
       <div>
         <h2 className="text-[1.25rem] font-semibold leading-tight text-ink">Order history</h2>
-        <p className="mt-1 text-caption leading-relaxed text-graphite">
+        <p className="mt-1 text-caption leading-relaxed text-muted">
           Orders placed with this account. Payment status is shown exactly as the store has recorded it — an order is never
           marked paid just because a browser said so.
         </p>
@@ -769,7 +772,7 @@ function OrderHistory({
                   <Link href={`/account/orders/${order.id}`} className={`text-body font-semibold text-ink transition-colors hover:text-brand ${FOCUS}`}>
                     {order.reference}
                   </Link>
-                  <p className="mt-1 text-caption text-graphite">
+                  <p className="mt-1 text-caption text-muted">
                     {formatDate(order.placedAt)} · {order.lines.length} {order.lines.length === 1 ? "item" : "items"} ·{" "}
                     {order.lines.reduce((sum, line) => sum + line.quantity, 0)} units
                   </p>
@@ -778,14 +781,14 @@ function OrderHistory({
               </div>
 
               {order.lines.length > 0 && (
-                <ul className="mt-4 flex flex-col divide-y divide-hair">
+                <ul className="mt-4 flex flex-col divide-y divide-line">
                   {order.lines.map((line) => {
                     const product = getProduct(line.slug);
                     return (
                       <li key={line.id} className="flex items-center gap-3 py-3 first:pt-0 last:pb-0">
                         <Link
                           href={`/product/${line.slug}`}
-                          className={`relative grid size-14 shrink-0 place-items-center overflow-hidden rounded-lg border border-hair bg-white sm:size-16 ${FOCUS}`}
+                          className={`relative grid size-16 shrink-0 place-items-center overflow-hidden rounded-lg border border-line bg-surface ${FOCUS}`}
                           aria-label={`${line.name} — view product`}
                         >
                           <ProductImage asset={product?.media[0] ?? null} name={line.name} categoryId={product?.categoryId} preset="thumb" sizes="64px" className="h-full w-full object-contain" />
@@ -794,7 +797,7 @@ function OrderHistory({
                           <Link href={`/product/${line.slug}`} className="line-clamp-2 text-body-sm font-medium text-ink transition-colors hover:text-brand">
                             {line.name}
                           </Link>
-                          <p className="mt-0.5 text-caption leading-relaxed text-graphite">
+                          <p className="mt-0.5 text-caption leading-relaxed text-muted">
                             {line.variantLabel} · Qty {line.quantity}
                             {line.quantity > 1 ? ` · ${formatInr(line.unitPriceInr)} each` : ""}
                           </p>
@@ -806,13 +809,13 @@ function OrderHistory({
                 </ul>
               )}
 
-              <div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-hair pt-4">
-                <p className="text-caption text-graphite">
-                  Total <span className="tabular ml-1 text-body-sm font-semibold text-ink">{order.totals.totalInr === null ? "Freight open" : formatInr(order.totals.totalInr)}</span>
-                </p>
-                <ButtonLink href={`/account/orders/${order.id}`} variant="secondary" size="sm" className="h-10 rounded-lg">
+              <div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-line pt-4 sm:flex-row-reverse">
+                <ButtonLink href={`/account/orders/${order.id}`} variant="secondary" size="sm" className="h-11 rounded-lg sm:h-10">
                   View details <ArrowRight className="size-4" aria-hidden />
                 </ButtonLink>
+                <p className="text-caption text-muted">
+                  Total <span className="tabular ml-1 text-body-sm font-semibold text-ink">{order.totals.totalInr === null ? "Freight open" : formatInr(order.totals.totalInr)}</span>
+                </p>
               </div>
             </li>
           ))}
@@ -878,9 +881,9 @@ function OrderDetail({
       <div className={`${CARD} p-4 sm:p-6`}>
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div className="min-w-0">
-            <p className="text-caption text-graphite">Order</p>
+            <p className="text-caption text-muted">Order</p>
             <h2 className="mt-1 break-all text-[1.25rem] font-semibold leading-tight text-ink">{order.reference}</h2>
-            <p className="mt-1 text-caption text-graphite">Placed {formatDate(order.placedAt)}</p>
+            <p className="mt-1 text-caption text-muted">Placed {formatDate(order.placedAt)}</p>
           </div>
           <StatusBadge status={order.status} demo />
         </div>
@@ -888,11 +891,11 @@ function OrderDetail({
           <ButtonLink href={`/track-order?ref=${encodeURIComponent(order.reference)}`} variant="secondary" size="sm" className="h-10 rounded-lg">
             Track this order
           </ButtonLink>
-          <p className="text-caption text-graphite">
+          <p className="text-caption text-muted">
             Total <span className="tabular ml-1 text-body-sm font-semibold text-ink">{order.totals.totalInr === null ? "Freight open" : formatInr(order.totals.totalInr)}</span>
           </p>
         </div>
-        <div className="mt-4 border-t border-hair pt-4">
+        <div className="mt-4 border-t border-line pt-4">
           <OrderActions order={order} onUpdated={onRetry} />
         </div>
       </div>
@@ -995,7 +998,7 @@ function AddressBook({ account }: { account: CustomerAccount }) {
     <div className="flex flex-col gap-4">
       <div>
         <h2 className="text-[1.25rem] font-semibold leading-tight text-ink">Address book</h2>
-        <p className="mt-1 text-caption leading-relaxed text-graphite">
+        <p className="mt-1 text-caption leading-relaxed text-muted">
           Delivery addresses attached to your account. Checkout offers the default one first.
         </p>
       </div>
@@ -1004,6 +1007,19 @@ function AddressBook({ account }: { account: CustomerAccount }) {
         <AccountEmpty icon={MapPin} title="No saved addresses" body="Add a delivery address here, or save one during checkout." action={{ label: "Add an address", onClick: startNew }} />
       ) : (
         <div className="grid gap-4 md:grid-cols-2">
+          {!showForm && (
+            <button
+              type="button"
+              onClick={startNew}
+              className={`flex min-h-[3.25rem] w-full items-center justify-center gap-2 rounded-[12px] border border-dashed border-line-strong bg-surface/60 px-4 py-2 text-center text-muted transition-colors hover:border-primary hover:text-brand md:order-last md:min-h-[8rem] md:flex-col md:p-6 ${FOCUS}`}
+            >
+              <span className="grid size-8 place-items-center rounded-full bg-primary-soft text-brand md:size-10">
+                <Plus className="size-4 md:size-5" aria-hidden />
+              </span>
+              <span className="text-body-sm font-medium">Add new address</span>
+            </button>
+          )}
+
           {account.addresses.map((address) => {
             const isDefault = address.isDefaultShipping || address.isDefaultBilling;
             return (
@@ -1012,19 +1028,19 @@ function AddressBook({ account }: { account: CustomerAccount }) {
                   <div className="min-w-0">
                     <div className="flex flex-wrap items-center gap-2">
                       <h3 className="text-body-sm font-semibold text-ink">{address.label || "Saved address"}</h3>
-                      {isDefault && <span className="rounded-full bg-brand-wash px-2 py-0.5 text-[0.6875rem] font-medium text-brand">Default</span>}
+                      {isDefault && <span className="rounded-full bg-primary-soft px-2 py-0.5 text-[0.6875rem] font-medium text-brand">Default</span>}
                     </div>
                     <p className="mt-2 text-body-sm font-medium text-ink">{address.recipientName}</p>
-                    <p className="mt-0.5 text-caption leading-relaxed text-graphite">
+                    <p className="mt-0.5 text-caption leading-relaxed text-muted">
                       {address.line1}
                       {address.line2 ? `, ${address.line2}` : ""}
                       {address.landmark ? `, near ${address.landmark}` : ""}
                       <br />
                       {address.city}, {address.state} {address.pincode}
                     </p>
-                    <p className="mt-1 tabular text-caption text-graphite-light">{address.phone}</p>
+                    <p className="mt-1 tabular text-caption text-muted">{address.phone}</p>
                   </div>
-                  <div className="flex shrink-0 gap-1">
+                  <div className="flex shrink-0 gap-3">
                     <button
                       type="button"
                       aria-label={`Edit ${address.label || "address"}`}
@@ -1034,7 +1050,7 @@ function AddressBook({ account }: { account: CustomerAccount }) {
                         setErrors({});
                         setShowForm(true);
                       }}
-                      className={`grid size-10 place-items-center rounded-lg border border-hair text-graphite transition-colors hover:border-brand hover:text-brand ${FOCUS}`}
+                      className={`grid size-11 place-items-center rounded-lg border border-line text-muted transition-colors hover:border-primary hover:text-brand lg:size-10 ${FOCUS}`}
                     >
                       <Pencil className="size-4" aria-hidden />
                     </button>
@@ -1042,7 +1058,7 @@ function AddressBook({ account }: { account: CustomerAccount }) {
                       type="button"
                       aria-label={`Remove ${address.label || "address"}`}
                       onClick={() => setPendingDelete(address)}
-                      className={`grid size-10 place-items-center rounded-lg border border-hair text-graphite transition-colors hover:border-danger/30 hover:bg-danger-wash hover:text-danger ${FOCUS}`}
+                      className={`grid size-11 place-items-center rounded-lg border border-line text-muted transition-colors hover:border-danger/30 hover:bg-danger-wash hover:text-danger lg:size-10 ${FOCUS}`}
                     >
                       <Trash2 className="size-4" aria-hidden />
                     </button>
@@ -1052,7 +1068,7 @@ function AddressBook({ account }: { account: CustomerAccount }) {
                   <button
                     type="button"
                     onClick={() => makeDefault(address)}
-                    className={`self-start rounded text-caption font-medium text-brand underline decoration-brand/30 underline-offset-2 transition-colors hover:decoration-brand ${FOCUS}`}
+                    className={`inline-flex min-h-11 items-center self-start rounded text-caption font-medium text-brand underline decoration-brand/30 underline-offset-2 transition-colors hover:decoration-brand lg:min-h-0 ${FOCUS}`}
                   >
                     Set as default delivery
                   </button>
@@ -1060,19 +1076,6 @@ function AddressBook({ account }: { account: CustomerAccount }) {
               </div>
             );
           })}
-
-          {!showForm && (
-            <button
-              type="button"
-              onClick={startNew}
-              className={`flex min-h-[8rem] flex-col items-center justify-center gap-2 rounded-[12px] border border-dashed border-hair-strong bg-surface/60 p-6 text-center text-graphite transition-colors hover:border-brand hover:text-brand ${FOCUS}`}
-            >
-              <span className="grid size-10 place-items-center rounded-full bg-brand-wash text-brand">
-                <Plus className="size-5" aria-hidden />
-              </span>
-              <span className="text-body-sm font-medium">Add new address</span>
-            </button>
-          )}
         </div>
       )}
 

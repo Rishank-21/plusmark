@@ -71,7 +71,7 @@ export function InvoiceView({ orderId }: { orderId: string }) {
       <div className="mx-auto w-full max-w-4xl px-4 py-10">
         <Notice tone="warning" title="Invoice not available">
           This order is not in your account.{" "}
-          <Link href="/login?next=/account/orders" className="underline decoration-hair-strong underline-offset-4">
+          <Link href="/login?next=/account/orders" className="underline decoration-line-strong underline-offset-4">
             Sign in
           </Link>{" "}
           with the account that placed it, or contact the store with the order reference.
@@ -95,27 +95,27 @@ export function InvoiceView({ orderId }: { orderId: string }) {
         </Button>
       </div>
 
-      <div className="pm-invoice rounded-md border border-hair bg-white p-6 shadow-card sm:p-10">
-        <div className="flex flex-wrap items-start justify-between gap-6 border-b border-hair pb-6">
+      <div className="pm-invoice rounded-md border border-line bg-surface p-6 shadow-card sm:p-10">
+        <div className="flex flex-wrap items-start justify-between gap-6 border-b border-line pb-6">
           <div>
             <p className="text-[1.35rem] font-semibold tracking-[-0.01em] text-ink">{brand.legalName}</p>
-            <p className="mt-1 text-caption leading-relaxed text-graphite">
+            <p className="mt-1 text-caption leading-relaxed text-muted">
               Writing &amp; display boards
               <br />
               Ahmedabad, Gujarat, India
             </p>
           </div>
           <div className="text-right">
-            <p className="text-label font-medium uppercase tracking-[0.12em] text-graphite">Tax invoice</p>
+            <p className="text-label font-medium uppercase tracking-[0.12em] text-muted">Tax invoice</p>
             <p className="tabular mt-1 text-body font-semibold text-ink">{order.invoiceNumber ?? "Not assigned"}</p>
-            <p className="tabular mt-1 text-caption text-graphite">Order {order.reference}</p>
-            <p className="mt-1 text-caption text-graphite">{formatDate(order.placedAt)}</p>
+            <p className="tabular mt-1 text-caption text-muted">Order {order.reference}</p>
+            <p className="mt-1 text-caption text-muted">{formatDate(order.placedAt)}</p>
           </div>
         </div>
 
-        <div className="grid gap-6 border-b border-hair py-6 sm:grid-cols-2">
+        <div className="grid gap-6 border-b border-line py-6 sm:grid-cols-2">
           <div>
-            <p className="text-label font-medium uppercase tracking-[0.12em] text-graphite">Billed to</p>
+            <p className="text-label font-medium uppercase tracking-[0.12em] text-muted">Billed to</p>
             <address className="mt-2 text-body-sm not-italic leading-relaxed text-ink">
               {order.billingAddress.recipientName}
               <br />
@@ -135,7 +135,7 @@ export function InvoiceView({ orderId }: { orderId: string }) {
             </address>
           </div>
           <div>
-            <p className="text-label font-medium uppercase tracking-[0.12em] text-graphite">Delivered to</p>
+            <p className="text-label font-medium uppercase tracking-[0.12em] text-muted">Delivered to</p>
             <address className="mt-2 text-body-sm not-italic leading-relaxed text-ink">
               {order.shippingAddress.recipientName}
               <br />
@@ -155,26 +155,26 @@ export function InvoiceView({ orderId }: { orderId: string }) {
         <div className="overflow-x-auto py-6">
           <table className="w-full min-w-[34rem] border-collapse text-left">
             <thead>
-              <tr className="border-b border-hair">
+              <tr className="border-b border-line">
                 {["Item", "SKU", "Qty", "Rate", "Amount"].map((label, index) => (
                   <th
                     key={label}
                     scope="col"
-                    className={`pb-2 text-label font-medium uppercase tracking-[0.1em] text-graphite ${index > 2 ? "text-right" : ""}`}
+                    className={`pb-2 text-label font-medium uppercase tracking-[0.1em] text-muted ${index > 2 ? "text-right" : ""}`}
                   >
                     {label}
                   </th>
                 ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-hair">
+            <tbody className="divide-y divide-line">
               {order.lines.map((line) => (
                 <tr key={line.id}>
                   <th scope="row" className="py-3 pr-3 text-body-sm font-medium text-ink">
                     {line.name}
-                    <span className="block text-caption font-normal text-graphite">{line.variantLabel}</span>
+                    <span className="block text-caption font-normal text-muted">{line.variantLabel}</span>
                   </th>
-                  <td className="tabular py-3 pr-3 text-caption text-graphite">{line.sku}</td>
+                  <td className="tabular py-3 pr-3 text-caption text-muted">{line.sku}</td>
                   <td className="tabular py-3 pr-3 text-body-sm">{line.quantity}</td>
                   <td className="tabular py-3 pr-3 text-right text-body-sm">{formatInr(line.unitPriceInr)}</td>
                   <td className="tabular py-3 text-right text-body-sm font-medium">{formatInr(line.lineTotalInr)}</td>
@@ -184,36 +184,36 @@ export function InvoiceView({ orderId }: { orderId: string }) {
           </table>
         </div>
 
-        <div className="ml-auto flex w-full max-w-xs flex-col gap-2 border-t border-hair pt-4 text-body-sm">
+        <div className="ml-auto flex w-full max-w-xs flex-col gap-2 border-t border-line pt-4 text-body-sm">
           <div className="flex justify-between gap-4">
-            <span className="text-graphite">Subtotal</span>
+            <span className="text-muted">Subtotal</span>
             <span className="tabular">{order.totals.subtotalInr === null ? "—" : formatInr(order.totals.subtotalInr)}</span>
           </div>
           {order.totals.discountInr > 0 && (
             <div className="flex justify-between gap-4">
-              <span className="text-graphite">Discount{order.couponCode ? ` (${order.couponCode})` : ""}</span>
+              <span className="text-muted">Discount{order.couponCode ? ` (${order.couponCode})` : ""}</span>
               <span className="tabular">− {formatInr(order.totals.discountInr)}</span>
             </div>
           )}
           <div className="flex justify-between gap-4">
-            <span className="text-graphite">GST</span>
+            <span className="text-muted">GST</span>
             <span className="tabular">{formatInr(order.totals.gstInr)}</span>
           </div>
           <div className="flex justify-between gap-4">
-            <span className="text-graphite">Freight</span>
+            <span className="text-muted">Freight</span>
             <span className="tabular">{order.totals.shippingInr === null ? "To confirm" : formatInr(order.totals.shippingInr)}</span>
           </div>
-          <div className="mt-1 flex justify-between gap-4 border-t border-hair pt-2 text-body font-semibold text-ink">
+          <div className="mt-1 flex justify-between gap-4 border-t border-line pt-2 text-body font-semibold text-ink">
             <span>Total</span>
             <span className="tabular">{order.totals.totalInr === null ? "To confirm" : formatInr(order.totals.totalInr)}</span>
           </div>
-          <p className="mt-2 text-caption leading-relaxed text-graphite">
+          <p className="mt-2 text-caption leading-relaxed text-muted">
             {paymentMethodLabel(order.paymentMethod)} ·{" "}
             {amountDue ? "Payment is recorded as pending. It is never marked paid from a browser." : "Recorded as paid."}
           </p>
         </div>
 
-        <div className="mt-8 border-t border-hair pt-4 text-caption leading-relaxed text-graphite">
+        <div className="mt-8 border-t border-line pt-4 text-caption leading-relaxed text-muted">
           <p className="font-medium text-ink">This template needs business verification before it is a GST document.</p>
           <p className="mt-1">
             The seller legal name, GSTIN, registered address, place of supply and HSN/SAC codes are not configured in this

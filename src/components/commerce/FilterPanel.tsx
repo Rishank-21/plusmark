@@ -31,13 +31,13 @@ export function FilterPanel({ filters, sort, lockedCategoryId, lockedSubcategory
 
   return (
     <div className="flex flex-col">
-      <div className="flex items-center justify-between gap-3 border-b border-hair pb-3">
-        <h2 className="font-sans text-body font-semibold text-navy">Filters{active > 0 ? ` · ${active}` : ""}</h2>
+      <div className="flex items-center justify-between gap-3 border-b border-line pb-3">
+        <h2 className="font-sans text-body font-semibold text-ink">Filters{active > 0 ? ` · ${active}` : ""}</h2>
         {active > 0 && (
           <button
             type="button"
             onClick={onClear}
-            className="inline-flex items-center gap-1 text-caption font-medium text-blue underline decoration-blue/35 underline-offset-4 hover:text-blue-deep hover:decoration-blue"
+            className="inline-flex items-center gap-1 text-caption font-medium text-primary underline decoration-primary/35 underline-offset-4 hover:text-primary-strong hover:decoration-primary"
           >
             <X className="size-3.5" aria-hidden />
             Clear all
@@ -200,7 +200,7 @@ export function FilterPanel({ filters, sort, lockedCategoryId, lockedSubcategory
               </li>
             ))}
           </ul>
-          <p className="pt-2 text-caption leading-snug text-graphite">
+          <p className="pt-2 text-caption leading-snug text-muted">
             Bands come from the prototype rate card. Plusmark quotes per series, size and quantity.
           </p>
         </Collapsible>
@@ -213,14 +213,14 @@ export function FilterDrawer({ open, onClose, ...panelProps }: FilterPanelProps 
   if (!open) return null;
   return (
     <div className="fixed inset-0 z-50 lg:hidden" role="dialog" aria-modal="true" aria-label="Filters">
-      <button type="button" className="absolute inset-0 bg-navy-deep/40" onClick={onClose} aria-label="Close filters" />
+      <button type="button" className="absolute inset-0 bg-scrim/40" onClick={onClose} aria-label="Close filters" />
       <div className="absolute inset-y-0 left-0 flex w-[min(22rem,92vw)] flex-col bg-surface shadow-drawer">
-        <div className="flex items-center justify-between border-b border-hair px-4 py-3">
-          <span className="font-sans text-body font-semibold text-navy">Refine</span>
+        <div className="flex items-center justify-between border-b border-line px-4 py-3">
+          <span className="font-sans text-body font-semibold text-ink">Refine</span>
           <button
             type="button"
             onClick={onClose}
-            className="flex size-9 items-center justify-center rounded-xs text-graphite transition-colors hover:bg-sand"
+            className="flex size-9 items-center justify-center rounded-xs text-muted transition-colors hover:bg-subtle"
             aria-label="Close filters"
           >
             <X className="size-4" aria-hidden />
@@ -229,11 +229,11 @@ export function FilterDrawer({ open, onClose, ...panelProps }: FilterPanelProps 
         <div className="min-h-0 flex-1 overflow-y-auto px-4 py-4">
           <FilterPanel {...panelProps} />
         </div>
-        <div className="border-t border-hair p-4">
+        <div className="border-t border-line p-4">
           <button
             type="button"
             onClick={onClose}
-            className="flex h-11 w-full items-center justify-center rounded-md bg-blue text-body-sm font-medium text-white transition-colors hover:bg-blue-deep"
+            className="flex h-11 w-full items-center justify-center rounded-md bg-primary text-body-sm font-medium text-onprimary transition-colors hover:bg-primary-strong"
           >
             Show results
           </button>
@@ -250,7 +250,7 @@ function RowLink({ href, active, children }: { href: string; active: boolean; ch
       aria-current={active ? "true" : undefined}
       className={classNames(
         "-mx-2 block rounded-xs px-2 py-1 text-body-sm transition-colors",
-        active ? "bg-blue-wash font-semibold text-blue-deep" : "text-graphite hover:bg-sand/70 hover:text-navy"
+        active ? "bg-primary-soft font-semibold text-primary-strong" : "text-muted hover:bg-subtle/70 hover:text-ink"
       )}
     >
       {children}
@@ -260,12 +260,12 @@ function RowLink({ href, active, children }: { href: string; active: boolean; ch
 
 function CheckRow({ label, hint, checked, onToggle }: { label: string; hint?: string; checked: boolean; onToggle: () => void }) {
   return (
-    <label className="flex cursor-pointer items-start gap-2.5 text-body-sm text-graphite hover:text-ink">
+    <label className="flex cursor-pointer items-start gap-2.5 text-body-sm text-muted hover:text-ink">
       <input type="checkbox" className="peer sr-only" checked={checked} onChange={onToggle} />
       <span
         className={classNames(
-          "mt-0.5 flex size-4 shrink-0 items-center justify-center rounded-[2px] border transition-colors peer-focus-visible:ring-2 peer-focus-visible:ring-blue peer-focus-visible:ring-offset-2",
-          checked ? "border-blue bg-blue text-white" : "border-hair-strong bg-surface"
+          "mt-0.5 flex size-4 shrink-0 items-center justify-center rounded-[2px] border transition-colors peer-focus-visible:ring-2 peer-focus-visible:ring-primary peer-focus-visible:ring-offset-2",
+          checked ? "border-primary bg-primary text-onprimary" : "border-line-strong bg-surface"
         )}
         aria-hidden
       >
@@ -273,7 +273,7 @@ function CheckRow({ label, hint, checked, onToggle }: { label: string; hint?: st
       </span>
       <span className="min-w-0">
         <span className="block leading-snug">{label}</span>
-        {hint && <span className="block text-caption leading-snug text-graphite">{hint}</span>}
+        {hint && <span className="block text-caption leading-snug text-muted">{hint}</span>}
       </span>
     </label>
   );
@@ -281,16 +281,16 @@ function CheckRow({ label, hint, checked, onToggle }: { label: string; hint?: st
 
 function RadioRow({ name, label, checked, onChange }: { name: string; label: string; checked: boolean; onChange: () => void }) {
   return (
-    <label className="flex cursor-pointer items-center gap-2.5 text-body-sm text-graphite hover:text-ink">
+    <label className="flex cursor-pointer items-center gap-2.5 text-body-sm text-muted hover:text-ink">
       <input type="radio" name={name} className="peer sr-only" checked={checked} onChange={onChange} />
       <span
         className={classNames(
-          "flex size-4 shrink-0 items-center justify-center rounded-full border transition-colors peer-focus-visible:ring-2 peer-focus-visible:ring-blue peer-focus-visible:ring-offset-2",
-          checked ? "border-blue" : "border-hair-strong"
+          "flex size-4 shrink-0 items-center justify-center rounded-full border transition-colors peer-focus-visible:ring-2 peer-focus-visible:ring-primary peer-focus-visible:ring-offset-2",
+          checked ? "border-primary" : "border-line-strong"
         )}
         aria-hidden
       >
-        {checked && <span className="size-2 rounded-full bg-blue" />}
+        {checked && <span className="size-2 rounded-full bg-primary" />}
       </span>
       {label}
     </label>
@@ -308,7 +308,7 @@ function Segmented({ label, value, options, onChange }: { label: string; value: 
           onClick={() => onChange(option.value)}
           className={classNames(
             "h-9 rounded-xs border px-3 text-caption font-medium transition-colors",
-            value === option.value ? "border-blue bg-blue text-white" : "border-hair-strong text-graphite hover:border-blue hover:text-blue"
+            value === option.value ? "border-primary bg-primary text-onprimary" : "border-line-strong text-muted hover:border-primary hover:text-primary"
           )}
         >
           {option.label}
