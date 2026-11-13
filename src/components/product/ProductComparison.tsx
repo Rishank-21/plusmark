@@ -56,7 +56,8 @@ export function ProductComparison({ slug }: { slug: string }) {
       <div className="pt-4">
         <ComparisonFrame differentRows={differentRows}>
           <div className="overflow-x-auto rounded-xl border border-line bg-surface">
-            <table className="w-full min-w-[70rem] table-fixed border-collapse text-left sm:table-auto">
+            {/* relative anchors sr-only cell text inside the scroller, so it cannot widen the document */}
+            <table className="relative w-full min-w-[70rem] table-fixed border-collapse text-left sm:table-auto">
               <caption className="sr-only">
                 Side-by-side comparison of the {current.name}, {peerNames}
               </caption>

@@ -186,7 +186,7 @@ export function Header() {
     >
       <AnnouncementBar />
       <div className={classNames("border-b border-line/80 bg-surface transition-shadow lg:bg-surface/85 lg:backdrop-blur-md", scrolled && "shadow-card")}>
-        <div className="pm-shell flex h-14 items-center gap-2 lg:h-[4.5rem] lg:gap-7">
+        <div className="pm-shell flex h-14 items-center gap-2 max-[359px]:gap-1 lg:h-[4.5rem] lg:gap-7">
           <button
             type="button"
             onClick={chrome.openMenu}
@@ -203,14 +203,14 @@ export function Header() {
               width={1304}
               height={262}
               sizes="(min-width: 1024px) 220px, 140px"
-              className="h-7 w-auto lg:h-11"
+              className="h-7 w-auto max-[359px]:h-6 lg:h-11"
               priority
             />
           </Link>
 
           <SearchPanel id="desktop-search" label="Search products" className="hidden min-w-0 flex-1 lg:block" />
 
-          <div className="ml-auto flex shrink-0 items-center gap-1 lg:ml-0 lg:gap-4">
+          <div className="ml-auto flex shrink-0 items-center gap-1 max-[359px]:gap-0.5 lg:ml-0 lg:gap-4">
             <button
               type="button"
               onClick={chrome.openSearch}
