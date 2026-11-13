@@ -56,7 +56,7 @@ export function ProductComparison({ slug }: { slug: string }) {
       <div className="pt-4">
         <ComparisonFrame differentRows={differentRows}>
           <div className="overflow-x-auto rounded-xl border border-line bg-surface">
-            <table className="w-full min-w-[64rem] border-collapse text-left">
+            <table className="w-full min-w-[70rem] border-collapse text-left">
               <caption className="sr-only">
                 Side-by-side comparison of the {current.name}, {peerNames}
               </caption>
@@ -84,12 +84,12 @@ export function ProductComparison({ slug }: { slug: string }) {
                       )}
                     >
                       <div className="flex flex-col gap-2.5">
-                        <div className="flex size-32 items-center justify-center rounded-lg bg-white p-2 sm:size-40 sm:p-2.5">
+                        <div className="flex size-48 items-center justify-center rounded-lg bg-white p-2 sm:size-64 sm:p-3">
                           <ProductImage
                             asset={entry.image}
                             name={entry.name}
                             categoryId={entry.categoryId}
-                            sizes="(min-width: 640px) 144px, 120px"
+                            sizes="(min-width: 640px) 232px, 176px"
                             preset="thumb"
                             className="h-full w-full object-contain"
                           />

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import { Check } from "lucide-react";
 import { classNames } from "@/lib/format";
@@ -17,13 +17,25 @@ export function ComparisonFrame({
   children: ReactNode;
 }) {
   const [differencesOnly, setDifferencesOnly] = useState(false);
+  const [scrolls, setScrolls] = useState(false);
+  const frameRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const scroller = frameRef.current?.querySelector<HTMLElement>(".overflow-x-auto");
+    if (!scroller) return;
+    const sync = () => setScrolls(scroller.scrollWidth > scroller.clientWidth + 1);
+    sync();
+    const observer = new ResizeObserver(sync);
+    observer.observe(scroller);
+    return () => observer.disconnect();
+  }, []);
 
   if (differentRows === 0) return <>{children}</>;
 
   return (
-    <div>
+    <div ref={frameRef}>
       <div className="flex flex-wrap items-center justify-between gap-3 pb-3">
-        <p className="text-caption text-muted lg:hidden">Swipe sideways to see every board.</p>
+        {scrolls && <p className="text-caption text-muted">Swipe sideways to see every board.</p>}
         <button
           type="button"
           aria-pressed={differencesOnly}
