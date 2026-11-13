@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ProductApp } from "@/components/product/ProductApp";
+import { ProductComparison } from "@/components/product/ProductComparison";
 import { RelatedProducts } from "@/components/product/RelatedProducts";
 import { getCategory, getProduct, getSeries, products, productsInCategory, relatedProducts } from "@/lib/catalog";
 import { DEMO_PRICING_ENABLED } from "@/lib/config";
@@ -89,7 +90,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }}
       />
-      <ProductApp product={product} related={related} />
+      <ProductApp product={product} related={related} comparison={<ProductComparison slug={product.slug} />} />
       {companions.length > 0 && <RelatedProducts products={companions} title="Completes the setup" />}
     </>
   );

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
@@ -75,7 +76,15 @@ const PRODUCT_BADGES: Record<string, { label: string; context?: string }> = {};
 /** A factual purchase line, e.g. a verified dispatch volume. Empty until supplied. */
 const PRODUCT_SOCIAL_PROOF: Record<string, string> = {};
 
-export function ProductApp({ product, related }: { product: Product; related: Product[] }) {
+export function ProductApp({
+  product,
+  related,
+  comparison
+}: {
+  product: Product;
+  related: Product[];
+  comparison?: ReactNode;
+}) {
   const [variantId, setVariantId] = useState<string | null>(
     product.variants.filter((item) => (item.packQty ?? 1) === 1).length === 1
       ? product.variants.find((item) => (item.packQty ?? 1) === 1)?.id ?? null
@@ -264,6 +273,7 @@ export function ProductApp({ product, related }: { product: Product; related: Pr
           <ProductStory slug={product.slug} name={product.name} />
           <ProductReviews productName={product.name} productSlug={product.slug} />
         </ProductDetailSections>
+        {comparison}
         <RelatedProducts products={related} title="You May Also Like" />
       </div>
 

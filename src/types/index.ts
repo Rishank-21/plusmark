@@ -57,6 +57,9 @@ export interface Variant {
 export type BoardType = "non-magnetic" | "magnetic" | "ceramic" | "n/a";
 export type SurfaceKind = "marker" | "chalk" | "pin-up" | "other";
 
+/** How hard a board is expected to be used, as stated by its series. */
+export type UsageLevel = "light" | "regular" | "daily-intensive";
+
 export interface ProductSpec {
   label: string;
   value: string;
