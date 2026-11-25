@@ -1,0 +1,17 @@
+import { createRequire } from 'node:module';
+const require = createRequire('c:/Users/palha/plusmark/apps/storefront/package.json');
+const { chromium } = require('playwright');
+const b = await chromium.launch();
+const p = await b.newPage();
+p.on('console', (m) => console.log('[c]', m.type(), m.text().slice(0, 300)));
+p.on('pageerror', (e) => console.log('[pageerror]', String(e).slice(0, 300)));
+p.on('response', (r) => { if (!r.url().includes('/_astro/') && !r.url().includes('placehold')) console.log('[r]', r.request().method(), r.url().slice(0, 110), r.status()); });
+await p.goto('http://localhost:4321/product/a4-clipboard', { waitUntil: 'domcontentloaded' });
+await p.waitForTimeout(3000);
+await p.locator('button.pm-vbtn[data-value="Single"]').click();
+await p.waitForTimeout(1000);
+console.log(await p.locator('[data-add-to-cart]').first().evaluate((e) => e.outerHTML));
+await p.locator('[data-add-to-cart]').first().click();
+await p.waitForTimeout(3000);
+console.log(await p.evaluate(() => JSON.stringify(Object.entries(localStorage).map(([k, v]) => [k, v.slice(0, 100)]))));
+await b.close();

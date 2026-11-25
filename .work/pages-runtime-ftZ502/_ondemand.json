@@ -1,0 +1,147 @@
+{
+ "generated_at": "2026-11-23T03:13:59.075Z",
+ "catalog_version": {
+  "store": 2743,
+  "sales_channel": 1589
+ },
+ "languages": [
+  "en",
+  "hi"
+ ],
+ "layout": {
+  "storefront.layout.badges": [],
+  "storefront.layout.pdp_blocks": [],
+  "storefront.layout.plp_filters": [],
+  "storefront.layout.preset": null,
+  "storefront.layout.sections": []
+ },
+ "component_switches": {
+  "back_in_stock_alert": true,
+  "bundle_offer": true,
+  "checkout_progress": true,
+  "delivery_promise": true,
+  "dispatch_countdown": true,
+  "first_order_offer": false,
+  "free_delivery_progress": true,
+  "goes_well_with": true,
+  "low_stock_notice": true,
+  "popularity_notice": true,
+  "recently_viewed": true,
+  "review_highlights": true,
+  "review_summary": true,
+  "sale_countdown": true,
+  "savings_summary": true,
+  "sticky_buy_bar": true,
+  "trust_strip": true
+ },
+ "content": {
+  "storefront.compliance_certificate": {},
+  "storefront.contact": {},
+  "storefront.grievance_officer": {},
+  "storefront.policies": {},
+  "storefront.privacy_notice": {},
+  "storefront.privacy_notice_version": "1",
+  "storefront.seller_details": {}
+ },
+ "branding": {
+  "branding.accent_color": "#0B6E4F",
+  "branding.accent_text_color": "#FFFFFF",
+  "branding.logo_url": null,
+  "branding.primary_color": "#1F3A5F",
+  "branding.primary_text_color": "#FFFFFF"
+ },
+ "shell": {
+  "brand": {
+   "name": "Plusmark"
+  },
+  "categories": [
+   {
+    "slug": "white-boards",
+    "name": {
+     "en": "White Boards",
+     "hi": "White Boards"
+    }
+   },
+   {
+    "slug": "chalk-boards",
+    "name": {
+     "en": "Chalk Boards",
+     "hi": "Chalk Boards"
+    }
+   },
+   {
+    "slug": "double-sided-boards",
+    "name": {
+     "en": "Double-Sided Boards",
+     "hi": "Double-Sided Boards"
+    }
+   },
+   {
+    "slug": "notice-boards",
+    "name": {
+     "en": "Notice Boards",
+     "hi": "Notice Boards"
+    }
+   },
+   {
+    "slug": "acrylic-door-cover-notice-boards",
+    "name": {
+     "en": "Acrylic Door Cover Notice Boards",
+     "hi": "Acrylic Door Cover Notice Boards"
+    }
+   },
+   {
+    "slug": "specialty-boards",
+    "name": {
+     "en": "Specialty Display Boards",
+     "hi": "Specialty Display Boards"
+    }
+   },
+   {
+    "slug": "board-study-essentials",
+    "name": {
+     "en": "Board & Study Essentials",
+     "hi": "Board & Study Essentials"
+    }
+   },
+   {
+    "slug": "display-boards",
+    "name": {
+     "en": "Display Boards",
+     "hi": "Display Boards"
+    }
+   },
+   {
+    "slug": "board-stands",
+    "name": {
+     "en": "Board Stands & Storage",
+     "hi": "Board Stands & Storage"
+    }
+   },
+   {
+    "slug": "clipboards",
+    "name": {
+     "en": "Clipboards",
+     "hi": "Clipboards"
+    }
+   },
+   {
+    "slug": "school-benches",
+    "name": {
+     "en": "School Benches",
+     "hi": "School Benches"
+    }
+   },
+   {
+    "slug": "schedule-boards",
+    "name": {
+     "en": "Schedule Boards",
+     "hi": "Schedule Boards"
+    }
+   }
+  ],
+  "seller": {},
+  "grievanceOfficer": {}
+ },
+ "experiments": []
+}

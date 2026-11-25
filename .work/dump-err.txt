@@ -1,0 +1,2 @@
+pg_dump: error: connection to server at "aws-0-ap-southeast-1.pooler.supabase.com" (52.74.252.201), port 5432 failed: FATAL:  password authentication failed for user "postgres"
+connection to server at "aws-0-ap-southeast-1.pooler.supabase.com" (52.74.252.201), port 5432 failed: FATAL:  password authentication failed for user "postgres"

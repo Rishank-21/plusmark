@@ -1,0 +1,583 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plusmark media audit</title>
+<style>
+  :root { color-scheme: light; --ink:#142d49; --muted:#66768a; --hair:#dde3ea; --sand:#f6f3ee; --ok:#1f7a4d; --warn:#a35a00; --bad:#a12c2c; }
+  * { box-sizing: border-box; }
+  body { margin:0; font:14px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif; color:var(--ink); background:#fff; }
+  main { max-width: 1180px; margin: 0 auto; padding: 40px 20px 80px; }
+  h1 { font-size: 28px; margin: 0 0 4px; letter-spacing: -0.02em; }
+  h2 { font-size: 18px; margin: 36px 0 10px; }
+  p.lead { color: var(--muted); margin: 0 0 24px; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; }
+  .stat { border:1px solid var(--hair); border-radius:8px; padding:12px 14px; }
+  .stat b { display:block; font-size:22px; }
+  .stat span { color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:.08em; }
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  th, td { text-align:left; padding:7px 8px; border-bottom:1px solid var(--hair); vertical-align:top; }
+  th { font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); }
+  code { font:12px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; word-break:break-all; }
+  .pill { display:inline-block; border-radius:999px; padding:1px 8px; font-size:11px; font-weight:600; }
+  .pill.ok { background:#e7f4ec; color:var(--ok); }
+  .pill.warn { background:#fdf1df; color:var(--warn); }
+  .pill.bad { background:#fbe9e9; color:var(--bad); }
+  .pill.draft { background:var(--sand); color:var(--muted); }
+  ul { margin:4px 0; padding-left:18px; }
+  .muted { color:var(--muted); }
+  .note { background:var(--sand); border-radius:8px; padding:12px 14px; color:var(--muted); }
+  .scroll { overflow-x:auto; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Plusmark media audit</h1>
+  <p class="lead">Generated 2026-11-06T08:37:54.677Z · Cloudinary cloud <code>dtdooieec</code> · checked against the live CDN</p>
+
+  <div class="grid">
+    <div class="stat"><b>69</b><span>Products</span></div>
+    <div class="stat"><b>68</b><span>Published</span></div>
+    <div class="stat"><b>287</b><span>Photos referenced</span></div>
+    <div class="stat"><b>0</b><span>Missing on CDN</span></div>
+    <div class="stat"><b>0</b><span>Shared assets</span></div>
+    <div class="stat"><b>7</b><span>Products with video</span></div>
+    <div class="stat"><b>0</b><span>Missing videos</span></div>
+    <div class="stat"><b>65</b><span>Unreferenced photos</span></div>
+  </div>
+
+  <h2>Missing media</h2>
+  <div class="note">
+    Photos: deluxe-standard-ceramic-chalk-board<br>
+    Cloudinary videos referenced by a product but absent on the CDN: none<br>
+    Manifest videos absent on the CDN: <code>plusmark/videos/board-installation</code>, <code>plusmark/videos/metallic-premium-both-side</code>, <code>plusmark/videos/retail-board-installation</code><br>
+    Other expected photos (A+ panels, category tiles) absent on the CDN: none
+  </div>
+
+  <h2>-correct asset aliases</h2>
+  <p class="muted">Re-uploaded crop versions stay pointed at <code>-correct</code>; the original id remains untouched as an alias.</p>
+  <div class="scroll"><table><thead><tr><th>Used id</th><th>Original alias</th><th>Original present</th></tr></thead><tbody><tr><td><code>plusmark/products/deluxe-standard-chalk-board-correct</code></td><td><code>plusmark/products/deluxe-standard-chalk-board</code></td><td><span class="pill ok">Yes</span></td></tr><tr><td><code>plusmark/products/eco-regular-chalk-board-correct</code></td><td><code>plusmark/products/eco-regular-chalk-board</code></td><td><span class="pill ok">Yes</span></td></tr><tr><td><code>plusmark/products/eco-regular-magnetic-board-correct</code></td><td><code>plusmark/products/eco-regular-magnetic-board</code></td><td><span class="pill ok">Yes</span></td></tr><tr><td><code>plusmark/products/eco-regular-magnetic-chalk-board-correct</code></td><td><code>plusmark/products/eco-regular-magnetic-chalk-board</code></td><td><span class="pill ok">Yes</span></td></tr><tr><td><code>plusmark/products/eco-regular-notice-board-correct</code></td><td><code>plusmark/products/eco-regular-notice-board</code></td><td><span class="pill ok">Yes</span></td></tr><tr><td><code>plusmark/products/eco-regular-white-board-correct</code></td><td><code>plusmark/products/eco-regular-white-board</code></td><td><span class="pill ok">Yes</span></td></tr></tbody></table></div>
+
+  <h2>Products</h2>
+  <div class="scroll">
+  <table>
+    <thead><tr><th>Product</th><th>Category</th><th>Photos</th><th>Video</th><th>Status</th><th>Notes</th></tr></thead>
+    <tbody>
+    <tr>
+          <td><strong>Metallic Premium White Board</strong><br><code>metallic-premium-white-board</code></td>
+          <td>white-boards</td>
+          <td>7</td>
+          <td>metallic-premium-white-board</td>
+          <td><span class="pill ok">Published</span> </td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>Metallic Premium Chalk Board</strong><br><code>metallic-premium-chalk-board</code></td>
+          <td>chalk-boards</td>
+          <td>7</td>
+          <td>metallic-premium-chalk-board</td>
+          <td><span class="pill ok">Published</span> </td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>Metallic Premium Magnetic Board</strong><br><code>metallic-premium-magnetic-board</code></td>
+          <td>white-boards</td>
+          <td>7</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> </td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>Metallic Premium Magnetic Chalk Board</strong><br><code>metallic-premium-magnetic-chalk-board</code></td>
+          <td>chalk-boards</td>
+          <td>7</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> </td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>Metallic Premium Ceramic Board</strong><br><code>metallic-premium-ceramic-board</code></td>
+          <td>white-boards</td>
+          <td>7</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> </td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>Metallic Premium Ceramic Chalk Board</strong><br><code>metallic-premium-ceramic-chalk-board</code></td>
+          <td>chalk-boards</td>
+          <td>7</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> </td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>Metallic Premium Notice Board</strong><br><code>metallic-premium-notice-board</code></td>
+          <td>notice-boards</td>
+          <td>7</td>
+          <td>metallic-premium-notice-board</td>
+          <td><span class="pill ok">Published</span> </td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>Eco Premium White Board</strong><br><code>eco-premium-white-board</code></td>
+          <td>white-boards</td>
+          <td>7</td>
+          <td>eco-premium-white-board</td>
+          <td><span class="pill ok">Published</span> </td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>Eco Premium Chalk Board</strong><br><code>eco-premium-chalk-board</code></td>
+          <td>chalk-boards</td>
+          <td>7</td>
+          <td>eco-premium-chalk-board</td>
+          <td><span class="pill ok">Published</span> </td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>Eco Premium Notice Board</strong><br><code>eco-premium-notice-board</code></td>
+          <td>notice-boards</td>
+          <td>7</td>
+          <td>eco-premium-notice-board</td>
+          <td><span class="pill ok">Published</span> </td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>Eco Premium Double-Sided Board</strong><br><code>eco-premium-both-side-board</code></td>
+          <td>double-sided-boards</td>
+          <td>7</td>
+          <td>eco-premium-both-side</td>
+          <td><span class="pill ok">Published</span> </td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>Eco Regular White Board</strong><br><code>eco-regular-white-board</code></td>
+          <td>white-boards</td>
+          <td>7</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> </td>
+          <td>-correct ids: plusmark/products/eco-regular-white-board-correct</td>
+        </tr><tr>
+          <td><strong>Eco Regular Chalk Board</strong><br><code>eco-regular-chalk-board</code></td>
+          <td>chalk-boards</td>
+          <td>7</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> </td>
+          <td>-correct ids: plusmark/products/eco-regular-chalk-board-correct</td>
+        </tr><tr>
+          <td><strong>Eco Regular Magnetic Board</strong><br><code>eco-regular-magnetic-board</code></td>
+          <td>white-boards</td>
+          <td>7</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> </td>
+          <td>-correct ids: plusmark/products/eco-regular-magnetic-board-correct</td>
+        </tr><tr>
+          <td><strong>Eco Regular Magnetic Chalk Board</strong><br><code>eco-regular-magnetic-chalk-board</code></td>
+          <td>chalk-boards</td>
+          <td>7</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> </td>
+          <td>-correct ids: plusmark/products/eco-regular-magnetic-chalk-board-correct</td>
+        </tr><tr>
+          <td><strong>Eco Regular Notice Board</strong><br><code>eco-regular-notice-board</code></td>
+          <td>notice-boards</td>
+          <td>7</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> </td>
+          <td>-correct ids: plusmark/products/eco-regular-notice-board-correct</td>
+        </tr><tr>
+          <td><strong>Deluxe Standard White Board</strong><br><code>deluxe-standard-white-board</code></td>
+          <td>white-boards</td>
+          <td>1</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> </td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>Deluxe Standard Chalk Board</strong><br><code>deluxe-standard-chalk-board</code></td>
+          <td>chalk-boards</td>
+          <td>1</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> </td>
+          <td>-correct ids: plusmark/products/deluxe-standard-chalk-board-correct</td>
+        </tr><tr>
+          <td><strong>Deluxe Standard Magnetic Board</strong><br><code>deluxe-standard-magnetic-board</code></td>
+          <td>white-boards</td>
+          <td>1</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> </td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>Deluxe Standard Magnetic Chalk Board</strong><br><code>deluxe-standard-magnetic-chalk-board</code></td>
+          <td>chalk-boards</td>
+          <td>1</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> </td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>Deluxe Standard Ceramic Board</strong><br><code>deluxe-standard-ceramic-board</code></td>
+          <td>white-boards</td>
+          <td>1</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> </td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>Deluxe Standard Ceramic Chalk Board</strong><br><code>deluxe-standard-ceramic-chalk-board</code></td>
+          <td>chalk-boards</td>
+          <td>0</td>
+          <td>—</td>
+          <td><span class="pill draft">Draft</span> <span class="pill warn">Needs data</span></td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>Deluxe Standard Notice Board</strong><br><code>deluxe-standard-notice-board</code></td>
+          <td>notice-boards</td>
+          <td>1</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> </td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>Deluxe 45 mm ADC Notice Board (Double Door)</strong><br><code>deluxe-45mm-adc-notice-board-double-door</code></td>
+          <td>acrylic-door-cover-notice-boards</td>
+          <td>1</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> </td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>Eco ADC Notice Board (Single Door)</strong><br><code>eco-adc-notice-board-single-door</code></td>
+          <td>acrylic-door-cover-notice-boards</td>
+          <td>1</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> </td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>Laminate MDF Base Clipboard (Wood Finish)</strong><br><code>laminate-mdf-base-clipboard</code></td>
+          <td>clipboards</td>
+          <td>3</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> <span class="pill warn">Needs data</span></td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>Graphic MDF Base Clipboard</strong><br><code>graphic-mdf-base-clipboard</code></td>
+          <td>clipboards</td>
+          <td>1</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> <span class="pill warn">Needs data</span></td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>Pre-Lam MDF Base Clipboard (Wood Finish)</strong><br><code>pre-lam-mdf-base-clipboard</code></td>
+          <td>clipboards</td>
+          <td>3</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> <span class="pill warn">Needs data</span></td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>Crystal Clear Base Clipboard</strong><br><code>crystal-clear-base-clipboard</code></td>
+          <td>clipboards</td>
+          <td>1</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> <span class="pill warn">Needs data</span></td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>Crystal Colour Base Clipboard</strong><br><code>crystal-colour-base-clipboard</code></td>
+          <td>clipboards</td>
+          <td>1</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> <span class="pill warn">Needs data</span></td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>Heavy Duty Clear Acrylic Clipboard</strong><br><code>heavy-duty-clear-acrylic-clipboard</code></td>
+          <td>clipboards</td>
+          <td>1</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> <span class="pill warn">Needs data</span></td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>Cork Notice Board</strong><br><code>cork-notice-board</code></td>
+          <td>notice-boards</td>
+          <td>1</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> <span class="pill warn">Needs data</span></td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>Fabric Notice Board</strong><br><code>fabric-notice-board</code></td>
+          <td>notice-boards</td>
+          <td>1</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> <span class="pill warn">Needs data</span></td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>Acrylic Folder Display Board</strong><br><code>acrylic-folder-display-board</code></td>
+          <td>specialty-boards</td>
+          <td>3</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> <span class="pill warn">Needs data</span></td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>Dry Wipe Schedule Board</strong><br><code>dry-wipe-schedule-board</code></td>
+          <td>schedule-boards</td>
+          <td>1</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> <span class="pill warn">Needs data</span></td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>Four Line &amp; Square Line Practice Board</strong><br><code>four-line-square-line-practice-board</code></td>
+          <td>board-study-essentials</td>
+          <td>1</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> <span class="pill warn">Needs data</span></td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>Grooved Boards</strong><br><code>grooved-boards</code></td>
+          <td>display-boards</td>
+          <td>1</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> <span class="pill warn">Needs data</span></td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>Perforated Board</strong><br><code>perforated-board</code></td>
+          <td>display-boards</td>
+          <td>1</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> <span class="pill warn">Needs data</span></td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>Key Hanger Board</strong><br><code>key-hanger-board</code></td>
+          <td>board-study-essentials</td>
+          <td>1</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> <span class="pill warn">Needs data</span></td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>Letters and Figures Set</strong><br><code>letters-and-figures-set</code></td>
+          <td>display-boards</td>
+          <td>1</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> <span class="pill warn">Needs data</span></td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>Combination Board</strong><br><code>combination-board</code></td>
+          <td>notice-boards</td>
+          <td>1</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> <span class="pill warn">Needs data</span></td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>Deluxe 45 mm ADC Notice Board (Single Door)</strong><br><code>deluxe-45mm-adc-notice-board-single-door</code></td>
+          <td>acrylic-door-cover-notice-boards</td>
+          <td>1</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> </td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>Four Leg Stand</strong><br><code>four-leg-stand</code></td>
+          <td>board-stands</td>
+          <td>1</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> <span class="pill warn">Needs data</span></td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>Three Leg Stand</strong><br><code>three-leg-stand</code></td>
+          <td>board-stands</td>
+          <td>1</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> <span class="pill warn">Needs data</span></td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>Zig Zag Stand</strong><br><code>zig-zag-stand</code></td>
+          <td>board-stands</td>
+          <td>1</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> <span class="pill warn">Needs data</span></td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>Revolving Stand</strong><br><code>revolving-stand</code></td>
+          <td>board-stands</td>
+          <td>1</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> <span class="pill warn">Needs data</span></td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>Telescopic Stand</strong><br><code>telescopic-stand</code></td>
+          <td>board-stands</td>
+          <td>1</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> <span class="pill warn">Needs data</span></td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>File Rack</strong><br><code>file-rack</code></td>
+          <td>board-stands</td>
+          <td>1</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> <span class="pill warn">Needs data</span></td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>Magazine Stand</strong><br><code>magazine-stand</code></td>
+          <td>board-stands</td>
+          <td>1</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> <span class="pill warn">Needs data</span></td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>Newspaper Stand</strong><br><code>newspaper-stand</code></td>
+          <td>board-stands</td>
+          <td>1</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> <span class="pill warn">Needs data</span></td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>Letter Box</strong><br><code>letter-box</code></td>
+          <td>board-stands</td>
+          <td>1</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> <span class="pill warn">Needs data</span></td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>First Aid Box</strong><br><code>first-aid-box</code></td>
+          <td>board-stands</td>
+          <td>1</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> <span class="pill warn">Needs data</span></td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>Homework Table</strong><br><code>student-study-table</code></td>
+          <td>board-study-essentials</td>
+          <td>13</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> <span class="pill warn">Needs data</span></td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>PDS-500</strong><br><code>pds-500</code></td>
+          <td>board-stands</td>
+          <td>1</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> <span class="pill warn">Needs data</span></td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>School Bench PDS-SB 801</strong><br><code>pds-sb-801</code></td>
+          <td>school-benches</td>
+          <td>1</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> <span class="pill warn">Needs data</span></td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>School Bench PDS-SB 802</strong><br><code>pds-sb-802</code></td>
+          <td>school-benches</td>
+          <td>1</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> <span class="pill warn">Needs data</span></td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>School Bench PDS-SB 803</strong><br><code>pds-sb-803</code></td>
+          <td>school-benches</td>
+          <td>1</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> <span class="pill warn">Needs data</span></td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>School Bench PDS-SB 804</strong><br><code>pds-sb-804</code></td>
+          <td>school-benches</td>
+          <td>1</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> <span class="pill warn">Needs data</span></td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>School Bench PDS-SB 805</strong><br><code>pds-sb-805</code></td>
+          <td>school-benches</td>
+          <td>1</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> <span class="pill warn">Needs data</span></td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>School Bench PDS-SB 806</strong><br><code>pds-sb-806</code></td>
+          <td>school-benches</td>
+          <td>1</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> <span class="pill warn">Needs data</span></td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>School Bench PDS-SB 807</strong><br><code>pds-sb-807</code></td>
+          <td>school-benches</td>
+          <td>1</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> <span class="pill warn">Needs data</span></td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>School Bench PDS-SB 808</strong><br><code>pds-sb-808</code></td>
+          <td>school-benches</td>
+          <td>1</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> <span class="pill warn">Needs data</span></td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>School Bench PDS-SB 809</strong><br><code>pds-sb-809</code></td>
+          <td>school-benches</td>
+          <td>1</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> <span class="pill warn">Needs data</span></td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>School Bench PDS-SB 810</strong><br><code>pds-sb-810</code></td>
+          <td>school-benches</td>
+          <td>1</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> <span class="pill warn">Needs data</span></td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>School Bench PDS-SB 811</strong><br><code>pds-sb-811</code></td>
+          <td>school-benches</td>
+          <td>1</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> <span class="pill warn">Needs data</span></td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>School Bench PDS-SB 812</strong><br><code>pds-sb-812</code></td>
+          <td>school-benches</td>
+          <td>1</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> <span class="pill warn">Needs data</span></td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>School Bench PDS-SB 813</strong><br><code>pds-sb-813</code></td>
+          <td>school-benches</td>
+          <td>1</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> <span class="pill warn">Needs data</span></td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>School Bench PDS-SB 814</strong><br><code>pds-sb-814</code></td>
+          <td>school-benches</td>
+          <td>1</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> <span class="pill warn">Needs data</span></td>
+          <td><span class="muted">—</span></td>
+        </tr><tr>
+          <td><strong>School Bench PDS-SB 815</strong><br><code>pds-sb-815</code></td>
+          <td>school-benches</td>
+          <td>1</td>
+          <td>—</td>
+          <td><span class="pill ok">Published</span> <span class="pill warn">Needs data</span></td>
+          <td><span class="muted">—</span></td>
+        </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h2>Shared assets</h2>
+  <p class="muted">No asset is used by more than one product.</p>
+
+  <h2>Likely duplicate files</h2>
+  <div class="scroll"><table><thead><tr><th>Cloudinary ids with identical byte size and dimensions</th></tr></thead><tbody><tr><td><code>plusmark/products/deluxe-standard-chalk-board</code><br><code>plusmark/products/deluxe-standard-magnetic-chalk-board</code></td></tr><tr><td><code>plusmark/products/eco-premium-both-side-board-2</code><br><code>plusmark/products/eco-premium-white-board-2</code></td></tr><tr><td><code>plusmark/products/eco-premium-both-side-board-3</code><br><code>plusmark/products/eco-premium-white-board-3</code></td></tr><tr><td><code>plusmark/products/eco-premium-both-side-board-7</code><br><code>plusmark/products/eco-premium-white-board-7</code></td></tr><tr><td><code>plusmark/products/gsavia4qvvmffac2shqc</code><br><code>plusmark/products/n5r1fqrmhcdv6h2kneph</code></td></tr><tr><td><code>plusmark/products/metallic-premium-chalk-board</code><br><code>plusmark/products/metallic-premium-magnetic-chalk-board</code></td></tr></tbody></table></div>
+         <p class="muted">Owner decision needed: one of these ids may show the wrong product. Nothing was changed.</p>
+
+  <h2>Unreferenced Cloudinary photos</h2>
+  <p class="muted">Reported only. Nothing is deleted; confirm with the owner before any cleanup.</p>
+  <ul><li>plusmark/products/acrylic-door-cover-notice-board</li><li>plusmark/products/deluxe-standard-chalk-board</li><li>plusmark/products/eco-both-side-board/1</li><li>plusmark/products/eco-both-side-board/2</li><li>plusmark/products/eco-both-side-board/3</li><li>plusmark/products/eco-both-side-board/4</li><li>plusmark/products/eco-chalk-board/1</li><li>plusmark/products/eco-chalk-board/2</li><li>plusmark/products/eco-chalk-board/3</li><li>plusmark/products/eco-chalk-board/4</li><li>plusmark/products/eco-magnetic-chalk-board/1</li><li>plusmark/products/eco-magnetic-chalk-board/2</li><li>plusmark/products/eco-magnetic-chalk-board/3</li><li>plusmark/products/eco-magnetic-chalk-board/4</li><li>plusmark/products/eco-magnetic-white-board/1</li><li>plusmark/products/eco-magnetic-white-board/2</li><li>plusmark/products/eco-magnetic-white-board/3</li><li>plusmark/products/eco-magnetic-white-board/4</li><li>plusmark/products/eco-notice-board/1</li><li>plusmark/products/eco-notice-board/2</li><li>plusmark/products/eco-notice-board/3</li><li>plusmark/products/eco-notice-board/4</li><li>plusmark/products/eco-regular-chalk-board</li><li>plusmark/products/eco-regular-magnetic-board</li><li>plusmark/products/eco-regular-magnetic-chalk-board</li><li>plusmark/products/eco-regular-notice-board</li><li>plusmark/products/eco-regular-white-board</li><li>plusmark/products/eco-regular-white-board-pack-2</li><li>plusmark/products/eco-regular-white-board-pack-4</li><li>plusmark/products/eco-white-board/1</li><li>plusmark/products/eco-white-board/2</li><li>plusmark/products/eco-white-board/3</li><li>plusmark/products/eco-white-board/4</li><li>plusmark/products/eco-white-board/5</li><li>plusmark/products/gsavia4qvvmffac2shqc</li><li>plusmark/products/metallic-ceramic-chalk-board/1</li><li>plusmark/products/metallic-ceramic-chalk-board/2</li><li>plusmark/products/metallic-ceramic-chalk-board/3</li><li>plusmark/products/metallic-ceramic-chalk-board/4</li><li>plusmark/products/metallic-ceramic-white-board/1</li><li>plusmark/products/metallic-ceramic-white-board/2</li><li>plusmark/products/metallic-ceramic-white-board/3</li><li>plusmark/products/metallic-ceramic-white-board/4</li><li>plusmark/products/metallic-chalk-board/1</li><li>plusmark/products/metallic-chalk-board/2</li><li>plusmark/products/metallic-chalk-board/3</li><li>plusmark/products/metallic-chalk-board/4</li><li>plusmark/products/metallic-magnetic-chalk-board/1</li><li>plusmark/products/metallic-magnetic-chalk-board/2</li><li>plusmark/products/metallic-magnetic-chalk-board/3</li><li>plusmark/products/metallic-magnetic-chalk-board/4</li><li>plusmark/products/metallic-magnetic-white-board/1</li><li>plusmark/products/metallic-magnetic-white-board/2</li><li>plusmark/products/metallic-magnetic-white-board/3</li><li>plusmark/products/metallic-magnetic-white-board/4</li><li>plusmark/products/metallic-notice-board/1</li><li>plusmark/products/metallic-notice-board/2</li><li>plusmark/products/metallic-notice-board/3</li><li>plusmark/products/metallic-notice-board/4</li><li>plusmark/products/metallic-premium-both-side-board</li><li>plusmark/products/metallic-white-board/1</li><li>plusmark/products/metallic-white-board/2</li><li>plusmark/products/metallic-white-board/3</li><li>plusmark/products/metallic-white-board/4</li><li>plusmark/products/n5r1fqrmhcdv6h2kneph</li></ul>
+
+  <h2>Video manifest</h2>
+  <p class="muted">10 ids in <code>catalog.media.videos</code>; 3 are not uploaded yet, so no player is rendered for them.</p>
+  
+
+  <h2>Alt-text convention</h2>
+  <p class="muted">Generated as <code>{Product} - {Series} {surface} by Plusmark</code>. Samples:</p>
+  <ul><li>Metallic Premium White Board - Metallic Premium Whiteboard by Plusmark</li><li>Metallic Premium Chalk Board - Metallic Premium Chalkboard by Plusmark</li><li>Metallic Premium Magnetic Board - Metallic Premium Whiteboard by Plusmark</li><li>Metallic Premium Magnetic Chalk Board - Metallic Premium Chalkboard by Plusmark</li><li>Metallic Premium Ceramic Board - Metallic Premium Whiteboard by Plusmark</li></ul>
+
+  <h2>Delivery rules verified in code</h2>
+  <ul>
+    <li>Cards request only 320 / 480 / 640 / 800 px through <code>cardLoader</code>; never 1400 or 2000.</li>
+    <li>Gallery caps at 1200 px, zoom/lightbox at 2000 px, hero at 1600 px, social preview 1200×630.</li>
+    <li>Cloudinary receives a single <code>f_auto,q_auto</code> pair; <code>c_limit</code> prevents upscaling.</li>
+    <li>No CSS filter, overlay or opacity is applied to product photography.</li>
+  </ul>
+</main>
+</body>
+</html>

@@ -1,0 +1,2977 @@
+{
+ "orders": [
+  {
+   "id": "order_01M7D63B426QKNQ91HQ96ZF08E",
+   "display_id": 1,
+   "custom_display_id": null,
+   "status": "pending",
+   "version": 1,
+   "summary": {
+    "paid_total": 766.41,
+    "order_total": 766.41,
+    "raw_paid_total": {
+     "value": "766.41",
+     "precision": 20
+    },
+    "refunded_total": 0,
+    "accounting_total": 766.41,
+    "credit_line_total": 0,
+    "transaction_total": 766.41,
+    "pending_difference": 0,
+    "raw_refunded_total": {
+     "value": "0",
+     "precision": 20
+    },
+    "current_order_total": 766.41,
+    "original_order_total": 766.41,
+    "raw_transaction_total": {
+     "value": "766.41",
+     "precision": 20
+    },
+    "raw_pending_difference": {
+     "value": "0",
+     "precision": 20
+    },
+    "raw_current_order_total": {
+     "value": "766.41",
+     "precision": 20
+    }
+   },
+   "total": 766.41,
+   "metadata": null,
+   "locale": null,
+   "created_at": "2026-11-14T14:06:36.625Z",
+   "updated_at": "2026-11-14T14:06:36.625Z",
+   "region_id": "reg_01M7D63A69JTVTDG3K1CD7Y7DB",
+   "subtotal": 649.5,
+   "tax_total": 116.91,
+   "discount_total": 0,
+   "discount_tax_total": 0,
+   "original_total": 766.41,
+   "original_subtotal": 649.5,
+   "original_tax_total": 116.91,
+   "item_total": 707.41,
+   "item_subtotal": 599.5,
+   "item_tax_total": 107.91,
+   "original_item_total": 707.41,
+   "original_item_subtotal": 599.5,
+   "original_item_tax_total": 107.91,
+   "shipping_total": 59,
+   "shipping_subtotal": 50,
+   "shipping_tax_total": 9,
+   "original_shipping_tax_total": 9,
+   "original_shipping_subtotal": 50,
+   "original_shipping_total": 59,
+   "credit_line_total": 0,
+   "credit_line_subtotal": 0,
+   "credit_line_tax_total": 0,
+   "discount_subtotal": 0,
+   "currency_code": "inr",
+   "email": "guest@example.invalid",
+   "items": [
+    {
+     "id": "ordli_01M7D63B45C42T7Y23XQVMEBHF",
+     "title": "A5",
+     "subtitle": null,
+     "thumbnail": null,
+     "variant_id": "variant_01M7D63AF4N2933KBFTCTMAK7J",
+     "product_id": "prod_01M7D63AB6NGK4QNQD6N5H2WTX",
+     "product_title": "Rehearsal Notebook",
+     "product_description": "A5 ruled",
+     "product_subtitle": null,
+     "product_type": "Goods",
+     "product_type_id": "ptyp_01M7D63AARZ0XHNW04ZTXRZQ5W",
+     "product_collection": "Everyday",
+     "product_handle": "rehearsal-notebook",
+     "variant_sku": "RH-NB-A5",
+     "variant_barcode": null,
+     "variant_title": "A5",
+     "variant_option_values": {
+      "Size": "A5"
+     },
+     "requires_shipping": true,
+     "is_giftcard": false,
+     "is_discountable": true,
+     "is_tax_inclusive": false,
+     "is_custom_price": false,
+     "metadata": null,
+     "raw_compare_at_unit_price": null,
+     "raw_unit_price": {
+      "value": "250",
+      "precision": 20
+     },
+     "created_at": "2026-11-14T14:06:36.625Z",
+     "updated_at": "2026-11-14T14:06:36.625Z",
+     "deleted_at": null,
+     "tax_lines": [
+      {
+       "id": "ordlitxl_01M7D63B4AKYVNHKX2C514BRVG",
+       "description": "GST 18%",
+       "tax_rate_id": "txr_rehearsal1",
+       "code": "gst",
+       "provider_id": "system",
+       "metadata": null,
+       "data": null,
+       "item_id": "ordli_01M7D63B45C42T7Y23XQVMEBHF",
+       "raw_rate": {
+        "value": "18",
+        "precision": 20
+       },
+       "created_at": "2026-11-14T14:06:36.625Z",
+       "updated_at": "2026-11-14T14:06:36.625Z",
+       "deleted_at": null,
+       "rate": 18,
+       "total": 90,
+       "subtotal": 90,
+       "raw_total": {
+        "value": "90",
+        "precision": 20
+       },
+       "raw_subtotal": {
+        "value": "90",
+        "precision": 20
+       }
+      }
+     ],
+     "adjustments": [],
+     "compare_at_unit_price": null,
+     "unit_price": 250,
+     "quantity": 2,
+     "raw_quantity": {
+      "value": "2",
+      "precision": 20
+     },
+     "line_item_metadata": null,
+     "detail": {
+      "id": "orditem_01M7D63B47T1PS0HQK3KW972Y1",
+      "version": 1,
+      "metadata": null,
+      "order_id": "order_01M7D63B426QKNQ91HQ96ZF08E",
+      "raw_unit_price": {
+       "value": "250",
+       "precision": 20
+      },
+      "raw_compare_at_unit_price": null,
+      "raw_quantity": {
+       "value": "2",
+       "precision": 20
+      },
+      "raw_fulfilled_quantity": {
+       "value": "1",
+       "precision": 20
+      },
+      "raw_delivered_quantity": {
+       "value": "1",
+       "precision": 20
+      },
+      "raw_shipped_quantity": {
+       "value": "1",
+       "precision": 20
+      },
+      "raw_return_requested_quantity": {
+       "value": "0",
+       "precision": 20
+      },
+      "raw_return_received_quantity": {
+       "value": "0",
+       "precision": 20
+      },
+      "raw_return_dismissed_quantity": {
+       "value": "0",
+       "precision": 20
+      },
+      "raw_written_off_quantity": {
+       "value": "0",
+       "precision": 20
+      },
+      "created_at": "2026-11-14T14:06:36.625Z",
+      "updated_at": "2026-11-14T14:06:37.135Z",
+      "deleted_at": null,
+      "item_id": "ordli_01M7D63B45C42T7Y23XQVMEBHF",
+      "unit_price": 250,
+      "compare_at_unit_price": null,
+      "quantity": 2,
+      "fulfilled_quantity": 1,
+      "delivered_quantity": 1,
+      "shipped_quantity": 1,
+      "return_requested_quantity": 0,
+      "return_received_quantity": 0,
+      "return_dismissed_quantity": 0,
+      "written_off_quantity": 0
+     },
+     "subtotal": 500,
+     "total": 590,
+     "original_subtotal": 500,
+     "original_total": 590,
+     "discount_subtotal": 0,
+     "discount_tax_total": 0,
+     "discount_total": 0,
+     "tax_total": 90,
+     "original_tax_total": 90,
+     "refundable_total_per_unit": 295,
+     "refundable_total": 590,
+     "fulfilled_total": 295,
+     "shipped_total": 295,
+     "return_requested_total": 0,
+     "return_received_total": 0,
+     "return_dismissed_total": 0,
+     "write_off_total": 0,
+     "raw_subtotal": {
+      "value": "500",
+      "precision": 20
+     },
+     "raw_total": {
+      "value": "590",
+      "precision": 20
+     },
+     "raw_original_subtotal": {
+      "value": "500",
+      "precision": 20
+     },
+     "raw_original_total": {
+      "value": "590",
+      "precision": 20
+     },
+     "raw_discount_subtotal": {
+      "value": "0",
+      "precision": 20
+     },
+     "raw_discount_tax_total": {
+      "value": "0",
+      "precision": 20
+     },
+     "raw_discount_total": {
+      "value": "0",
+      "precision": 20
+     },
+     "raw_tax_total": {
+      "value": "90",
+      "precision": 20
+     },
+     "raw_original_tax_total": {
+      "value": "90",
+      "precision": 20
+     },
+     "raw_refundable_total_per_unit": {
+      "value": "295",
+      "precision": 20
+     },
+     "raw_refundable_total": {
+      "value": "590",
+      "precision": 20
+     },
+     "raw_fulfilled_total": {
+      "value": "295",
+      "precision": 20
+     },
+     "raw_shipped_total": {
+      "value": "295",
+      "precision": 20
+     },
+     "raw_return_requested_total": {
+      "value": "0",
+      "precision": 20
+     },
+     "raw_return_received_total": {
+      "value": "0",
+      "precision": 20
+     },
+     "raw_return_dismissed_total": {
+      "value": "0",
+      "precision": 20
+     },
+     "raw_write_off_total": {
+      "value": "0",
+      "precision": 20
+     },
+     "variant": {
+      "id": "variant_01M7D63AF4N2933KBFTCTMAK7J",
+      "title": "A5",
+      "sku": "RH-NB-A5",
+      "barcode": null,
+      "ean": null,
+      "upc": null,
+      "allow_backorder": false,
+      "manage_inventory": false,
+      "hs_code": null,
+      "origin_country": null,
+      "mid_code": null,
+      "material": null,
+      "weight": null,
+      "length": null,
+      "height": null,
+      "width": null,
+      "metadata": null,
+      "variant_rank": 0,
+      "thumbnail": null,
+      "product_id": "prod_01M7D63AB6NGK4QNQD6N5H2WTX",
+      "product": {
+       "id": "prod_01M7D63AB6NGK4QNQD6N5H2WTX",
+       "title": "Rehearsal Notebook",
+       "handle": "rehearsal-notebook",
+       "subtitle": null,
+       "description": "A5 ruled",
+       "is_giftcard": false,
+       "status": "published",
+       "thumbnail": null,
+       "weight": null,
+       "length": null,
+       "height": null,
+       "width": null,
+       "origin_country": null,
+       "hs_code": null,
+       "mid_code": null,
+       "material": null,
+       "discountable": true,
+       "external_id": null,
+       "metadata": null,
+       "type_id": "ptyp_01M7D63AARZ0XHNW04ZTXRZQ5W",
+       "type": {
+        "id": "ptyp_01M7D63AARZ0XHNW04ZTXRZQ5W"
+       },
+       "collection_id": "pcol_01M7D63A9QQHDGY8ZAKT9Y1WXM",
+       "collection": {
+        "id": "pcol_01M7D63A9QQHDGY8ZAKT9Y1WXM"
+       },
+       "created_at": "2026-11-14T14:06:35.874Z",
+       "updated_at": "2026-11-14T14:06:36.136Z",
+       "deleted_at": null
+      },
+      "created_at": "2026-11-14T14:06:35.999Z",
+      "updated_at": "2026-11-14T14:06:35.999Z",
+      "deleted_at": null
+     }
+    },
+    {
+     "id": "ordli_01M7D63B4CMFWPMPDWFCZFFHRS",
+     "title": "Blue",
+     "subtitle": null,
+     "thumbnail": null,
+     "variant_id": "variant_01M7D63AG6FEG5CCEKBT1WM43C",
+     "product_id": "prod_01M7D63AE4ZRZWYJBVWRTG53KT",
+     "product_title": "Rehearsal Pen",
+     "product_description": null,
+     "product_subtitle": null,
+     "product_type": null,
+     "product_type_id": null,
+     "product_collection": null,
+     "product_handle": "rehearsal-pen",
+     "variant_sku": "RH-PEN-BL",
+     "variant_barcode": null,
+     "variant_title": "Blue",
+     "variant_option_values": {
+      "Colour": "Blue"
+     },
+     "requires_shipping": true,
+     "is_giftcard": false,
+     "is_discountable": true,
+     "is_tax_inclusive": false,
+     "is_custom_price": false,
+     "metadata": null,
+     "raw_compare_at_unit_price": null,
+     "raw_unit_price": {
+      "value": "99.5",
+      "precision": 20
+     },
+     "created_at": "2026-11-14T14:06:36.625Z",
+     "updated_at": "2026-11-14T14:06:36.625Z",
+     "deleted_at": null,
+     "tax_lines": [
+      {
+       "id": "ordlitxl_01M7D63B4E1TYWTJREW8Z1VAH4",
+       "description": "GST 18%",
+       "tax_rate_id": "txr_rehearsal1",
+       "code": "gst",
+       "provider_id": "system",
+       "metadata": null,
+       "data": null,
+       "item_id": "ordli_01M7D63B4CMFWPMPDWFCZFFHRS",
+       "raw_rate": {
+        "value": "18",
+        "precision": 20
+       },
+       "created_at": "2026-11-14T14:06:36.625Z",
+       "updated_at": "2026-11-14T14:06:36.625Z",
+       "deleted_at": null,
+       "rate": 18,
+       "total": 17.91,
+       "subtotal": 17.91,
+       "raw_total": {
+        "value": "17.91",
+        "precision": 20
+       },
+       "raw_subtotal": {
+        "value": "17.91",
+        "precision": 20
+       }
+      }
+     ],
+     "adjustments": [],
+     "compare_at_unit_price": null,
+     "unit_price": 99.5,
+     "quantity": 1,
+     "raw_quantity": {
+      "value": "1",
+      "precision": 20
+     },
+     "line_item_metadata": null,
+     "detail": {
+      "id": "orditem_01M7D63B4DRXF30XQVWA80B4PT",
+      "version": 1,
+      "metadata": null,
+      "order_id": "order_01M7D63B426QKNQ91HQ96ZF08E",
+      "raw_unit_price": {
+       "value": "99.5",
+       "precision": 20
+      },
+      "raw_compare_at_unit_price": null,
+      "raw_quantity": {
+       "value": "1",
+       "precision": 20
+      },
+      "raw_fulfilled_quantity": {
+       "value": "0",
+       "precision": 20
+      },
+      "raw_delivered_quantity": {
+       "value": "0",
+       "precision": 20
+      },
+      "raw_shipped_quantity": {
+       "value": "0",
+       "precision": 20
+      },
+      "raw_return_requested_quantity": {
+       "value": "0",
+       "precision": 20
+      },
+      "raw_return_received_quantity": {
+       "value": "0",
+       "precision": 20
+      },
+      "raw_return_dismissed_quantity": {
+       "value": "0",
+       "precision": 20
+      },
+      "raw_written_off_quantity": {
+       "value": "0",
+       "precision": 20
+      },
+      "created_at": "2026-11-14T14:06:36.625Z",
+      "updated_at": "2026-11-14T14:06:36.625Z",
+      "deleted_at": null,
+      "item_id": "ordli_01M7D63B4CMFWPMPDWFCZFFHRS",
+      "unit_price": 99.5,
+      "compare_at_unit_price": null,
+      "quantity": 1,
+      "fulfilled_quantity": 0,
+      "delivered_quantity": 0,
+      "shipped_quantity": 0,
+      "return_requested_quantity": 0,
+      "return_received_quantity": 0,
+      "return_dismissed_quantity": 0,
+      "written_off_quantity": 0
+     },
+     "subtotal": 99.5,
+     "total": 117.41,
+     "original_subtotal": 99.5,
+     "original_total": 117.41,
+     "discount_subtotal": 0,
+     "discount_tax_total": 0,
+     "discount_total": 0,
+     "tax_total": 17.91,
+     "original_tax_total": 17.91,
+     "refundable_total_per_unit": 117.41,
+     "refundable_total": 117.41,
+     "fulfilled_total": 0,
+     "shipped_total": 0,
+     "return_requested_total": 0,
+     "return_received_total": 0,
+     "return_dismissed_total": 0,
+     "write_off_total": 0,
+     "raw_subtotal": {
+      "value": "99.5",
+      "precision": 20
+     },
+     "raw_total": {
+      "value": "117.41",
+      "precision": 20
+     },
+     "raw_original_subtotal": {
+      "value": "99.5",
+      "precision": 20
+     },
+     "raw_original_total": {
+      "value": "117.41",
+      "precision": 20
+     },
+     "raw_discount_subtotal": {
+      "value": "0",
+      "precision": 20
+     },
+     "raw_discount_tax_total": {
+      "value": "0",
+      "precision": 20
+     },
+     "raw_discount_total": {
+      "value": "0",
+      "precision": 20
+     },
+     "raw_tax_total": {
+      "value": "17.91",
+      "precision": 20
+     },
+     "raw_original_tax_total": {
+      "value": "17.91",
+      "precision": 20
+     },
+     "raw_refundable_total_per_unit": {
+      "value": "117.41",
+      "precision": 20
+     },
+     "raw_refundable_total": {
+      "value": "117.41",
+      "precision": 20
+     },
+     "raw_fulfilled_total": {
+      "value": "0",
+      "precision": 20
+     },
+     "raw_shipped_total": {
+      "value": "0",
+      "precision": 20
+     },
+     "raw_return_requested_total": {
+      "value": "0",
+      "precision": 20
+     },
+     "raw_return_received_total": {
+      "value": "0",
+      "precision": 20
+     },
+     "raw_return_dismissed_total": {
+      "value": "0",
+      "precision": 20
+     },
+     "raw_write_off_total": {
+      "value": "0",
+      "precision": 20
+     },
+     "variant": {
+      "id": "variant_01M7D63AG6FEG5CCEKBT1WM43C",
+      "title": "Blue",
+      "sku": "RH-PEN-BL",
+      "barcode": null,
+      "ean": null,
+      "upc": null,
+      "allow_backorder": false,
+      "manage_inventory": false,
+      "hs_code": null,
+      "origin_country": null,
+      "mid_code": null,
+      "material": null,
+      "weight": null,
+      "length": null,
+      "height": null,
+      "width": null,
+      "metadata": null,
+      "variant_rank": 0,
+      "thumbnail": null,
+      "product_id": "prod_01M7D63AE4ZRZWYJBVWRTG53KT",
+      "product": {
+       "id": "prod_01M7D63AE4ZRZWYJBVWRTG53KT",
+       "title": "Rehearsal Pen",
+       "handle": "rehearsal-pen",
+       "subtitle": null,
+       "description": null,
+       "is_giftcard": false,
+       "status": "published",
+       "thumbnail": null,
+       "weight": null,
+       "length": null,
+       "height": null,
+       "width": null,
+       "origin_country": null,
+       "hs_code": null,
+       "mid_code": null,
+       "material": null,
+       "discountable": true,
+       "external_id": null,
+       "metadata": null,
+       "type_id": null,
+       "type": null,
+       "collection_id": null,
+       "collection": null,
+       "created_at": "2026-11-14T14:06:35.970Z",
+       "updated_at": "2026-11-14T14:06:36.145Z",
+       "deleted_at": null
+      },
+      "created_at": "2026-11-14T14:06:36.035Z",
+      "updated_at": "2026-11-14T14:06:36.035Z",
+      "deleted_at": null
+     }
+    }
+   ],
+   "shipping_methods": [
+    {
+     "id": "ordsm_01M7D63B4F9M6CMH89X7BG5PJ2",
+     "name": "Standard delivery",
+     "description": null,
+     "is_tax_inclusive": false,
+     "is_custom_amount": false,
+     "shipping_option_id": "so_01M7D63AQDC9MV7SDTRHG6B6Z7",
+     "data": null,
+     "metadata": null,
+     "raw_amount": {
+      "value": "50",
+      "precision": 20
+     },
+     "created_at": "2026-11-14T14:06:36.625Z",
+     "updated_at": "2026-11-14T14:06:36.625Z",
+     "deleted_at": null,
+     "tax_lines": [
+      {
+       "id": "ordsmtxl_01M7D63B4KVJY028VK031X31XM",
+       "description": "GST 18%",
+       "tax_rate_id": "txr_rehearsal1",
+       "code": "gst",
+       "provider_id": "system",
+       "metadata": null,
+       "data": null,
+       "shipping_method_id": "ordsm_01M7D63B4F9M6CMH89X7BG5PJ2",
+       "raw_rate": {
+        "value": "18",
+        "precision": 20
+       },
+       "created_at": "2026-11-14T14:06:36.625Z",
+       "updated_at": "2026-11-14T14:06:36.625Z",
+       "deleted_at": null,
+       "rate": 18,
+       "total": 9,
+       "subtotal": 9,
+       "raw_total": {
+        "value": "9",
+        "precision": 20
+       },
+       "raw_subtotal": {
+        "value": "9",
+        "precision": 20
+       }
+      }
+     ],
+     "adjustments": [],
+     "amount": 50,
+     "order_id": "order_01M7D63B426QKNQ91HQ96ZF08E",
+     "detail": {
+      "id": "ordspmv_01M7D63B4HG9M68NS5RV63ET9S",
+      "version": 1,
+      "order_id": "order_01M7D63B426QKNQ91HQ96ZF08E",
+      "return_id": null,
+      "exchange_id": null,
+      "claim_id": null,
+      "created_at": "2026-11-14T14:06:36.625Z",
+      "updated_at": "2026-11-14T14:06:36.625Z",
+      "deleted_at": null,
+      "shipping_method_id": "ordsm_01M7D63B4F9M6CMH89X7BG5PJ2"
+     },
+     "subtotal": 50,
+     "total": 59,
+     "original_subtotal": 50,
+     "original_total": 59,
+     "discount_total": 0,
+     "discount_subtotal": 0,
+     "discount_tax_total": 0,
+     "tax_total": 9,
+     "original_tax_total": 9,
+     "raw_subtotal": {
+      "value": "50",
+      "precision": 20
+     },
+     "raw_total": {
+      "value": "59",
+      "precision": 20
+     },
+     "raw_original_subtotal": {
+      "value": "50",
+      "precision": 20
+     },
+     "raw_original_total": {
+      "value": "59",
+      "precision": 20
+     },
+     "raw_discount_total": {
+      "value": "0",
+      "precision": 20
+     },
+     "raw_discount_subtotal": {
+      "value": "0",
+      "precision": 20
+     },
+     "raw_discount_tax_total": {
+      "value": "0",
+      "precision": 20
+     },
+     "raw_tax_total": {
+      "value": "9",
+      "precision": 20
+     },
+     "raw_original_tax_total": {
+      "value": "9",
+      "precision": 20
+     }
+    }
+   ],
+   "credit_lines": [],
+   "shipping_address": {
+    "id": "ordaddr_01M7D63B40TKZTDKVAYHWTH8DD",
+    "customer_id": null,
+    "company": null,
+    "first_name": "Asha",
+    "last_name": "Rao",
+    "address_1": "12 MG Road",
+    "address_2": null,
+    "city": "Bengaluru",
+    "country_code": "in",
+    "province": "KA",
+    "postal_code": "560001",
+    "phone": "+911234567890",
+    "metadata": null,
+    "created_at": "2026-11-14T14:06:36.625Z",
+    "updated_at": "2026-11-14T14:06:36.625Z",
+    "deleted_at": null
+   },
+   "payment_collections": [
+    {
+     "id": "pay_col_01M7D63B1CYBQ0095ERXDZACPZ",
+     "currency_code": "inr",
+     "completed_at": "2026-11-14T14:06:36.609Z",
+     "status": "completed",
+     "metadata": null,
+     "raw_amount": {
+      "value": "766.41",
+      "precision": 20
+     },
+     "raw_authorized_amount": {
+      "value": "766.41",
+      "precision": 20
+     },
+     "raw_captured_amount": {
+      "value": "766.41",
+      "precision": 20
+     },
+     "raw_refunded_amount": null,
+     "created_at": "2026-11-14T14:06:36.551Z",
+     "updated_at": "2026-11-14T14:06:36.609Z",
+     "deleted_at": null,
+     "payments": [
+      {
+       "id": "pay_01M7D63B250S5JD6AVY1A9AKA0",
+       "currency_code": "inr",
+       "provider_id": "pp_razorpay_razorpay",
+       "data": {
+        "payment_ref": "pay_RH1",
+        "provider_ref": "order_RH1"
+       },
+       "metadata": null,
+       "captured_at": "2026-11-14T14:06:36.609Z",
+       "canceled_at": null,
+       "payment_collection_id": "pay_col_01M7D63B1CYBQ0095ERXDZACPZ",
+       "payment_session": {
+        "id": "payses_01M7D63B1GXBZQG1DF7SCCXJTN"
+       },
+       "raw_amount": {
+        "value": "766.41",
+        "precision": 20
+       },
+       "created_at": "2026-11-14T14:06:36.609Z",
+       "updated_at": "2026-11-14T14:06:36.609Z",
+       "deleted_at": null,
+       "payment_session_id": "payses_01M7D63B1GXBZQG1DF7SCCXJTN",
+       "refunds": [],
+       "captures": [
+        {
+         "id": "capt_01M7D63B29KNB63D6M9D1H8AHJ",
+         "payment_id": "pay_01M7D63B250S5JD6AVY1A9AKA0",
+         "metadata": null,
+         "created_by": "payment_confirm",
+         "raw_amount": {
+          "value": "766.41",
+          "precision": 20
+         },
+         "created_at": "2026-11-14T14:06:36.609Z",
+         "updated_at": "2026-11-14T14:06:36.609Z",
+         "deleted_at": null,
+         "amount": 766.41
+        }
+       ],
+       "amount": 766.41
+      }
+     ],
+     "amount": 766.41,
+     "authorized_amount": 766.41,
+     "captured_amount": 766.41,
+     "refunded_amount": null
+    }
+   ],
+   "fulfillments": [
+    {
+     "id": "ful_01M7D63BHEJZ61NNTTR5EC02CW",
+     "location_id": "sloc_01M7D63A6HK9BCFX8XWNFATFPA",
+     "packed_at": null,
+     "shipped_at": "2026-11-14T14:06:37.124Z",
+     "marked_shipped_by": "00000000-0000-4000-8000-0000000a0001",
+     "created_by": "00000000-0000-4000-8000-0000000a0001",
+     "delivered_at": "2026-11-14T14:06:37.135Z",
+     "canceled_at": null,
+     "data": {
+      "carrier": "Test Carrier",
+      "consumed": {
+       "stock": [],
+       "reservations": []
+      },
+      "provider": "manual"
+     },
+     "requires_shipping": true,
+     "provider": {
+      "id": "manual_manual"
+     },
+     "shipping_option_id": "so_01M7D63AQDC9MV7SDTRHG6B6Z7",
+     "shipping_option": {
+      "id": "so_01M7D63AQDC9MV7SDTRHG6B6Z7"
+     },
+     "delivery_address": {
+      "id": "fuladdr_01M7D63BHJ1FES2ND3WE05XQXS"
+     },
+     "metadata": null,
+     "created_at": "2026-11-14T14:06:37.101Z",
+     "updated_at": "2026-11-14T14:06:37.135Z",
+     "deleted_at": null,
+     "provider_id": "manual_manual",
+     "delivery_address_id": "fuladdr_01M7D63BHJ1FES2ND3WE05XQXS"
+    }
+   ],
+   "payment_status": "captured",
+   "fulfillment_status": "partially_delivered"
+  },
+  {
+   "id": "order_01M7D63BEHJ25ZR9YKGFB71VPP",
+   "display_id": 2,
+   "custom_display_id": null,
+   "status": "pending",
+   "version": 2,
+   "summary": {
+    "paid_total": 747.71,
+    "raw_paid_total": {
+     "value": "747.71",
+     "precision": 20
+    },
+    "refunded_total": 0,
+    "accounting_total": 747.71,
+    "credit_line_total": 0,
+    "transaction_total": 747.71,
+    "pending_difference": -371.703,
+    "raw_refunded_total": {
+     "value": "0",
+     "precision": 20
+    },
+    "current_order_total": 747.71,
+    "original_order_total": 747.71,
+    "raw_accounting_total": {
+     "value": "747.71",
+     "precision": 20
+    },
+    "raw_credit_line_total": {
+     "value": "0",
+     "precision": 20
+    },
+    "raw_transaction_total": {
+     "value": "747.71",
+     "precision": 20
+    },
+    "raw_pending_difference": {
+     "value": "-371.703",
+     "precision": 20
+    },
+    "raw_current_order_total": {
+     "value": "747.71",
+     "precision": 20
+    },
+    "raw_original_order_total": {
+     "value": "747.71",
+     "precision": 20
+    }
+   },
+   "total": 747.707,
+   "metadata": null,
+   "locale": null,
+   "created_at": "2026-11-14T14:06:36.976Z",
+   "updated_at": "2026-11-14T14:06:37.174Z",
+   "region_id": "reg_01M7D63A69JTVTDG3K1CD7Y7DB",
+   "subtotal": 698.5,
+   "tax_total": 114.057,
+   "discount_total": 76.523,
+   "discount_tax_total": 11.673,
+   "original_total": 824.23,
+   "original_subtotal": 698.5,
+   "original_tax_total": 125.73,
+   "item_total": 688.707,
+   "item_subtotal": 648.5,
+   "item_tax_total": 105.057,
+   "original_item_total": 765.23,
+   "original_item_subtotal": 648.5,
+   "original_item_tax_total": 116.73,
+   "shipping_total": 59,
+   "shipping_subtotal": 50,
+   "shipping_tax_total": 9,
+   "original_shipping_tax_total": 9,
+   "original_shipping_subtotal": 50,
+   "original_shipping_total": 59,
+   "credit_line_total": 0,
+   "credit_line_subtotal": 0,
+   "credit_line_tax_total": 0,
+   "discount_subtotal": 64.85,
+   "currency_code": "inr",
+   "email": "asha@example.invalid",
+   "items": [
+    {
+     "id": "ordli_01M7D63BEJFSBD9CVRFY1NKJ66",
+     "title": "A4",
+     "subtitle": null,
+     "thumbnail": null,
+     "variant_id": "variant_01M7D63AFRY8JB8FC8GAPPT82D",
+     "product_id": "prod_01M7D63AB6NGK4QNQD6N5H2WTX",
+     "product_title": "Rehearsal Notebook",
+     "product_description": "A5 ruled",
+     "product_subtitle": null,
+     "product_type": "Goods",
+     "product_type_id": "ptyp_01M7D63AARZ0XHNW04ZTXRZQ5W",
+     "product_collection": "Everyday",
+     "product_handle": "rehearsal-notebook",
+     "variant_sku": "RH-NB-A4",
+     "variant_barcode": null,
+     "variant_title": "A4",
+     "variant_option_values": {
+      "Size": "A4"
+     },
+     "requires_shipping": true,
+     "is_giftcard": false,
+     "is_discountable": true,
+     "is_tax_inclusive": false,
+     "is_custom_price": false,
+     "metadata": null,
+     "raw_compare_at_unit_price": {
+      "value": "400",
+      "precision": 20
+     },
+     "raw_unit_price": {
+      "value": "350",
+      "precision": 20
+     },
+     "created_at": "2026-11-14T14:06:36.976Z",
+     "updated_at": "2026-11-14T14:06:36.976Z",
+     "deleted_at": null,
+     "tax_lines": [
+      {
+       "id": "ordlitxl_01M7D63BEPSEAH9MBM6M9H3X99",
+       "description": "GST 18%",
+       "tax_rate_id": "txr_rehearsal1",
+       "code": "gst",
+       "provider_id": "system",
+       "metadata": null,
+       "data": null,
+       "item_id": "ordli_01M7D63BEJFSBD9CVRFY1NKJ66",
+       "raw_rate": {
+        "value": "18",
+        "precision": 20
+       },
+       "created_at": "2026-11-14T14:06:36.976Z",
+       "updated_at": "2026-11-14T14:06:36.976Z",
+       "deleted_at": null,
+       "rate": 18,
+       "total": 56.7,
+       "subtotal": 63,
+       "raw_total": {
+        "value": "56.7",
+        "precision": 20
+       },
+       "raw_subtotal": {
+        "value": "63",
+        "precision": 20
+       }
+      }
+     ],
+     "adjustments": [
+      {
+       "id": "ordliadj_01M7D63BMX15QFF154YT56FQGA",
+       "version": 2,
+       "description": null,
+       "promotion_id": "promo_01M7D63AMDFZG7WYS5EBTN0N3W",
+       "code": "WELCOME10",
+       "provider_id": null,
+       "is_tax_inclusive": false,
+       "item_id": "ordli_01M7D63BEJFSBD9CVRFY1NKJ66",
+       "raw_amount": {
+        "value": "35",
+        "precision": 20
+       },
+       "created_at": "2026-11-14T14:06:37.174Z",
+       "updated_at": "2026-11-14T14:06:37.174Z",
+       "deleted_at": null,
+       "amount": 35,
+       "subtotal": 35,
+       "total": 41.3,
+       "raw_subtotal": {
+        "value": "35",
+        "precision": 20
+       },
+       "raw_total": {
+        "value": "41.3",
+        "precision": 20
+       }
+      }
+     ],
+     "compare_at_unit_price": 400,
+     "unit_price": 350,
+     "quantity": 1,
+     "raw_quantity": {
+      "value": "1",
+      "precision": 20
+     },
+     "line_item_metadata": null,
+     "detail": {
+      "id": "orditem_01M7D63BMQE4YZXSBM2K0JXJFN",
+      "version": 2,
+      "metadata": null,
+      "order_id": "order_01M7D63BEHJ25ZR9YKGFB71VPP",
+      "raw_unit_price": {
+       "value": "350",
+       "precision": 20
+      },
+      "raw_compare_at_unit_price": {
+       "value": "400",
+       "precision": 20
+      },
+      "raw_quantity": {
+       "value": "1",
+       "precision": 20
+      },
+      "raw_fulfilled_quantity": {
+       "value": "1",
+       "precision": 20
+      },
+      "raw_delivered_quantity": {
+       "value": "1",
+       "precision": 20
+      },
+      "raw_shipped_quantity": {
+       "value": "1",
+       "precision": 20
+      },
+      "raw_return_requested_quantity": {
+       "value": "1",
+       "precision": 20
+      },
+      "raw_return_received_quantity": {
+       "value": "0",
+       "precision": 20
+      },
+      "raw_return_dismissed_quantity": {
+       "value": "0",
+       "precision": 20
+      },
+      "raw_written_off_quantity": {
+       "value": "0",
+       "precision": 20
+      },
+      "created_at": "2026-11-14T14:06:37.174Z",
+      "updated_at": "2026-11-14T14:06:37.174Z",
+      "deleted_at": null,
+      "item_id": "ordli_01M7D63BEJFSBD9CVRFY1NKJ66",
+      "unit_price": 350,
+      "compare_at_unit_price": 400,
+      "quantity": 1,
+      "fulfilled_quantity": 1,
+      "delivered_quantity": 1,
+      "shipped_quantity": 1,
+      "return_requested_quantity": 1,
+      "return_received_quantity": 0,
+      "return_dismissed_quantity": 0,
+      "written_off_quantity": 0
+     },
+     "subtotal": 350,
+     "total": 371.7,
+     "original_subtotal": 350,
+     "original_total": 413,
+     "discount_subtotal": 35,
+     "discount_tax_total": 6.3,
+     "discount_total": 41.3,
+     "tax_total": 56.7,
+     "original_tax_total": 63,
+     "refundable_total_per_unit": 0,
+     "refundable_total": 0,
+     "fulfilled_total": 371.7,
+     "shipped_total": 371.7,
+     "return_requested_total": 371.7,
+     "return_received_total": 0,
+     "return_dismissed_total": 0,
+     "write_off_total": 0,
+     "raw_subtotal": {
+      "value": "350",
+      "precision": 20
+     },
+     "raw_total": {
+      "value": "371.7",
+      "precision": 20
+     },
+     "raw_original_subtotal": {
+      "value": "350",
+      "precision": 20
+     },
+     "raw_original_total": {
+      "value": "413",
+      "precision": 20
+     },
+     "raw_discount_subtotal": {
+      "value": "35",
+      "precision": 20
+     },
+     "raw_discount_tax_total": {
+      "value": "6.3",
+      "precision": 20
+     },
+     "raw_discount_total": {
+      "value": "41.3",
+      "precision": 20
+     },
+     "raw_tax_total": {
+      "value": "56.7",
+      "precision": 20
+     },
+     "raw_original_tax_total": {
+      "value": "63",
+      "precision": 20
+     },
+     "raw_refundable_total_per_unit": {
+      "value": "0",
+      "precision": 20
+     },
+     "raw_refundable_total": {
+      "value": "0",
+      "precision": 20
+     },
+     "raw_fulfilled_total": {
+      "value": "371.7",
+      "precision": 20
+     },
+     "raw_shipped_total": {
+      "value": "371.7",
+      "precision": 20
+     },
+     "raw_return_requested_total": {
+      "value": "371.7",
+      "precision": 20
+     },
+     "raw_return_received_total": {
+      "value": "0",
+      "precision": 20
+     },
+     "raw_return_dismissed_total": {
+      "value": "0",
+      "precision": 20
+     },
+     "raw_write_off_total": {
+      "value": "0",
+      "precision": 20
+     },
+     "variant": {
+      "id": "variant_01M7D63AFRY8JB8FC8GAPPT82D",
+      "title": "A4",
+      "sku": "RH-NB-A4",
+      "barcode": null,
+      "ean": null,
+      "upc": null,
+      "allow_backorder": false,
+      "manage_inventory": false,
+      "hs_code": null,
+      "origin_country": null,
+      "mid_code": null,
+      "material": null,
+      "weight": null,
+      "length": null,
+      "height": null,
+      "width": null,
+      "metadata": null,
+      "variant_rank": 0,
+      "thumbnail": null,
+      "product_id": "prod_01M7D63AB6NGK4QNQD6N5H2WTX",
+      "product": {
+       "id": "prod_01M7D63AB6NGK4QNQD6N5H2WTX",
+       "title": "Rehearsal Notebook",
+       "handle": "rehearsal-notebook",
+       "subtitle": null,
+       "description": "A5 ruled",
+       "is_giftcard": false,
+       "status": "published",
+       "thumbnail": null,
+       "weight": null,
+       "length": null,
+       "height": null,
+       "width": null,
+       "origin_country": null,
+       "hs_code": null,
+       "mid_code": null,
+       "material": null,
+       "discountable": true,
+       "external_id": null,
+       "metadata": null,
+       "type_id": "ptyp_01M7D63AARZ0XHNW04ZTXRZQ5W",
+       "type": {
+        "id": "ptyp_01M7D63AARZ0XHNW04ZTXRZQ5W"
+       },
+       "collection_id": "pcol_01M7D63A9QQHDGY8ZAKT9Y1WXM",
+       "collection": {
+        "id": "pcol_01M7D63A9QQHDGY8ZAKT9Y1WXM"
+       },
+       "created_at": "2026-11-14T14:06:35.874Z",
+       "updated_at": "2026-11-14T14:06:36.136Z",
+       "deleted_at": null
+      },
+      "created_at": "2026-11-14T14:06:36.021Z",
+      "updated_at": "2026-11-14T14:06:36.021Z",
+      "deleted_at": null
+     }
+    },
+    {
+     "id": "ordli_01M7D63BERFAG5FWW8E6DZY2AB",
+     "title": "Blue",
+     "subtitle": null,
+     "thumbnail": null,
+     "variant_id": "variant_01M7D63AG6FEG5CCEKBT1WM43C",
+     "product_id": "prod_01M7D63AE4ZRZWYJBVWRTG53KT",
+     "product_title": "Rehearsal Pen",
+     "product_description": null,
+     "product_subtitle": null,
+     "product_type": null,
+     "product_type_id": null,
+     "product_collection": null,
+     "product_handle": "rehearsal-pen",
+     "variant_sku": "RH-PEN-BL",
+     "variant_barcode": null,
+     "variant_title": "Blue",
+     "variant_option_values": {
+      "Colour": "Blue"
+     },
+     "requires_shipping": true,
+     "is_giftcard": false,
+     "is_discountable": true,
+     "is_tax_inclusive": false,
+     "is_custom_price": false,
+     "metadata": null,
+     "raw_compare_at_unit_price": null,
+     "raw_unit_price": {
+      "value": "99.5",
+      "precision": 20
+     },
+     "created_at": "2026-11-14T14:06:36.976Z",
+     "updated_at": "2026-11-14T14:06:36.976Z",
+     "deleted_at": null,
+     "tax_lines": [
+      {
+       "id": "ordlitxl_01M7D63BEVJK6BQ1F8MRJ5VP5T",
+       "description": "GST 18%",
+       "tax_rate_id": "txr_rehearsal1",
+       "code": "gst",
+       "provider_id": "system",
+       "metadata": null,
+       "data": null,
+       "item_id": "ordli_01M7D63BERFAG5FWW8E6DZY2AB",
+       "raw_rate": {
+        "value": "18",
+        "precision": 20
+       },
+       "created_at": "2026-11-14T14:06:36.976Z",
+       "updated_at": "2026-11-14T14:06:36.976Z",
+       "deleted_at": null,
+       "rate": 18,
+       "total": 48.357,
+       "subtotal": 53.73,
+       "raw_total": {
+        "value": "48.357",
+        "precision": 20
+       },
+       "raw_subtotal": {
+        "value": "53.73",
+        "precision": 20
+       }
+      }
+     ],
+     "adjustments": [
+      {
+       "id": "ordliadj_01M7D63BMYZV7WZT1NMPPYVAWX",
+       "version": 2,
+       "description": null,
+       "promotion_id": "promo_01M7D63AMDFZG7WYS5EBTN0N3W",
+       "code": "WELCOME10",
+       "provider_id": null,
+       "is_tax_inclusive": false,
+       "item_id": "ordli_01M7D63BERFAG5FWW8E6DZY2AB",
+       "raw_amount": {
+        "value": "29.85",
+        "precision": 20
+       },
+       "created_at": "2026-11-14T14:06:37.174Z",
+       "updated_at": "2026-11-14T14:06:37.174Z",
+       "deleted_at": null,
+       "amount": 29.85,
+       "subtotal": 29.85,
+       "total": 35.223,
+       "raw_subtotal": {
+        "value": "29.85",
+        "precision": 20
+       },
+       "raw_total": {
+        "value": "35.223",
+        "precision": 20
+       }
+      }
+     ],
+     "compare_at_unit_price": null,
+     "unit_price": 99.5,
+     "quantity": 3,
+     "raw_quantity": {
+      "value": "3",
+      "precision": 20
+     },
+     "line_item_metadata": null,
+     "detail": {
+      "id": "orditem_01M7D63BMS1CY8ZD4NB0QYCZYE",
+      "version": 2,
+      "metadata": null,
+      "order_id": "order_01M7D63BEHJ25ZR9YKGFB71VPP",
+      "raw_unit_price": {
+       "value": "99.5",
+       "precision": 20
+      },
+      "raw_compare_at_unit_price": null,
+      "raw_quantity": {
+       "value": "3",
+       "precision": 20
+      },
+      "raw_fulfilled_quantity": {
+       "value": "0",
+       "precision": 20
+      },
+      "raw_delivered_quantity": {
+       "value": "0",
+       "precision": 20
+      },
+      "raw_shipped_quantity": {
+       "value": "0",
+       "precision": 20
+      },
+      "raw_return_requested_quantity": {
+       "value": "0",
+       "precision": 20
+      },
+      "raw_return_received_quantity": {
+       "value": "0",
+       "precision": 20
+      },
+      "raw_return_dismissed_quantity": {
+       "value": "0",
+       "precision": 20
+      },
+      "raw_written_off_quantity": {
+       "value": "0",
+       "precision": 20
+      },
+      "created_at": "2026-11-14T14:06:37.174Z",
+      "updated_at": "2026-11-14T14:06:37.174Z",
+      "deleted_at": null,
+      "item_id": "ordli_01M7D63BERFAG5FWW8E6DZY2AB",
+      "unit_price": 99.5,
+      "compare_at_unit_price": null,
+      "quantity": 3,
+      "fulfilled_quantity": 0,
+      "delivered_quantity": 0,
+      "shipped_quantity": 0,
+      "return_requested_quantity": 0,
+      "return_received_quantity": 0,
+      "return_dismissed_quantity": 0,
+      "written_off_quantity": 0
+     },
+     "subtotal": 298.5,
+     "total": 317.007,
+     "original_subtotal": 298.5,
+     "original_total": 352.23,
+     "discount_subtotal": 29.85,
+     "discount_tax_total": 5.373,
+     "discount_total": 35.223,
+     "tax_total": 48.357,
+     "original_tax_total": 53.73,
+     "refundable_total_per_unit": 105.669,
+     "refundable_total": 317.007,
+     "fulfilled_total": 0,
+     "shipped_total": 0,
+     "return_requested_total": 0,
+     "return_received_total": 0,
+     "return_dismissed_total": 0,
+     "write_off_total": 0,
+     "raw_subtotal": {
+      "value": "298.5",
+      "precision": 20
+     },
+     "raw_total": {
+      "value": "317.007",
+      "precision": 20
+     },
+     "raw_original_subtotal": {
+      "value": "298.5",
+      "precision": 20
+     },
+     "raw_original_total": {
+      "value": "352.23",
+      "precision": 20
+     },
+     "raw_discount_subtotal": {
+      "value": "29.85",
+      "precision": 20
+     },
+     "raw_discount_tax_total": {
+      "value": "5.373",
+      "precision": 20
+     },
+     "raw_discount_total": {
+      "value": "35.223",
+      "precision": 20
+     },
+     "raw_tax_total": {
+      "value": "48.357",
+      "precision": 20
+     },
+     "raw_original_tax_total": {
+      "value": "53.73",
+      "precision": 20
+     },
+     "raw_refundable_total_per_unit": {
+      "value": "105.669",
+      "precision": 20
+     },
+     "raw_refundable_total": {
+      "value": "317.007",
+      "precision": 20
+     },
+     "raw_fulfilled_total": {
+      "value": "0",
+      "precision": 20
+     },
+     "raw_shipped_total": {
+      "value": "0",
+      "precision": 20
+     },
+     "raw_return_requested_total": {
+      "value": "0",
+      "precision": 20
+     },
+     "raw_return_received_total": {
+      "value": "0",
+      "precision": 20
+     },
+     "raw_return_dismissed_total": {
+      "value": "0",
+      "precision": 20
+     },
+     "raw_write_off_total": {
+      "value": "0",
+      "precision": 20
+     },
+     "variant": {
+      "id": "variant_01M7D63AG6FEG5CCEKBT1WM43C",
+      "title": "Blue",
+      "sku": "RH-PEN-BL",
+      "barcode": null,
+      "ean": null,
+      "upc": null,
+      "allow_backorder": false,
+      "manage_inventory": false,
+      "hs_code": null,
+      "origin_country": null,
+      "mid_code": null,
+      "material": null,
+      "weight": null,
+      "length": null,
+      "height": null,
+      "width": null,
+      "metadata": null,
+      "variant_rank": 0,
+      "thumbnail": null,
+      "product_id": "prod_01M7D63AE4ZRZWYJBVWRTG53KT",
+      "product": {
+       "id": "prod_01M7D63AE4ZRZWYJBVWRTG53KT",
+       "title": "Rehearsal Pen",
+       "handle": "rehearsal-pen",
+       "subtitle": null,
+       "description": null,
+       "is_giftcard": false,
+       "status": "published",
+       "thumbnail": null,
+       "weight": null,
+       "length": null,
+       "height": null,
+       "width": null,
+       "origin_country": null,
+       "hs_code": null,
+       "mid_code": null,
+       "material": null,
+       "discountable": true,
+       "external_id": null,
+       "metadata": null,
+       "type_id": null,
+       "type": null,
+       "collection_id": null,
+       "collection": null,
+       "created_at": "2026-11-14T14:06:35.970Z",
+       "updated_at": "2026-11-14T14:06:36.145Z",
+       "deleted_at": null
+      },
+      "created_at": "2026-11-14T14:06:36.035Z",
+      "updated_at": "2026-11-14T14:06:36.035Z",
+      "deleted_at": null
+     }
+    }
+   ],
+   "shipping_methods": [
+    {
+     "id": "ordsm_01M7D63BEW0TC04QVQ4M3DEHGP",
+     "name": "Standard delivery",
+     "description": null,
+     "is_tax_inclusive": false,
+     "is_custom_amount": false,
+     "shipping_option_id": "so_01M7D63AQDC9MV7SDTRHG6B6Z7",
+     "data": null,
+     "metadata": null,
+     "raw_amount": {
+      "value": "50",
+      "precision": 20
+     },
+     "created_at": "2026-11-14T14:06:36.976Z",
+     "updated_at": "2026-11-14T14:06:36.976Z",
+     "deleted_at": null,
+     "tax_lines": [
+      {
+       "id": "ordsmtxl_01M7D63BEX0RCHF73GW82VNJKK",
+       "description": "GST 18%",
+       "tax_rate_id": "txr_rehearsal1",
+       "code": "gst",
+       "provider_id": "system",
+       "metadata": null,
+       "data": null,
+       "shipping_method_id": "ordsm_01M7D63BEW0TC04QVQ4M3DEHGP",
+       "raw_rate": {
+        "value": "18",
+        "precision": 20
+       },
+       "created_at": "2026-11-14T14:06:36.976Z",
+       "updated_at": "2026-11-14T14:06:36.976Z",
+       "deleted_at": null,
+       "rate": 18,
+       "total": 9,
+       "subtotal": 9,
+       "raw_total": {
+        "value": "9",
+        "precision": 20
+       },
+       "raw_subtotal": {
+        "value": "9",
+        "precision": 20
+       }
+      }
+     ],
+     "adjustments": [],
+     "amount": 50,
+     "order_id": "order_01M7D63BEHJ25ZR9YKGFB71VPP",
+     "detail": {
+      "id": "ordspmv_01M7D63BMV27H8F4WW9V5R302T",
+      "version": 2,
+      "order_id": "order_01M7D63BEHJ25ZR9YKGFB71VPP",
+      "return_id": null,
+      "exchange_id": null,
+      "claim_id": null,
+      "created_at": "2026-11-14T14:06:37.174Z",
+      "updated_at": "2026-11-14T14:06:37.174Z",
+      "deleted_at": null,
+      "shipping_method_id": "ordsm_01M7D63BEW0TC04QVQ4M3DEHGP"
+     },
+     "subtotal": 50,
+     "total": 59,
+     "original_subtotal": 50,
+     "original_total": 59,
+     "discount_total": 0,
+     "discount_subtotal": 0,
+     "discount_tax_total": 0,
+     "tax_total": 9,
+     "original_tax_total": 9,
+     "raw_subtotal": {
+      "value": "50",
+      "precision": 20
+     },
+     "raw_total": {
+      "value": "59",
+      "precision": 20
+     },
+     "raw_original_subtotal": {
+      "value": "50",
+      "precision": 20
+     },
+     "raw_original_total": {
+      "value": "59",
+      "precision": 20
+     },
+     "raw_discount_total": {
+      "value": "0",
+      "precision": 20
+     },
+     "raw_discount_subtotal": {
+      "value": "0",
+      "precision": 20
+     },
+     "raw_discount_tax_total": {
+      "value": "0",
+      "precision": 20
+     },
+     "raw_tax_total": {
+      "value": "9",
+      "precision": 20
+     },
+     "raw_original_tax_total": {
+      "value": "9",
+      "precision": 20
+     }
+    }
+   ],
+   "credit_lines": [],
+   "shipping_address": {
+    "id": "ordaddr_01M7D63BEHZ8A4WMA9KTBKAH2D",
+    "customer_id": null,
+    "company": null,
+    "first_name": "Asha",
+    "last_name": "Rao",
+    "address_1": "12 MG Road",
+    "address_2": null,
+    "city": "Bengaluru",
+    "country_code": "in",
+    "province": "KA",
+    "postal_code": "560001",
+    "phone": "+911234567890",
+    "metadata": null,
+    "created_at": "2026-11-14T14:06:36.976Z",
+    "updated_at": "2026-11-14T14:06:36.976Z",
+    "deleted_at": null
+   },
+   "payment_collections": [
+    {
+     "id": "pay_col_01M7D63BCWBFJDPCEQHH5GR1RZ",
+     "currency_code": "inr",
+     "completed_at": "2026-11-14T14:06:36.968Z",
+     "status": "completed",
+     "metadata": null,
+     "raw_amount": {
+      "value": "747.71",
+      "precision": 20
+     },
+     "raw_authorized_amount": {
+      "value": "747.71",
+      "precision": 20
+     },
+     "raw_captured_amount": {
+      "value": "747.71",
+      "precision": 20
+     },
+     "raw_refunded_amount": null,
+     "created_at": "2026-11-14T14:06:36.927Z",
+     "updated_at": "2026-11-14T14:06:36.968Z",
+     "deleted_at": null,
+     "payments": [
+      {
+       "id": "pay_01M7D63BDA9VSJR0YA6PRRGJFP",
+       "currency_code": "inr",
+       "provider_id": "pp_razorpay_razorpay",
+       "data": {
+        "payment_ref": "pay_RH2",
+        "provider_ref": "order_RH2"
+       },
+       "metadata": null,
+       "captured_at": "2026-11-14T14:06:36.968Z",
+       "canceled_at": null,
+       "payment_collection_id": "pay_col_01M7D63BCWBFJDPCEQHH5GR1RZ",
+       "payment_session": {
+        "id": "payses_01M7D63BCY5MS9GNBSTA9NKP08"
+       },
+       "raw_amount": {
+        "value": "747.71",
+        "precision": 20
+       },
+       "created_at": "2026-11-14T14:06:36.968Z",
+       "updated_at": "2026-11-14T14:06:36.968Z",
+       "deleted_at": null,
+       "payment_session_id": "payses_01M7D63BCY5MS9GNBSTA9NKP08",
+       "refunds": [],
+       "captures": [
+        {
+         "id": "capt_01M7D63BDBGXMN3SN7RC75NS6P",
+         "payment_id": "pay_01M7D63BDA9VSJR0YA6PRRGJFP",
+         "metadata": null,
+         "created_by": "payment_confirm",
+         "raw_amount": {
+          "value": "747.71",
+          "precision": 20
+         },
+         "created_at": "2026-11-14T14:06:36.968Z",
+         "updated_at": "2026-11-14T14:06:36.968Z",
+         "deleted_at": null,
+         "amount": 747.71
+        }
+       ],
+       "amount": 747.71
+      }
+     ],
+     "amount": 747.71,
+     "authorized_amount": 747.71,
+     "captured_amount": 747.71,
+     "refunded_amount": null
+    }
+   ],
+   "fulfillments": [
+    {
+     "id": "ful_01M7D63BJT7VMJK39JB1J0VEWG",
+     "location_id": "sloc_01M7D63A6HK9BCFX8XWNFATFPA",
+     "packed_at": null,
+     "shipped_at": "2026-11-14T14:06:37.158Z",
+     "marked_shipped_by": "00000000-0000-4000-8000-0000000a0001",
+     "created_by": "00000000-0000-4000-8000-0000000a0001",
+     "delivered_at": "2026-11-14T14:06:37.166Z",
+     "canceled_at": null,
+     "data": {
+      "consumed": {
+       "stock": [],
+       "reservations": []
+      },
+      "provider": "manual"
+     },
+     "requires_shipping": true,
+     "provider": {
+      "id": "manual_manual"
+     },
+     "shipping_option_id": "so_01M7D63AQDC9MV7SDTRHG6B6Z7",
+     "shipping_option": {
+      "id": "so_01M7D63AQDC9MV7SDTRHG6B6Z7"
+     },
+     "delivery_address": {
+      "id": "fuladdr_01M7D63BJW8TP4DFDR4QE0HR97"
+     },
+     "metadata": null,
+     "created_at": "2026-11-14T14:06:37.145Z",
+     "updated_at": "2026-11-14T14:06:37.166Z",
+     "deleted_at": null,
+     "provider_id": "manual_manual",
+     "delivery_address_id": "fuladdr_01M7D63BJW8TP4DFDR4QE0HR97"
+    }
+   ],
+   "payment_status": "captured",
+   "fulfillment_status": "partially_delivered"
+  }
+ ],
+ "carts": [
+  {
+   "id": "cart_01M7D63AT5XH97K3PF1NZQXMRD",
+   "currency_code": "inr",
+   "email": "guest@example.invalid",
+   "locale": null,
+   "region_id": "reg_01M7D63A69JTVTDG3K1CD7Y7DB",
+   "created_at": "2026-11-14T14:06:36.353Z",
+   "updated_at": "2026-11-14T14:06:36.625Z",
+   "completed_at": "2026-11-14T14:06:36.625Z",
+   "total": 766.41,
+   "subtotal": 649.5,
+   "tax_total": 116.91,
+   "discount_total": 0,
+   "discount_subtotal": 0,
+   "discount_tax_total": 0,
+   "original_total": 766.41,
+   "original_tax_total": 116.91,
+   "item_total": 707.41,
+   "item_subtotal": 599.5,
+   "item_tax_total": 107.91,
+   "item_discount_total": 0,
+   "original_item_total": 707.41,
+   "original_item_subtotal": 599.5,
+   "original_item_tax_total": 107.91,
+   "shipping_total": 59,
+   "shipping_subtotal": 50,
+   "shipping_tax_total": 9,
+   "shipping_discount_total": 0,
+   "original_shipping_tax_total": 9,
+   "original_shipping_subtotal": 50,
+   "original_shipping_total": 59,
+   "credit_line_subtotal": 0,
+   "credit_line_tax_total": 0,
+   "credit_line_total": 0,
+   "metadata": null,
+   "sales_channel_id": "sc_01M7D63A6VW1XC6FTW8EXEPMK8",
+   "shipping_address_id": "caddr_01M7D63AXKZV4ZZV8F3SKDFA1C",
+   "original_subtotal": 649.5,
+   "customer_id": null,
+   "items": [
+    {
+     "id": "cali_01M7D63AV3VSK82M62JQWE9N7C",
+     "title": "A5",
+     "subtitle": null,
+     "thumbnail": null,
+     "quantity": 2,
+     "variant_id": "variant_01M7D63AF4N2933KBFTCTMAK7J",
+     "product_id": "prod_01M7D63AB6NGK4QNQD6N5H2WTX",
+     "product_title": "Rehearsal Notebook",
+     "product_description": "A5 ruled",
+     "product_subtitle": null,
+     "product_type": "Goods",
+     "product_type_id": "ptyp_01M7D63AARZ0XHNW04ZTXRZQ5W",
+     "product_collection": "Everyday",
+     "product_handle": "rehearsal-notebook",
+     "variant_sku": "RH-NB-A5",
+     "variant_barcode": null,
+     "variant_title": "A5",
+     "variant_option_values": {
+      "Size": "A5"
+     },
+     "requires_shipping": true,
+     "is_discountable": true,
+     "is_giftcard": false,
+     "is_tax_inclusive": false,
+     "is_custom_price": false,
+     "metadata": null,
+     "cart_id": "cart_01M7D63AT5XH97K3PF1NZQXMRD",
+     "raw_compare_at_unit_price": null,
+     "raw_unit_price": {
+      "value": "250",
+      "precision": 20
+     },
+     "created_at": "2026-11-14T14:06:36.374Z",
+     "updated_at": "2026-11-14T14:06:36.374Z",
+     "deleted_at": null,
+     "adjustments": [],
+     "tax_lines": [
+      {
+       "id": "calitxl_01M7D63B37Y2Y4KEF39KAGR4A4",
+       "description": "GST 18%",
+       "code": "gst",
+       "rate": 18,
+       "provider_id": "system",
+       "metadata": null,
+       "data": null,
+       "tax_rate_id": "txr_rehearsal1",
+       "item_id": "cali_01M7D63AV3VSK82M62JQWE9N7C",
+       "created_at": "2026-11-14T14:06:36.625Z",
+       "updated_at": "2026-11-14T14:06:36.625Z",
+       "deleted_at": null,
+       "total": 90,
+       "subtotal": 90,
+       "raw_total": {
+        "value": "90",
+        "precision": 20
+       },
+       "raw_subtotal": {
+        "value": "90",
+        "precision": 20
+       }
+      }
+     ],
+     "compare_at_unit_price": null,
+     "unit_price": 250,
+     "subtotal": 500,
+     "total": 590,
+     "original_subtotal": 500,
+     "original_total": 590,
+     "discount_subtotal": 0,
+     "discount_tax_total": 0,
+     "discount_total": 0,
+     "tax_total": 90,
+     "original_tax_total": 90,
+     "raw_subtotal": {
+      "value": "500",
+      "precision": 20
+     },
+     "raw_total": {
+      "value": "590",
+      "precision": 20
+     },
+     "raw_original_subtotal": {
+      "value": "500",
+      "precision": 20
+     },
+     "raw_original_total": {
+      "value": "590",
+      "precision": 20
+     },
+     "raw_discount_subtotal": {
+      "value": "0",
+      "precision": 20
+     },
+     "raw_discount_tax_total": {
+      "value": "0",
+      "precision": 20
+     },
+     "raw_discount_total": {
+      "value": "0",
+      "precision": 20
+     },
+     "raw_tax_total": {
+      "value": "90",
+      "precision": 20
+     },
+     "raw_original_tax_total": {
+      "value": "90",
+      "precision": 20
+     },
+     "product": {
+      "id": "prod_01M7D63AB6NGK4QNQD6N5H2WTX",
+      "collection_id": "pcol_01M7D63A9QQHDGY8ZAKT9Y1WXM",
+      "type_id": "ptyp_01M7D63AARZ0XHNW04ZTXRZQ5W",
+      "categories": [
+       {
+        "id": "pcat_01M7D63AA7VKEVX8WDGT0ZJDJJ"
+       }
+      ],
+      "tags": [
+       {
+        "id": "ptag_01M7D63ACHH9AXBD6Y5KRDYMMZ"
+       },
+       {
+        "id": "ptag_01M7D63ACSM5N2HDB81YJ6K0VY"
+       }
+      ]
+     }
+    },
+    {
+     "id": "cali_01M7D63AW6XYDMZ6MKGEZBSK67",
+     "title": "Blue",
+     "subtitle": null,
+     "thumbnail": null,
+     "quantity": 1,
+     "variant_id": "variant_01M7D63AG6FEG5CCEKBT1WM43C",
+     "product_id": "prod_01M7D63AE4ZRZWYJBVWRTG53KT",
+     "product_title": "Rehearsal Pen",
+     "product_description": null,
+     "product_subtitle": null,
+     "product_type": null,
+     "product_type_id": null,
+     "product_collection": null,
+     "product_handle": "rehearsal-pen",
+     "variant_sku": "RH-PEN-BL",
+     "variant_barcode": null,
+     "variant_title": "Blue",
+     "variant_option_values": {
+      "Colour": "Blue"
+     },
+     "requires_shipping": true,
+     "is_discountable": true,
+     "is_giftcard": false,
+     "is_tax_inclusive": false,
+     "is_custom_price": false,
+     "metadata": null,
+     "cart_id": "cart_01M7D63AT5XH97K3PF1NZQXMRD",
+     "raw_compare_at_unit_price": null,
+     "raw_unit_price": {
+      "value": "99.5",
+      "precision": 20
+     },
+     "created_at": "2026-11-14T14:06:36.416Z",
+     "updated_at": "2026-11-14T14:06:36.416Z",
+     "deleted_at": null,
+     "adjustments": [],
+     "tax_lines": [
+      {
+       "id": "calitxl_01M7D63B38Q0N7R3BCVXE2CGRX",
+       "description": "GST 18%",
+       "code": "gst",
+       "rate": 18,
+       "provider_id": "system",
+       "metadata": null,
+       "data": null,
+       "tax_rate_id": "txr_rehearsal1",
+       "item_id": "cali_01M7D63AW6XYDMZ6MKGEZBSK67",
+       "created_at": "2026-11-14T14:06:36.625Z",
+       "updated_at": "2026-11-14T14:06:36.625Z",
+       "deleted_at": null,
+       "total": 17.91,
+       "subtotal": 17.91,
+       "raw_total": {
+        "value": "17.91",
+        "precision": 20
+       },
+       "raw_subtotal": {
+        "value": "17.91",
+        "precision": 20
+       }
+      }
+     ],
+     "compare_at_unit_price": null,
+     "unit_price": 99.5,
+     "subtotal": 99.5,
+     "total": 117.41,
+     "original_subtotal": 99.5,
+     "original_total": 117.41,
+     "discount_subtotal": 0,
+     "discount_tax_total": 0,
+     "discount_total": 0,
+     "tax_total": 17.91,
+     "original_tax_total": 17.91,
+     "raw_subtotal": {
+      "value": "99.5",
+      "precision": 20
+     },
+     "raw_total": {
+      "value": "117.41",
+      "precision": 20
+     },
+     "raw_original_subtotal": {
+      "value": "99.5",
+      "precision": 20
+     },
+     "raw_original_total": {
+      "value": "117.41",
+      "precision": 20
+     },
+     "raw_discount_subtotal": {
+      "value": "0",
+      "precision": 20
+     },
+     "raw_discount_tax_total": {
+      "value": "0",
+      "precision": 20
+     },
+     "raw_discount_total": {
+      "value": "0",
+      "precision": 20
+     },
+     "raw_tax_total": {
+      "value": "17.91",
+      "precision": 20
+     },
+     "raw_original_tax_total": {
+      "value": "17.91",
+      "precision": 20
+     },
+     "product": {
+      "id": "prod_01M7D63AE4ZRZWYJBVWRTG53KT",
+      "collection_id": null,
+      "type_id": null,
+      "categories": [],
+      "tags": []
+     }
+    }
+   ],
+   "shipping_methods": [
+    {
+     "id": "casm_01M7D63AYTFM1SB2KNYGMPQJBT",
+     "name": "Standard delivery",
+     "description": null,
+     "is_tax_inclusive": false,
+     "shipping_option_id": "so_01M7D63AQDC9MV7SDTRHG6B6Z7",
+     "data": null,
+     "metadata": null,
+     "cart_id": "cart_01M7D63AT5XH97K3PF1NZQXMRD",
+     "raw_amount": {
+      "value": "50",
+      "precision": 20
+     },
+     "created_at": "2026-11-14T14:06:36.497Z",
+     "updated_at": "2026-11-14T14:06:36.497Z",
+     "deleted_at": null,
+     "tax_lines": [
+      {
+       "id": "casmtxl_01M7D63B3CZV08WT65R08FWMES",
+       "description": "GST 18%",
+       "code": "gst",
+       "rate": 18,
+       "provider_id": "system",
+       "tax_rate_id": "txr_rehearsal1",
+       "metadata": null,
+       "data": null,
+       "shipping_method_id": "casm_01M7D63AYTFM1SB2KNYGMPQJBT",
+       "created_at": "2026-11-14T14:06:36.625Z",
+       "updated_at": "2026-11-14T14:06:36.625Z",
+       "deleted_at": null,
+       "total": 9,
+       "subtotal": 9,
+       "raw_total": {
+        "value": "9",
+        "precision": 20
+       },
+       "raw_subtotal": {
+        "value": "9",
+        "precision": 20
+       }
+      }
+     ],
+     "adjustments": [],
+     "amount": 50,
+     "subtotal": 50,
+     "total": 59,
+     "original_subtotal": 50,
+     "original_total": 59,
+     "discount_total": 0,
+     "discount_subtotal": 0,
+     "discount_tax_total": 0,
+     "tax_total": 9,
+     "original_tax_total": 9,
+     "raw_subtotal": {
+      "value": "50",
+      "precision": 20
+     },
+     "raw_total": {
+      "value": "59",
+      "precision": 20
+     },
+     "raw_original_subtotal": {
+      "value": "50",
+      "precision": 20
+     },
+     "raw_original_total": {
+      "value": "59",
+      "precision": 20
+     },
+     "raw_discount_total": {
+      "value": "0",
+      "precision": 20
+     },
+     "raw_discount_subtotal": {
+      "value": "0",
+      "precision": 20
+     },
+     "raw_discount_tax_total": {
+      "value": "0",
+      "precision": 20
+     },
+     "raw_tax_total": {
+      "value": "9",
+      "precision": 20
+     },
+     "raw_original_tax_total": {
+      "value": "9",
+      "precision": 20
+     }
+    }
+   ],
+   "shipping_address": {
+    "id": "caddr_01M7D63AXKZV4ZZV8F3SKDFA1C",
+    "first_name": "Asha",
+    "last_name": "Rao",
+    "company": null,
+    "address_1": "12 MG Road",
+    "address_2": null,
+    "city": "Bengaluru",
+    "postal_code": "560001",
+    "country_code": "in",
+    "province": "KA",
+    "phone": "+911234567890"
+   },
+   "billing_address": null,
+   "credit_lines": [],
+   "region": {
+    "id": "reg_01M7D63A69JTVTDG3K1CD7Y7DB",
+    "name": "India",
+    "currency_code": "inr",
+    "automatic_taxes": true,
+    "countries": [
+     {
+      "iso_2": "in",
+      "iso_3": "ind",
+      "num_code": "356",
+      "name": "INDIA",
+      "display_name": "India",
+      "region_id": "reg_01M7D63A69JTVTDG3K1CD7Y7DB",
+      "metadata": null,
+      "created_at": "2026-11-14T14:06:35.676Z",
+      "updated_at": "2026-11-14T14:06:35.676Z",
+      "deleted_at": null
+     }
+    ]
+   },
+   "promotions": [],
+   "payment_collection": {
+    "id": "pay_col_01M7D63B1CYBQ0095ERXDZACPZ",
+    "currency_code": "inr",
+    "completed_at": "2026-11-14T14:06:36.609Z",
+    "status": "completed",
+    "metadata": null,
+    "raw_amount": {
+     "value": "766.41",
+     "precision": 20
+    },
+    "raw_authorized_amount": {
+     "value": "766.41",
+     "precision": 20
+    },
+    "raw_captured_amount": {
+     "value": "766.41",
+     "precision": 20
+    },
+    "raw_refunded_amount": null,
+    "created_at": "2026-11-14T14:06:36.551Z",
+    "updated_at": "2026-11-14T14:06:36.609Z",
+    "deleted_at": null,
+    "payment_sessions": [
+     {
+      "id": "payses_01M7D63B1GXBZQG1DF7SCCXJTN",
+      "currency_code": "inr",
+      "provider_id": "pp_razorpay_razorpay",
+      "data": {
+       "payment_ref": "pay_RH1",
+       "provider_ref": "order_RH1"
+      },
+      "context": null,
+      "status": "authorized",
+      "authorized_at": "2026-11-14T14:06:36.609Z",
+      "payment_collection_id": "pay_col_01M7D63B1CYBQ0095ERXDZACPZ",
+      "payment": {
+       "id": "pay_01M7D63B250S5JD6AVY1A9AKA0"
+      },
+      "metadata": null,
+      "raw_amount": {
+       "value": "766.41",
+       "precision": 20
+      },
+      "created_at": "2026-11-14T14:06:36.551Z",
+      "updated_at": "2026-11-14T14:06:36.609Z",
+      "deleted_at": null,
+      "amount": 766.41
+     }
+    ],
+    "amount": 766.41,
+    "authorized_amount": 766.41,
+    "captured_amount": 766.41,
+    "refunded_amount": null
+   }
+  },
+  {
+   "id": "cart_01M7D63B78TVQ6YXR7BGXS5JYT",
+   "currency_code": "inr",
+   "email": "asha@example.invalid",
+   "locale": null,
+   "region_id": "reg_01M7D63A69JTVTDG3K1CD7Y7DB",
+   "created_at": "2026-11-14T14:06:36.774Z",
+   "updated_at": "2026-11-14T14:06:36.976Z",
+   "completed_at": "2026-11-14T14:06:36.976Z",
+   "total": 747.707,
+   "subtotal": 698.5,
+   "tax_total": 114.057,
+   "discount_total": 76.523,
+   "discount_subtotal": 64.85,
+   "discount_tax_total": 11.673,
+   "original_total": 824.23,
+   "original_tax_total": 125.73,
+   "item_total": 688.707,
+   "item_subtotal": 648.5,
+   "item_tax_total": 105.057,
+   "item_discount_total": 76.523,
+   "original_item_total": 765.23,
+   "original_item_subtotal": 648.5,
+   "original_item_tax_total": 116.73,
+   "shipping_total": 59,
+   "shipping_subtotal": 50,
+   "shipping_tax_total": 9,
+   "shipping_discount_total": 0,
+   "original_shipping_tax_total": 9,
+   "original_shipping_subtotal": 50,
+   "original_shipping_total": 59,
+   "credit_line_subtotal": 0,
+   "credit_line_tax_total": 0,
+   "credit_line_total": 0,
+   "metadata": null,
+   "sales_channel_id": "sc_01M7D63A6VW1XC6FTW8EXEPMK8",
+   "shipping_address_id": "caddr_01M7D63B8VKEKVMAQADMDNTSZ1",
+   "original_subtotal": 698.5,
+   "customer_id": "cus_01M7D63AS2PHZM1NAYP5Y8FFWX",
+   "items": [
+    {
+     "id": "cali_01M7D63B7MP0Y5VJWWRCSHTXWN",
+     "title": "A4",
+     "subtitle": null,
+     "thumbnail": null,
+     "quantity": 1,
+     "variant_id": "variant_01M7D63AFRY8JB8FC8GAPPT82D",
+     "product_id": "prod_01M7D63AB6NGK4QNQD6N5H2WTX",
+     "product_title": "Rehearsal Notebook",
+     "product_description": "A5 ruled",
+     "product_subtitle": null,
+     "product_type": "Goods",
+     "product_type_id": "ptyp_01M7D63AARZ0XHNW04ZTXRZQ5W",
+     "product_collection": "Everyday",
+     "product_handle": "rehearsal-notebook",
+     "variant_sku": "RH-NB-A4",
+     "variant_barcode": null,
+     "variant_title": "A4",
+     "variant_option_values": {
+      "Size": "A4"
+     },
+     "requires_shipping": true,
+     "is_discountable": true,
+     "is_giftcard": false,
+     "is_tax_inclusive": false,
+     "is_custom_price": false,
+     "metadata": null,
+     "cart_id": "cart_01M7D63B78TVQ6YXR7BGXS5JYT",
+     "raw_compare_at_unit_price": {
+      "value": "400",
+      "precision": 20
+     },
+     "raw_unit_price": {
+      "value": "350",
+      "precision": 20
+     },
+     "created_at": "2026-11-14T14:06:36.783Z",
+     "updated_at": "2026-11-14T14:06:36.783Z",
+     "deleted_at": null,
+     "adjustments": [
+      {
+       "id": "caliadj_01M7D63BDS0WY2WSGVF6WBEJF1",
+       "description": null,
+       "code": "WELCOME10",
+       "is_tax_inclusive": false,
+       "provider_id": null,
+       "promotion_id": "promo_01M7D63AMDFZG7WYS5EBTN0N3W",
+       "metadata": null,
+       "item_id": "cali_01M7D63B7MP0Y5VJWWRCSHTXWN",
+       "raw_amount": {
+        "value": "35",
+        "precision": 20
+       },
+       "created_at": "2026-11-14T14:06:36.976Z",
+       "updated_at": "2026-11-14T14:06:36.976Z",
+       "deleted_at": null,
+       "amount": 35,
+       "subtotal": 35,
+       "total": 41.3,
+       "raw_subtotal": {
+        "value": "35",
+        "precision": 20
+       },
+       "raw_total": {
+        "value": "41.3",
+        "precision": 20
+       }
+      }
+     ],
+     "tax_lines": [
+      {
+       "id": "calitxl_01M7D63BDXR7NWGMSV3G4MAFQC",
+       "description": "GST 18%",
+       "code": "gst",
+       "rate": 18,
+       "provider_id": "system",
+       "metadata": null,
+       "data": null,
+       "tax_rate_id": "txr_rehearsal1",
+       "item_id": "cali_01M7D63B7MP0Y5VJWWRCSHTXWN",
+       "created_at": "2026-11-14T14:06:36.976Z",
+       "updated_at": "2026-11-14T14:06:36.976Z",
+       "deleted_at": null,
+       "total": 56.7,
+       "subtotal": 63,
+       "raw_total": {
+        "value": "56.7",
+        "precision": 20
+       },
+       "raw_subtotal": {
+        "value": "63",
+        "precision": 20
+       }
+      }
+     ],
+     "compare_at_unit_price": 400,
+     "unit_price": 350,
+     "subtotal": 350,
+     "total": 371.7,
+     "original_subtotal": 350,
+     "original_total": 413,
+     "discount_subtotal": 35,
+     "discount_tax_total": 6.3,
+     "discount_total": 41.3,
+     "tax_total": 56.7,
+     "original_tax_total": 63,
+     "raw_subtotal": {
+      "value": "350",
+      "precision": 20
+     },
+     "raw_total": {
+      "value": "371.7",
+      "precision": 20
+     },
+     "raw_original_subtotal": {
+      "value": "350",
+      "precision": 20
+     },
+     "raw_original_total": {
+      "value": "413",
+      "precision": 20
+     },
+     "raw_discount_subtotal": {
+      "value": "35",
+      "precision": 20
+     },
+     "raw_discount_tax_total": {
+      "value": "6.3",
+      "precision": 20
+     },
+     "raw_discount_total": {
+      "value": "41.3",
+      "precision": 20
+     },
+     "raw_tax_total": {
+      "value": "56.7",
+      "precision": 20
+     },
+     "raw_original_tax_total": {
+      "value": "63",
+      "precision": 20
+     },
+     "product": {
+      "id": "prod_01M7D63AB6NGK4QNQD6N5H2WTX",
+      "collection_id": "pcol_01M7D63A9QQHDGY8ZAKT9Y1WXM",
+      "type_id": "ptyp_01M7D63AARZ0XHNW04ZTXRZQ5W",
+      "categories": [
+       {
+        "id": "pcat_01M7D63AA7VKEVX8WDGT0ZJDJJ"
+       }
+      ],
+      "tags": [
+       {
+        "id": "ptag_01M7D63ACHH9AXBD6Y5KRDYMMZ"
+       },
+       {
+        "id": "ptag_01M7D63ACSM5N2HDB81YJ6K0VY"
+       }
+      ]
+     }
+    },
+    {
+     "id": "cali_01M7D63B836NE1TZGWXEVGE2Q9",
+     "title": "Blue",
+     "subtitle": null,
+     "thumbnail": null,
+     "quantity": 3,
+     "variant_id": "variant_01M7D63AG6FEG5CCEKBT1WM43C",
+     "product_id": "prod_01M7D63AE4ZRZWYJBVWRTG53KT",
+     "product_title": "Rehearsal Pen",
+     "product_description": null,
+     "product_subtitle": null,
+     "product_type": null,
+     "product_type_id": null,
+     "product_collection": null,
+     "product_handle": "rehearsal-pen",
+     "variant_sku": "RH-PEN-BL",
+     "variant_barcode": null,
+     "variant_title": "Blue",
+     "variant_option_values": {
+      "Colour": "Blue"
+     },
+     "requires_shipping": true,
+     "is_discountable": true,
+     "is_giftcard": false,
+     "is_tax_inclusive": false,
+     "is_custom_price": false,
+     "metadata": null,
+     "cart_id": "cart_01M7D63B78TVQ6YXR7BGXS5JYT",
+     "raw_compare_at_unit_price": null,
+     "raw_unit_price": {
+      "value": "99.5",
+      "precision": 20
+     },
+     "created_at": "2026-11-14T14:06:36.799Z",
+     "updated_at": "2026-11-14T14:06:36.799Z",
+     "deleted_at": null,
+     "adjustments": [
+      {
+       "id": "caliadj_01M7D63BDTQ1WNYA056K1KEQ2C",
+       "description": null,
+       "code": "WELCOME10",
+       "is_tax_inclusive": false,
+       "provider_id": null,
+       "promotion_id": "promo_01M7D63AMDFZG7WYS5EBTN0N3W",
+       "metadata": null,
+       "item_id": "cali_01M7D63B836NE1TZGWXEVGE2Q9",
+       "raw_amount": {
+        "value": "29.85",
+        "precision": 20
+       },
+       "created_at": "2026-11-14T14:06:36.976Z",
+       "updated_at": "2026-11-14T14:06:36.976Z",
+       "deleted_at": null,
+       "amount": 29.85,
+       "subtotal": 29.85,
+       "total": 35.223,
+       "raw_subtotal": {
+        "value": "29.85",
+        "precision": 20
+       },
+       "raw_total": {
+        "value": "35.223",
+        "precision": 20
+       }
+      }
+     ],
+     "tax_lines": [
+      {
+       "id": "calitxl_01M7D63BDYZDH09B4HN8PGVFQA",
+       "description": "GST 18%",
+       "code": "gst",
+       "rate": 18,
+       "provider_id": "system",
+       "metadata": null,
+       "data": null,
+       "tax_rate_id": "txr_rehearsal1",
+       "item_id": "cali_01M7D63B836NE1TZGWXEVGE2Q9",
+       "created_at": "2026-11-14T14:06:36.976Z",
+       "updated_at": "2026-11-14T14:06:36.976Z",
+       "deleted_at": null,
+       "total": 48.357,
+       "subtotal": 53.73,
+       "raw_total": {
+        "value": "48.357",
+        "precision": 20
+       },
+       "raw_subtotal": {
+        "value": "53.73",
+        "precision": 20
+       }
+      }
+     ],
+     "compare_at_unit_price": null,
+     "unit_price": 99.5,
+     "subtotal": 298.5,
+     "total": 317.007,
+     "original_subtotal": 298.5,
+     "original_total": 352.23,
+     "discount_subtotal": 29.85,
+     "discount_tax_total": 5.373,
+     "discount_total": 35.223,
+     "tax_total": 48.357,
+     "original_tax_total": 53.73,
+     "raw_subtotal": {
+      "value": "298.5",
+      "precision": 20
+     },
+     "raw_total": {
+      "value": "317.007",
+      "precision": 20
+     },
+     "raw_original_subtotal": {
+      "value": "298.5",
+      "precision": 20
+     },
+     "raw_original_total": {
+      "value": "352.23",
+      "precision": 20
+     },
+     "raw_discount_subtotal": {
+      "value": "29.85",
+      "precision": 20
+     },
+     "raw_discount_tax_total": {
+      "value": "5.373",
+      "precision": 20
+     },
+     "raw_discount_total": {
+      "value": "35.223",
+      "precision": 20
+     },
+     "raw_tax_total": {
+      "value": "48.357",
+      "precision": 20
+     },
+     "raw_original_tax_total": {
+      "value": "53.73",
+      "precision": 20
+     },
+     "product": {
+      "id": "prod_01M7D63AE4ZRZWYJBVWRTG53KT",
+      "collection_id": null,
+      "type_id": null,
+      "categories": [],
+      "tags": []
+     }
+    }
+   ],
+   "shipping_methods": [
+    {
+     "id": "casm_01M7D63BART0M07KAD4GZXQZT9",
+     "name": "Standard delivery",
+     "description": null,
+     "is_tax_inclusive": false,
+     "shipping_option_id": "so_01M7D63AQDC9MV7SDTRHG6B6Z7",
+     "data": null,
+     "metadata": null,
+     "cart_id": "cart_01M7D63B78TVQ6YXR7BGXS5JYT",
+     "raw_amount": {
+      "value": "50",
+      "precision": 20
+     },
+     "created_at": "2026-11-14T14:06:36.882Z",
+     "updated_at": "2026-11-14T14:06:36.882Z",
+     "deleted_at": null,
+     "tax_lines": [
+      {
+       "id": "casmtxl_01M7D63BE04DJDPMZHJECBKB6D",
+       "description": "GST 18%",
+       "code": "gst",
+       "rate": 18,
+       "provider_id": "system",
+       "tax_rate_id": "txr_rehearsal1",
+       "metadata": null,
+       "data": null,
+       "shipping_method_id": "casm_01M7D63BART0M07KAD4GZXQZT9",
+       "created_at": "2026-11-14T14:06:36.976Z",
+       "updated_at": "2026-11-14T14:06:36.976Z",
+       "deleted_at": null,
+       "total": 9,
+       "subtotal": 9,
+       "raw_total": {
+        "value": "9",
+        "precision": 20
+       },
+       "raw_subtotal": {
+        "value": "9",
+        "precision": 20
+       }
+      }
+     ],
+     "adjustments": [],
+     "amount": 50,
+     "subtotal": 50,
+     "total": 59,
+     "original_subtotal": 50,
+     "original_total": 59,
+     "discount_total": 0,
+     "discount_subtotal": 0,
+     "discount_tax_total": 0,
+     "tax_total": 9,
+     "original_tax_total": 9,
+     "raw_subtotal": {
+      "value": "50",
+      "precision": 20
+     },
+     "raw_total": {
+      "value": "59",
+      "precision": 20
+     },
+     "raw_original_subtotal": {
+      "value": "50",
+      "precision": 20
+     },
+     "raw_original_total": {
+      "value": "59",
+      "precision": 20
+     },
+     "raw_discount_total": {
+      "value": "0",
+      "precision": 20
+     },
+     "raw_discount_subtotal": {
+      "value": "0",
+      "precision": 20
+     },
+     "raw_discount_tax_total": {
+      "value": "0",
+      "precision": 20
+     },
+     "raw_tax_total": {
+      "value": "9",
+      "precision": 20
+     },
+     "raw_original_tax_total": {
+      "value": "9",
+      "precision": 20
+     }
+    }
+   ],
+   "shipping_address": {
+    "id": "caddr_01M7D63B8VKEKVMAQADMDNTSZ1",
+    "first_name": "Asha",
+    "last_name": "Rao",
+    "company": null,
+    "address_1": "12 MG Road",
+    "address_2": null,
+    "city": "Bengaluru",
+    "postal_code": "560001",
+    "country_code": "in",
+    "province": "KA",
+    "phone": "+911234567890"
+   },
+   "billing_address": null,
+   "credit_lines": [],
+   "customer": {
+    "id": "cus_01M7D63AS2PHZM1NAYP5Y8FFWX",
+    "email": "asha@example.invalid",
+    "groups": []
+   },
+   "region": {
+    "id": "reg_01M7D63A69JTVTDG3K1CD7Y7DB",
+    "name": "India",
+    "currency_code": "inr",
+    "automatic_taxes": true,
+    "countries": [
+     {
+      "iso_2": "in",
+      "iso_3": "ind",
+      "num_code": "356",
+      "name": "INDIA",
+      "display_name": "India",
+      "region_id": "reg_01M7D63A69JTVTDG3K1CD7Y7DB",
+      "metadata": null,
+      "created_at": "2026-11-14T14:06:35.676Z",
+      "updated_at": "2026-11-14T14:06:35.676Z",
+      "deleted_at": null
+     }
+    ]
+   },
+   "promotions": [
+    {
+     "id": "promo_01M7D63AMDFZG7WYS5EBTN0N3W",
+     "code": "WELCOME10",
+     "is_automatic": false,
+     "is_tax_inclusive": false,
+     "application_method": {
+      "value": 10,
+      "type": "percentage",
+      "currency_code": null,
+      "id": "proappmet_01M7D63AMMW9M186A1J50PSV26"
+     }
+    }
+   ],
+   "payment_collection": {
+    "id": "pay_col_01M7D63BCWBFJDPCEQHH5GR1RZ",
+    "currency_code": "inr",
+    "completed_at": "2026-11-14T14:06:36.968Z",
+    "status": "completed",
+    "metadata": null,
+    "raw_amount": {
+     "value": "747.71",
+     "precision": 20
+    },
+    "raw_authorized_amount": {
+     "value": "747.71",
+     "precision": 20
+    },
+    "raw_captured_amount": {
+     "value": "747.71",
+     "precision": 20
+    },
+    "raw_refunded_amount": null,
+    "created_at": "2026-11-14T14:06:36.927Z",
+    "updated_at": "2026-11-14T14:06:36.968Z",
+    "deleted_at": null,
+    "payment_sessions": [
+     {
+      "id": "payses_01M7D63BCY5MS9GNBSTA9NKP08",
+      "currency_code": "inr",
+      "provider_id": "pp_razorpay_razorpay",
+      "data": {
+       "payment_ref": "pay_RH2",
+       "provider_ref": "order_RH2"
+      },
+      "context": null,
+      "status": "authorized",
+      "authorized_at": "2026-11-14T14:06:36.968Z",
+      "payment_collection_id": "pay_col_01M7D63BCWBFJDPCEQHH5GR1RZ",
+      "payment": {
+       "id": "pay_01M7D63BDA9VSJR0YA6PRRGJFP"
+      },
+      "metadata": null,
+      "raw_amount": {
+       "value": "747.71",
+       "precision": 20
+      },
+      "created_at": "2026-11-14T14:06:36.927Z",
+      "updated_at": "2026-11-14T14:06:36.968Z",
+      "deleted_at": null,
+      "amount": 747.71
+     }
+    ],
+    "amount": 747.71,
+    "authorized_amount": 747.71,
+    "captured_amount": 747.71,
+    "refunded_amount": null
+   }
+  },
+  {
+   "id": "cart_01M7D63BGKT8M6CJEC5K59CAY4",
+   "currency_code": "inr",
+   "email": null,
+   "locale": null,
+   "region_id": "reg_01M7D63A69JTVTDG3K1CD7Y7DB",
+   "created_at": "2026-11-14T14:06:37.074Z",
+   "updated_at": "2026-11-14T14:06:37.082Z",
+   "completed_at": null,
+   "total": 250,
+   "subtotal": 250,
+   "tax_total": 0,
+   "discount_total": 0,
+   "discount_subtotal": 0,
+   "discount_tax_total": 0,
+   "original_total": 250,
+   "original_tax_total": 0,
+   "item_total": 250,
+   "item_subtotal": 250,
+   "item_tax_total": 0,
+   "item_discount_total": 0,
+   "original_item_total": 250,
+   "original_item_subtotal": 250,
+   "original_item_tax_total": 0,
+   "shipping_total": 0,
+   "shipping_subtotal": 0,
+   "shipping_tax_total": 0,
+   "shipping_discount_total": 0,
+   "original_shipping_tax_total": 0,
+   "original_shipping_subtotal": 0,
+   "original_shipping_total": 0,
+   "credit_line_subtotal": 0,
+   "credit_line_tax_total": 0,
+   "credit_line_total": 0,
+   "metadata": null,
+   "sales_channel_id": "sc_01M7D63A6VW1XC6FTW8EXEPMK8",
+   "original_subtotal": 250,
+   "customer_id": null,
+   "items": [
+    {
+     "id": "cali_01M7D63BGY7WR84CCAYPBAR8SN",
+     "title": "A5",
+     "subtitle": null,
+     "thumbnail": null,
+     "quantity": 1,
+     "variant_id": "variant_01M7D63AF4N2933KBFTCTMAK7J",
+     "product_id": "prod_01M7D63AB6NGK4QNQD6N5H2WTX",
+     "product_title": "Rehearsal Notebook",
+     "product_description": "A5 ruled",
+     "product_subtitle": null,
+     "product_type": "Goods",
+     "product_type_id": "ptyp_01M7D63AARZ0XHNW04ZTXRZQ5W",
+     "product_collection": "Everyday",
+     "product_handle": "rehearsal-notebook",
+     "variant_sku": "RH-NB-A5",
+     "variant_barcode": null,
+     "variant_title": "A5",
+     "variant_option_values": {
+      "Size": "A5"
+     },
+     "requires_shipping": true,
+     "is_discountable": true,
+     "is_giftcard": false,
+     "is_tax_inclusive": false,
+     "is_custom_price": false,
+     "metadata": null,
+     "cart_id": "cart_01M7D63BGKT8M6CJEC5K59CAY4",
+     "raw_compare_at_unit_price": null,
+     "raw_unit_price": {
+      "value": "250",
+      "precision": 20
+     },
+     "created_at": "2026-11-14T14:06:37.082Z",
+     "updated_at": "2026-11-14T14:06:37.082Z",
+     "deleted_at": null,
+     "adjustments": [],
+     "tax_lines": [],
+     "compare_at_unit_price": null,
+     "unit_price": 250,
+     "subtotal": 250,
+     "total": 250,
+     "original_subtotal": 250,
+     "original_total": 250,
+     "discount_subtotal": 0,
+     "discount_tax_total": 0,
+     "discount_total": 0,
+     "tax_total": 0,
+     "original_tax_total": 0,
+     "raw_subtotal": {
+      "value": "250",
+      "precision": 20
+     },
+     "raw_total": {
+      "value": "250",
+      "precision": 20
+     },
+     "raw_original_subtotal": {
+      "value": "250",
+      "precision": 20
+     },
+     "raw_original_total": {
+      "value": "250",
+      "precision": 20
+     },
+     "raw_discount_subtotal": {
+      "value": "0",
+      "precision": 20
+     },
+     "raw_discount_tax_total": {
+      "value": "0",
+      "precision": 20
+     },
+     "raw_discount_total": {
+      "value": "0",
+      "precision": 20
+     },
+     "raw_tax_total": {
+      "value": "0",
+      "precision": 20
+     },
+     "raw_original_tax_total": {
+      "value": "0",
+      "precision": 20
+     },
+     "product": {
+      "id": "prod_01M7D63AB6NGK4QNQD6N5H2WTX",
+      "collection_id": "pcol_01M7D63A9QQHDGY8ZAKT9Y1WXM",
+      "type_id": "ptyp_01M7D63AARZ0XHNW04ZTXRZQ5W",
+      "categories": [
+       {
+        "id": "pcat_01M7D63AA7VKEVX8WDGT0ZJDJJ"
+       }
+      ],
+      "tags": [
+       {
+        "id": "ptag_01M7D63ACHH9AXBD6Y5KRDYMMZ"
+       },
+       {
+        "id": "ptag_01M7D63ACSM5N2HDB81YJ6K0VY"
+       }
+      ]
+     }
+    }
+   ],
+   "shipping_methods": [],
+   "shipping_address": null,
+   "billing_address": null,
+   "credit_lines": [],
+   "region": {
+    "id": "reg_01M7D63A69JTVTDG3K1CD7Y7DB",
+    "name": "India",
+    "currency_code": "inr",
+    "automatic_taxes": true,
+    "countries": [
+     {
+      "iso_2": "in",
+      "iso_3": "ind",
+      "num_code": "356",
+      "name": "INDIA",
+      "display_name": "India",
+      "region_id": "reg_01M7D63A69JTVTDG3K1CD7Y7DB",
+      "metadata": null,
+      "created_at": "2026-11-14T14:06:35.676Z",
+      "updated_at": "2026-11-14T14:06:35.676Z",
+      "deleted_at": null
+     }
+    ]
+   },
+   "promotions": []
+  }
+ ]
+}

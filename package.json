@@ -7,7 +7,15 @@
     "build": "next build",
     "start": "next start -p 3000",
     "lint": "next lint",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "backend:start": "supabase start -x vector,logflare,imgproxy",
+    "backend:stop": "supabase stop",
+    "backend:reset": "supabase db reset --local",
+    "backend:functions": "supabase functions serve --env-file supabase/functions/.env.local",
+    "backend:sync-config": "node scripts/backend/sync-local-config.mjs",
+    "backend:admin": "node scripts/backend/admin-bootstrap.mjs",
+    "backend:smoke": "node scripts/backend/smoke-test.mjs",
+    "backend:types": "supabase gen types typescript --local > src/lib/backend/database.types.ts"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.7",

@@ -1,0 +1,10 @@
+import type { Metadata } from "next";
+import { CartView } from "@/components/checkout/CartView";
+
+export const dynamic = "force-static";
+
+export const metadata: Metadata = { title: "Your cart", robots: { index: false, follow: false } };
+
+export default function CartPage() {
+  return <CartView />;
+}

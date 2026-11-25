@@ -1,0 +1,25 @@
+{
+ "collections": [
+  {
+   "id": "pcol_01M7WWS7SQFBQ8VCXD7P8N58MK",
+   "title": "Deluxe Standard",
+   "handle": "deluxe-standard"
+  },
+  {
+   "id": "pcol_01M7WWS7SK93BNHESYSS7FEX6G",
+   "title": "Eco Premium",
+   "handle": "eco-premium"
+  },
+  {
+   "id": "pcol_01M7WWS7SV0Y85VGQXZKVVV188",
+   "title": "Eco Regular",
+   "handle": "eco-regular"
+  },
+  {
+   "id": "pcol_01M7WWS7SCTP9MK3FX2HAC9BK2",
+   "title": "Metallic Premium",
+   "handle": "metallic-premium"
+  }
+ ],
+ "count": 4
+}

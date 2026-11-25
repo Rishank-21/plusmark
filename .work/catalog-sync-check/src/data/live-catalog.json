@@ -1,0 +1,32 @@
+{
+ "fetched_at": "2026-11-21T04:16:38.310Z",
+ "catalog_version": null,
+ "currency": "INR",
+ "count": 1,
+ "products": {
+  "sample": {
+   "id": "p1",
+   "title": "Test board",
+   "description": null,
+   "categories": [
+    "clipboards"
+   ],
+   "images": [
+    "https://example.test/board.jpg"
+   ],
+   "thumbnail": null,
+   "variants": [
+    {
+     "id": "v1",
+     "title": "Test unit",
+     "sku": null,
+     "amount": 1,
+     "original": null,
+     "currency": "INR",
+     "available": true,
+     "stock": 2
+    }
+   ]
+  }
+ }
+}

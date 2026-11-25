@@ -1,0 +1,47 @@
+07:28:30 demo data: days=120 orders=400 customers=150 (existing demo orders: 397)
+07:28:34 catalog: 50 demo products already there
+07:29:08 customers: 150
+07:29:09 promotions: DEMO10, DEMOFEST15, DEMOFLAT100, DEMOFREESHIP + DEMOOLD20, campaign demo-festive-sale
+07:29:10 orders: 397 demo orders exist, creating 3
+07:29:17 orders: placed 3/3
+07:29:31 orders: moved 3 orders back in time
+07:29:31 orders: {"delivered":2,"shipped":0,"fulfilled":0,"pending":0,"canceled":1,"returned":1,"refunded":0,"cod":1,"prepaid":2}
+07:29:33 analytics: 221 events, 150 consent choices
+07:29:34 reviews: 1 (1 approved, 0 rejected, 0 pending)
+07:29:35 stock: low-stock demo variants already set
+07:29:35 special dates: 0 new
+07:29:35 order notes: 3
+07:29:36 alerts: 0 demo alerts (the alert_evaluate job adds real ones)
+07:29:37 scheduled report: weekly sales created
+07:29:41 derived: order facts
+07:31:37 derived: rollups (all history)
+07:31:47 derived: customer metrics and RFM scores
+07:31:48 derived: popularity, catalog read model, stock state, contact search
+07:31:49 derived: reconciliation for the last 30 days
+07:32:10 derived: forecast run start, then forecast-worker
+07:32:12   forecast_run_start -> {"day": "2026-11-19", "queued": 79, "run_id": 40, "series": 114, "skipped": false, "no_recent_sales": 3, "not_enough_data": 32}
+07:32:15   forecast-worker -> 200 {"batches":0,"claimed":0,"done":0,"not_enough_data":0,"failed":0,"skipped":0} | run: completed 114 series
+07:32:15   stock-out and anomaly alert evaluation (slow; capped at 4 minutes)
+07:36:15   alert evaluation stopped after 4 minutes (internal.alert_eval_stock_out is slow with this many variants; see docs/TESTING.md, Known limitations)
+07:36:25 verify: {"dashboard":7533,"sales":4165,"products":9976,"funnel":783,"customers":2995,"abandoned":627,"payments":1515,"forecasts":4335,"counts":{"daily_sales_rollup_days":"111","order_facts":"405","customer_metrics":"106","forecast_runs":"1","forecast_points":"2460","reconciliation_runs":"64"}}
+
+Demo data counts
+  products: 50
+  variants: 122
+  customers: 151
+  orders: 400
+  orders_cod: 181
+  orders_canceled: 23
+  returns: 26
+  refunds: 42
+  abandoned_carts: 48
+  analytics_events: 30350
+  reviews: 90
+  enquiries: 45
+  quotations: 14
+  promotions: 5
+  promotion_uses: 94
+  alerts: 5
+  scheduled_reports: 0
+  admin_users: 5
+07:36:25 done in 476 s

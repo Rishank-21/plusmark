@@ -1,0 +1,30 @@
+{
+  "mode": "online",
+  "email": "delivered@resend.dev",
+  "methods": [
+    "upi",
+    "card",
+    "netbanking",
+    "wallet",
+    "cod"
+  ],
+  "payment-initiate": {
+    "payment_session_id": "payses_01M7QHWMVVZ5JKK5VPT6MFQGKT",
+    "payment_collection_id": "pay_col_01M7QHWMH2WZ11GMT05KE5DD03",
+    "provider": "razorpay",
+    "provider_ref": "order_U1fxXn41UIwQvk",
+    "amount_minor": 23364,
+    "currency_code": "inr",
+    "client_data": {
+      "amount": 23364,
+      "key_id": "rzp_test_U1cA6bs079F8XZ",
+      "currency": "INR",
+      "provider_ref": "order_U1fxXn41UIwQvk",
+      "razorpay_order_id": "order_U1fxXn41UIwQvk"
+    }
+  },
+  "confirmationText": "Order confirmation\nThank you. Your order is placed.\n\nYour order number is 506.\n\nWe sent the details to delivered@resend.dev.\n\nPlaced on Wed, 18 Nov · Status: Pending\n\nItems\nSingle (Single) × 1 · ₹149\n\nTotal ₹233.64\n\nDelivery address\n\nE2E, Guest, 1 Janpath Road, New Delhi, Delhi, 110001\n\nPayment\npp_razorpay_razorpay · ₹233.64 · Captured\nStatus history\nWed, 18 Nov · Order.placed\n\nThis page keeps your order only until you close the browser. Save your order number and email address to open it later.\n\nCreate an account to follow your orders\n\nContinue shopping",
+  "finalUrl": "http://localhost:4321/order-confirmation?order=order_01M7QHY9Y4EWZ3JS8EZBVB212Z",
+  "razorpayFrame": [],
+  "cart": null
+}

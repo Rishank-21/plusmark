@@ -1,0 +1,5 @@
+Owner invitation
+email: info@plusmarkboards.com
+token: 2a5ed31fefd02ed3dce5dc3b0481095b1c6bf818a0e0dcb8e705c5ade4b39974
+invite_url (dev): http://localhost:3001/invite/#token=2a5ed31fefd02ed3dce5dc3b0481095b1c6bf818a0e0dcb8e705c5ade4b39974
+expires: 2026-11-23T10:02:09Z

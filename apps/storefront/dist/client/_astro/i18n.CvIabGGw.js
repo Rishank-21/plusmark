@@ -1,0 +1,1 @@
+globalThis.process??={};globalThis.process.env??={};function t(r){return r==="en"||r==="hi"}function i(r,e){return e?r.replace(/\{(\w+)\}/g,(n,o)=>Object.prototype.hasOwnProperty.call(e,o)?String(e[o]):n):r}export{t as a,i};

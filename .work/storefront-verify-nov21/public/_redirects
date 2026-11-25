@@ -1,0 +1,2 @@
+/admin/*  https://plusmark-admin.pages.dev/:splat  301
+/admin    https://plusmark-admin.pages.dev/  301

@@ -1,0 +1,361 @@
+"use client";
+import "./catalog.css";
+import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense, lazy, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { newIdempotencyKey } from "../../lib/admin-api";
+import { getAdminApi, getSessionManager } from "../../lib/auth/client";
+import { optionsPayload, splitList, type OptionDraft } from "../../lib/catalog";
+import type { AdminProductsGetResponse } from "../../lib/contracts.gen";
+import { useI18n } from "../../lib/i18n/react";
+import { EditConflictNotice, OfflineBanner, ScreenErrorBoundary, Skeleton } from "../shared/ScreenStates";
+import { Tabs } from "../shared/Tabs";
+import { useAdminForm } from "../shared/useAdminForm";
+import { useHasPermission } from "../shell/AppShell";
+import { openProductPreview, useCatalogReference } from "./actions";
+import { Section, TextField, UnplacedErrors } from "./fields";
+import { MediaUploader } from "./MediaUploader";
+import { PriceListsPanel } from "./PriceListsPanel";
+import { useProductActions } from "./useProductActions";
+import { VariantsPanel, type OptionView, type VariantView } from "./VariantsPanel";
+
+// The storefront tab loads its own code when it opens.
+const ProductStorefrontPanel = lazy(() => import("../storefront/ProductStorefrontPanel").then((m) => ({ default: m.ProductStorefrontPanel })));
+
+type Rec = Record<string, unknown>;
+type Product = AdminProductsGetResponse & Rec;
+
+export function ProductEditorScreen() {
+  return (
+    <ScreenErrorBoundary>
+      <OfflineBanner />
+      <Editor />
+    </ScreenErrorBoundary>
+  );
+}
+
+interface Form {
+  title: string; handle: string; subtitle: string; description: string; material: string;
+  collection_id: string; type_id: string; tags: string; category_ids: string[]; sales_channel_ids: string[];
+  options: OptionDraft[];
+}
+const str = (v: unknown) => (typeof v === "string" ? v : "");
+const EMPTY: Form = { title: "", handle: "", subtitle: "", description: "", material: "", collection_id: "", type_id: "", tags: "", category_ids: [], sales_channel_ids: [], options: [] };
+
+function formOf(p: Product | null): Form {
+  if (!p) return EMPTY;
+  return {
+    title: p.title, handle: p.handle, subtitle: str(p.subtitle), description: str(p.description), material: str(p.material),
+    collection_id: str(p.collection_id), type_id: str(p.type_id),
+    tags: (p.tags as string[]).join(", "),
+    category_ids: (p.category_ids as string[]).slice(),
+    sales_channel_ids: (p.sales_channel_ids as string[]).slice(),
+    options: (p.options as OptionView[]).map((o) => ({ id: o.id, title: o.title, values: o.values.map((v) => v.value).join(", ") })),
+  };
+}
+
+function Editor() {
+  const { t, tn } = useI18n();
+  const router = useRouter();
+  const id = useSearchParams()?.get("id") ?? null;
+  const canWrite = useHasPermission("catalog:write");
+  const canPrice = useHasPermission("pricing:write");
+  const ref = useCatalogReference();
+  const [product, setProduct] = useState<Product | null>(null);
+  const [loadFailed, setLoadFailed] = useState(false);
+  const [notFound, setNotFound] = useState(false);
+  const [tab, setTab] = useState("details");
+
+  const load = useCallback(async () => {
+    if (!id) { setProduct(null); return; }
+    const api = getAdminApi();
+    if (!api) { setLoadFailed(true); return; }
+    try {
+      setProduct((await api.callAdmin("admin_products_get", { p_product_id: id })) as Product);
+      setLoadFailed(false);
+    } catch (e) {
+      if (getSessionManager()?.handleError(e)) return;
+      if ((e as { code?: string }).code === "not_found") setNotFound(true); else setLoadFailed(true);
+    }
+  }, [id]);
+  useEffect(() => { void load(); }, [load]);
+
+  const actions = useProductActions(useCallback((deletedId?: string) => {
+    if (deletedId) router.push("/products/"); else void load();
+  }, [router, load]));
+
+  const initial = useMemo(() => formOf(product), [product]);
+  const [form, setForm] = useState<Form>(initial);
+  useEffect(() => { setForm(initial); }, [initial]);
+  const f = useAdminForm(initial, form);
+  const key = useRef(newIdempotencyKey());
+  const [saved, setSaved] = useState(false);
+  const err = (k: string) => f.failure?.fieldErrors[k];
+
+  async function save() {
+    const api = getAdminApi();
+    if (!api) return;
+    setSaved(false);
+    const opts = optionsPayload(form.options);
+    const r = await f.submit(() => api.callAdmin("admin_upsert_product", {
+      p_product: {
+        ...(product ? { id: product.id } : {}),
+        title: form.title.trim(),
+        ...(form.handle.trim() ? { handle: form.handle.trim() } : {}),
+        subtitle: form.subtitle || null, description: form.description || null, material: form.material || null,
+        collection_id: form.collection_id || null, type_id: form.type_id || null,
+        tags: splitList(form.tags), category_ids: form.category_ids, sales_channel_ids: form.sales_channel_ids,
+        ...(opts.length || (product?.options.length ?? 0) > 0 ? { options: opts } : {}),
+      },
+      ...(product ? { p_expected_version: product.version } : {}),
+    }, { idempotencyKey: key.current }));
+    if (!r.ok) return;
+    key.current = newIdempotencyKey();
+    setSaved(true);
+    if (!product) router.replace(`/products/edit/?id=${encodeURIComponent(r.value.id)}`);
+    else { await load(); await ref.reload(); }
+  }
+
+  if (id && notFound) return <div role="alert" className="notice notice-error">{t("error.not_found")} <Link href="/products/">{t("nav.products")}</Link></div>;
+  if (id && !product && !loadFailed) return <Skeleton rows={6} />;
+  if (loadFailed) return <div role="alert" className="notice notice-error">{t("catalog.loadFailed")} <button type="button" className="link-button" onClick={() => void load()}>{t("common.retry")}</button></div>;
+
+  const dis = f.pending || !canWrite;
+  const data = ref.data;
+  const toggle = (list: string[], v: string, on: boolean) => (on ? [...list, v] : list.filter((x) => x !== v));
+  const ownProduct = product ? { id: product.id, title: product.title, version: product.version, status: product.status } : null;
+  const setOpt = (i: number, p: Partial<OptionDraft>) => setForm({ ...form, options: form.options.map((o, j) => (j === i ? { ...o, ...p } : o)) });
+
+  const details = (
+    <form onSubmit={(e) => { e.preventDefault(); void save(); }} className="catalog-form">
+      {f.failure?.editConflict ? <EditConflictNotice pending={f.pending} onReload={() => void load()} /> : null}
+      <UnplacedErrors failure={f.failure} placed={["title", "handle", "tags", "options", "category_ids", "collection_id", "type_id"]} />
+      {f.failure && !f.failure.editConflict && Object.keys(f.failure.fieldErrors).length === 0 ? <div role="alert" className="notice notice-error">{t("error.unknown")}</div> : null}
+      <Section title={tn("catalog.section.basics")}>
+        <TextField id="pe-title" label={t("catalog.col.title")} value={form.title} required disabled={dis} error={err("title")} fieldName="title" onChange={(x) => setForm({ ...form, title: x })} />
+        <TextField id="pe-handle" label={t("catalog.field.handle")} value={form.handle} disabled={dis} hint={t("catalog.field.handleHint")} error={err("handle")} fieldName="handle" onChange={(x) => setForm({ ...form, handle: x })} />
+        <TextField id="pe-sub" label={t("catalog.field.subtitle")} value={form.subtitle} disabled={dis} onChange={(x) => setForm({ ...form, subtitle: x })} />
+        <TextField id="pe-desc" label={t("catalog.field.description")} value={form.description} multiline disabled={dis} onChange={(x) => setForm({ ...form, description: x })} />
+        <TextField id="pe-mat" label={t("catalog.field.material")} value={form.material} disabled={dis} onChange={(x) => setForm({ ...form, material: x })} />
+      </Section>
+      <Section title={tn("catalog.section.organize")}>
+        <div className="field">
+          <label htmlFor="pe-coll">{t("catalog.field.collection")}</label>
+          <select id="pe-coll" value={form.collection_id} disabled={dis} aria-invalid={!!err("collection_id")} onChange={(e) => setForm({ ...form, collection_id: e.target.value })}>
+            <option value="">{t("catalog.field.none")}</option>
+            {(data?.collections ?? []).map((c) => <option key={c.id} value={c.id}>{c.title}</option>)}
+          </select>
+        </div>
+        <ProductType value={form.type_id} types={data?.product_types ?? []} disabled={dis} canCreate={canWrite} onChange={(v) => setForm({ ...form, type_id: v })} onCreated={ref.reload} />
+        <TextField id="pe-tags" label={t("catalog.field.tags")} value={form.tags} disabled={dis} hint={t("catalog.field.tagsHint")} error={err("tags")} fieldName="tags" onChange={(x) => setForm({ ...form, tags: x })} />
+        <fieldset className="field">
+          <legend>{t("catalog.field.categories")}</legend>
+          {(data?.categories ?? []).map((c) => (
+            <label key={c.id} className="check"><input type="checkbox" checked={form.category_ids.includes(c.id)} disabled={dis} onChange={(e) => setForm({ ...form, category_ids: toggle(form.category_ids, c.id, e.target.checked) })} />{c.name}</label>
+          ))}
+        </fieldset>
+        <fieldset className="field">
+          <legend>{t("catalog.field.channels")}</legend>
+          {(data?.sales_channels ?? []).map((c) => (
+            <label key={c.id} className="check"><input type="checkbox" checked={form.sales_channel_ids.includes(c.id)} disabled={dis} onChange={(e) => setForm({ ...form, sales_channel_ids: toggle(form.sales_channel_ids, c.id, e.target.checked) })} />{c.name}</label>
+          ))}
+        </fieldset>
+      </Section>
+      <Section title={tn("catalog.section.options")}>
+        <p className="hint">{t("catalog.options.hint")}</p>
+        {err("options") ? <p className="field-error" role="alert">{err("options")}</p> : null}
+        {form.options.map((o, i) => (
+          <div className="field-row" key={o.id ?? `new-${i}`}>
+            <TextField id={`pe-opt-t-${i}`} label={t("catalog.options.name")} value={o.title} disabled={dis} onChange={(x) => setOpt(i, { title: x })} />
+            <TextField id={`pe-opt-v-${i}`} label={t("catalog.options.values")} value={o.values} disabled={dis} hint={t("catalog.options.valuesHint")} onChange={(x) => setOpt(i, { values: x })} />
+            {canWrite ? <button type="button" className="secondary" disabled={dis} onClick={() => setForm({ ...form, options: form.options.filter((_, j) => j !== i) })}>{t("catalog.options.remove")}</button> : null}
+          </div>
+        ))}
+        {canWrite ? <button type="button" className="secondary" disabled={dis} onClick={() => setForm({ ...form, options: [...form.options, { title: "", values: "" }] })}>{t("catalog.options.add")}</button> : null}
+      </Section>
+      {canWrite ? (
+        <div className="action-bar">
+          <button type="submit" disabled={dis || form.title.trim() === "" || (!!product && !f.dirty)}>{f.pending ? t("common.loading") : t("catalog.save")}</button>
+          {saved && !f.dirty ? <span role="status">{t("catalog.saved")}</span> : null}
+        </div>
+      ) : null}
+    </form>
+  );
+
+  const tabs = [{ value: "details", label: t("catalog.tab.details"), content: details }];
+  if (product) {
+    tabs.push(
+      {
+        value: "variants", label: t("catalog.tab.variants"),
+        content: (
+          <VariantsPanel productId={product.id} variants={product.variants as VariantView[]} options={product.options as OptionView[]} reference={data}
+            canWrite={canWrite} canPrice={canPrice} onChanged={async () => { await load(); }} />
+        ),
+      },
+      { value: "media", label: t("catalog.tab.media"), content: <MediaPanel product={product} canWrite={canWrite} onChanged={load} /> },
+      { value: "attributes", label: t("catalog.tab.attributes"), content: <AttributesPanel product={product} canWrite={canWrite} onChanged={load} /> },
+      { value: "storefront", label: t("catalog.tab.storefront"), content: <Suspense fallback={<Skeleton rows={4} />}><ProductStorefrontPanel productId={product.id} canWrite={canWrite} /></Suspense> },
+    );
+    if (canPrice && data) tabs.push({ value: "priceLists", label: t("catalog.tab.priceLists"), content: <PriceListsPanel reference={data} onChanged={ref.reload} /> });
+  }
+
+  return (
+    <div className="catalog">
+      <div className="catalog-head">
+        <h1>{product ? product.title : tn("catalog.newProduct")}</h1>
+        <div className="catalog-toolbar">
+          <Link className="button-link" href="/products/">{t("nav.products")}</Link>
+          {product ? <span className={`badge badge-${product.status}`}>{t(`catalog.status.${product.status}` as "catalog.status.draft")}</span> : null}
+          {product ? <button type="button" className="secondary" onClick={() => void openProductPreview(product.id)}>{t("catalog.preview")}</button> : null}
+          {ownProduct && canWrite ? (
+            product?.status === "published"
+              ? <button type="button" className="secondary" onClick={() => void actions.setStatus(ownProduct, "draft")}>{t("catalog.unpublish")}</button>
+              : <button type="button" className="secondary" onClick={() => void actions.setStatus(ownProduct, "published")}>{t("catalog.publish")}</button>
+          ) : null}
+          {ownProduct && canWrite ? <button type="button" className="danger" onClick={() => actions.askDelete(ownProduct)}>{t("catalog.delete.action")}</button> : null}
+        </div>
+      </div>
+      {product?.has_orders ? <p className="hint">{t("catalog.hasOrders.note")}</p> : null}
+      {actions.message}
+      {ref.failed ? <div role="alert" className="notice notice-error">{t("catalog.loadFailed")} <button type="button" className="link-button" onClick={() => void ref.reload()}>{t("common.retry")}</button></div> : null}
+      <Tabs label={t("nav.products")} tabs={tabs} value={tab} onValueChange={setTab} />
+      {actions.dialogs}
+    </div>
+  );
+}
+
+function ProductType(props: { value: string; types: Array<{ id: string; value: string }>; disabled: boolean; canCreate: boolean; onChange: (v: string) => void; onCreated: () => Promise<void> }) {
+  const { t } = useI18n();
+  const [name, setName] = useState("");
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  async function create() {
+    const api = getAdminApi();
+    if (!api || !name.trim() || busy) return;
+    setBusy(true);
+    setError(null);
+    try {
+      const r = await api.callAdmin("admin_upsert_product_type", { p_product_type: { value: name.trim() } });
+      await props.onCreated();
+      props.onChange(r.id);
+      setName("");
+    } catch (e) {
+      if (!getSessionManager()?.handleError(e)) setError((e as Error).message || t("error.unknown"));
+    } finally {
+      setBusy(false);
+    }
+  }
+  return (
+    <div className="field">
+      <label htmlFor="pe-type">{t("catalog.field.type")}</label>
+      <select id="pe-type" value={props.value} disabled={props.disabled} onChange={(e) => props.onChange(e.target.value)}>
+        <option value="">{t("catalog.field.none")}</option>
+        {props.types.map((x) => <option key={x.id} value={x.id}>{x.value}</option>)}
+      </select>
+      {props.canCreate ? (
+        <div className="inline-add">
+          <label htmlFor="pe-type-new" className="visually-hidden">{t("catalog.type.new")}</label>
+          <input id="pe-type-new" value={name} placeholder={t("catalog.type.new")} disabled={busy} onChange={(e) => setName(e.target.value)} />
+          <button type="button" className="secondary" disabled={busy || !name.trim()} onClick={() => void create()}>{t("catalog.type.add")}</button>
+        </div>
+      ) : null}
+      {error ? <p className="field-error" role="alert">{error}</p> : null}
+    </div>
+  );
+}
+
+interface ImageRow { id: string; url: string; rank: number }
+
+function MediaPanel(props: { product: Product; canWrite: boolean; onChanged: () => Promise<void> }) {
+  const { t, tn } = useI18n();
+  const serverImages = props.product.images as ImageRow[];
+  const initial = useMemo(() => serverImages.map((i) => ({ id: i.id, url: i.url })), [serverImages]);
+  const [list, setList] = useState(initial);
+  useEffect(() => setList(initial), [initial]);
+  const f = useAdminForm(initial, list);
+  const key = useRef(newIdempotencyKey());
+  const swap = (i: number, d: number) => {
+    const j = i + d;
+    if (j < 0 || j >= list.length) return;
+    const n = list.slice();
+    [n[i], n[j]] = [n[j], n[i]];
+    setList(n);
+  };
+  async function save() {
+    const api = getAdminApi();
+    if (!api) return;
+    const r = await f.submit(() => api.callAdmin("admin_upsert_product", {
+      p_product: { id: props.product.id, images: list.map((x, rank) => ({ id: x.id, url: x.url, rank })) },
+      p_expected_version: props.product.version,
+    }, { idempotencyKey: key.current }));
+    if (r.ok) { key.current = newIdempotencyKey(); await props.onChanged(); }
+  }
+  return (
+    <Section title={tn("catalog.tab.media")}>
+      {props.canWrite ? <MediaUploader productId={props.product.id} onUploaded={() => void props.onChanged()} /> : null}
+      {f.failure?.editConflict ? <EditConflictNotice pending={f.pending} onReload={() => void props.onChanged()} /> : null}
+      {list.length === 0 ? <p>{t("catalog.media.empty")}</p> : (
+        <ul className="media-list">
+          {list.map((img, i) => (
+            <li key={img.id}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={img.url} alt={t("catalog.media.imageN", { n: i + 1 })} width={96} height={96} />
+              {props.canWrite ? (
+                <span className="media-controls">
+                  <button type="button" className="secondary" disabled={f.pending || i === 0} aria-label={t("catalog.media.moveEarlier", { n: i + 1 })} onClick={() => swap(i, -1)}>←</button>
+                  <button type="button" className="secondary" disabled={f.pending || i === list.length - 1} aria-label={t("catalog.media.moveLater", { n: i + 1 })} onClick={() => swap(i, 1)}>→</button>
+                  <button type="button" className="secondary" disabled={f.pending} aria-label={t("catalog.media.remove", { n: i + 1 })} onClick={() => setList(list.filter((_, j) => j !== i))}>×</button>
+                </span>
+              ) : null}
+            </li>
+          ))}
+        </ul>
+      )}
+      {props.canWrite && list.length > 0 ? <button type="button" disabled={f.pending || !f.dirty} onClick={() => void save()}>{f.pending ? t("common.loading") : t("catalog.media.save")}</button> : null}
+    </Section>
+  );
+}
+
+interface AttrRow { key: string; value: string; filterable: boolean }
+
+function AttributesPanel(props: { product: Product; canWrite: boolean; onChanged: () => Promise<void> }) {
+  const { t, tn } = useI18n();
+  const initial = useMemo<AttrRow[]>(() => (props.product.attributes as Rec[]).map((a) => ({ key: str(a.key), value: str(a.value), filterable: a.filterable === true })), [props.product.attributes]);
+  const [rows, setRows] = useState(initial);
+  useEffect(() => setRows(initial), [initial]);
+  const f = useAdminForm(initial, rows);
+  const key = useRef(newIdempotencyKey());
+  const set = (i: number, p: Partial<AttrRow>) => setRows(rows.map((r, j) => (j === i ? { ...r, ...p } : r)));
+  async function save() {
+    const api = getAdminApi();
+    if (!api) return;
+    const r = await f.submit(() => api.callAdmin("admin_set_product_attributes", {
+      p_product_id: props.product.id,
+      p_attributes: rows.filter((r) => r.key.trim() || r.value.trim()).map((r, rank) => ({ key: r.key.trim(), value: r.value.trim(), rank, filterable: r.filterable })),
+      p_expected_version: props.product.version,
+    }, { idempotencyKey: key.current }));
+    if (r.ok) { key.current = newIdempotencyKey(); await props.onChanged(); }
+  }
+  return (
+    <Section title={tn("catalog.tab.attributes")}>
+      <p className="hint">{t("catalog.attr.hint")}</p>
+      {f.failure?.editConflict ? <EditConflictNotice pending={f.pending} onReload={() => void props.onChanged()} /> : null}
+      <UnplacedErrors failure={f.failure} placed={[]} />
+      {rows.length === 0 ? <p>{t("catalog.attr.empty")}</p> : null}
+      {rows.map((r, i) => (
+        <div className="field-row" key={i}>
+          <TextField id={`at-k-${i}`} label={t("catalog.attr.key")} value={r.key} disabled={!props.canWrite || f.pending} onChange={(x) => set(i, { key: x })} />
+          <TextField id={`at-v-${i}`} label={t("catalog.attr.value")} value={r.value} disabled={!props.canWrite || f.pending} onChange={(x) => set(i, { value: x })} />
+          <label className="check"><input type="checkbox" checked={r.filterable} disabled={!props.canWrite || f.pending} onChange={(e) => set(i, { filterable: e.target.checked })} />{t("catalog.attr.filterable")}</label>
+          {props.canWrite ? <button type="button" className="secondary" disabled={f.pending} onClick={() => setRows(rows.filter((_, j) => j !== i))}>{t("catalog.options.remove")}</button> : null}
+        </div>
+      ))}
+      {props.canWrite ? (
+        <div className="dialog-actions">
+          <button type="button" className="secondary" disabled={f.pending} onClick={() => setRows([...rows, { key: "", value: "", filterable: false }])}>{t("catalog.attr.add")}</button>
+          <button type="button" disabled={f.pending || !f.dirty} onClick={() => void save()}>{f.pending ? t("common.loading") : t("catalog.save")}</button>
+        </div>
+      ) : null}
+    </Section>
+  );
+}

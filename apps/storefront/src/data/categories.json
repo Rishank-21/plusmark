@@ -1,0 +1,197 @@
+{
+ "categories": [
+  {
+   "id": "pcat_01M7WWS7N9RSAAGJMBCQ9N712X",
+   "name": "White Boards",
+   "rank": 0,
+   "handle": "white-boards",
+   "description": "Marker boards in Non-Magnetic, Magnetic and Ceramic variants, with High Gloss Marker Grade HPL Sheet and premium writing surfaces.",
+   "parent_category_id": null
+  },
+  {
+   "id": "pcat_01M7WWS7PBSRT0KQDQ4636CJFS",
+   "name": "Non-Magnetic White Boards",
+   "rank": 1,
+   "handle": "white-boards-non-magnetic",
+   "description": "Marker boards in Non-Magnetic, Magnetic and Ceramic variants, with High Gloss Marker Grade HPL Sheet and premium writing surfaces.",
+   "parent_category_id": "pcat_01M7WWS7N9RSAAGJMBCQ9N712X"
+  },
+  {
+   "id": "pcat_01M7WWS7PHP0Y7RH2Y21PXANWK",
+   "name": "Magnetic White Boards",
+   "rank": 2,
+   "handle": "white-boards-magnetic",
+   "description": "Marker boards in Non-Magnetic, Magnetic and Ceramic variants, with High Gloss Marker Grade HPL Sheet and premium writing surfaces.",
+   "parent_category_id": "pcat_01M7WWS7N9RSAAGJMBCQ9N712X"
+  },
+  {
+   "id": "pcat_01M7WWS7PNZ5KK0DQ412K4TZAK",
+   "name": "Ceramic White Boards",
+   "rank": 3,
+   "handle": "white-boards-ceramic",
+   "description": "Marker boards in Non-Magnetic, Magnetic and Ceramic variants, with High Gloss Marker Grade HPL Sheet and premium writing surfaces.",
+   "parent_category_id": "pcat_01M7WWS7N9RSAAGJMBCQ9N712X"
+  },
+  {
+   "id": "pcat_01M7WWS7PSJPM7ZKT55EY3NPDJ",
+   "name": "Chalk Boards",
+   "rank": 10,
+   "handle": "chalk-boards",
+   "description": "Chalk boards in Non-Magnetic, Magnetic and Ceramic variants with Chalk Grade HPL Sheet — non-reflective, glare-free surfaces.",
+   "parent_category_id": null
+  },
+  {
+   "id": "pcat_01M7WWS7PXMEEH6PBRZAHQ0W2N",
+   "name": "Non-Magnetic Chalk Boards",
+   "rank": 11,
+   "handle": "chalk-boards-non-magnetic",
+   "description": "Chalk boards in Non-Magnetic, Magnetic and Ceramic variants with Chalk Grade HPL Sheet — non-reflective, glare-free surfaces.",
+   "parent_category_id": "pcat_01M7WWS7PSJPM7ZKT55EY3NPDJ"
+  },
+  {
+   "id": "pcat_01M7WWS7Q2B6W1HSYG9XKR3MC8",
+   "name": "Magnetic Chalk Boards",
+   "rank": 12,
+   "handle": "chalk-boards-magnetic",
+   "description": "Chalk boards in Non-Magnetic, Magnetic and Ceramic variants with Chalk Grade HPL Sheet — non-reflective, glare-free surfaces.",
+   "parent_category_id": "pcat_01M7WWS7PSJPM7ZKT55EY3NPDJ"
+  },
+  {
+   "id": "pcat_01M7WWS7Q6DQE5CV93E16K4NRY",
+   "name": "Ceramic Chalk Boards",
+   "rank": 13,
+   "handle": "chalk-boards-ceramic",
+   "description": "Chalk boards in Non-Magnetic, Magnetic and Ceramic variants with Chalk Grade HPL Sheet — non-reflective, glare-free surfaces.",
+   "parent_category_id": "pcat_01M7WWS7PSJPM7ZKT55EY3NPDJ"
+  },
+  {
+   "id": "pcat_01M7WWS7QA4D29XXKCCX6WVZ57",
+   "name": "Double-Sided Boards",
+   "rank": 20,
+   "handle": "double-sided-boards",
+   "description": "Two writing surfaces in one frame — marker on one side and chalk on the other, in premium aluminium frames.",
+   "parent_category_id": null
+  },
+  {
+   "id": "pcat_01M7WWS7QDBE07027DZ4ENKH9A",
+   "name": "Notice Boards",
+   "rank": 30,
+   "handle": "notice-boards",
+   "description": "Pin-up notice boards in Blazer Cloth, Velvet Cloth, Cork and Fabric surfaces, in four aluminium frame series.",
+   "parent_category_id": null
+  },
+  {
+   "id": "pcat_01M7WWS7QH8BPCS17YKQDTRBN8",
+   "name": "Pin-Up Boards",
+   "rank": 31,
+   "handle": "notice-boards-pin-up",
+   "description": "Pin-up notice boards in Blazer Cloth, Velvet Cloth, Cork and Fabric surfaces, in four aluminium frame series.",
+   "parent_category_id": "pcat_01M7WWS7QDBE07027DZ4ENKH9A"
+  },
+  {
+   "id": "pcat_01M7WWS7QMAF75CRWWBA7A1QMC",
+   "name": "Acrylic Door Cover (ADC)",
+   "rank": 32,
+   "handle": "notice-boards-adc",
+   "description": "Pin-up notice boards in Blazer Cloth, Velvet Cloth, Cork and Fabric surfaces, in four aluminium frame series.",
+   "parent_category_id": "pcat_01M7WWS7QDBE07027DZ4ENKH9A"
+  },
+  {
+   "id": "pcat_01M7WWS7QRTQYCMEC0KPPBK0BD",
+   "name": "Acrylic Door Cover Notice Boards",
+   "rank": 40,
+   "handle": "acrylic-door-cover-notice-boards",
+   "description": "Lockable notice boards with transparent acrylic door covers that protect notices from dust and handling.",
+   "parent_category_id": null
+  },
+  {
+   "id": "pcat_01M7WWS7QW5782C2Z9HF6PK6TT",
+   "name": "Specialty Display Boards",
+   "rank": 50,
+   "handle": "specialty-boards",
+   "description": "Acrylic folder display boards for organised display of charts, reports, SOPs and production data.",
+   "parent_category_id": null
+  },
+  {
+   "id": "pcat_01M7WWS7QZAEK9B31MH8XVGGWA",
+   "name": "Board & Study Essentials",
+   "rank": 60,
+   "handle": "board-study-essentials",
+   "description": "Practice boards for handwriting, lockable key hanger boards and a foldable homework table.",
+   "parent_category_id": null
+  },
+  {
+   "id": "pcat_01M7WWS7R3S2GQ82DAZXBMFN9B",
+   "name": "Display Boards",
+   "rank": 70,
+   "handle": "display-boards",
+   "description": "Grooved boards and black perforated boards with letter and figure sets for information display.",
+   "parent_category_id": null
+  },
+  {
+   "id": "pcat_01M7WWS7R7DXXRWY8WQA3EADEQ",
+   "name": "Board Stands & Storage",
+   "rank": 80,
+   "handle": "board-stands",
+   "description": "Board stands, newspaper and magazine stands, file racks, first aid boxes and letter boxes.",
+   "parent_category_id": null
+  },
+  {
+   "id": "pcat_01M7WWS7RAJ9SADEZ7K1W7XTH1",
+   "name": "Display Stands",
+   "rank": 81,
+   "handle": "board-stands-stands",
+   "description": "Board stands, newspaper and magazine stands, file racks, first aid boxes and letter boxes.",
+   "parent_category_id": "pcat_01M7WWS7R7DXXRWY8WQA3EADEQ"
+  },
+  {
+   "id": "pcat_01M7WWS7REYZ7MRJE57JYQAX4K",
+   "name": "Storage & Racks",
+   "rank": 82,
+   "handle": "board-stands-storage",
+   "description": "Board stands, newspaper and magazine stands, file racks, first aid boxes and letter boxes.",
+   "parent_category_id": "pcat_01M7WWS7R7DXXRWY8WQA3EADEQ"
+  },
+  {
+   "id": "pcat_01M7WWS7RJM8TZBQ91785CAKGE",
+   "name": "Clipboards",
+   "rank": 90,
+   "handle": "clipboards",
+   "description": "MDF and acrylic clipboards with Chrome Electroplated Clips and Dual-Side Cap Rivets.",
+   "parent_category_id": null
+  },
+  {
+   "id": "pcat_01M7WWS7RN6AXVYARFMB4EEYG5",
+   "name": "MDF Base",
+   "rank": 91,
+   "handle": "clipboards-mdf",
+   "description": "MDF and acrylic clipboards with Chrome Electroplated Clips and Dual-Side Cap Rivets.",
+   "parent_category_id": "pcat_01M7WWS7RJM8TZBQ91785CAKGE"
+  },
+  {
+   "id": "pcat_01M7WWS7RSW0ATVM0VCHZAPB88",
+   "name": "Acrylic Base",
+   "rank": 92,
+   "handle": "clipboards-acrylic",
+   "description": "MDF and acrylic clipboards with Chrome Electroplated Clips and Dual-Side Cap Rivets.",
+   "parent_category_id": "pcat_01M7WWS7RJM8TZBQ91785CAKGE"
+  },
+  {
+   "id": "pcat_01M7WWS7RX9PXMXJKSKP1P2T6P",
+   "name": "School Benches",
+   "rank": 100,
+   "handle": "school-benches",
+   "description": "School bench models PDS-SB 801 to PDS-SB 815 for schools and educational institutions.",
+   "parent_category_id": null
+  },
+  {
+   "id": "pcat_01M7WWS7S1S4ESA00P9AC7GQQN",
+   "name": "Schedule Boards",
+   "rank": 110,
+   "handle": "schedule-boards",
+   "description": "Dry wipe schedule boards available in any design and any size, made to the customer's sketch.",
+   "parent_category_id": null
+  }
+ ],
+ "count": 24
+}

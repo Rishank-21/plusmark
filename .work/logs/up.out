@@ -1,0 +1,29 @@
+==> Docker
+==> Port check (other local Supabase project)
+==> Supabase start
+==> Superuser fixups
+Fixups already in place.
+==> Migration history
+History rows: INSERT 0 0
+170 (files: 170)
+==> Vault secrets and URLs
+  set 10 vault entries: notification_job_secret, export_worker_job_secret, forecast_worker_job_secret, payment_reconcile_job_secret, proxy_signing_secret, notifications_send_url, export_worker_url, export_cleanup_url, forecast_worker_url, payment_reconcile_url
+==> Edge Functions
+  already serving.
+==> Admin app (3001)
+  port 3001 already listening.
+==> Storefront (4321)
+  port 4321 already listening (use -RebuildStorefront to rebuild).
+==> Waiting for services
+
+[32;1mService       [0m[32;1m Status[0m[32;1m URL[0m
+[32;1m-------       [0m [32;1m------[0m [32;1m---[0m
+Supabase API   UP     http://127.0.0.1:54321
+Postgres       UP     postgresql://postgres:postgres@127.0.0.1:54322/postgres
+Studio         UP     http://127.0.0.1:54323
+Inbucket       UP     http://127.0.0.1:54324
+Edge Functions UP     http://127.0.0.1:54321/functions/v1/<name>
+Admin app      UP     http://localhost:3001
+Storefront     UP     http://localhost:4321
+
+Logs: .work/logs/. Stop with tools/local-down.ps1.

@@ -1,0 +1,204 @@
+{
+  "failures": [
+    "home",
+    "add to cart -> cart line",
+    "mobile layout"
+  ],
+  "results": [
+    {
+      "name": "home",
+      "path": "/",
+      "status": 500,
+      "ok": false,
+      "errors": [
+        "__webpack_modules__[moduleId] is not a function"
+      ],
+      "bad": [
+        "500 http://localhost:3000/"
+      ]
+    },
+    {
+      "name": "category white boards",
+      "path": "/shop/white-boards",
+      "status": 200,
+      "ok": true,
+      "errors": [],
+      "bad": [
+        "404 http://localhost:3000/_next/static/css/app/layout.css?v=1795184894237",
+        "404 http://localhost:3000/_next/static/chunks/main-app.js?v=1795184894237",
+        "404 http://localhost:3000/_next/static/chunks/app-pages-internals.js",
+        "404 http://localhost:3000/_next/static/chunks/app/layout.js",
+        "404 http://localhost:3000/_next/static/chunks/app/(storefront)/layout.js",
+        "404 http://localhost:3000/_next/static/chunks/app/(storefront)/not-found.js"
+      ]
+    },
+    {
+      "name": "product detail",
+      "path": "/product/metallic-premium-white-board",
+      "status": 200,
+      "ok": true,
+      "errors": [],
+      "bad": [
+        "404 http://localhost:3000/_next/static/css/app/layout.css?v=1795184896866",
+        "404 http://localhost:3000/_next/static/chunks/main-app.js?v=1795184896866",
+        "404 http://localhost:3000/_next/static/chunks/app-pages-internals.js",
+        "404 http://localhost:3000/_next/static/chunks/app/layout.js",
+        "404 http://localhost:3000/_next/static/chunks/app/(storefront)/layout.js",
+        "404 http://localhost:3000/_next/static/chunks/app/(storefront)/not-found.js"
+      ]
+    },
+    {
+      "name": "search results",
+      "path": "/search?q=whiteboard",
+      "status": 200,
+      "ok": true,
+      "errors": [],
+      "bad": [
+        "404 http://localhost:3000/_next/static/css/app/layout.css?v=1795184900726",
+        "404 http://localhost:3000/_next/static/chunks/main-app.js?v=1795184900726",
+        "404 http://localhost:3000/_next/static/chunks/app-pages-internals.js",
+        "404 http://localhost:3000/_next/static/chunks/app/layout.js",
+        "404 http://localhost:3000/_next/static/chunks/app/(storefront)/layout.js",
+        "404 http://localhost:3000/_next/static/chunks/app/(storefront)/not-found.js"
+      ]
+    },
+    {
+      "name": "cart empty",
+      "path": "/cart",
+      "status": 200,
+      "ok": true,
+      "errors": [],
+      "bad": [
+        "404 http://localhost:3000/_next/static/css/app/layout.css?v=1795184905268",
+        "404 http://localhost:3000/_next/static/chunks/main-app.js?v=1795184905268",
+        "404 http://localhost:3000/_next/static/chunks/app-pages-internals.js",
+        "404 http://localhost:3000/_next/static/chunks/app/layout.js",
+        "404 http://localhost:3000/_next/static/chunks/app/(storefront)/layout.js",
+        "404 http://localhost:3000/_next/static/chunks/app/(storefront)/not-found.js"
+      ]
+    },
+    {
+      "name": "checkout empty",
+      "path": "/checkout",
+      "status": 200,
+      "ok": true,
+      "errors": [],
+      "bad": [
+        "404 http://localhost:3000/_next/static/css/app/layout.css?v=1795184908964",
+        "404 http://localhost:3000/_next/static/chunks/main-app.js?v=1795184908964",
+        "404 http://localhost:3000/_next/static/chunks/app-pages-internals.js",
+        "404 http://localhost:3000/_next/static/chunks/app/layout.js",
+        "404 http://localhost:3000/_next/static/chunks/app/(storefront)/layout.js",
+        "404 http://localhost:3000/_next/static/chunks/app/(storefront)/not-found.js"
+      ]
+    },
+    {
+      "name": "login",
+      "path": "/login",
+      "status": 200,
+      "ok": true,
+      "errors": [],
+      "bad": [
+        "404 http://localhost:3000/_next/static/css/app/layout.css?v=1795184911465",
+        "404 http://localhost:3000/_next/static/chunks/main-app.js?v=1795184911465",
+        "404 http://localhost:3000/_next/static/chunks/app-pages-internals.js",
+        "404 http://localhost:3000/_next/static/chunks/app/layout.js",
+        "404 http://localhost:3000/_next/static/chunks/app/(storefront)/layout.js",
+        "404 http://localhost:3000/_next/static/chunks/app/(storefront)/not-found.js"
+      ]
+    },
+    {
+      "name": "wishlist",
+      "path": "/wishlist",
+      "status": 200,
+      "ok": true,
+      "errors": [],
+      "bad": [
+        "404 http://localhost:3000/_next/static/css/app/layout.css?v=1795184916170",
+        "404 http://localhost:3000/_next/static/chunks/main-app.js?v=1795184916170",
+        "404 http://localhost:3000/_next/static/chunks/app-pages-internals.js",
+        "404 http://localhost:3000/_next/static/chunks/app/layout.js",
+        "404 http://localhost:3000/_next/static/chunks/app/(storefront)/layout.js",
+        "404 http://localhost:3000/_next/static/chunks/app/(storefront)/not-found.js"
+      ]
+    },
+    {
+      "name": "contact",
+      "path": "/contact",
+      "status": 200,
+      "ok": true,
+      "errors": [],
+      "bad": [
+        "404 http://localhost:3000/_next/static/css/app/layout.css?v=1795184919773",
+        "404 http://localhost:3000/_next/static/chunks/main-app.js?v=1795184919773",
+        "404 http://localhost:3000/_next/static/chunks/app-pages-internals.js",
+        "404 http://localhost:3000/_next/static/chunks/app/layout.js",
+        "404 http://localhost:3000/_next/static/chunks/app/(storefront)/layout.js",
+        "404 http://localhost:3000/_next/static/chunks/app/(storefront)/not-found.js"
+      ]
+    },
+    {
+      "name": "faq",
+      "path": "/faq",
+      "status": 200,
+      "ok": true,
+      "errors": [],
+      "bad": [
+        "404 http://localhost:3000/_next/static/css/app/layout.css?v=1795184923779",
+        "404 http://localhost:3000/_next/static/chunks/main-app.js?v=1795184923779",
+        "404 http://localhost:3000/_next/static/chunks/app-pages-internals.js",
+        "404 http://localhost:3000/_next/static/chunks/app/layout.js",
+        "404 http://localhost:3000/_next/static/chunks/app/(storefront)/layout.js",
+        "404 http://localhost:3000/_next/static/chunks/app/(storefront)/not-found.js"
+      ]
+    },
+    {
+      "name": "track order",
+      "path": "/track-order",
+      "status": 200,
+      "ok": true,
+      "errors": [],
+      "bad": [
+        "404 http://localhost:3000/_next/static/css/app/layout.css?v=1795184926638",
+        "404 http://localhost:3000/_next/static/chunks/main-app.js?v=1795184926638",
+        "404 http://localhost:3000/_next/static/chunks/app-pages-internals.js",
+        "404 http://localhost:3000/_next/static/chunks/app/layout.js",
+        "404 http://localhost:3000/_next/static/chunks/app/(storefront)/layout.js",
+        "404 http://localhost:3000/_next/static/chunks/app/(storefront)/not-found.js"
+      ]
+    },
+    {
+      "name": "add to cart -> cart line",
+      "path": "/product/... -> /cart",
+      "status": 200,
+      "ok": false,
+      "errors": [],
+      "bad": []
+    },
+    {
+      "name": "mobile home",
+      "path": "/",
+      "status": 200,
+      "ok": true,
+      "errors": [],
+      "bad": [
+        "404 http://localhost:3000/_next/static/css/app/layout.css?v=1795184933433",
+        "404 http://localhost:3000/_next/static/chunks/main-app.js?v=1795184933433",
+        "404 http://localhost:3000/_next/static/chunks/app-pages-internals.js",
+        "404 http://localhost:3000/_next/static/chunks/app/layout.js",
+        "404 http://localhost:3000/_next/static/chunks/app/(storefront)/layout.js",
+        "404 http://localhost:3000/_next/static/chunks/app/(storefront)/not-found.js"
+      ]
+    },
+    {
+      "name": "mobile layout",
+      "path": "/",
+      "status": 200,
+      "ok": false,
+      "errors": [
+        "horizontal overflow 1618px"
+      ],
+      "bad": []
+    }
+  ]
+}

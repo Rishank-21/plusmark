@@ -1,0 +1,10 @@
+{
+ "currency_code": "inr",
+ "region_id": null,
+ "options": [],
+ "free_delivery_threshold": null,
+ "cod": {
+  "max_order_amount": null,
+  "fee": null
+ }
+}

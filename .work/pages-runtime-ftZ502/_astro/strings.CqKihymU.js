@@ -1,0 +1,1 @@
+import{i as a}from"./i18n.CvIabGGw.js";globalThis.process??={};globalThis.process.env??={};function i(r){let s={};try{s=JSON.parse(r.dataset.strings??"{}")}catch{s={}}return(t,o)=>a(s[t]??t,o)}export{i as s};

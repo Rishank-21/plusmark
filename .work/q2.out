@@ -1,0 +1,15 @@
+Timing is on.
+SET
+Time: 0.512 ms
+p_category_id text, p_collection_id text
+Time: 1.452 ms
+140
+Time: 2.611 ms
+107
+Time: 1.208 ms
+BEGIN
+Time: 0.138 ms
+1
+Time: 93273.539 ms (01:33.274)
+ROLLBACK
+Time: 0.591 ms

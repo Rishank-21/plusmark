@@ -1,0 +1,201 @@
+{
+  "ok": true,
+  "source": "synthetic",
+  "seed": 20261114,
+  "scale": 0.05,
+  "loaded": {
+    "auth_users": 153,
+    "profiles": 153,
+    "addresses": 119,
+    "categories": 12,
+    "media": 25,
+    "products": 15,
+    "product_variants": 42,
+    "site_content": 30,
+    "coupons": 42,
+    "shipping_methods": 6,
+    "orders": 300,
+    "order_items": 747,
+    "product_reviews": 74,
+    "saved_boards": 195,
+    "payment_events": 175
+  },
+  "timing": {
+    "generate": 48,
+    "scratch_start": 67171,
+    "load": 265,
+    "dry_run": 71269,
+    "cutover_after_dry_run": 434,
+    "apply": 72867,
+    "cutover_after_apply": 382,
+    "apply_again": 19320
+  },
+  "checks": [
+    {
+      "name": "dry_run: exit code 0",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "dry_run: all steps ok",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "dry_run: report reconciled",
+      "ok": true,
+      "detail": "0 mismatch(es)"
+    },
+    {
+      "name": "dry_run: no unexplained skips",
+      "ok": true,
+      "detail": "0 failed, 9 skipped with a reason"
+    },
+    {
+      "name": "dry_run left no rows",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "cutover-check is blocked (exit 4) after dry_run only",
+      "ok": true,
+      "detail": "exit 4"
+    },
+    {
+      "name": "apply: exit code 0",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "apply: all steps ok",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "apply: report reconciled",
+      "ok": true,
+      "detail": "0 mismatch(es)"
+    },
+    {
+      "name": "apply: no unexplained skips",
+      "ok": true,
+      "detail": "0 failed, 9 skipped with a reason"
+    },
+    {
+      "name": "cutover-check passes (exit 0) after dry_run then apply",
+      "ok": true,
+      "detail": "exit 0 cutover allowed (apply run mrun_8b1382d1a7124cc0af6df848d95a1d65)"
+    },
+    {
+      "name": "second apply: exit code 0",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "second apply: all steps ok",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "second apply: report reconciled",
+      "ok": true,
+      "detail": "0 mismatch(es)"
+    },
+    {
+      "name": "second apply: no unexplained skips",
+      "ok": true,
+      "detail": "0 failed, 9 skipped with a reason"
+    },
+    {
+      "name": "second apply is idempotent (no row changes)",
+      "ok": true,
+      "detail": ""
+    }
+  ],
+  "entities": [
+    {
+      "name": "category",
+      "source": 12,
+      "migrated": 12,
+      "skipped": 0,
+      "failed": 0
+    },
+    {
+      "name": "product",
+      "source": 15,
+      "migrated": 15,
+      "skipped": 0,
+      "failed": 0
+    },
+    {
+      "name": "variant",
+      "source": 42,
+      "migrated": 42,
+      "skipped": 0,
+      "failed": 0
+    },
+    {
+      "name": "stock",
+      "source": 15,
+      "migrated": 15,
+      "skipped": 0,
+      "failed": 0
+    },
+    {
+      "name": "customer",
+      "source": 150,
+      "migrated": 150,
+      "skipped": 0,
+      "failed": 0
+    },
+    {
+      "name": "customer_address",
+      "source": 119,
+      "migrated": 119,
+      "skipped": 0,
+      "failed": 0
+    },
+    {
+      "name": "admin_user",
+      "source": 3,
+      "migrated": 3,
+      "skipped": 0,
+      "failed": 0
+    },
+    {
+      "name": "order",
+      "source": 300,
+      "migrated": 300,
+      "skipped": 0,
+      "failed": 0
+    },
+    {
+      "name": "review",
+      "source": 74,
+      "migrated": 71,
+      "skipped": 3,
+      "failed": 0
+    },
+    {
+      "name": "saved_board",
+      "source": 195,
+      "migrated": 192,
+      "skipped": 3,
+      "failed": 0
+    },
+    {
+      "name": "coupon",
+      "source": 42,
+      "migrated": 40,
+      "skipped": 2,
+      "failed": 0
+    },
+    {
+      "name": "shipping_method",
+      "source": 6,
+      "migrated": 5,
+      "skipped": 1,
+      "failed": 0
+    }
+  ]
+}

@@ -1,0 +1,360 @@
+CREATE OR REPLACE FUNCTION api.service_attach_payment_session(p_session_id text DEFAULT NULL::text, p_data jsonb DEFAULT NULL::jsonb)
+ RETURNS jsonb
+ LANGUAGE plpgsql
+ SECURITY DEFINER
+ SET search_path TO ''
+AS $function$
+declare
+  v_ps  medusa.payment_session;
+  v_msg text;
+  v_detail text;
+  v_ctx text;
+begin
+  if p_data is null or pg_catalog.jsonb_typeof(p_data) <> 'object' or nullif(p_data ->> 'provider_ref', '') is null then
+    perform internal.raise_error('validation_failed', 'Input validation failed',
+      pg_catalog.jsonb_build_object('data', 'must be an object with provider_ref'));
+  end if;
+  select * into v_ps from medusa.payment_session where id = p_session_id and deleted_at is null for update;
+  if not found then
+    perform internal.raise_error('not_found', 'Payment session not found.');
+  end if;
+  if v_ps.status not in ('pending', 'requires_more', 'pending_authorization') then
+    perform internal.raise_error('conflict', 'The payment session is no longer open.', null, null, 409);
+  end if;
+  -- The first provider reference wins, so a retried initiate cannot replace the order the customer may already be paying.
+  if nullif(v_ps.data ->> 'provider_ref', '') is null then
+    update medusa.payment_session set data = p_data, updated_at = pg_catalog.now() where id = v_ps.id
+    returning * into v_ps;
+  end if;
+  return internal.ok_envelope(pg_catalog.jsonb_build_object('payment_session_id', v_ps.id, 'session_data', v_ps.data,
+                                                            'provider_ref', v_ps.data ->> 'provider_ref'));
+exception when others then
+  get stacked diagnostics v_msg = message_text, v_detail = pg_exception_detail, v_ctx = pg_exception_context;
+  return internal.error_from_exception(sqlstate, v_msg, v_detail, v_ctx, 'api.service_attach_payment_session');
+end
+$function$
+
+CREATE OR REPLACE FUNCTION api.service_begin_payment(p_cart_id text DEFAULT NULL::text, p_cart_token text DEFAULT NULL::text, p_auth_user_id uuid DEFAULT NULL::uuid, p_provider text DEFAULT NULL::text)
+ RETURNS jsonb
+ LANGUAGE plpgsql
+ SECURITY DEFINER
+ SET search_path TO ''
+AS $function$
+declare
+  c         medusa.cart;
+  v_prov    text := pg_catalog.lower(pg_catalog.btrim(coalesce(p_provider, '')));
+  v_ident   text;
+  v_pid     text;
+  v_totals  jsonb;
+  v_total   numeric;
+  v_digits  integer;
+  v_minor   numeric;
+  v_raw     jsonb;
+  v_pc      medusa.payment_collection;
+  v_ps      medusa.payment_session;
+  v_stale   jsonb;
+  v_hold    jsonb;
+  v_ok      boolean := false;
+  v_msg     text;
+  v_detail  text;
+  v_ctx     text;
+begin
+  if v_prov !~ '^[a-z0-9_]{1,60}$' then
+    perform internal.raise_error('validation_failed', 'Input validation failed',
+      pg_catalog.jsonb_build_object('provider', 'is required'));
+  end if;
+  v_pid := case when v_prov like 'pp\_%' then v_prov else 'pp_' || v_prov || '_' || v_prov end;
+  v_ident := case when v_prov like 'pp\_%' then pg_catalog.split_part(v_prov, '_', 2) else v_prov end;
+  -- Access: the Cart token for a guest Cart, the verified auth user for a Customer Cart.
+  select * into c from medusa.cart where id = p_cart_id and deleted_at is null for update;
+  if found then
+    if c.customer_id is not null then
+      v_ok := p_auth_user_id is not null and exists (
+        select 1 from ext.customer_auth_link l where l.auth_user_id = p_auth_user_id and l.customer_id = c.customer_id);
+    else
+      v_ok := nullif(p_cart_token, '') is not null and exists (
+        select 1 from ext.cart_token t
+         where t.cart_id = c.id and t.revoked_at is null and t.token_hash = internal.cart_token_hash(p_cart_token));
+    end if;
+  end if;
+  if not v_ok then
+    perform internal.raise_error('not_found', 'Cart not found.');
+  end if;
+  if c.completed_at is not null or exists (select 1 from medusa.order_cart oc where oc.cart_id = c.id and oc.deleted_at is null)
+     or exists (select 1 from ext.cart_state s where s.cart_id = c.id and (s.expired_at is not null or s.closed_at is not null)) then
+    perform internal.raise_error('cart_not_modifiable', 'This cart can no longer be paid.', null, null, 409);
+  end if;
+  if not exists (select 1 from medusa.cart_line_item li where li.cart_id = c.id and li.deleted_at is null) then
+    perform internal.raise_error('validation_failed', 'Input validation failed',
+      pg_catalog.jsonb_build_object('items', 'the cart is empty'));
+  end if;
+  -- Provider enabled for the Region (Req 10.2).
+  if c.region_id is null or not exists (
+       select 1 from medusa.payment_provider p
+         join medusa.region_payment_provider rp on rp.payment_provider_id = p.id and rp.deleted_at is null
+        where p.id = v_pid and p.is_enabled and p.deleted_at is null and rp.region_id = c.region_id) then
+    perform internal.raise_error('provider_not_enabled', 'This payment method is not available for the cart''s region.', null,
+      pg_catalog.jsonb_build_object('provider', v_ident, 'region_id', c.region_id), 422);
+  end if;
+  -- Refresh and take the total on the server.
+  perform internal.reprice_cart_items(c.id);
+  perform internal.refresh_cart(c.id);
+  select * into c from medusa.cart where id = p_cart_id;
+  perform internal.assert_cart_taxable(c.id);
+  v_totals := internal.cart_totals(c.id);
+  v_total := (v_totals ->> 'total')::numeric;
+  if v_total is null or v_total <= 0 then
+    perform internal.raise_error('validation_failed', 'Input validation failed',
+      pg_catalog.jsonb_build_object('total', 'there is nothing to pay'));
+  end if;
+  if v_pid ~ '^pp_cod(_|$)' and not internal.cod_check(c.id) then
+    perform internal.raise_error('cod_not_eligible', 'Cash on delivery is not available for this cart.', null, null, 422);
+  end if;
+  -- Minor units (Req 10.3): exact, or rejected.
+  select cu.decimal_digits into v_digits from medusa.currency cu
+   where cu.code = pg_catalog.lower(c.currency_code) and cu.deleted_at is null;
+  if v_digits is null then
+    perform internal.raise_error('validation_failed', 'Input validation failed',
+      pg_catalog.jsonb_build_object('currency_code', 'is unknown'));
+  end if;
+  v_minor := v_total * pg_catalog.power(10::numeric, v_digits);
+  if v_minor <> pg_catalog.trunc(v_minor) or v_minor > 9007199254740991 then
+    perform internal.raise_error('payment_amount_inexact', 'The total cannot be sent to the provider without change.', null,
+      pg_catalog.jsonb_build_object('total', v_total::text, 'decimal_digits', v_digits), 422);
+  end if;
+  v_raw := pg_catalog.jsonb_build_object('value', v_total::text, 'precision', 20);
+  -- Payment_Collection: reuse the Cart's open one, else create it.
+  select pc.* into v_pc
+    from medusa.cart_payment_collection cpc
+    join medusa.payment_collection pc on pc.id = cpc.payment_collection_id and pc.deleted_at is null
+   where cpc.cart_id = c.id and cpc.deleted_at is null and pc.status in ('not_paid', 'awaiting')
+   order by pc.created_at desc, pc.id desc limit 1 for update of pc;
+  if v_pc.id is null then
+    if exists (select 1 from medusa.cart_payment_collection cpc
+                 join medusa.payment_collection pc on pc.id = cpc.payment_collection_id and pc.deleted_at is null
+                where cpc.cart_id = c.id and cpc.deleted_at is null
+                  and pc.status in ('authorized', 'partially_authorized', 'partially_captured', 'completed')) then
+      perform internal.raise_error('payment_already_started', 'This cart already has a payment.', null, null, 409);
+    end if;
+    insert into medusa.payment_collection (id, currency_code, amount, raw_amount, status)
+    values (internal.generate_id_for('payment_collection'), pg_catalog.lower(c.currency_code), v_total, v_raw, 'not_paid')
+    returning * into v_pc;
+    insert into medusa.cart_payment_collection (cart_id, payment_collection_id, id)
+    values (c.id, v_pc.id, internal.generate_id('cartpaycol'));
+  elsif v_pc.amount is distinct from v_total or v_pc.currency_code is distinct from pg_catalog.lower(c.currency_code) then
+    update medusa.payment_collection
+       set amount = v_total, raw_amount = v_raw, currency_code = pg_catalog.lower(c.currency_code), updated_at = pg_catalog.now()
+     where id = v_pc.id;
+  end if;
+  insert into medusa.payment_collection_payment_providers (payment_collection_id, payment_provider_id)
+  values (v_pc.id, v_pid) on conflict do nothing;
+  -- Stale sessions: not yet paid and for another amount, currency or provider.
+  with s as (
+    update medusa.payment_session ps
+       set status = 'canceled', updated_at = pg_catalog.now()
+     where ps.payment_collection_id = v_pc.id and ps.deleted_at is null
+       and ps.status in ('pending', 'requires_more', 'pending_authorization')
+       and (ps.amount is distinct from v_total or ps.currency_code is distinct from pg_catalog.lower(c.currency_code)
+            or ps.provider_id is distinct from v_pid)
+    returning ps.id, ps.provider_id, ps.data ->> 'provider_ref' as provider_ref)
+  select coalesce(pg_catalog.jsonb_agg(pg_catalog.jsonb_build_object('id', id, 'provider_id', provider_id,
+                                                                     'provider_ref', provider_ref) order by id), '[]'::jsonb)
+    into v_stale from s;
+  -- Session: reuse the open one for this provider and amount.
+  select ps.* into v_ps from medusa.payment_session ps
+   where ps.payment_collection_id = v_pc.id and ps.deleted_at is null and ps.provider_id = v_pid
+     and ps.status in ('pending', 'requires_more', 'pending_authorization')
+   order by ps.created_at desc, ps.id desc limit 1;
+  if v_ps.id is null then
+    insert into medusa.payment_session (id, currency_code, amount, raw_amount, provider_id, data, status, payment_collection_id)
+    values (internal.generate_id_for('payment_session'), pg_catalog.lower(c.currency_code), v_total, v_raw, v_pid, '{}'::jsonb,
+            'pending', v_pc.id)
+    returning * into v_ps;
+  end if;
+  update medusa.payment_collection set status = 'awaiting', updated_at = pg_catalog.now()
+   where id = v_pc.id and status = 'not_paid';
+  -- Inventory_Holds for the payment window.
+  v_hold := internal.hold_cart_inventory(c.id);
+  return internal.ok_envelope(pg_catalog.jsonb_build_object(
+    'cart_id', c.id, 'payment_collection_id', v_pc.id, 'payment_session_id', v_ps.id,
+    'provider', v_ident, 'provider_id', v_pid,
+    'amount', v_total::text, 'amount_minor', v_minor::bigint, 'currency_code', pg_catalog.lower(c.currency_code),
+    'decimal_digits', v_digits,
+    'provider_ref', v_ps.data ->> 'provider_ref', 'session_data', v_ps.data,
+    'needs_initiate', (v_ps.data ->> 'provider_ref') is null,
+    'canceled_sessions', v_stale, 'holds', v_hold));
+exception when others then
+  get stacked diagnostics v_msg = message_text, v_detail = pg_exception_detail, v_ctx = pg_exception_context;
+  return internal.error_from_exception(sqlstate, v_msg, v_detail, v_ctx, 'api.service_begin_payment');
+end
+$function$
+
+CREATE OR REPLACE FUNCTION api.service_confirm_payment(p_session_id text DEFAULT NULL::text, p_cart_token text DEFAULT NULL::text, p_auth_user_id uuid DEFAULT NULL::uuid, p_provider_ref text DEFAULT NULL::text, p_payment_ref text DEFAULT NULL::text, p_status text DEFAULT NULL::text, p_amount_minor bigint DEFAULT NULL::bigint, p_currency text DEFAULT NULL::text)
+ RETURNS jsonb
+ LANGUAGE plpgsql
+ SECURITY DEFINER
+ SET search_path TO ''
+AS $function$
+declare
+  v_ps      medusa.payment_session;
+  v_pc      medusa.payment_collection;
+  v_cart_id text;
+  c         medusa.cart;
+  v_pay     medusa.payment;
+  v_digits  integer;
+  v_expect  numeric;
+  v_ok      boolean := false;
+  v_raw     jsonb;
+  v_cur     text := pg_catalog.lower(pg_catalog.btrim(coalesce(p_currency, '')));
+  v_open    boolean;
+  v_why     text;
+  v_inc     bigint;
+  v_cap     boolean := false;
+  v_msg     text;
+  v_detail  text;
+  v_ctx     text;
+begin
+  if nullif(p_session_id, '') is null or nullif(p_provider_ref, '') is null or nullif(p_payment_ref, '') is null
+     or p_status is null or p_amount_minor is null or v_cur = '' then
+    perform internal.raise_error('validation_failed', 'Input validation failed',
+      pg_catalog.jsonb_build_object('payment', 'session, provider reference, payment reference, status, amount and currency are required'));
+  end if;
+  select ps.* into v_ps from medusa.payment_session ps where ps.id = p_session_id and ps.deleted_at is null;
+  if found then
+    select cpc.cart_id into v_cart_id from medusa.cart_payment_collection cpc
+     where cpc.payment_collection_id = v_ps.payment_collection_id and cpc.deleted_at is null limit 1;
+  end if;
+  if v_cart_id is not null then
+    select * into c from medusa.cart where id = v_cart_id and deleted_at is null for update;
+  end if;
+  if c.id is not null then
+    if c.customer_id is not null then
+      v_ok := p_auth_user_id is not null and exists (
+        select 1 from ext.customer_auth_link l where l.auth_user_id = p_auth_user_id and l.customer_id = c.customer_id);
+    else
+      v_ok := nullif(p_cart_token, '') is not null and exists (
+        select 1 from ext.cart_token t
+         where t.cart_id = c.id and t.revoked_at is null and t.token_hash = internal.cart_token_hash(p_cart_token));
+    end if;
+  end if;
+  if not v_ok then
+    perform internal.raise_error('not_found', 'Payment not found.');
+  end if;
+  if v_ps.provider_id ~ '^pp_cod(_|$)' then
+    perform internal.raise_error('validation_failed', 'Input validation failed',
+      pg_catalog.jsonb_build_object('provider', 'cash on delivery is not confirmed online'));
+  end if;
+  select * into v_pc from medusa.payment_collection where id = v_ps.payment_collection_id for update;
+
+  -- Order reference (the payment may be someone else's: no incident).
+  if p_provider_ref is distinct from v_ps.data ->> 'provider_ref' then
+    perform internal.record_security_event('payment_mismatch', 'payment_confirm',
+      pg_catalog.jsonb_build_object('cart_id', c.id, 'payment_session_id', v_ps.id, 'reason', 'reference',
+                                    'payment_ref', p_payment_ref));
+    return internal.error_envelope('payment_mismatch', 'The payment does not match this order.', null, null, 422);
+  end if;
+  if p_status not in ('authorized', 'captured') then
+    return internal.error_envelope('payment_required', 'The payment has not been completed.', null,
+      pg_catalog.jsonb_build_object('status', p_status), 422);
+  end if;
+
+  -- Already confirmed: the same provider payment is a repeat; another one is refused.
+  select * into v_pay from medusa.payment where payment_session_id = v_ps.id and deleted_at is null
+   order by created_at, id limit 1;
+  if v_pay.id is not null then
+    if v_pay.data ->> 'payment_ref' is distinct from p_payment_ref then
+      return internal.error_envelope('conflict', 'This payment session already has a different payment.', null, null, 409);
+    end if;
+  end if;
+
+  select cu.decimal_digits into v_digits from medusa.currency cu where cu.code = pg_catalog.lower(v_ps.currency_code) and cu.deleted_at is null;
+  v_expect := v_ps.amount * pg_catalog.power(10::numeric, coalesce(v_digits, 2));
+  v_open := v_ps.status in ('pending', 'requires_more', 'pending_authorization', 'authorized');
+  v_why := case when not v_open then 'session_not_open'
+                when v_cur is distinct from pg_catalog.lower(v_ps.currency_code) then 'currency'
+                when p_amount_minor::numeric is distinct from v_expect or v_digits is null then 'amount' end;
+  if v_why is not null then
+    perform internal.record_security_event('payment_mismatch', 'payment_confirm',
+      pg_catalog.jsonb_build_object('cart_id', c.id, 'payment_session_id', v_ps.id, 'reason', v_why,
+                                    'payment_ref', p_payment_ref, 'amount_minor', p_amount_minor, 'currency_code', v_cur,
+                                    'expected_amount', v_ps.amount, 'expected_currency', v_ps.currency_code));
+    insert into ext.payment_incident (cart_id, payment_collection_id, reason, action, status, amount, currency_code, details)
+    values (c.id, v_pc.id, 'payment_mismatch', case when p_status = 'captured' then 'refund' else 'void' end, 'queued',
+            case when v_digits is null then v_ps.amount else p_amount_minor::numeric / pg_catalog.power(10::numeric, v_digits) end,
+            v_cur, pg_catalog.jsonb_build_object('why', v_why, 'payment_ref', p_payment_ref, 'provider_ref', p_provider_ref,
+                                                 'payment_session_id', v_ps.id, 'provider_status', p_status))
+    on conflict (cart_id) where status in ('queued', 'processing') do nothing
+    returning id into v_inc;
+    return internal.error_envelope('payment_mismatch', 'The payment does not match this order.', null,
+      pg_catalog.jsonb_build_object('incident_id', v_inc), 422);
+  end if;
+
+  v_raw := pg_catalog.jsonb_build_object('value', v_ps.amount::text, 'precision', 20);
+  -- Authorize (once).
+  if v_pay.id is null then
+    update medusa.payment_session
+       set status = 'authorized', authorized_at = pg_catalog.now(), updated_at = pg_catalog.now(),
+           data = coalesce(data, '{}'::jsonb) || pg_catalog.jsonb_build_object('payment_ref', p_payment_ref)
+     where id = v_ps.id;
+    insert into medusa.payment (id, amount, raw_amount, currency_code, provider_id, data, payment_collection_id, payment_session_id)
+    values (internal.generate_id_for('payment'), v_ps.amount, v_raw, v_ps.currency_code, v_ps.provider_id,
+            coalesce(v_ps.data, '{}'::jsonb) || pg_catalog.jsonb_build_object('payment_ref', p_payment_ref),
+            v_pc.id, v_ps.id)
+    returning * into v_pay;
+    update medusa.payment_collection
+       set status = 'authorized', authorized_amount = v_ps.amount, raw_authorized_amount = v_raw, updated_at = pg_catalog.now()
+     where id = v_pc.id and status in ('not_paid', 'awaiting');
+  end if;
+  -- Capture (once), when the provider already captured the payment.
+  if p_status = 'captured' and v_pay.captured_at is null then
+    update medusa.payment set captured_at = pg_catalog.now(), updated_at = pg_catalog.now() where id = v_pay.id;
+    insert into medusa.capture (id, amount, raw_amount, payment_id, created_by)
+    values (internal.generate_id_for('capture'), v_ps.amount, v_raw, v_pay.id, 'payment_confirm');
+    update medusa.payment_collection
+       set status = 'completed', captured_amount = v_ps.amount, raw_captured_amount = v_raw,
+           completed_at = pg_catalog.now(), updated_at = pg_catalog.now()
+     where id = v_pc.id and status in ('authorized', 'partially_captured');
+    v_cap := true;
+  end if;
+  select * into v_pc from medusa.payment_collection where id = v_pc.id;
+  return internal.ok_envelope(pg_catalog.jsonb_build_object(
+    'cart_id', c.id, 'payment_session_id', v_ps.id, 'payment_collection_id', v_pc.id, 'payment_id', v_pay.id,
+    'payment_status', v_pc.status, 'captured', v_cap or v_pay.captured_at is not null));
+exception when others then
+  get stacked diagnostics v_msg = message_text, v_detail = pg_exception_detail, v_ctx = pg_exception_context;
+  return internal.error_from_exception(sqlstate, v_msg, v_detail, v_ctx, 'api.service_confirm_payment');
+end
+$function$
+
+CREATE OR REPLACE FUNCTION api.store_complete_cart(p_cart_id text DEFAULT NULL::text, p_cart_token text DEFAULT NULL::text, p_idempotency_key text DEFAULT NULL::text, p_expected_total numeric DEFAULT NULL::numeric)
+ RETURNS jsonb
+ LANGUAGE plpgsql
+ SECURITY DEFINER
+ SET search_path TO ''
+AS $function$
+declare
+  c        medusa.cart;
+  v_msg    text;
+  v_detail text;
+  v_ctx    text;
+begin
+  begin
+    c := internal.authorize_cart(p_cart_id, p_cart_token);
+    if c.customer_id is null then
+      perform internal.raise_error('permission_denied', 'Guest orders are placed through the checkout gateway.', null, null, 403);
+    end if;
+    if p_expected_total is null then
+      perform internal.raise_error('validation_failed', 'Input validation failed',
+        pg_catalog.jsonb_build_object('expected_total', 'is required'));
+    end if;
+    return internal.placement_result(internal.complete_cart(c.id, p_idempotency_key, p_expected_total, false));
+  exception when sqlstate 'BK000' then
+    get stacked diagnostics v_msg = message_text, v_detail = pg_exception_detail;
+    return internal.error_from_exception('BK000', v_msg, internal.placement_error_detail(v_msg, v_detail));
+  end;
+exception when others then
+  get stacked diagnostics v_msg = message_text, v_ctx = pg_exception_context;
+  return internal.error_from_exception(sqlstate, v_msg, null, v_ctx, 'api.store_complete_cart');
+end
+$function$
+

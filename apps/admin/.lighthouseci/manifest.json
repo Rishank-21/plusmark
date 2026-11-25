@@ -1,0 +1,122 @@
+[
+  {
+    "url": "http://localhost:61054/sign-in/index.html",
+    "isRepresentativeRun": false,
+    "htmlPath": "C:\\Users\\palha\\plusmark\\apps\\admin\\.lighthouseci\\localhost-sign_in_index_html-2026_11_18_07_22_14.report.html",
+    "jsonPath": "C:\\Users\\palha\\plusmark\\apps\\admin\\.lighthouseci\\localhost-sign_in_index_html-2026_11_18_07_22_14.report.json",
+    "summary": {
+      "performance": 0.83,
+      "accessibility": 1,
+      "best-practices": 0.96,
+      "seo": 0.5
+    }
+  },
+  {
+    "url": "http://localhost:61054/sign-in/index.html",
+    "isRepresentativeRun": false,
+    "htmlPath": "C:\\Users\\palha\\plusmark\\apps\\admin\\.lighthouseci\\localhost-sign_in_index_html-2026_11_18_07_22_56.report.html",
+    "jsonPath": "C:\\Users\\palha\\plusmark\\apps\\admin\\.lighthouseci\\localhost-sign_in_index_html-2026_11_18_07_22_56.report.json",
+    "summary": {
+      "performance": 0.95,
+      "accessibility": 1,
+      "best-practices": 0.96,
+      "seo": 0.5
+    }
+  },
+  {
+    "url": "http://localhost:61054/sign-in/index.html",
+    "isRepresentativeRun": false,
+    "htmlPath": "C:\\Users\\palha\\plusmark\\apps\\admin\\.lighthouseci\\localhost-sign_in_index_html-2026_11_18_07_23_14.report.html",
+    "jsonPath": "C:\\Users\\palha\\plusmark\\apps\\admin\\.lighthouseci\\localhost-sign_in_index_html-2026_11_18_07_23_14.report.json",
+    "summary": {
+      "performance": 0.94,
+      "accessibility": 1,
+      "best-practices": 0.96,
+      "seo": 0.5
+    }
+  },
+  {
+    "url": "http://localhost:61054/sign-in/index.html",
+    "isRepresentativeRun": false,
+    "htmlPath": "C:\\Users\\palha\\plusmark\\apps\\admin\\.lighthouseci\\localhost-sign_in_index_html-2026_11_18_07_23_32.report.html",
+    "jsonPath": "C:\\Users\\palha\\plusmark\\apps\\admin\\.lighthouseci\\localhost-sign_in_index_html-2026_11_18_07_23_32.report.json",
+    "summary": {
+      "performance": 0.9,
+      "accessibility": 1,
+      "best-practices": 0.96,
+      "seo": 0.5
+    }
+  },
+  {
+    "url": "http://localhost:61054/index.html",
+    "isRepresentativeRun": false,
+    "htmlPath": "C:\\Users\\palha\\plusmark\\apps\\admin\\.lighthouseci\\localhost-index_html-2026_11_18_07_23_51.report.html",
+    "jsonPath": "C:\\Users\\palha\\plusmark\\apps\\admin\\.lighthouseci\\localhost-index_html-2026_11_18_07_23_51.report.json",
+    "summary": {
+      "performance": 0.97,
+      "accessibility": 1,
+      "best-practices": 0.96,
+      "seo": 0.5
+    }
+  },
+  {
+    "url": "http://localhost:61054/index.html",
+    "isRepresentativeRun": false,
+    "htmlPath": "C:\\Users\\palha\\plusmark\\apps\\admin\\.lighthouseci\\localhost-index_html-2026_11_18_07_24_31.report.html",
+    "jsonPath": "C:\\Users\\palha\\plusmark\\apps\\admin\\.lighthouseci\\localhost-index_html-2026_11_18_07_24_31.report.json",
+    "summary": {
+      "performance": 0.91,
+      "accessibility": 1,
+      "best-practices": 0.96,
+      "seo": 0.5
+    }
+  },
+  {
+    "url": "http://localhost:61054/index.html",
+    "isRepresentativeRun": false,
+    "htmlPath": "C:\\Users\\palha\\plusmark\\apps\\admin\\.lighthouseci\\localhost-index_html-2026_11_18_07_24_50.report.html",
+    "jsonPath": "C:\\Users\\palha\\plusmark\\apps\\admin\\.lighthouseci\\localhost-index_html-2026_11_18_07_24_50.report.json",
+    "summary": {
+      "performance": 0.94,
+      "accessibility": 1,
+      "best-practices": 0.96,
+      "seo": 0.5
+    }
+  },
+  {
+    "url": "http://localhost:61054/index.html",
+    "isRepresentativeRun": false,
+    "htmlPath": "C:\\Users\\palha\\plusmark\\apps\\admin\\.lighthouseci\\localhost-index_html-2026_11_18_07_25_10.report.html",
+    "jsonPath": "C:\\Users\\palha\\plusmark\\apps\\admin\\.lighthouseci\\localhost-index_html-2026_11_18_07_25_10.report.json",
+    "summary": {
+      "performance": 0.9,
+      "accessibility": 1,
+      "best-practices": 0.96,
+      "seo": 0.5
+    }
+  },
+  {
+    "url": "http://localhost:61054/sign-in/index.html",
+    "isRepresentativeRun": true,
+    "htmlPath": "C:\\Users\\palha\\plusmark\\apps\\admin\\.lighthouseci\\localhost-sign_in_index_html-2026_11_18_07_22_39.report.html",
+    "jsonPath": "C:\\Users\\palha\\plusmark\\apps\\admin\\.lighthouseci\\localhost-sign_in_index_html-2026_11_18_07_22_39.report.json",
+    "summary": {
+      "performance": 0.93,
+      "accessibility": 1,
+      "best-practices": 0.96,
+      "seo": 0.5
+    }
+  },
+  {
+    "url": "http://localhost:61054/index.html",
+    "isRepresentativeRun": true,
+    "htmlPath": "C:\\Users\\palha\\plusmark\\apps\\admin\\.lighthouseci\\localhost-index_html-2026_11_18_07_24_12.report.html",
+    "jsonPath": "C:\\Users\\palha\\plusmark\\apps\\admin\\.lighthouseci\\localhost-index_html-2026_11_18_07_24_12.report.json",
+    "summary": {
+      "performance": 0.93,
+      "accessibility": 1,
+      "best-practices": 0.96,
+      "seo": 0.5
+    }
+  }
+]

@@ -1,0 +1,201 @@
+{
+  "ok": true,
+  "source": "synthetic",
+  "seed": 20261114,
+  "scale": 1,
+  "loaded": {
+    "auth_users": 3003,
+    "profiles": 3003,
+    "addresses": 2698,
+    "categories": 12,
+    "media": 590,
+    "products": 300,
+    "product_variants": 896,
+    "site_content": 30,
+    "coupons": 42,
+    "shipping_methods": 6,
+    "orders": 6000,
+    "order_items": 14985,
+    "product_reviews": 1498,
+    "saved_boards": 3994,
+    "payment_events": 3648
+  },
+  "timing": {
+    "generate": 617,
+    "scratch_start": 63649,
+    "load": 3198,
+    "dry_run": 2528304,
+    "cutover_after_dry_run": 1068,
+    "apply": 3224322,
+    "cutover_after_apply": 302,
+    "apply_again": 263888
+  },
+  "checks": [
+    {
+      "name": "dry_run: exit code 0",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "dry_run: all steps ok",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "dry_run: report reconciled",
+      "ok": true,
+      "detail": "0 mismatch(es)"
+    },
+    {
+      "name": "dry_run: no unexplained skips",
+      "ok": true,
+      "detail": "0 failed, 112 skipped with a reason"
+    },
+    {
+      "name": "dry_run left no rows",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "cutover-check is blocked (exit 4) after dry_run only",
+      "ok": true,
+      "detail": "exit 4"
+    },
+    {
+      "name": "apply: exit code 0",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "apply: all steps ok",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "apply: report reconciled",
+      "ok": true,
+      "detail": "0 mismatch(es)"
+    },
+    {
+      "name": "apply: no unexplained skips",
+      "ok": true,
+      "detail": "0 failed, 112 skipped with a reason"
+    },
+    {
+      "name": "cutover-check passes (exit 0) after dry_run then apply",
+      "ok": true,
+      "detail": "exit 0 cutover allowed (apply run mrun_cf77253c149449edae4985650babe871)"
+    },
+    {
+      "name": "second apply: exit code 0",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "second apply: all steps ok",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "second apply: report reconciled",
+      "ok": true,
+      "detail": "0 mismatch(es)"
+    },
+    {
+      "name": "second apply: no unexplained skips",
+      "ok": true,
+      "detail": "0 failed, 112 skipped with a reason"
+    },
+    {
+      "name": "second apply is idempotent (no row changes)",
+      "ok": true,
+      "detail": ""
+    }
+  ],
+  "entities": [
+    {
+      "name": "category",
+      "source": 12,
+      "migrated": 12,
+      "skipped": 0,
+      "failed": 0
+    },
+    {
+      "name": "product",
+      "source": 300,
+      "migrated": 300,
+      "skipped": 0,
+      "failed": 0
+    },
+    {
+      "name": "variant",
+      "source": 896,
+      "migrated": 896,
+      "skipped": 0,
+      "failed": 0
+    },
+    {
+      "name": "stock",
+      "source": 292,
+      "migrated": 292,
+      "skipped": 0,
+      "failed": 0
+    },
+    {
+      "name": "customer",
+      "source": 3000,
+      "migrated": 3000,
+      "skipped": 0,
+      "failed": 0
+    },
+    {
+      "name": "customer_address",
+      "source": 2698,
+      "migrated": 2698,
+      "skipped": 0,
+      "failed": 0
+    },
+    {
+      "name": "admin_user",
+      "source": 3,
+      "migrated": 3,
+      "skipped": 0,
+      "failed": 0
+    },
+    {
+      "name": "order",
+      "source": 6000,
+      "migrated": 6000,
+      "skipped": 0,
+      "failed": 0
+    },
+    {
+      "name": "review",
+      "source": 1498,
+      "migrated": 1470,
+      "skipped": 28,
+      "failed": 0
+    },
+    {
+      "name": "saved_board",
+      "source": 3994,
+      "migrated": 3913,
+      "skipped": 81,
+      "failed": 0
+    },
+    {
+      "name": "coupon",
+      "source": 42,
+      "migrated": 40,
+      "skipped": 2,
+      "failed": 0
+    },
+    {
+      "name": "shipping_method",
+      "source": 6,
+      "migrated": 5,
+      "skipped": 1,
+      "failed": 0
+    }
+  ]
+}

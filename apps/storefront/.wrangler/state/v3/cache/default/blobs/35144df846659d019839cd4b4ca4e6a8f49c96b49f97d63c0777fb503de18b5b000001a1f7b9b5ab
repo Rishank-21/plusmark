@@ -1,0 +1,1726 @@
+<!DOCTYPE html><html lang="en" dir="ltr"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script type="application/json" id="pm-experiments">[]</script><script>(function(){try{var d=document.documentElement;var b=document.getElementById('pm-experiments');if(!b)return;var l=JSON.parse(b.textContent||'[]');if(!l.length)return;var c=JSON.parse(localStorage.getItem('sf.consent')||'null');var p=c&&(c.purposes||c);if(!p||p.analytics!==true)return;var s=localStorage.getItem('sf.sid');if(!s)return;try{var o=JSON.parse(s);if(o&&typeof o==='object')s=o.id}catch(e){}if(typeof s!=='string'||!s)return;var a=[],x=[];for(var i=0;i<l.length;i++){var h=2166136261,k=s+':'+l[i].id;for(var j=0;j<k.length;j++){h^=k.charCodeAt(j);h=Math.imul(h,16777619)>>>0}var v=h/4294967296<l[i].share?'t':'c';a.push(l[i].id+'='+v);if(v==='t'&&l[i].component)x.push(l[i].component)}d.setAttribute('data-pm-exp',a.join(' '));if(x.length)d.setAttribute('data-pm-xt',x.join(' '))}catch(e){}})();(function(){var c=navigator.connection;if(!c||!c.saveData)return;function f(e){if(e.nodeType!==1)return;var l=e.matches&&e.matches('img[loading=lazy],picture source')?[e]:[];if(e.querySelectorAll)l=l.concat([].slice.call(e.querySelectorAll('img[loading=lazy],picture source')));l.forEach(function(n){var p=n.tagName==='SOURCE'?n.parentNode.querySelector('img'):n;if(!p||p.getAttribute('loading')!=='lazy')return;var d=n.getAttribute('data-sd');if(d){n.setAttribute('srcset',d);n.removeAttribute('sizes');if(n===p)n.removeAttribute('data-sd')}})}new MutationObserver(function(m){m.forEach(function(r){[].forEach.call(r.addedNodes,f)})}).observe(document,{childList:true,subtree:true})})();</script><title>Magnetic Whiteboard | Plusmark</title><meta name="description" content="A magnetic dry-erase whiteboard with an aluminium frame and a marker tray. Wall-mounting kit included."><meta property="og:type" content="product"><meta property="og:title" content="Magnetic Whiteboard | Plusmark"><meta property="og:url" content="/product/magnetic-whiteboard"><meta property="og:locale" content="en_IN"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Magnetic Whiteboard | Plusmark"><meta property="og:site_name" content="Plusmark"><meta property="og:description" content="A magnetic dry-erase whiteboard with an aluminium frame and a marker tray. Wall-mounting kit included."><meta name="twitter:description" content="A magnetic dry-erase whiteboard with an aluminium frame and a marker tray. Wall-mounting kit included."><meta property="og:image" content="https://placehold.co/800x800/eef1f5/334155/png?text=Magnetic+Whiteboard"><meta name="twitter:image" content="https://placehold.co/800x800/eef1f5/334155/png?text=Magnetic+Whiteboard"><script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"Magnetic Whiteboard","image":["https://placehold.co/800x800/eef1f5/334155/png?text=Magnetic+Whiteboard","https://placehold.co/800x800/eef1f5/334155/png?text=Magnetic+Whiteboard+detail"],"brand":{"@type":"Brand","name":"Plusmark"},"description":"A magnetic dry-erase whiteboard with an aluminium frame and a marker tray. Wall-mounting kit included.","sku":"PM-WB-MAG-2X3","offers":{"@type":"AggregateOffer","lowPrice":"1890","highPrice":"5990","priceCurrency":"INR","offerCount":3,"availability":"https://schema.org/InStock","url":"/product/magnetic-whiteboard"}}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"/"},{"@type":"ListItem","position":2,"name":"Whiteboards","item":"/shop/whiteboards"},{"@type":"ListItem","position":3,"name":"Magnetic Whiteboard","item":"/product/magnetic-whiteboard"}]}</script><link rel="canonical" href="/product/magnetic-whiteboard"><link rel="alternate" hreflang="en-IN" href="/product/magnetic-whiteboard"><link rel="alternate" hreflang="hi-IN" href="/hi/product/magnetic-whiteboard"><link rel="alternate" hreflang="x-default" href="/product/magnetic-whiteboard"><link rel="stylesheet" href="/brand.css"><style data-vite-dev-id="C:/Users/palha/plusmark/apps/storefront/node_modules/@fontsource-variable/manrope/index.css">/* manrope-cyrillic-ext-wght-normal */
+@font-face {
+  font-family: 'Manrope Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 200 800;
+  src: url(/node_modules/@fontsource-variable/manrope/files/manrope-cyrillic-ext-wght-normal.woff2) format('woff2-variations');
+  unicode-range: U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;
+}
+
+/* manrope-cyrillic-wght-normal */
+@font-face {
+  font-family: 'Manrope Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 200 800;
+  src: url(/node_modules/@fontsource-variable/manrope/files/manrope-cyrillic-wght-normal.woff2) format('woff2-variations');
+  unicode-range: U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;
+}
+
+/* manrope-greek-wght-normal */
+@font-face {
+  font-family: 'Manrope Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 200 800;
+  src: url(/node_modules/@fontsource-variable/manrope/files/manrope-greek-wght-normal.woff2) format('woff2-variations');
+  unicode-range: U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF;
+}
+
+/* manrope-vietnamese-wght-normal */
+@font-face {
+  font-family: 'Manrope Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 200 800;
+  src: url(/node_modules/@fontsource-variable/manrope/files/manrope-vietnamese-wght-normal.woff2) format('woff2-variations');
+  unicode-range: U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;
+}
+
+/* manrope-latin-ext-wght-normal */
+@font-face {
+  font-family: 'Manrope Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 200 800;
+  src: url(/node_modules/@fontsource-variable/manrope/files/manrope-latin-ext-wght-normal.woff2) format('woff2-variations');
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+
+/* manrope-latin-wght-normal */
+@font-face {
+  font-family: 'Manrope Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 200 800;
+  src: url(/node_modules/@fontsource-variable/manrope/files/manrope-latin-wght-normal.woff2) format('woff2-variations');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}</style><style data-vite-dev-id="C:/Users/palha/plusmark/apps/storefront/node_modules/@fontsource-variable/inter/index.css">/* inter-cyrillic-ext-wght-normal */
+@font-face {
+  font-family: 'Inter Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url(/node_modules/@fontsource-variable/inter/files/inter-cyrillic-ext-wght-normal.woff2) format('woff2-variations');
+  unicode-range: U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;
+}
+
+/* inter-cyrillic-wght-normal */
+@font-face {
+  font-family: 'Inter Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url(/node_modules/@fontsource-variable/inter/files/inter-cyrillic-wght-normal.woff2) format('woff2-variations');
+  unicode-range: U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;
+}
+
+/* inter-greek-ext-wght-normal */
+@font-face {
+  font-family: 'Inter Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url(/node_modules/@fontsource-variable/inter/files/inter-greek-ext-wght-normal.woff2) format('woff2-variations');
+  unicode-range: U+1F00-1FFF;
+}
+
+/* inter-greek-wght-normal */
+@font-face {
+  font-family: 'Inter Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url(/node_modules/@fontsource-variable/inter/files/inter-greek-wght-normal.woff2) format('woff2-variations');
+  unicode-range: U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF;
+}
+
+/* inter-vietnamese-wght-normal */
+@font-face {
+  font-family: 'Inter Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url(/node_modules/@fontsource-variable/inter/files/inter-vietnamese-wght-normal.woff2) format('woff2-variations');
+  unicode-range: U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;
+}
+
+/* inter-latin-ext-wght-normal */
+@font-face {
+  font-family: 'Inter Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url(/node_modules/@fontsource-variable/inter/files/inter-latin-ext-wght-normal.woff2) format('woff2-variations');
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+
+/* inter-latin-wght-normal */
+@font-face {
+  font-family: 'Inter Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url(/node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2) format('woff2-variations');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}</style><style data-vite-dev-id="C:/Users/palha/plusmark/apps/storefront/src/styles/tokens.css">/* Design tokens. --pm-brand and --pm-on-brand are written at build time from Client_Branding (see lib/branding.ts). */
+:root {
+  /* Plusmark palette: navy for authority, deep green for the single conversion action,
+     warm paper neutrals so photography of boards sits on a calm surface. */
+  --pm-brand: #0b6e4f;
+  --pm-brand-strong: #08543c;
+  --pm-brand-soft: #e7f2ec;
+  --pm-on-brand: #ffffff;
+  --pm-navy: #1f3a5f;
+  --pm-navy-deep: #14263f;
+  --pm-navy-soft: #e8edf4;
+  --pm-bg: #faf9f6;
+  --pm-surface: #f3f1ec;
+  --pm-card: #ffffff;
+  --pm-text: #17202b;
+  --pm-text-muted: #5b6472;
+  --pm-border: #7b8492; /* 3:1 against white, for control outlines */
+  --pm-border-subtle: #e5e2da;
+  --pm-error: #b3261e;
+  --pm-success: #0b6e4f;
+  --pm-success-soft: #e7f2ec;
+  --pm-warning: #9a5b00;
+  --pm-warning-soft: #fdf3e3;
+  --pm-rating: #b45309;
+  --pm-badge-bg: #e8edf4;
+  --pm-badge-text: #1f3a5f;
+  --pm-shadow-sm: 0 1px 2px rgb(23 32 43 / 6%), 0 1px 3px rgb(23 32 43 / 8%);
+  --pm-shadow-md: 0 8px 24px rgb(23 32 43 / 8%), 0 2px 6px rgb(23 32 43 / 5%);
+  --pm-shadow-lg: 0 24px 60px rgb(23 32 43 / 14%), 0 4px 12px rgb(23 32 43 / 6%);
+
+  /* Spacing: 4 px scale. */
+  --pm-space-1: 0.25rem;
+  --pm-space-2: 0.5rem;
+  --pm-space-3: 0.75rem;
+  --pm-space-4: 1rem;
+  --pm-space-5: 1.25rem;
+  --pm-space-6: 1.5rem;
+  --pm-space-8: 2rem;
+  --pm-space-10: 2.5rem;
+  --pm-space-12: 3rem;
+  --pm-space-16: 4rem;
+  --pm-space-20: 5rem;
+
+  /* Typography: Manrope for display, Inter for reading. Body stays at 16 px so phones do not zoom into fields. */
+  --pm-font-body: 'Inter Variable', 'Inter', 'Noto Sans Devanagari', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  --pm-font-heading: 'Manrope Variable', 'Manrope', var(--pm-font-body);
+  --pm-text-xs: 0.75rem;
+  --pm-text-sm: 0.875rem;
+  --pm-text-base: 1rem;
+  --pm-text-lg: 1.125rem;
+  --pm-text-xl: clamp(1.25rem, 1.1rem + 0.7vw, 1.5rem);
+  --pm-text-2xl: clamp(1.6rem, 1.3rem + 1.4vw, 2.25rem);
+  --pm-text-3xl: clamp(2rem, 1.5rem + 2.6vw, 3.15rem);
+  --pm-text-display: clamp(2.6rem, 1.8rem + 4.4vw, 4.6rem);
+  --pm-leading: 1.55;
+
+  --pm-radius-xs: 4px;
+  --pm-radius-sm: 6px;
+  --pm-radius-md: 10px;
+  --pm-radius-lg: 16px;
+  --pm-radius-xl: 24px;
+  --pm-radius-full: 9999px;
+
+  --pm-target: 2.75rem; /* 44 px touch target */
+  --pm-focus-ring: 3px solid var(--pm-brand);
+  --pm-focus-offset: 2px;
+  --pm-container: 82rem;
+  --pm-gutter: var(--pm-space-4);
+  --pm-grid-cols: 2; /* phone: 2-column product grid */
+  --pm-sticky-bar-height: 0px;
+}
+
+/* Mobile-first: phone below 768 px, tablet from 768 px, desktop from 1024 px, wide desktop from 1280 px. */
+@media (min-width: 768px) {
+  :root {
+    --pm-grid-cols: 3;
+    --pm-gutter: var(--pm-space-6);
+  }
+}
+@media (min-width: 1024px) {
+  :root {
+    --pm-gutter: var(--pm-space-8);
+  }
+}
+@media (min-width: 1280px) {
+  :root {
+    --pm-grid-cols: 4;
+  }
+}
+</style><style data-vite-dev-id="C:/Users/palha/plusmark/apps/storefront/src/styles/global.css">*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+/* Astro writes this rule inline, which style-src 'self' blocks; without it every island wrapper becomes a box and
+   breaks flex and grid layouts (the PDP buy box). The same rule from a file keeps the islands transparent. */
+astro-island,
+astro-slot,
+astro-static-slot {
+  display: contents;
+}
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-bottom: calc(var(--pm-sticky-bar-height) + var(--pm-space-4)); /* WCAG 2.4.11 */
+  background: var(--pm-bg);
+}
+body {
+  margin: 0;
+  font-family: var(--pm-font-body);
+  font-size: var(--pm-text-base);
+  line-height: var(--pm-leading);
+  color: var(--pm-text);
+  background: var(--pm-bg);
+  overflow-wrap: anywhere;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--pm-font-heading);
+  font-weight: 750;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+  margin: 0 0 var(--pm-space-3);
+}
+h1 { font-size: var(--pm-text-3xl); font-weight: 800; letter-spacing: -0.028em; }
+h2 { font-size: var(--pm-text-2xl); }
+h3 { font-size: var(--pm-text-lg); line-height: 1.3; letter-spacing: -0.012em; }
+p { text-wrap: pretty; }
+img,
+picture,
+svg {
+  max-width: 100%;
+  height: auto;
+}
+a {
+  color: var(--pm-brand);
+  text-underline-offset: 0.18em;
+}
+::-moz-selection {
+  background: var(--pm-navy);
+  color: #fff;
+}
+::selection {
+  background: var(--pm-navy);
+  color: #fff;
+}
+:focus-visible {
+  outline: var(--pm-focus-ring);
+  outline-offset: var(--pm-focus-offset);
+}
+.pm-skip-link {
+  position: absolute;
+  inset-inline-start: var(--pm-space-2);
+  inset-block-start: -10rem;
+  z-index: 100;
+  min-height: var(--pm-target);
+  display: inline-flex;
+  align-items: center;
+  padding: 0 var(--pm-space-4);
+  background: var(--pm-card);
+  color: var(--pm-text);
+  border: 2px solid var(--pm-text);
+}
+.pm-skip-link:focus {
+  inset-block-start: var(--pm-space-2);
+}
+.pm-visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+/* Devanagari (Req 3.9, 5.6): system fonts only; Hindi text, and store content marked lang="hi", prefers the
+   Devanagari system fonts and gets more leading for the matras. No font file loads for it. */
+:lang(hi) {
+  --pm-font-body: 'Noto Sans Devanagari', 'Nirmala UI', 'Mangal', system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans', Arial, sans-serif;
+  --pm-font-heading: 'Noto Sans Devanagari', 'Nirmala UI', 'Mangal', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+:lang(hi) body,
+body :lang(hi) {
+  font-family: var(--pm-font-body);
+  line-height: max(var(--pm-leading), 1.7);
+}
+</style><style data-vite-dev-id="C:/Users/palha/plusmark/apps/storefront/src/styles/primitives.css">/* Primitives. Plain classes so every stylesheet is a file (style-src 'self'). */
+
+/* Layout */
+.pm-container {
+  width: 100%;
+  max-width: var(--pm-container);
+  margin-inline: auto;
+  padding-inline: var(--pm-gutter);
+}
+.pm-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm-space-4);
+}
+.pm-stack--1 { gap: var(--pm-space-1); }
+.pm-stack--2 { gap: var(--pm-space-2); }
+.pm-stack--3 { gap: var(--pm-space-3); }
+.pm-stack--6 { gap: var(--pm-space-6); }
+.pm-stack--8 { gap: var(--pm-space-8); }
+.pm-grid {
+  display: grid;
+  gap: var(--pm-space-4);
+  grid-template-columns: repeat(var(--pm-grid-cols), minmax(0, 1fr));
+}
+@media (min-width: 768px) {
+  .pm-grid { gap: var(--pm-space-6); }
+}
+
+/* Section rhythm: one place decides whitespace, so phone spacing stays tight and desktop breathes. */
+.pm-section { padding-block: var(--pm-space-10); }
+.pm-section--tight { padding-block: var(--pm-space-8); }
+.pm-section--surface { background: var(--pm-card); border-block: 1px solid var(--pm-border-subtle); }
+.pm-section__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+  gap: var(--pm-space-2) var(--pm-space-4);
+  margin-bottom: var(--pm-space-5);
+}
+.pm-section__head h2 { margin: 0; }
+.pm-section__head p { margin: 0; color: var(--pm-text-muted); max-width: 46rem; }
+.pm-eyebrow {
+  margin: 0;
+  font-family: var(--pm-font-heading);
+  font-size: var(--pm-text-xs);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--pm-brand);
+}
+.pm-muted { color: var(--pm-text-muted); }
+.pm-link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--pm-space-2);
+  min-height: var(--pm-target);
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--pm-brand);
+}
+.pm-link-arrow::after { content: '\2192'; transition: transform 0.18s ease; }
+.pm-link-arrow:hover::after { transform: translateX(3px); }
+@media (min-width: 768px) {
+  .pm-section { padding-block: var(--pm-space-16); }
+  .pm-section__head { margin-bottom: var(--pm-space-8); }
+}
+
+/* Button and link */
+.pm-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--pm-space-2);
+  min-height: var(--pm-target);
+  min-width: var(--pm-target);
+  padding: var(--pm-space-2) var(--pm-space-6);
+  font-family: var(--pm-font-heading);
+  font-size: var(--pm-text-sm);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: 0.005em;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid var(--pm-brand);
+  border-radius: var(--pm-radius-md);
+  background: var(--pm-brand);
+  color: var(--pm-on-brand);
+  box-shadow: var(--pm-shadow-sm);
+  transition: background-color 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease, transform 0.16s ease;
+}
+.pm-button:hover { background: var(--pm-brand-strong); border-color: var(--pm-brand-strong); box-shadow: var(--pm-shadow-md); }
+.pm-button:active { transform: translateY(1px); }
+.pm-button--primary { background: var(--pm-brand); color: var(--pm-on-brand); }
+.pm-button--secondary {
+  background: var(--pm-card);
+  color: var(--pm-navy);
+  border-color: var(--pm-border-subtle);
+  box-shadow: var(--pm-shadow-sm);
+}
+.pm-button--secondary:hover { background: var(--pm-card); border-color: var(--pm-navy); color: var(--pm-navy); }
+.pm-button--dark { background: var(--pm-navy); border-color: var(--pm-navy); color: #fff; }
+.pm-button--dark:hover { background: var(--pm-navy-deep); border-color: var(--pm-navy-deep); }
+.pm-button--ghost {
+  background: transparent;
+  border-color: transparent;
+  color: var(--pm-navy);
+  box-shadow: none;
+}
+.pm-button--ghost:hover { background: var(--pm-surface); border-color: transparent; color: var(--pm-navy); }
+.pm-button--block { width: 100%; }
+.pm-button[disabled],
+.pm-button[aria-disabled='true'] {
+  cursor: not-allowed;
+  background: var(--pm-surface);
+  border-color: var(--pm-border-subtle);
+  color: var(--pm-text-muted);
+  box-shadow: none;
+}
+.pm-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--pm-target);
+}
+.pm-link--inline { display: inline; min-height: 0; }
+.pm-icon {
+  width: 1.5em;
+  height: 1.5em;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Fields */
+.pm-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm-space-2);
+}
+.pm-label {
+  font-size: var(--pm-text-sm);
+  font-weight: 650;
+  color: var(--pm-text);
+}
+.pm-hint {
+  margin: 0;
+  font-size: var(--pm-text-sm);
+  color: var(--pm-text-muted);
+}
+.pm-error {
+  margin: 0;
+  font-size: var(--pm-text-sm);
+  color: var(--pm-error);
+  font-weight: 600;
+}
+.pm-input {
+  width: 100%;
+  min-height: var(--pm-target);
+  padding: var(--pm-space-2) var(--pm-space-3);
+  font: inherit; /* 16 px, so phones do not zoom in */
+  color: var(--pm-text);
+  background: var(--pm-card);
+  border: 1px solid var(--pm-border-subtle);
+  border-radius: var(--pm-radius-md);
+  box-shadow: var(--pm-shadow-sm);
+  transition: border-color 0.16s ease, box-shadow 0.16s ease;
+}
+.pm-input:hover { border-color: var(--pm-border); }
+.pm-input:focus { border-color: var(--pm-brand); outline: none; box-shadow: 0 0 0 3px rgb(11 110 79 / 16%); }
+.pm-input[aria-invalid='true'] {
+  border-color: var(--pm-error);
+}
+.pm-checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--pm-space-3);
+  min-height: var(--pm-target);
+  padding-block: var(--pm-space-2);
+}
+.pm-checkbox input {
+  flex: none;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin: calc((var(--pm-target) - 1.5rem) / 2 - var(--pm-space-2)) 0 0;
+  accent-color: var(--pm-brand);
+}
+
+/* Display */
+.pm-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px var(--pm-space-2);
+  font-size: var(--pm-text-xs);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  border-radius: var(--pm-radius-full);
+  background: var(--pm-badge-bg);
+  color: var(--pm-badge-text);
+}
+.pm-badge--sale { background: #fbe9e7; color: #9c2c21; }
+.pm-badge--new { background: var(--pm-brand-soft); color: var(--pm-brand-strong); }
+.pm-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm-space-3);
+  padding: var(--pm-space-4);
+  background: var(--pm-card);
+  border: 1px solid var(--pm-border-subtle);
+  border-radius: var(--pm-radius-lg);
+  box-shadow: var(--pm-shadow-sm);
+}
+.pm-panel {
+  background: var(--pm-card);
+  border: 1px solid var(--pm-border-subtle);
+  border-radius: var(--pm-radius-xl);
+  box-shadow: var(--pm-shadow-sm);
+}
+.pm-price {
+  font-family: var(--pm-font-heading);
+  font-weight: 750;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+.pm-skeleton {
+  display: block;
+  min-height: 1em;
+  border-radius: var(--pm-radius-sm);
+  background: linear-gradient(90deg, var(--pm-surface), var(--pm-border-subtle), var(--pm-surface));
+  background-size: 200% 100%;
+  animation: pm-shimmer 1.5s linear infinite;
+}
+@keyframes pm-shimmer {
+  to { background-position: -200% 0; }
+}
+
+/* Dialog and sheet */
+.pm-dialog {
+  max-width: min(32rem, calc(100vw - 2 * var(--pm-space-4)));
+  max-height: calc(100dvh - 2 * var(--pm-space-4));
+  padding: var(--pm-space-5);
+  color: var(--pm-text);
+  background: var(--pm-card);
+  border: 0;
+  border-radius: var(--pm-radius-xl);
+  box-shadow: var(--pm-shadow-lg);
+}
+.pm-dialog::backdrop {
+  background: rgb(15 23 42 / 0.55);
+  backdrop-filter: blur(2px);
+}
+.pm-dialog--sheet {
+  margin: auto 0 0;
+  width: 100%;
+  max-width: none;
+  border-radius: var(--pm-radius-xl) var(--pm-radius-xl) 0 0;
+}
+@media (min-width: 768px) {
+  .pm-dialog--sheet {
+    margin: 0 0 0 auto;
+    height: 100dvh;
+    max-height: none;
+    width: 28rem;
+    border-radius: 0;
+  }
+}
+.pm-dialog__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pm-space-3);
+  margin-bottom: var(--pm-space-3);
+}
+.pm-dialog__header h2 { margin: 0; }
+
+/* Disclosure */
+.pm-disclosure {
+  border-bottom: 1px solid var(--pm-border-subtle);
+}
+.pm-disclosure > summary {
+  display: flex;
+  align-items: center;
+  min-height: var(--pm-target);
+  padding-block: var(--pm-space-2);
+  font-weight: 600;
+  cursor: pointer;
+}
+.pm-disclosure__body { padding-bottom: var(--pm-space-4); }
+
+/* Tabs */
+.pm-tablist {
+  display: flex;
+  gap: var(--pm-space-1);
+  overflow-x: auto;
+  border-bottom: 1px solid var(--pm-border-subtle);
+}
+.pm-tab {
+  min-height: var(--pm-target);
+  padding: var(--pm-space-2) var(--pm-space-4);
+  font: inherit;
+  font-weight: 600;
+  color: var(--pm-text-muted);
+  background: transparent;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+}
+.pm-tab[aria-selected='true'] {
+  color: var(--pm-text);
+  border-bottom-color: var(--pm-brand);
+}
+.pm-tabpanel { padding-block: var(--pm-space-4); }
+/* Breadcrumbs (PLP, PDP, search): shared, so every page that shows them gets the same trail. */
+.pm-breadcrumbs ol { display: flex; flex-wrap: wrap; gap: var(--pm-space-2); margin: 0; padding: 0; list-style: none; font-size: var(--pm-text-sm); color: var(--pm-text-muted); }
+.pm-breadcrumbs li + li::before { content: '/'; margin-inline-end: var(--pm-space-2); color: var(--pm-text-muted); }
+.pm-breadcrumbs a { color: var(--pm-text-muted); text-decoration: none; }
+.pm-breadcrumbs a:hover { color: var(--pm-brand); text-decoration: underline; }
+.pm-breadcrumbs [aria-current='page'] { color: var(--pm-text); }
+</style><style data-vite-dev-id="C:/Users/palha/plusmark/apps/storefront/src/styles/shell.css">/* Header, bottom navigation and footer. Mobile first; the bottom navigation shows below 768 px. */
+:root {
+  --pm-bottomnav-height: 3.75rem;
+}
+
+/* Announcement: one quiet line of proof above the brand. */
+.pm-announce {
+  background: var(--pm-navy-deep);
+  color: #e8eef5;
+}
+.pm-announce__inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--pm-space-4);
+  min-height: 2.25rem;
+  padding-block: var(--pm-space-1);
+  text-align: center;
+}
+.pm-announce p {
+  margin: 0;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+.pm-announce__link {
+  display: none;
+  color: #cfe6db;
+  font-size: var(--pm-text-xs);
+  font-weight: 650;
+  text-underline-offset: 0.2em;
+}
+.pm-announce__link:hover { color: #fff; }
+@media (min-width: 768px) {
+  .pm-announce__inner { justify-content: space-between; }
+  .pm-announce__link { display: inline-flex; }
+}
+
+/* Header */
+.pm-header {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 20;
+  background: var(--pm-card);
+  border-bottom: 1px solid var(--pm-border-subtle);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.pm-header[data-hidden] { transform: translateY(-100%); }
+.pm-header__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--pm-space-2);
+  padding-block: var(--pm-space-2);
+}
+.pm-header__menu { order: 0; padding-inline: var(--pm-space-2); }
+.pm-header__brand {
+  order: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--pm-space-2);
+  min-height: var(--pm-target);
+  color: var(--pm-navy);
+  text-decoration: none;
+}
+.pm-header__mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 9px;
+  background: var(--pm-navy);
+  color: #fff;
+  font-family: var(--pm-font-heading);
+  font-size: 1.05rem;
+  font-weight: 800;
+  box-shadow: inset 0 -2px 0 var(--pm-brand);
+}
+.pm-header__logo { height: 2.1rem; width: auto; }
+.pm-header__name {
+  font-family: var(--pm-font-heading);
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+}
+.pm-header__nav { display: none; }
+.pm-header__nav ul {
+  display: flex;
+  align-items: center;
+  gap: var(--pm-space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.pm-header__nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.5rem;
+  padding-inline: var(--pm-space-3);
+  border-radius: var(--pm-radius-full);
+  color: var(--pm-text);
+  font-size: var(--pm-text-sm);
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.pm-header__nav a:hover { background: var(--pm-surface); color: var(--pm-navy); }
+.pm-header__nav-all { color: var(--pm-brand) !important; }
+.pm-header__search {
+  position: relative;
+  order: 10;
+  display: flex;
+  flex: 1 0 100%;
+  min-width: 0;
+}
+.pm-header__search .pm-input {
+  flex: 1;
+  min-width: 0;
+  padding-inline-end: 2.75rem;
+  border-radius: var(--pm-radius-full);
+  background: var(--pm-surface);
+  box-shadow: none;
+}
+.pm-header__search .pm-input:focus { background: var(--pm-card); }
+.pm-header__search-button {
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-end: 3px;
+  translate: 0 -50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.35rem;
+  height: 2.35rem;
+  padding: 0;
+  border: 0;
+  border-radius: var(--pm-radius-full);
+  background: var(--pm-navy);
+  color: #fff;
+  cursor: pointer;
+}
+.pm-header__search-button:hover { background: var(--pm-navy-deep); }
+.pm-header__search-button .pm-icon { width: 1.15rem; height: 1.15rem; }
+.pm-header__action {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--pm-space-2);
+  min-width: var(--pm-target);
+  min-height: var(--pm-target);
+  padding-inline: var(--pm-space-2);
+  border-radius: var(--pm-radius-md);
+  color: var(--pm-text);
+  text-decoration: none;
+}
+.pm-header__action:hover { background: var(--pm-surface); color: var(--pm-navy); }
+.pm-header__action .pm-icon { width: 1.35rem; height: 1.35rem; }
+.pm-header__support { display: none; }
+.pm-header__action[aria-current='page'],
+.pm-bottomnav__item[aria-current='page'] { color: var(--pm-brand); font-weight: 700; }
+.pm-header__action-text {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.pm-cart-count {
+  position: absolute;
+  inset-block-start: 0.1rem;
+  inset-inline-end: 0;
+  min-width: 1.2rem;
+  padding: 0 4px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  line-height: 1.2rem;
+  text-align: center;
+  border-radius: var(--pm-radius-full);
+  background: var(--pm-brand);
+  color: var(--pm-on-brand);
+  box-shadow: 0 0 0 2px var(--pm-card);
+}
+.pm-menu-list { list-style: none; margin: 0 0 var(--pm-space-4); padding: 0; }
+.pm-menu-link {
+  display: flex;
+  align-items: center;
+  min-height: var(--pm-target);
+  padding-block: var(--pm-space-2);
+  color: var(--pm-text);
+  text-decoration: none;
+  font-weight: 600;
+}
+.pm-menu-link:hover { color: var(--pm-brand); }
+.pm-menu-sublist { list-style: none; margin: 0; padding-inline-start: var(--pm-space-4); }
+@media (min-width: 768px) {
+  .pm-header__inner { flex-wrap: nowrap; gap: var(--pm-space-3); padding-block: var(--pm-space-3); }
+  .pm-header__search { order: 0; flex: 1 1 12rem; max-width: 24rem; margin-inline-start: auto; }
+  .pm-header__support { display: inline-flex; }
+  .pm-header__action-text {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip-path: none;
+    font-size: var(--pm-text-sm);
+    font-weight: 600;
+  }
+  .pm-header__action { padding-inline: var(--pm-space-3); }
+  .pm-header__cart .pm-cart-count { inset-inline-end: -0.15rem; }
+}
+@media (min-width: 1024px) {
+  .pm-header__menu { display: none; }
+  .pm-header__nav { display: block; order: 2; }
+  .pm-header__search { margin-inline-start: var(--pm-space-4); }
+}
+@media (max-width: 1023.98px) {
+  .pm-header[data-hidden] { transform: translateY(-100%); }
+}
+@media (min-width: 1024px) {
+  .pm-header[data-hidden] { transform: none; }
+}
+
+/* Bottom navigation (phones) */
+.pm-bottomnav {
+  position: fixed;
+  inset-inline: 0;
+  inset-block-end: 0;
+  z-index: 20;
+  background: rgb(255 255 255 / 0.96);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid var(--pm-border-subtle);
+  padding-inline: env(safe-area-inset-left) env(safe-area-inset-right);
+  padding-block-end: env(safe-area-inset-bottom);
+  box-shadow: 0 -8px 24px rgb(23 32 43 / 6%);
+}
+.pm-bottomnav ul {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.pm-bottomnav__item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  width: 100%;
+  min-height: var(--pm-bottomnav-height);
+  padding: var(--pm-space-1);
+  font: inherit;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--pm-text-muted);
+  background: transparent;
+  border: 0;
+  text-decoration: none;
+  cursor: pointer;
+  overflow-wrap: normal;
+}
+.pm-bottomnav__item .pm-icon { width: 1.35rem; height: 1.35rem; }
+.pm-bottomnav__item[aria-current='page'] { color: var(--pm-navy); }
+.pm-bottomnav__item[aria-current='page']::before {
+  content: '';
+  position: absolute;
+  inset-block-start: 2px;
+  width: 1.6rem;
+  height: 3px;
+  border-radius: var(--pm-radius-full);
+  background: var(--pm-brand);
+}
+.pm-bottomnav .pm-cart-count { inset-block-start: 0.3rem; inset-inline-end: calc(50% - 1.55rem); }
+@media (max-width: 767.98px) {
+  body { padding-block-end: calc(var(--pm-bottomnav-height) + env(safe-area-inset-bottom)); }
+  body[data-bottom-bar],
+  body:has([data-pm-bottom-bar]) { padding-block-end: 0; }
+  body[data-bottom-bar] .pm-bottomnav,
+  body:has([data-pm-bottom-bar]) .pm-bottomnav { display: none; }
+}
+@media (min-width: 768px) {
+  .pm-bottomnav { display: none; }
+}
+
+/* Footer: the dark anchor of the page. */
+.pm-footer {
+  margin-block-start: var(--pm-space-12);
+  padding-block: var(--pm-space-10) var(--pm-space-6);
+  background: var(--pm-navy-deep);
+  color: #dbe4ef;
+}
+.pm-footer__grid {
+  display: grid;
+  gap: var(--pm-space-8);
+  grid-template-columns: minmax(0, 1fr);
+}
+@media (min-width: 768px) {
+  .pm-footer__grid { grid-template-columns: 1.1fr 0.8fr 1.4fr; gap: var(--pm-space-10); }
+}
+.pm-footer__heading {
+  margin-bottom: var(--pm-space-3);
+  font-size: var(--pm-text-sm);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #fff;
+}
+.pm-footer__list { list-style: none; margin: 0; padding: 0; }
+.pm-footer__list li { margin-block: 2px; }
+.pm-footer__text { margin: 0 0 var(--pm-space-3); color: #c3cfdd; }
+.pm-footer__facts { margin: 0; }
+.pm-footer__facts div { margin-block-end: var(--pm-space-3); }
+.pm-footer__facts dt { font-size: var(--pm-text-xs); letter-spacing: 0.08em; text-transform: uppercase; color: #93a5ba; }
+.pm-footer__facts dd { margin: 2px 0 0; }
+.pm-footer .pm-link {
+  min-width: var(--pm-target);
+  color: #c9d5e3;
+  text-decoration: none;
+  font-size: var(--pm-text-sm);
+}
+.pm-footer .pm-link:hover { color: #fff; text-decoration: underline; }
+.pm-footer a { color: #cfe6db; }
+.pm-footer a:hover { color: #fff; }
+.pm-footer__legal {
+  margin-block-start: var(--pm-space-8);
+  padding-block-start: var(--pm-space-4);
+  border-top: 1px solid rgb(255 255 255 / 12%);
+  font-size: var(--pm-text-xs);
+  color: #8fa1b6;
+}
+.pm-footer__legal p { margin: 0 0 var(--pm-space-2); }
+.pm-footer form label { color: #e8eef5; }
+.pm-footer .pm-input {
+  background: rgb(255 255 255 / 96%);
+  border-color: transparent;
+}
+.pm-footer .pm-button { background: var(--pm-brand); border-color: var(--pm-brand); color: #fff; }
+.pm-footer .pm-button:hover { background: #0d805c; border-color: #0d805c; }
+</style><style data-vite-dev-id="C:/Users/palha/plusmark/apps/storefront/src/styles/swatches.css">/* Colour swatches without inline styles (style-src 'self'): a swatch carries data-colour="<css colour keyword>". Generated list of the CSS named colours. */
+[data-colour="aliceblue" i]{background:aliceblue}
+[data-colour="antiquewhite" i]{background:antiquewhite}
+[data-colour="aqua" i]{background:aqua}
+[data-colour="aquamarine" i]{background:aquamarine}
+[data-colour="azure" i]{background:azure}
+[data-colour="beige" i]{background:beige}
+[data-colour="bisque" i]{background:bisque}
+[data-colour="black" i]{background:black}
+[data-colour="blanchedalmond" i]{background:blanchedalmond}
+[data-colour="blue" i]{background:blue}
+[data-colour="blueviolet" i]{background:blueviolet}
+[data-colour="brown" i]{background:brown}
+[data-colour="burlywood" i]{background:burlywood}
+[data-colour="cadetblue" i]{background:cadetblue}
+[data-colour="chartreuse" i]{background:chartreuse}
+[data-colour="chocolate" i]{background:chocolate}
+[data-colour="coral" i]{background:coral}
+[data-colour="cornflowerblue" i]{background:cornflowerblue}
+[data-colour="cornsilk" i]{background:cornsilk}
+[data-colour="crimson" i]{background:crimson}
+[data-colour="cyan" i]{background:cyan}
+[data-colour="darkblue" i]{background:darkblue}
+[data-colour="darkcyan" i]{background:darkcyan}
+[data-colour="darkgoldenrod" i]{background:darkgoldenrod}
+[data-colour="darkgray" i]{background:darkgray}
+[data-colour="darkgreen" i]{background:darkgreen}
+[data-colour="darkgrey" i]{background:darkgrey}
+[data-colour="darkkhaki" i]{background:darkkhaki}
+[data-colour="darkmagenta" i]{background:darkmagenta}
+[data-colour="darkolivegreen" i]{background:darkolivegreen}
+[data-colour="darkorange" i]{background:darkorange}
+[data-colour="darkorchid" i]{background:darkorchid}
+[data-colour="darkred" i]{background:darkred}
+[data-colour="darksalmon" i]{background:darksalmon}
+[data-colour="darkseagreen" i]{background:darkseagreen}
+[data-colour="darkslateblue" i]{background:darkslateblue}
+[data-colour="darkslategray" i]{background:darkslategray}
+[data-colour="darkslategrey" i]{background:darkslategrey}
+[data-colour="darkturquoise" i]{background:darkturquoise}
+[data-colour="darkviolet" i]{background:darkviolet}
+[data-colour="deeppink" i]{background:deeppink}
+[data-colour="deepskyblue" i]{background:deepskyblue}
+[data-colour="dimgray" i]{background:dimgray}
+[data-colour="dimgrey" i]{background:dimgrey}
+[data-colour="dodgerblue" i]{background:dodgerblue}
+[data-colour="firebrick" i]{background:firebrick}
+[data-colour="floralwhite" i]{background:floralwhite}
+[data-colour="forestgreen" i]{background:forestgreen}
+[data-colour="fuchsia" i]{background:fuchsia}
+[data-colour="gainsboro" i]{background:gainsboro}
+[data-colour="ghostwhite" i]{background:ghostwhite}
+[data-colour="gold" i]{background:gold}
+[data-colour="goldenrod" i]{background:goldenrod}
+[data-colour="gray" i]{background:gray}
+[data-colour="green" i]{background:green}
+[data-colour="greenyellow" i]{background:greenyellow}
+[data-colour="grey" i]{background:grey}
+[data-colour="honeydew" i]{background:honeydew}
+[data-colour="hotpink" i]{background:hotpink}
+[data-colour="indianred" i]{background:indianred}
+[data-colour="indigo" i]{background:indigo}
+[data-colour="ivory" i]{background:ivory}
+[data-colour="khaki" i]{background:khaki}
+[data-colour="lavender" i]{background:lavender}
+[data-colour="lavenderblush" i]{background:lavenderblush}
+[data-colour="lawngreen" i]{background:lawngreen}
+[data-colour="lemonchiffon" i]{background:lemonchiffon}
+[data-colour="lightblue" i]{background:lightblue}
+[data-colour="lightcoral" i]{background:lightcoral}
+[data-colour="lightcyan" i]{background:lightcyan}
+[data-colour="lightgoldenrodyellow" i]{background:lightgoldenrodyellow}
+[data-colour="lightgray" i]{background:lightgray}
+[data-colour="lightgreen" i]{background:lightgreen}
+[data-colour="lightgrey" i]{background:lightgrey}
+[data-colour="lightpink" i]{background:lightpink}
+[data-colour="lightsalmon" i]{background:lightsalmon}
+[data-colour="lightseagreen" i]{background:lightseagreen}
+[data-colour="lightskyblue" i]{background:lightskyblue}
+[data-colour="lightslategray" i]{background:lightslategray}
+[data-colour="lightslategrey" i]{background:lightslategrey}
+[data-colour="lightsteelblue" i]{background:lightsteelblue}
+[data-colour="lightyellow" i]{background:lightyellow}
+[data-colour="lime" i]{background:lime}
+[data-colour="limegreen" i]{background:limegreen}
+[data-colour="linen" i]{background:linen}
+[data-colour="magenta" i]{background:magenta}
+[data-colour="maroon" i]{background:maroon}
+[data-colour="mediumaquamarine" i]{background:mediumaquamarine}
+[data-colour="mediumblue" i]{background:mediumblue}
+[data-colour="mediumorchid" i]{background:mediumorchid}
+[data-colour="mediumpurple" i]{background:mediumpurple}
+[data-colour="mediumseagreen" i]{background:mediumseagreen}
+[data-colour="mediumslateblue" i]{background:mediumslateblue}
+[data-colour="mediumspringgreen" i]{background:mediumspringgreen}
+[data-colour="mediumturquoise" i]{background:mediumturquoise}
+[data-colour="mediumvioletred" i]{background:mediumvioletred}
+[data-colour="midnightblue" i]{background:midnightblue}
+[data-colour="mintcream" i]{background:mintcream}
+[data-colour="mistyrose" i]{background:mistyrose}
+[data-colour="moccasin" i]{background:moccasin}
+[data-colour="navajowhite" i]{background:navajowhite}
+[data-colour="navy" i]{background:navy}
+[data-colour="oldlace" i]{background:oldlace}
+[data-colour="olive" i]{background:olive}
+[data-colour="olivedrab" i]{background:olivedrab}
+[data-colour="orange" i]{background:orange}
+[data-colour="orangered" i]{background:orangered}
+[data-colour="orchid" i]{background:orchid}
+[data-colour="palegoldenrod" i]{background:palegoldenrod}
+[data-colour="palegreen" i]{background:palegreen}
+[data-colour="paleturquoise" i]{background:paleturquoise}
+[data-colour="palevioletred" i]{background:palevioletred}
+[data-colour="papayawhip" i]{background:papayawhip}
+[data-colour="peachpuff" i]{background:peachpuff}
+[data-colour="peru" i]{background:peru}
+[data-colour="pink" i]{background:pink}
+[data-colour="plum" i]{background:plum}
+[data-colour="powderblue" i]{background:powderblue}
+[data-colour="purple" i]{background:purple}
+[data-colour="rebeccapurple" i]{background:rebeccapurple}
+[data-colour="red" i]{background:red}
+[data-colour="rosybrown" i]{background:rosybrown}
+[data-colour="royalblue" i]{background:royalblue}
+[data-colour="saddlebrown" i]{background:saddlebrown}
+[data-colour="salmon" i]{background:salmon}
+[data-colour="sandybrown" i]{background:sandybrown}
+[data-colour="seagreen" i]{background:seagreen}
+[data-colour="seashell" i]{background:seashell}
+[data-colour="sienna" i]{background:sienna}
+[data-colour="silver" i]{background:silver}
+[data-colour="skyblue" i]{background:skyblue}
+[data-colour="slateblue" i]{background:slateblue}
+[data-colour="slategray" i]{background:slategray}
+[data-colour="slategrey" i]{background:slategrey}
+[data-colour="snow" i]{background:snow}
+[data-colour="springgreen" i]{background:springgreen}
+[data-colour="steelblue" i]{background:steelblue}
+[data-colour="tan" i]{background:tan}
+[data-colour="teal" i]{background:teal}
+[data-colour="thistle" i]{background:thistle}
+[data-colour="tomato" i]{background:tomato}
+[data-colour="turquoise" i]{background:turquoise}
+[data-colour="violet" i]{background:violet}
+[data-colour="wheat" i]{background:wheat}
+[data-colour="white" i]{background:white}
+[data-colour="whitesmoke" i]{background:whitesmoke}
+[data-colour="yellow" i]{background:yellow}
+[data-colour="yellowgreen" i]{background:yellowgreen}
+[data-colour="multi" i],[data-colour="multicolour" i],[data-colour="multicolor" i]{background:conic-gradient(#e53935,#fdd835,#43a047,#1e88e5,#8e24aa,#e53935)}
+[data-colour="gold" i],[data-colour="golden" i]{background:linear-gradient(135deg,#f5d77a,#c9a227)}
+</style><style data-vite-dev-id="C:/Users/palha/plusmark/apps/storefront/src/styles/cart.css">/* The Cart sheet and the /cart page. */
+.pm-cart-page {
+  padding-block: var(--pm-space-6);
+}
+.pm-cart {
+  display: grid;
+  gap: var(--pm-space-4);
+}
+.pm-cart__lines {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--pm-space-3);
+}
+.pm-cart__line {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: var(--pm-space-3);
+  align-items: center;
+  padding: var(--pm-space-3);
+  border: 1px solid var(--pm-border-subtle);
+}
+.pm-cart__line[data-changed] {
+  border-color: currentColor;
+}
+.pm-cart__line[data-unavailable] {
+  opacity: 0.85;
+}
+.pm-cart__info,
+.pm-cart__qty,
+.pm-cart__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--pm-space-2);
+  align-items: center;
+}
+.pm-cart__info {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--pm-space-1);
+}
+.pm-cart__qty button {
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+}
+.pm-cart__flag,
+.pm-cart__error {
+  margin: 0;
+  font-weight: 600;
+}
+.pm-cart__promo,
+.pm-cart__pin {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--pm-space-2);
+  align-items: center;
+}
+.pm-cart__totals {
+  margin: 0;
+  display: grid;
+  gap: var(--pm-space-1);
+}
+.pm-cart__totals div {
+  display: flex;
+  justify-content: space-between;
+}
+.pm-cart__totals dt,
+.pm-cart__totals dd {
+  margin: 0;
+}
+.pm-cart__grand {
+  font-weight: 700;
+  border-top: 1px solid var(--pm-border-subtle);
+  padding-top: var(--pm-space-2);
+}
+.pm-cart-sheet {
+  max-width: min(36rem, 100vw);
+  max-height: 90vh;
+  width: 100%;
+  margin: auto 0 0 auto;
+  padding: var(--pm-space-4);
+  overflow: auto;
+}
+.pm-cart-sheet::backdrop {
+  background: rgb(0 0 0 / 0.5);
+}
+.pm-cart-sheet__head {
+  display: flex;
+  gap: var(--pm-space-3);
+  align-items: center;
+  justify-content: space-between;
+  margin-block-end: var(--pm-space-3);
+}
+.pm-cart-sheet__head h2 {
+  margin: 0;
+  margin-inline-end: auto;
+}
+
+/* Grocery preset: stepper on a Product_Card (Req 6.9) and the PDP's preset blocks. */
+.pm-card__stepper { display: inline-flex; align-items: center; justify-content: space-between; gap: var(--pm-space-2); min-height: var(--pm-target); width: 100%; border: 1px solid var(--pm-border); border-radius: var(--pm-radius-md); overflow: hidden; }
+.pm-card__stepper .pm-qty__btn { min-width: var(--pm-target); min-height: var(--pm-target); border: 0; background: var(--pm-surface); color: var(--pm-text); font-size: var(--pm-text-xl); cursor: pointer; }
+.pm-card__stepper .pm-qty__value { min-width: 2ch; text-align: center; font-weight: 600; }
+.pm-tiers, .pm-compare table { width: 100%; border-collapse: collapse; }
+.pm-tiers th, .pm-tiers td, .pm-compare th, .pm-compare td { text-align: start; padding: var(--pm-space-2); border-bottom: 1px solid var(--pm-border-subtle); }
+.pm-compare { overflow-x: auto; }
+.pm-block__actions { display: flex; flex-wrap: wrap; gap: var(--pm-space-2); }
+.pm-buybox__actions--request { display: flex; flex-wrap: wrap; gap: var(--pm-space-2); }
+</style><style data-vite-dev-id="C:/Users/palha/plusmark/apps/storefront/src/styles/experiments.css">/* Experiment variants (Req 19.5, 19.6): generated from experimentCss(COMPONENT_KEYS) in src/persuasion/switch.ts; a test keeps them equal. */
+html:not([data-pm-xt~="back_in_stock_alert"]) [data-pm-component="back_in_stock_alert"][data-pm-show="treatment"],
+html[data-pm-xt~="back_in_stock_alert"] [data-pm-component="back_in_stock_alert"][data-pm-show="control"]{display:none}
+html:not([data-pm-xt~="free_delivery_progress"]) [data-pm-component="free_delivery_progress"][data-pm-show="treatment"],
+html[data-pm-xt~="free_delivery_progress"] [data-pm-component="free_delivery_progress"][data-pm-show="control"]{display:none}
+html:not([data-pm-xt~="savings_summary"]) [data-pm-component="savings_summary"][data-pm-show="treatment"],
+html[data-pm-xt~="savings_summary"] [data-pm-component="savings_summary"][data-pm-show="control"]{display:none}
+html:not([data-pm-xt~="goes_well_with"]) [data-pm-component="goes_well_with"][data-pm-show="treatment"],
+html[data-pm-xt~="goes_well_with"] [data-pm-component="goes_well_with"][data-pm-show="control"]{display:none}
+html:not([data-pm-xt~="bundle_offer"]) [data-pm-component="bundle_offer"][data-pm-show="treatment"],
+html[data-pm-xt~="bundle_offer"] [data-pm-component="bundle_offer"][data-pm-show="control"]{display:none}
+html:not([data-pm-xt~="recently_viewed"]) [data-pm-component="recently_viewed"][data-pm-show="treatment"],
+html[data-pm-xt~="recently_viewed"] [data-pm-component="recently_viewed"][data-pm-show="control"]{display:none}
+html:not([data-pm-xt~="first_order_offer"]) [data-pm-component="first_order_offer"][data-pm-show="treatment"],
+html[data-pm-xt~="first_order_offer"] [data-pm-component="first_order_offer"][data-pm-show="control"]{display:none}
+html:not([data-pm-xt~="checkout_progress"]) [data-pm-component="checkout_progress"][data-pm-show="treatment"],
+html[data-pm-xt~="checkout_progress"] [data-pm-component="checkout_progress"][data-pm-show="control"]{display:none}
+html:not([data-pm-xt~="sticky_buy_bar"]) [data-pm-component="sticky_buy_bar"][data-pm-show="treatment"],
+html[data-pm-xt~="sticky_buy_bar"] [data-pm-component="sticky_buy_bar"][data-pm-show="control"]{display:none}
+html:not([data-pm-xt~="delivery_promise"]) [data-pm-component="delivery_promise"][data-pm-show="treatment"],
+html[data-pm-xt~="delivery_promise"] [data-pm-component="delivery_promise"][data-pm-show="control"]{display:none}
+html:not([data-pm-xt~="dispatch_countdown"]) [data-pm-component="dispatch_countdown"][data-pm-show="treatment"],
+html[data-pm-xt~="dispatch_countdown"] [data-pm-component="dispatch_countdown"][data-pm-show="control"]{display:none}
+html:not([data-pm-xt~="low_stock_notice"]) [data-pm-component="low_stock_notice"][data-pm-show="treatment"],
+html[data-pm-xt~="low_stock_notice"] [data-pm-component="low_stock_notice"][data-pm-show="control"]{display:none}
+html:not([data-pm-xt~="popularity_notice"]) [data-pm-component="popularity_notice"][data-pm-show="treatment"],
+html[data-pm-xt~="popularity_notice"] [data-pm-component="popularity_notice"][data-pm-show="control"]{display:none}
+html:not([data-pm-xt~="price_block"]) [data-pm-component="price_block"][data-pm-show="treatment"],
+html[data-pm-xt~="price_block"] [data-pm-component="price_block"][data-pm-show="control"]{display:none}
+html:not([data-pm-xt~="review_highlights"]) [data-pm-component="review_highlights"][data-pm-show="treatment"],
+html[data-pm-xt~="review_highlights"] [data-pm-component="review_highlights"][data-pm-show="control"]{display:none}
+html:not([data-pm-xt~="review_summary"]) [data-pm-component="review_summary"][data-pm-show="treatment"],
+html[data-pm-xt~="review_summary"] [data-pm-component="review_summary"][data-pm-show="control"]{display:none}
+html:not([data-pm-xt~="sale_countdown"]) [data-pm-component="sale_countdown"][data-pm-show="treatment"],
+html[data-pm-xt~="sale_countdown"] [data-pm-component="sale_countdown"][data-pm-show="control"]{display:none}
+html:not([data-pm-xt~="trust_strip"]) [data-pm-component="trust_strip"][data-pm-show="treatment"],
+html[data-pm-xt~="trust_strip"] [data-pm-component="trust_strip"][data-pm-show="control"]{display:none}
+</style><style data-vite-dev-id="C:/Users/palha/plusmark/apps/storefront/src/styles/search.css">/* Navigation and search (Req 7): category menu groups, the suggestion panel and the search results page. */
+.pm-header__search { position: relative; }
+.pm-suggest {
+  position: absolute;
+  inset-inline: 0;
+  top: 100%;
+  z-index: 30;
+  max-height: 70vh;
+  overflow-y: auto;
+  background: var(--pm-surface, #fff);
+  border: 1px solid var(--pm-border, #d0d0d0);
+  border-radius: var(--pm-radius, 8px);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 0.12);
+  padding: var(--pm-space-2);
+}
+.pm-suggest[hidden] { display: none; }
+.pm-suggest ul { list-style: none; margin: 0; padding: 0; }
+.pm-suggest li > a { display: flex; align-items: center; gap: var(--pm-space-3); min-height: 44px; padding: var(--pm-space-2); color: inherit; text-decoration: none; border-radius: var(--pm-radius, 8px); }
+.pm-suggest li > a:hover, .pm-suggest li[aria-selected='true'] > a { background: var(--pm-surface-muted, #f2f2f2); }
+.pm-suggest img, .pm-suggest__noimg { width: 40px; height: 40px; -o-object-fit: cover; object-fit: cover; border-radius: 4px; flex: none; background: var(--pm-surface-muted, #f2f2f2); }
+.pm-suggest__text { display: flex; flex-direction: column; min-width: 0; }
+.pm-suggest__price { color: var(--pm-text-muted); font-size: var(--pm-text-sm); }
+.pm-suggest__title, .pm-suggest__head { margin: var(--pm-space-2) var(--pm-space-2) 0; font-size: var(--pm-text-sm); color: var(--pm-text-muted); }
+.pm-suggest__head { display: flex; justify-content: space-between; align-items: center; }
+.pm-suggest mark { background: transparent; color: inherit; font-weight: 700; }
+.pm-menu-group > summary { cursor: pointer; }
+.pm-menu-sublist { list-style: none; margin: 0; padding-inline-start: var(--pm-space-4); }
+.pm-search-empty { display: flex; flex-direction: column; gap: var(--pm-space-3); }
+.pm-search-empty__cats { display: flex; flex-wrap: wrap; gap: var(--pm-space-2); list-style: none; margin: 0; padding: 0; }
+.pm-search-empty__rail { list-style: none; margin: 0; padding: 0; }
+</style><style data-vite-dev-id="C:/Users/palha/plusmark/apps/storefront/src/styles/requests.css">/* Request forms, save control and status line (Req 15, 11.16). Uses the design tokens only. */
+.pm-request { margin-block: var(--pm-space-6, 1.5rem); max-width: 40rem; }
+.pm-request__heading { margin-block-end: var(--pm-space-2, 0.5rem); }
+.pm-request__form { display: grid; gap: var(--pm-space-3, 0.75rem); }
+.pm-request__rating { border: 0; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: var(--pm-space-3, 0.75rem); }
+.pm-request__star { display: inline-flex; align-items: center; gap: 0.25rem; min-height: 44px; }
+.pm-request__line { display: grid; gap: var(--pm-space-2, 0.5rem); margin-block-end: var(--pm-space-3, 0.75rem); }
+.pm-request__status[data-kind='error'] { color: var(--pm-color-error, #b00020); }
+.pm-request__done { padding: var(--pm-space-3, 0.75rem); border: 1px solid currentColor; border-radius: var(--pm-radius, 0.5rem); }
+.pm-request__yours { margin-block-start: var(--pm-space-2, 0.5rem); }
+.pm-request textarea.pm-input { min-height: 6rem; resize: vertical; }
+.pm-save { display: inline-flex; align-items: center; gap: 0.25rem; min-height: 44px; min-width: 44px; padding: 0 var(--pm-space-3, 0.75rem); background: transparent; border: 1px solid currentColor; border-radius: var(--pm-radius, 0.5rem); cursor: pointer; font: inherit; color: inherit; }
+.pm-save[aria-pressed='true'] { font-weight: 600; }
+.pm-save-status { position: fixed; inset-inline: 1rem; bottom: 4.5rem; z-index: 50; margin: 0 auto; max-width: 28rem; padding: 0.75rem 1rem; background: var(--pm-color-text, #111); color: var(--pm-color-bg, #fff); border-radius: var(--pm-radius, 0.5rem); }
+.pm-save-status[hidden] { display: none; }
+.pm-pdp__extras { display: flex; flex-wrap: wrap; gap: var(--pm-space-3, 0.75rem); align-items: center; margin-block: var(--pm-space-3, 0.75rem); }
+.pm-card .pm-save { margin-block-start: var(--pm-space-2, 0.5rem); }
+</style><style data-vite-dev-id="C:/Users/palha/plusmark/apps/storefront/src/components/shell/HindiPrompt.astro?astro&amp;type=style&amp;index=0&amp;lang.css">.pm-hindi-prompt {
+    position: fixed;
+    inset-inline: 0;
+    inset-block-end: calc(var(--pm-bottom-nav-height, 0px) + env(safe-area-inset-bottom, 0px));
+    z-index: 40;
+    display: flex;
+    align-items: center;
+    gap: var(--pm-space-3, 12px);
+    padding: var(--pm-space-2, 8px) var(--pm-space-4, 16px);
+    background: var(--pm-surface, #fff);
+    color: var(--pm-text, #111);
+    border-block-start: 1px solid var(--pm-border, #ccc);
+  }
+  .pm-hindi-prompt[hidden] { display: none; }
+  .pm-hindi-prompt__text { margin: 0; flex: 1; }
+  .pm-hindi-prompt__accept { min-block-size: 44px; display: inline-flex; align-items: center; font-weight: 600; }
+  .pm-hindi-prompt__close { min-inline-size: 44px; min-block-size: 44px; background: none; border: 0; font-size: 1.5rem; color: inherit; cursor: pointer; }</style><style data-vite-dev-id="C:/Users/palha/plusmark/apps/storefront/src/components/shell/ConsentBanner.astro?astro&amp;type=style&amp;index=0&amp;lang.css">.pm-consent {
+    position: fixed;
+    inset-inline: 0;
+    inset-block-end: calc(var(--pm-bottom-nav-height, 0px) + env(safe-area-inset-bottom, 0px));
+    z-index: 50;
+    max-block-size: 60vh;
+    overflow-y: auto;
+    padding: var(--pm-space-3, 12px) var(--pm-space-4, 16px);
+    background: var(--pm-surface, #fff);
+    color: var(--pm-text, #111);
+    border-block-start: 1px solid var(--pm-border, #ccc);
+  }
+  .pm-consent[hidden], .pm-consent [hidden] { display: none; }
+  .pm-consent__title { margin: 0 0 var(--pm-space-1, 4px); font-size: 1rem; }
+  .pm-consent__text { margin: 0 0 var(--pm-space-2, 8px); }
+  .pm-consent__switch { display: flex; align-items: flex-start; gap: var(--pm-space-2, 8px); min-block-size: 44px; margin-block-end: var(--pm-space-2, 8px); }
+  .pm-consent__actions { display: flex; flex-wrap: wrap; gap: var(--pm-space-2, 8px); }
+  .pm-consent__button { min-block-size: 44px; flex: 1 1 8rem; justify-content: center; }</style><style data-vite-dev-id="C:/Users/palha/plusmark/apps/storefront/src/styles/pdp.css">/* PDP (Req 9). Mobile first: one column; from 768 px the gallery and details sit side by side; from 1,024 px the Buy_Box column stays in view. */
+.pm-pdp { display: flex; flex-direction: column; gap: var(--pm-space-6); padding-block: var(--pm-space-4); }
+.pm-pdp__top { display: grid; gap: var(--pm-space-4); grid-template-columns: minmax(0, 1fr); }
+.pm-pdp__title { margin: 0; font-size: var(--pm-text-2xl); line-height: 1.25; }
+.pm-pdp__subtitle { margin: 0; color: var(--pm-text-muted); }
+.pm-pdp__summary { display: flex; flex-direction: column; gap: var(--pm-space-4); min-width: 0; }
+@media (min-width: 768px) {
+  .pm-pdp__top { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--pm-space-8); align-items: start; }
+}
+@media (min-width: 1024px) {
+  .pm-pdp__summary { position: sticky; top: var(--pm-space-4); align-self: start; }
+}
+
+/* Gallery: the track scrolls and snaps, so a swipe works with no script. */
+.pm-gallery { position: relative; min-width: 0; }
+.pm-gallery__track {
+  display: flex; margin: 0; padding: 0; list-style: none; overflow-x: auto; scroll-snap-type: x mandatory;
+  scrollbar-width: none; border-radius: var(--pm-radius-md); background: var(--pm-surface);
+}
+.pm-gallery__track::-webkit-scrollbar { display: none; }
+.pm-gallery__slide { flex: 0 0 100%; scroll-snap-align: center; aspect-ratio: 1 / 1; display: flex; align-items: center; justify-content: center; }
+.pm-gallery__img { width: 100%; height: 100%; -o-object-fit: contain; object-fit: contain; }
+.pm-gallery__slide img { width: 100%; height: 100%; -o-object-fit: contain; object-fit: contain; }
+.pm-gallery__btn {
+  position: absolute; top: 40%; inline-size: var(--pm-target); block-size: var(--pm-target); border: 1px solid var(--pm-border);
+  border-radius: var(--pm-radius-full); background: var(--pm-bg); color: var(--pm-text); font-size: var(--pm-text-xl); cursor: pointer;
+}
+.pm-gallery__btn[hidden] { display: none; }
+.pm-gallery__btn--prev { inset-inline-start: var(--pm-space-2); }
+.pm-gallery__btn--next { inset-inline-end: var(--pm-space-2); }
+.pm-gallery__pos {
+  position: absolute; inset-block-start: var(--pm-space-2); inset-inline-end: var(--pm-space-2); margin: 0; padding: var(--pm-space-1) var(--pm-space-2);
+  border-radius: var(--pm-radius-full); background: var(--pm-bg); color: var(--pm-text); font-size: var(--pm-text-sm);
+}
+.pm-gallery__open {
+  position: absolute; inset-block-end: calc(var(--pm-space-2) + 3.25rem); inset-inline-start: var(--pm-space-2); min-height: var(--pm-target);
+  padding-inline: var(--pm-space-3); border: 1px solid var(--pm-border); border-radius: var(--pm-radius-md); background: var(--pm-bg); color: var(--pm-text); font: inherit; cursor: pointer;
+}
+.pm-gallery__thumbs { display: flex; flex-wrap: wrap; gap: var(--pm-space-2); margin: var(--pm-space-2) 0 0; padding: 0; list-style: none; }
+.pm-gallery__thumb {
+  inline-size: var(--pm-target); block-size: var(--pm-target); border: 1px solid var(--pm-border); border-radius: var(--pm-radius-sm);
+  background: var(--pm-bg); color: var(--pm-text); font: inherit; cursor: pointer;
+}
+.pm-gallery__thumb[aria-current='true'] { border: 3px solid var(--pm-brand); }
+.pm-gallery__none { margin: 0; padding: var(--pm-space-10); text-align: center; background: var(--pm-surface); border-radius: var(--pm-radius-md); }
+
+/* Zoom dialog */
+.pm-zoom { inline-size: 100vw; max-inline-size: 100vw; block-size: 100dvh; max-block-size: 100dvh; margin: 0; padding: 0; border: 0; background: var(--pm-bg); }
+.pm-zoom[open] { display: flex; flex-direction: column; }
+.pm-zoom__bar { display: flex; gap: var(--pm-space-2); padding: var(--pm-space-2); justify-content: flex-end; }
+.pm-zoom__stage { flex: 1; overflow: auto; touch-action: pan-x pan-y pinch-zoom; }
+.pm-zoom__img { inline-size: 100%; max-inline-size: none; block-size: auto; display: block; }
+
+/* Buy box */
+.pm-buybox { display: flex; flex-direction: column; gap: var(--pm-space-3); }
+.pm-buybox__core { display: flex; flex-direction: column; gap: var(--pm-space-3); }
+.pm-buybox__from { margin: 0; color: var(--pm-text-muted); font-size: var(--pm-text-sm); }
+.pm-buybox__status { min-height: 3rem; display: flex; flex-direction: column; gap: var(--pm-space-1); }
+.pm-buybox__status p { margin: 0; }
+.pm-buybox__sku { color: var(--pm-text-muted); font-size: var(--pm-text-sm); }
+.pm-stock { font-weight: 600; color: var(--pm-success); }
+.pm-stock--out { color: var(--pm-error); }
+.pm-buybox__actions { display: flex; flex-wrap: wrap; gap: var(--pm-space-3); align-items: stretch; }
+.pm-buybox__add { flex: 1 1 12rem; min-height: var(--pm-target); }
+.pm-buybox__missing[hidden], .pm-unavailable-note[hidden] { display: none; }
+.pm-variants { display: flex; flex-direction: column; gap: var(--pm-space-2); }
+.pm-variants__label { margin: 0; font-weight: 600; }
+.pm-variants__list { display: flex; flex-wrap: wrap; gap: var(--pm-space-2); margin: 0; padding: 0; list-style: none; }
+.pm-vbtn {
+  position: relative; display: inline-flex; align-items: center; justify-content: center; gap: var(--pm-space-2); min-height: var(--pm-target); min-inline-size: var(--pm-target);
+  padding-inline: var(--pm-space-3); border: 1px solid var(--pm-border); border-radius: var(--pm-radius-md); background: var(--pm-bg); color: var(--pm-text); font: inherit; cursor: pointer;
+}
+.pm-vbtn[aria-pressed='true'] { border: 3px solid var(--pm-brand); font-weight: 600; }
+.pm-vbtn.is-oos { color: var(--pm-text-muted); text-decoration: line-through; border-style: dashed; background: var(--pm-surface); }
+.pm-vbtn__dot { inline-size: 1.5rem; block-size: 1.5rem; border-radius: var(--pm-radius-full); border: 1px solid var(--pm-border); }
+.pm-vbtn--swatch { padding-inline: var(--pm-space-2); }
+.pm-qty { display: inline-flex; align-items: stretch; border: 1px solid var(--pm-border); border-radius: var(--pm-radius-md); overflow: hidden; }
+.pm-qty__btn { inline-size: var(--pm-target); border: 0; background: var(--pm-surface); color: var(--pm-text); font-size: var(--pm-text-xl); cursor: pointer; }
+.pm-qty__btn:disabled { color: var(--pm-text-muted); cursor: not-allowed; }
+.pm-qty__input { inline-size: 3.5rem; min-height: var(--pm-target); border: 0; text-align: center; font: inherit; color: var(--pm-text); background: var(--pm-bg); }
+.pm-added__box { padding: var(--pm-space-3); border: 1px solid var(--pm-success); border-radius: var(--pm-radius-md); background: var(--pm-surface); }
+.pm-added__box p { margin: var(--pm-space-1) 0; }
+.pm-added__title { margin: 0; font-size: var(--pm-text-lg); }
+.pm-added__links { display: flex; flex-wrap: wrap; gap: var(--pm-space-2); align-items: center; }
+
+/* Sticky_Buy_Bar (below 768 px, while the Buy_Box is out of view) */
+.pm-sticky-buy {
+  position: fixed; inset-inline: 0; inset-block-end: 0; z-index: 20; display: flex; align-items: center; justify-content: space-between; gap: var(--pm-space-3);
+  padding: var(--pm-space-2) var(--pm-gutter); background: var(--pm-bg); border-top: 1px solid var(--pm-border-subtle);
+}
+.pm-sticky-price { font-weight: 700; font-size: var(--pm-text-lg); }
+.pm-sticky-buy .pm-btn {
+  min-height: var(--pm-target); padding-inline: var(--pm-space-5); border: 0; border-radius: var(--pm-radius-md);
+  background: var(--pm-brand); color: var(--pm-on-brand); font: inherit; font-weight: 600; cursor: pointer;
+}
+.pm-sticky-buy .pm-btn:disabled { background: var(--pm-border); cursor: not-allowed; }
+
+/* Offers, rules, trust, share */
+.pm-offers h2, .pm-delivery-rules h2, .pm-highlights h2, .pm-reviews h2, .pm-rail h2 { margin: 0 0 var(--pm-space-2); font-size: var(--pm-text-lg); }
+.pm-offers ul, .pm-delivery-rules ul, .pm-highlights ul { margin: 0; padding-inline-start: var(--pm-space-5); }
+.pm-offer__conditions { color: var(--pm-text-muted); font-size: var(--pm-text-sm); }
+.pm-trust-strip { display: flex; flex-wrap: wrap; gap: var(--pm-space-2) var(--pm-space-4); margin: 0; padding: 0; list-style: none; font-size: var(--pm-text-sm); }
+.pm-share { display: flex; flex-wrap: wrap; gap: var(--pm-space-2); align-items: center; }
+.pm-share__fallback { display: flex; gap: var(--pm-space-3); }
+.pm-share__fallback[hidden] { display: none; }
+.pm-share__status { margin: 0; font-size: var(--pm-text-sm); color: var(--pm-text-muted); }
+
+/* Key_Highlights and blocks */
+.pm-highlights { padding: var(--pm-space-4); background: var(--pm-surface); border-radius: var(--pm-radius-md); }
+.pm-block { border-bottom: 1px solid var(--pm-border-subtle); }
+.pm-block > summary { min-height: var(--pm-target); display: flex; align-items: center; font-weight: 600; cursor: pointer; }
+.pm-block__body { padding-block: var(--pm-space-2) var(--pm-space-4); overflow-wrap: anywhere; }
+.pm-specs { margin: 0; }
+.pm-specs div { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: var(--pm-space-3); padding-block: var(--pm-space-1); }
+.pm-specs dt { color: var(--pm-text-muted); text-transform: capitalize; }
+.pm-specs dd { margin: 0; }
+
+/* Reviews and rail */
+.pm-reviews__dist { margin: 0 0 var(--pm-space-3); padding: 0; list-style: none; }
+.pm-reviews__controls { display: flex; flex-wrap: wrap; gap: var(--pm-space-2) var(--pm-space-3); align-items: center; margin-block: var(--pm-space-3); }
+.pm-reviews__controls .pm-input { inline-size: auto; min-inline-size: 9rem; }
+.pm-reviews__list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: var(--pm-space-4); }
+.pm-review[hidden] { display: none; }
+.pm-review p { margin: 0 0 var(--pm-space-1); }
+.pm-review__meta { display: flex; gap: var(--pm-space-3); align-items: center; color: var(--pm-text-muted); font-size: var(--pm-text-sm); }
+.pm-rail__grid { margin: 0; padding: 0; list-style: none; }
+</style><style data-vite-dev-id="C:/Users/palha/plusmark/apps/storefront/src/styles/legal.css">/* Legal and content pages, and the PDP's summary and declarations. */
+.pm-legal {
+  max-width: 48rem;
+  padding-block: var(--pm-space-6);
+}
+.pm-legal h2 {
+  margin-block: var(--pm-space-6) var(--pm-space-2);
+  font-size: var(--pm-text-xl);
+}
+.pm-legal__body > * + * {
+  margin-block-start: var(--pm-space-3);
+}
+.pm-legal__note {
+  padding: var(--pm-space-3);
+  border: 1px solid var(--pm-border-subtle);
+}
+.pm-legal__section {
+  margin-block-start: var(--pm-space-8);
+}
+.pm-legal__facts {
+  display: grid;
+  gap: var(--pm-space-3);
+  margin: 0;
+}
+.pm-legal__facts dt {
+  color: var(--pm-text-muted);
+  font-size: var(--pm-text-sm);
+}
+.pm-legal__facts dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.pm-legal__table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-block: var(--pm-space-4);
+}
+.pm-legal__table th,
+.pm-legal__table td {
+  padding: var(--pm-space-2) var(--pm-space-3);
+  border-bottom: 1px solid var(--pm-border-subtle);
+  text-align: start;
+  vertical-align: top;
+}
+.pm-legal__image {
+  max-width: 100%;
+  height: auto;
+  margin-block-start: var(--pm-space-4);
+}
+.pm-pdp-legal {
+  margin-block-start: var(--pm-space-6);
+}
+.pm-pdp-legal__heading {
+  font-size: var(--pm-text-lg);
+  margin-block-end: var(--pm-space-2);
+}
+.pm-pdp-legal__list {
+  display: grid;
+  gap: var(--pm-space-2);
+  margin: 0;
+  padding-inline-start: var(--pm-space-5);
+}
+</style><style data-vite-dev-id="C:/Users/palha/plusmark/apps/storefront/src/styles/price-block.css">/* Price_Block. The block reserves its height so the Live_Data update causes no layout shift. */
+.pm-price-block {
+  min-height: 7.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm-space-1);
+  color: var(--pm-text);
+}
+.pm-price-block p { margin: 0; }
+.pm-price-block__line { display: flex; align-items: baseline; flex-wrap: wrap; gap: var(--pm-space-3); }
+.pm-price-block__now { font-size: var(--pm-text-2xl); line-height: 1.2; }
+.pm-price-block__prior { color: var(--pm-text-muted); font-size: var(--pm-text-lg); text-decoration: line-through; }
+.pm-price-block__tax,
+.pm-price-block__note,
+.pm-price-block__mrp,
+.pm-price-block__unit { font-size: var(--pm-text-sm); color: var(--pm-text-muted); }
+.pm-price-block__group { font-size: var(--pm-text-sm); font-weight: 600; }
+.pm-price-block__saving {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--pm-space-2);
+  color: var(--pm-success);
+  font-weight: 600;
+}
+.pm-price-block__explain-btn {
+  min-height: var(--pm-target);
+  min-width: var(--pm-target);
+  padding: var(--pm-space-2) var(--pm-space-3);
+  font: inherit;
+  font-size: var(--pm-text-sm);
+  font-weight: 400;
+  color: var(--pm-brand);
+  background: transparent;
+  border: 0;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.pm-price-block__tiers { border-collapse: collapse; font-size: var(--pm-text-sm); margin-top: var(--pm-space-2); }
+.pm-price-block__tiers caption { text-align: start; font-weight: 600; padding-bottom: var(--pm-space-1); }
+.pm-price-block__tiers th,
+.pm-price-block__tiers td { text-align: start; padding: var(--pm-space-1) var(--pm-space-3) var(--pm-space-1) 0; border-bottom: 1px solid var(--pm-border-subtle); font-weight: 400; }
+.pm-price-block__tiers thead th { font-weight: 600; }
+.pm-price-block__request { font-size: var(--pm-text-xl); font-weight: 600; }
+</style><style data-vite-dev-id="C:/Users/palha/plusmark/apps/storefront/src/styles/delivery.css">/* Delivery_Date and Countdown. Both reserve their height so a Live_Data update shifts nothing (Req 2.2). */
+.pm-countdown { min-height: 2.75rem; color: var(--pm-text); }
+.pm-countdown p { margin: 0; }
+.pm-countdown__line { font-weight: 600; font-variant-numeric: tabular-nums; display: flex; flex-wrap: wrap; gap: var(--pm-space-2); }
+.pm-countdown__then { font-weight: 400; color: var(--pm-text-muted); }
+.pm-countdown__static { font-size: var(--pm-text-sm); color: var(--pm-text-muted); }
+
+.pm-delivery { min-height: 6.5rem; display: flex; flex-direction: column; gap: var(--pm-space-2); color: var(--pm-text); }
+.pm-delivery p { margin: 0; }
+.pm-delivery__form { display: flex; flex-wrap: wrap; align-items: flex-end; gap: var(--pm-space-2); }
+.pm-delivery__field { display: flex; flex-direction: column; gap: var(--pm-space-1); font-size: var(--pm-text-sm); }
+.pm-delivery__input {
+  min-height: var(--pm-target);
+  min-width: 9rem;
+  padding: 0 var(--pm-space-3);
+  font: inherit;
+  color: var(--pm-text);
+  background: var(--pm-surface, transparent);
+  border: 1px solid var(--pm-border, currentColor);
+  border-radius: var(--pm-radius-sm, 4px);
+}
+.pm-delivery__btn {
+  min-height: var(--pm-target);
+  min-width: var(--pm-target);
+  padding: 0 var(--pm-space-4);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--pm-text);
+  background: transparent;
+  border: 1px solid var(--pm-border, currentColor);
+  border-radius: var(--pm-radius-sm, 4px);
+}
+.pm-delivery__date { font-weight: 600; }
+.pm-delivery__note,
+.pm-delivery__hint { font-size: var(--pm-text-sm); color: var(--pm-text-muted); }
+.pm-delivery__error { font-size: var(--pm-text-sm); color: var(--pm-text); font-weight: 600; }
+@media (prefers-reduced-motion: reduce) {
+  .pm-countdown, .pm-delivery, .pm-delivery * { transition: none; animation: none; }
+}
+</style><style data-vite-dev-id="C:/Users/palha/plusmark/apps/storefront/src/styles/plp.css">/* PLP (Req 8). Mobile-first: filters in a sheet below 1,024 px, in a column from 1,024 px. */
+.pm-plp { display: flex; flex-direction: column; gap: var(--pm-space-4); padding-block: var(--pm-space-4); }
+
+.pm-plp__head { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--pm-space-3); }
+.pm-plp__head h1 { margin: 0; font-size: var(--pm-text-2xl); }
+.pm-plp__count { margin: 0; color: var(--pm-text-muted); }
+
+.pm-plp__bar {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pm-space-3);
+  padding-block: var(--pm-space-2);
+  background: var(--pm-bg);
+  border-bottom: 1px solid var(--pm-border-subtle);
+}
+.pm-plp__sort { display: flex; flex-wrap: wrap; align-items: center; gap: var(--pm-space-2); }
+.pm-plp__sort .pm-input { width: auto; min-width: 10rem; }
+.pm-plp__chips { display: flex; flex-wrap: wrap; align-items: center; gap: var(--pm-space-2); }
+.pm-plp__chips[hidden] { display: none; }
+.pm-plp__chips ul { display: flex; flex-wrap: wrap; gap: var(--pm-space-2); margin: 0; padding: 0; list-style: none; }
+.pm-chip {
+  display: inline-flex; align-items: center; gap: var(--pm-space-2); min-height: var(--pm-target);
+  padding-inline: var(--pm-space-3); border: 1px solid var(--pm-border); border-radius: var(--pm-radius-full);
+  background: var(--pm-bg); color: var(--pm-text); font: inherit; cursor: pointer;
+}
+
+.pm-plp__body { display: block; }
+.pm-plp__column { display: none; }
+.pm-plp__results { min-width: 0; }
+.pm-plp__grid { list-style: none; margin: 0; padding: 0; }
+.pm-plp__empty { padding-block: var(--pm-space-8); text-align: center; }
+.pm-plp__empty[hidden], .pm-plp__more[hidden], .pm-plp__bar [hidden] { display: none; }
+.pm-plp__more { display: flex; flex-direction: column; align-items: center; gap: var(--pm-space-3); padding-block: var(--pm-space-6); }
+.pm-plp__more p { margin: 0; }
+.pm-plp__description { max-width: 48rem; padding-block: var(--pm-space-6); }
+.pm-plp__apply { position: sticky; bottom: 0; padding-block: var(--pm-space-3); background: var(--pm-bg); }
+
+.pm-filters { display: flex; flex-direction: column; gap: var(--pm-space-4); }
+.pm-filters__group { margin: 0; padding: 0; border: 0; }
+.pm-filters__group legend { padding: 0; font-weight: 600; margin-bottom: var(--pm-space-2); }
+.pm-filters__group ul { margin: 0; padding: 0; list-style: none; }
+.pm-filters__count { color: var(--pm-text-muted); }
+
+/* Below 768 px the sheet covers the screen (Req 8.4). */
+@media (max-width: 767.98px) {
+  #plp-filters { height: 100dvh; max-height: none; margin: 0; border-radius: 0; }
+}
+/* From 1,024 px the filters sit beside the products (Req 8.5). */
+@media (min-width: 1024px) {
+  .pm-plp__body { display: grid; grid-template-columns: 16rem minmax(0, 1fr); gap: var(--pm-space-6); align-items: start; }
+  .pm-plp__column { display: block; position: sticky; top: 4.5rem; max-height: calc(100dvh - 5rem); overflow-y: auto; }
+  .pm-plp__filter-button { display: none; }
+  .pm-plp__bar { justify-content: flex-end; }
+}
+
+/* Product_Card */
+.pm-product-card { list-style: none; position: relative; padding: var(--pm-space-3); gap: var(--pm-space-2); }
+.pm-card__media { display: block; aspect-ratio: 1 / 1; overflow: hidden; border-radius: var(--pm-radius-md); background: var(--pm-surface); }
+.pm-card__media img, .pm-card__picture, .pm-card__img { display: block; width: 100%; height: 100%; -o-object-fit: cover; object-fit: cover; }
+.pm-card__badges { position: absolute; top: var(--pm-space-4); inset-inline-start: var(--pm-space-4); display: flex; flex-direction: column; gap: var(--pm-space-1); margin: 0; padding: 0; list-style: none; }
+.pm-card__title { margin: 0; font-size: var(--pm-text-base); font-weight: 600; }
+.pm-card__title a { color: inherit; text-decoration: none; }
+.pm-card__title a:hover { text-decoration: underline; }
+.pm-card__price { margin: 0; }
+.pm-card__now { font-weight: 700; }
+.pm-card__prior { color: var(--pm-text-muted); margin-inline-start: var(--pm-space-1); }
+.pm-card__saving { color: var(--pm-success); font-weight: 600; }
+.pm-card__from { color: var(--pm-text-muted); font-size: var(--pm-text-sm); }
+.pm-card__add { margin-top: auto; }
+.pm-unavailable-note { margin: 0; color: var(--pm-error); }
+.pm-unavailable-note[hidden] { display: none; }
+.pm-swatches { display: flex; flex-wrap: wrap; gap: var(--pm-space-1); margin: 0; padding: 0; list-style: none; }
+.pm-swatch {
+  display: inline-flex; align-items: center; justify-content: center; min-width: 1.5rem; height: 1.5rem; padding-inline: 2px;
+  border: 1px solid var(--pm-border); border-radius: var(--pm-radius-full); font-size: 0.75rem; color: var(--pm-text); background: var(--pm-bg);
+}
+.pm-swatch--more { border-style: dashed; padding-inline: var(--pm-space-1); }
+</style><script type="module" src="/@vite/client"></script><script type="module" src="/@id/astro/runtime/client/dev-toolbar/entrypoint.js"></script><script>window.__astro_dev_toolbar__ = {"root":"file:///C:/Users/palha/plusmark/apps/storefront/","version":"6.4.8","debugInfo":""}</script><script type="module" src="/node_modules/@fontsource-variable/manrope/index.css"></script><script type="module" src="/node_modules/@fontsource-variable/inter/index.css"></script><script type="module" src="/src/styles/tokens.css"></script><script type="module" src="/src/styles/global.css"></script><script type="module" src="/src/styles/primitives.css"></script><script type="module" src="/src/styles/shell.css"></script><script type="module" src="/src/styles/swatches.css"></script><script type="module" src="/src/styles/cart.css"></script><script type="module" src="/src/styles/experiments.css"></script><script type="module" src="/src/styles/search.css"></script><script type="module" src="/src/styles/requests.css"></script><script type="module" src="/src/components/shell/HindiPrompt.astro?astro&type=style&index=0&lang.css"></script><script type="module" src="/src/components/shell/ConsentBanner.astro?astro&type=style&index=0&lang.css"></script><script type="module" src="/src/styles/pdp.css"></script><script type="module" src="/src/styles/legal.css"></script><script type="module" src="/src/styles/price-block.css"></script><script type="module" src="/src/styles/delivery.css"></script><script type="module" src="/src/styles/plp.css"></script></head> <body data-bottom-bar data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/layouts/BaseLayout.astro" data-astro-source-loc="75:91"> <a class="pm-skip-link" href="#main" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/layouts/BaseLayout.astro" data-astro-source-loc="76:42">Skip to main content</a> <header class="pm-header" data-pm-header aria-label="Site header" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Header.astro" data-astro-source-loc="36:85"> <div class="pm-announce" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Header.astro" data-astro-source-loc="37:28"> <div class="pm-container pm-announce__inner" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Header.astro" data-astro-source-loc="38:50"> <p data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Header.astro" data-astro-source-loc="39:10">Made in Ahmedabad since 2015 · Delivered across India</p> <a href="/contact" class="pm-announce__link" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Header.astro" data-astro-source-loc="40:76">Bulk &amp; institutional orders</a> </div> </div> <div class="pm-container pm-header__inner" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Header.astro" data-astro-source-loc="43:46"> <button type="button" class="pm-button pm-button--ghost pm-header__menu" data-pm-open="pm-menu" aria-haspopup="dialog" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Header.astro" data-astro-source-loc="44:124"> <svg class="pm-icon" viewBox="0 0 24 24" focusable="false" aria-hidden="true" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/ui/Icon.astro" data-astro-source-loc="28:169"> <path d="M4 6h16M4 12h16M4 18h16" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/ui/Icon.astro" data-astro-source-loc="29:4"></path> </svg> <span class="pm-visually-hidden">Menu</span> </button> <a class="pm-header__brand" href="/" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Header.astro" data-astro-source-loc="48:100"> <span class="pm-header__mark" aria-hidden="true" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Header.astro" data-astro-source-loc="51:60">P</span> <span class="pm-header__name" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Header.astro" data-astro-source-loc="52:37">Plusmark</span> </a> <nav class="pm-header__nav" aria-label="Shop by category" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Header.astro" data-astro-source-loc="54:79"> <ul data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Header.astro" data-astro-source-loc="55:11"> <li data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Header.astro" data-astro-source-loc="57:16"><a href="/shop/whiteboards" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Header.astro" data-astro-source-loc="57:65">Whiteboards</a></li><li data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Header.astro" data-astro-source-loc="57:16"><a href="/shop/notice-boards" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Header.astro" data-astro-source-loc="57:65">Notice boards</a></li><li data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Header.astro" data-astro-source-loc="57:16"><a href="/shop/accessories" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Header.astro" data-astro-source-loc="57:65">Accessories</a></li> <li data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Header.astro" data-astro-source-loc="59:14"><a class="pm-header__nav-all" href="/shop" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Header.astro" data-astro-source-loc="59:80">Shop all boards</a></li> </ul> </nav> <form class="pm-header__search" role="search" action="/search" method="get" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Header.astro" data-astro-source-loc="62:105"> <label class="pm-visually-hidden" for="pm-search-q" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Header.astro" data-astro-source-loc="63:59">Search products</label> <input class="pm-input" id="pm-search-q" name="q" type="search" enterkeyhint="search" autocomplete="off" placeholder="Search products" role="combobox" aria-expanded="false" aria-controls="pm-suggest" aria-autocomplete="list" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Header.astro" data-astro-source-loc="64:8"> <button type="submit" class="pm-header__search-button" aria-label="Search" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Header.astro" data-astro-source-loc="65:105"> <svg class="pm-icon" viewBox="0 0 24 24" focusable="false" aria-hidden="true" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/ui/Icon.astro" data-astro-source-loc="28:169"> <path d="M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zm9 16-4-4" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/ui/Icon.astro" data-astro-source-loc="29:4"></path> </svg> </button> <div class="pm-suggest" id="pm-suggest" data-pm-suggest hidden data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Header.astro" data-astro-source-loc="68:8"></div> <p class="pm-visually-hidden" role="status" aria-live="polite" data-pm-suggest-status data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Header.astro" data-astro-source-loc="69:8"></p> </form> <a class="pm-header__action pm-header__support" href="tel:+912255550100" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Header.astro" data-astro-source-loc="72:107"> <svg class="pm-icon" viewBox="0 0 24 24" focusable="false" aria-hidden="true" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/ui/Icon.astro" data-astro-source-loc="28:169"> <path d="M4 5c0-1 1-2 2-2h2l2 5-2 1a12 12 0 0 0 6 6l1-2 5 2v2c0 1-1 2-2 2A17 17 0 0 1 4 5z" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/ui/Icon.astro" data-astro-source-loc="29:4"></path> </svg> <span class="pm-header__action-text" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Header.astro" data-astro-source-loc="74:46">Talk to us</span> </a> <a class="pm-header__action" href="/account" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Header.astro" data-astro-source-loc="77:132"> <svg class="pm-icon" viewBox="0 0 24 24" focusable="false" aria-hidden="true" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/ui/Icon.astro" data-astro-source-loc="28:169"> <path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm-8 9a8 8 0 0 1 16 0" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/ui/Icon.astro" data-astro-source-loc="29:4"></path> </svg> <span class="pm-header__action-text" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Header.astro" data-astro-source-loc="79:44">Account</span> </a> <a class="pm-header__action pm-header__cart" href="/cart" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Header.astro" data-astro-source-loc="81:142"> <svg class="pm-icon" viewBox="0 0 24 24" focusable="false" aria-hidden="true" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/ui/Icon.astro" data-astro-source-loc="28:169"> <path d="M3 4h2l2.5 11h10L20 7H6.5M9 20h.01M17 20h.01" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/ui/Icon.astro" data-astro-source-loc="29:4"></path> </svg> <span class="pm-header__action-text" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Header.astro" data-astro-source-loc="83:44">Cart</span> <style>astro-island,astro-slot,astro-static-slot{display:contents}</style><script>(()=>{var l=(n,t)=>{let i=async()=>{await(await n())()},e=typeof t.value=="object"?t.value:void 0,s={timeout:e==null?void 0:e.timeout};"requestIdleCallback"in window?window.requestIdleCallback(i,s):setTimeout(i,s.timeout||200)};(self.Astro||(self.Astro={})).idle=l;window.dispatchEvent(new Event("astro:idle"));})();</script><script>(()=>{var g=Object.defineProperty;var w=(d,s,h)=>s in d?g(d,s,{enumerable:!0,configurable:!0,writable:!0,value:h}):d[s]=h;var l=(d,s,h)=>w(d,typeof s!="symbol"?s+"":s,h);var E=new Set(["__proto__","constructor","prototype"]);{let d={0:t=>y(t),1:t=>h(t),2:t=>new RegExp(t),3:t=>new Date(t),4:t=>new Map(h(t)),5:t=>new Set(h(t)),6:t=>BigInt(t),7:t=>new URL(t),8:t=>new Uint8Array(t),9:t=>new Uint16Array(t),10:t=>new Uint32Array(t),11:t=>Number.POSITIVE_INFINITY*t},s=t=>{let[p,e]=t;return p in d?d[p](e):void 0},h=t=>t.map(s),y=t=>typeof t!="object"||t===null?t:Object.fromEntries(Object.entries(t).map(([p,e])=>[p,s(e)]));class f extends HTMLElement{constructor(){super(...arguments);l(this,"Component");l(this,"hydrator");l(this,"hydrate",async()=>{var b;if(!this.hydrator||!this.isConnected)return;let e=(b=this.parentElement)==null?void 0:b.closest("astro-island[ssr]");if(e){e.addEventListener("astro:hydrate",this.hydrate,{once:!0});return}let n=this.querySelectorAll("astro-slot"),r={},i=this.querySelectorAll("template[data-astro-template]");for(let o of i){let c=o.closest(this.tagName);c!=null&&c.isSameNode(this)&&(r[o.getAttribute("data-astro-template")||"default"]=o.innerHTML,o.remove())}for(let o of n){let c=o.closest(this.tagName);c!=null&&c.isSameNode(this)&&(r[o.getAttribute("name")||"default"]=o.innerHTML)}let m;try{m=this.hasAttribute("props")?y(JSON.parse(this.getAttribute("props"))):{}}catch(o){let c=this.getAttribute("component-url")||"<unknown>",v=this.getAttribute("component-export");throw v&&(c+=` (export ${v})`),console.error(`[hydrate] Error parsing props for component ${c}`,this.getAttribute("props"),o),o}let a,u=this.hydrator(this);a=performance.now(),await u(this.Component,m,r,{client:this.getAttribute("client")}),a&&this.setAttribute("client-render-time",(performance.now()-a).toString()),this.removeAttribute("ssr"),this.dispatchEvent(new CustomEvent("astro:hydrate"))});l(this,"unmount",()=>{this.isConnected||this.dispatchEvent(new CustomEvent("astro:unmount"))})}disconnectedCallback(){document.removeEventListener("astro:after-swap",this.unmount),document.addEventListener("astro:after-swap",this.unmount,{once:!0})}connectedCallback(){if(!this.hasAttribute("await-children")||document.readyState==="interactive"||document.readyState==="complete")this.childrenConnectedCallback();else{let e=()=>{document.removeEventListener("DOMContentLoaded",e),n.disconnect(),this.childrenConnectedCallback()},n=new MutationObserver(()=>{var r;((r=this.lastChild)==null?void 0:r.nodeType)===Node.COMMENT_NODE&&this.lastChild.nodeValue==="astro:end"&&(this.lastChild.remove(),e())});n.observe(this,{childList:!0}),document.addEventListener("DOMContentLoaded",e)}}async childrenConnectedCallback(){let e=this.getAttribute("before-hydration-url");e&&await import(e),this.start()}getRetryImportUrl(e){let n=new URL(e,document.baseURI),r=`astro-retry=${Date.now()}`,i=n.hash.replace(/^#/,"");return n.hash=i?`${i}&${r}`:r,n.toString()}async importWithRetry(e){try{return await import(e)}catch(n){return await new Promise(r=>setTimeout(r,1e3)),import(this.getRetryImportUrl(e))}}handleHydrationError(e){let n=this.getAttribute("component-url"),r=new CustomEvent("astro:hydration-error",{cancelable:!0,bubbles:!0,composed:!0,detail:{error:e,componentUrl:n}});this.dispatchEvent(r)&&console.error(`[astro-island] Error hydrating ${n}`,e)}async start(){let e=JSON.parse(this.getAttribute("opts")),n=this.getAttribute("client");if(Astro[n]===void 0){window.addEventListener(`astro:${n}`,()=>this.start(),{once:!0});return}try{await Astro[n](async()=>{let r=this.getAttribute("renderer-url");try{let[i,{default:m}]=await Promise.all([this.importWithRetry(this.getAttribute("component-url")),r?this.importWithRetry(r):Promise.resolve({default:()=>()=>{}})]),a=this.getAttribute("component-export")||"default";if(a.includes(".")){this.Component=i;for(let u of a.split(".")){if(E.has(u)||!this.Component||typeof this.Component!="object"&&typeof this.Component!="function"||!Object.hasOwn(this.Component,u))throw new Error(`Invalid component export path: ${a}`);this.Component=this.Component[u]}}else{if(E.has(a))throw new Error(`Invalid component export path: ${a}`);this.Component=i[a]}return this.hydrator=m,this.hydrate}catch(i){return this.handleHydrationError(i),()=>{}}},e,this)}catch(r){this.handleHydrationError(r)}}attributeChangedCallback(){this.hydrate()}}l(f,"observedAttributes",["props"]),customElements.get("astro-island")||customElements.define("astro-island",f)}})();</script><astro-island uid="1J9qrv" data-preact-island-id="5" component-url="/@id/C:/Users/palha/plusmark/apps/storefront/src/components/shell/CartCount" component-export="default" renderer-url="/@id/@astrojs/preact/client-dev.js" props="{&quot;label&quot;:[0,&quot;{count} items in your cart&quot;]}" ssr client="idle" before-hydration-url="/@id/astro:scripts/before-hydration.js" opts="{&quot;name&quot;:&quot;CartCount&quot;,&quot;value&quot;:true}"></astro-island> </a> </div> <dialog id="pm-menu" class="pm-dialog pm-dialog--sheet" aria-labelledby="pm-menu-title" data-pm-dialog data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/ui/Dialog.astro" data-astro-source-loc="6:140"> <div class="pm-dialog__header" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/ui/Dialog.astro" data-astro-source-loc="7:34"> <h2 id="pm-menu-title" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/ui/Dialog.astro" data-astro-source-loc="8:28">Menu</h2> <button type="button" class="pm-button pm-button--ghost" data-pm-close aria-label="Close" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/ui/Dialog.astro" data-astro-source-loc="9:100"> <svg class="pm-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/ui/Dialog.astro" data-astro-source-loc="10:86"><path d="M6 6l12 12M18 6 6 18" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/ui/Dialog.astro" data-astro-source-loc="10:86"></path></svg> </button> </div>  <nav aria-label="Shop by category" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Header.astro" data-astro-source-loc="88:56"> <h3 data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Header.astro" data-astro-source-loc="89:11">Shop by category</h3> <ul class="pm-menu-list" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Header.astro" data-astro-source-loc="90:32"> <li data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Header.astro" data-astro-source-loc="92:15"> <a class="pm-menu-link" href="/shop/whiteboards" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Header.astro" data-astro-source-loc="94:86">Whiteboards</a> </li><li data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Header.astro" data-astro-source-loc="92:15"> <a class="pm-menu-link" href="/shop/notice-boards" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Header.astro" data-astro-source-loc="94:86">Notice boards</a> </li><li data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Header.astro" data-astro-source-loc="92:15"> <a class="pm-menu-link" href="/shop/accessories" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Header.astro" data-astro-source-loc="94:86">Accessories</a> </li> </ul> </nav> <div class="pm-menu-language" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Header.astro" data-astro-source-loc="108:35"> <h3 data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Header.astro" data-astro-source-loc="109:11">Language</h3> <a class="pm-menu-link" href="/hi/product/magnetic-whiteboard" hreflang="hi" lang="hi" data-pm-lang-switch data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Header.astro" data-astro-source-loc="110:120">हिन्दी</a> </div>  </dialog> <script type="application/json" id="pm-search-config">{"locale":"en","regionId":"reg_01M7Q11X9B0V2MV3BVZ06QTR3A","currency":"inr","categories":[{"id":"pcat_01M7Q11YR55W9DPYGWR1ZTT6QM","handle":"whiteboards","name":"Whiteboards","parent":null},{"id":"pcat_01M7Q11YRPECKZY5C0R2YZSFZW","handle":"notice-boards","name":"Notice boards","parent":null},{"id":"pcat_01M7Q11YRZ0F620XRHZ5AX3MEZ","handle":"accessories","name":"Accessories","parent":null}],"searchPath":"/search","shopPrefix":"/shop","labels":{"suggestions":"Suggestions","products":"Products","categories":"Categories","recent":"Recent searches","clearRecent":"Clear recent searches","seeAll":"See all results for \"{query}\"","loading":"Loading suggestions","found":"{count} suggestions","none":"No suggestions","card":{"from":"from","priceOnRequest":"Price on request","save":"{percent} off","moreColours":"+{count}","chooseOptions":"Choose options","unavailable":"This product is no longer available.","addToCart":"Add to cart","srCurrent":"Current price {price}","srPrior":"Previous price {price}","badges":{"sale":"Sale","new":"New","best_seller":"Best seller","low_stock":"Few left","free_delivery":"Free delivery","made_in_india":"Made in India"}}}}</script> </header> <main id="main" tabindex="-1" aria-label="Main content" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/layouts/BaseLayout.astro" data-astro-source-loc="78:76">  <script>(()=>{var e=async t=>{await(await t())()};(self.Astro||(self.Astro={})).load=e;window.dispatchEvent(new Event("astro:load"));})();</script><script type="module" src="/@id/C:/Users/palha/plusmark/apps/storefront/src/components/requests/RequestSection.astro?astro&type=script&index=0&lang.ts"></script><div class="pm-container"> <div class="pm-pdp" data-pdp data-handle="magnetic-whiteboard" data-product-id="prod_01M7Q11ZKRD686M8QW3852KAQ7" data-sticky data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/pdp/PdpPage.astro" data-astro-source-loc="162:126"> <nav aria-label="Breadcrumbs" class="pm-breadcrumbs" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/pdp/PdpPage.astro" data-astro-source-loc="163:63"> <ol data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/pdp/PdpPage.astro" data-astro-source-loc="164:11"> <li data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/pdp/PdpPage.astro" data-astro-source-loc="166:15"><a href="/" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/pdp/PdpPage.astro" data-astro-source-loc="166:57">Home</a></li><li data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/pdp/PdpPage.astro" data-astro-source-loc="166:15"><a href="/shop/whiteboards" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/pdp/PdpPage.astro" data-astro-source-loc="166:57">Whiteboards</a></li><li data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/pdp/PdpPage.astro" data-astro-source-loc="166:15"><span aria-current="page" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/pdp/PdpPage.astro" data-astro-source-loc="166:99">Magnetic Whiteboard</span></li> </ol> </nav> <div class="pm-pdp__top" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/pdp/PdpPage.astro" data-astro-source-loc="171:30"> <section class="pm-gallery" aria-roledescription="carousel" aria-label="Product images" data-gallery data-position-text="{index} of {total}" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/pdp/PdpPage.astro" data-astro-source-loc="172:146">  <ul class="pm-gallery__track" data-gallery-track tabindex="0" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/pdp/PdpPage.astro" data-astro-source-loc="175:75"> <li class="pm-gallery__slide" data-full="https://placehold.co/800x800/eef1f5/334155/png?text=Magnetic+Whiteboard" data-alt="Magnetic Whiteboard" aria-roledescription="slide" aria-label="1 of 2" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/pdp/PdpPage.astro" data-astro-source-loc="177:199"> <img class="pm-gallery__img" src="https://placehold.co/800x800/eef1f5/334155/png?text=Magnetic+Whiteboard" width="800" height="800" alt="Magnetic Whiteboard" fetchpriority="high" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/ui/Picture.astro" data-astro-source-loc="32:4"> </li><li class="pm-gallery__slide" data-full="https://placehold.co/800x800/eef1f5/334155/png?text=Magnetic+Whiteboard+detail" data-alt="Magnetic Whiteboard 2" aria-roledescription="slide" aria-label="2 of 2" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/pdp/PdpPage.astro" data-astro-source-loc="177:199"> <img class="pm-gallery__img" src="https://placehold.co/800x800/eef1f5/334155/png?text=Magnetic+Whiteboard+detail" width="800" height="800" alt="Magnetic Whiteboard 2" loading="lazy" decoding="async" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/ui/Picture.astro" data-astro-source-loc="32:4"> </li> </ul> <button type="button" class="pm-gallery__btn pm-gallery__btn--prev" data-gallery-prev aria-label="Previous image" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/pdp/PdpPage.astro" data-astro-source-loc="182:149">‹</button> <button type="button" class="pm-gallery__btn pm-gallery__btn--next" data-gallery-next aria-label="Next image" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/pdp/PdpPage.astro" data-astro-source-loc="183:149">›</button> <p class="pm-gallery__pos" data-gallery-pos aria-live="polite" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/pdp/PdpPage.astro" data-astro-source-loc="184:76">1 of 2</p> <button type="button" class="pm-gallery__open" data-gallery-open data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/pdp/PdpPage.astro" data-astro-source-loc="185:78">View full size</button> <ul class="pm-gallery__thumbs" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/pdp/PdpPage.astro" data-astro-source-loc="187:46"> <li data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/pdp/PdpPage.astro" data-astro-source-loc="189:24"><button type="button" class="pm-gallery__thumb" data-gallery-thumb="0" aria-label="Show image 1" aria-current="true" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/pdp/PdpPage.astro" data-astro-source-loc="189:193">1</button></li><li data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/pdp/PdpPage.astro" data-astro-source-loc="189:24"><button type="button" class="pm-gallery__thumb" data-gallery-thumb="1" aria-label="Show image 2" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/pdp/PdpPage.astro" data-astro-source-loc="189:193">2</button></li> </ul> </section> <div class="pm-pdp__summary" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/pdp/PdpPage.astro" data-astro-source-loc="199:36"> <h1 class="pm-pdp__title" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/pdp/PdpPage.astro" data-astro-source-loc="200:35">Magnetic Whiteboard</h1> <p class="pm-pdp__subtitle" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/pdp/PdpPage.astro" data-astro-source-loc="201:56">Aluminium frame, lacquered steel surface</p>  <astro-island uid="Z1MDI90" data-preact-island-id="8" component-url="/@id/C:/Users/palha/plusmark/apps/storefront/src/persuasion/PdpBuyBox" component-export="default" renderer-url="/@id/@astrojs/preact/client-dev.js" props="{&quot;locale&quot;:[0,&quot;en&quot;],&quot;text&quot;:[0,{&quot;breadcrumbs&quot;:[0,&quot;Breadcrumbs&quot;],&quot;home&quot;:[0,&quot;Home&quot;],&quot;galleryLabel&quot;:[0,&quot;Product images&quot;],&quot;position&quot;:[0,&quot;{index} of {total}&quot;],&quot;prev&quot;:[0,&quot;Previous image&quot;],&quot;next&quot;:[0,&quot;Next image&quot;],&quot;open&quot;:[0,&quot;View full size&quot;],&quot;close&quot;:[0,&quot;Close&quot;],&quot;zoomIn&quot;:[0,&quot;Zoom in&quot;],&quot;zoomOut&quot;:[0,&quot;Zoom out&quot;],&quot;showImage&quot;:[0,&quot;Show image {index}&quot;],&quot;noImage&quot;:[0,&quot;No image&quot;],&quot;from&quot;:[0,&quot;From&quot;],&quot;chooseOption&quot;:[0,&quot;Choose {option}&quot;],&quot;missingOption&quot;:[0,&quot;Choose {option} before you add this to your Cart.&quot;],&quot;outOfStockValue&quot;:[0,&quot;{value}, out of stock&quot;],&quot;optionSelected&quot;:[0,&quot;{option}: {value}&quot;],&quot;sku&quot;:[0,&quot;SKU&quot;],&quot;inStock&quot;:[0,&quot;In stock&quot;],&quot;outOfStock&quot;:[0,&quot;Out of stock&quot;],&quot;backorder&quot;:[0,&quot;Available on backorder&quot;],&quot;quantity&quot;:[0,&quot;Quantity&quot;],&quot;decrease&quot;:[0,&quot;Decrease quantity&quot;],&quot;increase&quot;:[0,&quot;Increase quantity&quot;],&quot;addToCart&quot;:[0,&quot;Add to Cart&quot;],&quot;adding&quot;:[0,&quot;Adding…&quot;],&quot;unavailable&quot;:[0,&quot;This product is not available any more.&quot;],&quot;addError&quot;:[0,&quot;We could not add this to your Cart. Try again.&quot;],&quot;addedTitle&quot;:[0,&quot;Added to your Cart&quot;],&quot;addedLine&quot;:[0,&quot;{qty} × {title}&quot;],&quot;subtotal&quot;:[0,&quot;Cart subtotal {amount}&quot;],&quot;viewCart&quot;:[0,&quot;View Cart&quot;],&quot;checkout&quot;:[0,&quot;Checkout&quot;],&quot;dismiss&quot;:[0,&quot;Close&quot;],&quot;share&quot;:[0,&quot;Share&quot;],&quot;copyLink&quot;:[0,&quot;Copy link&quot;],&quot;copied&quot;:[0,&quot;Link copied&quot;],&quot;whatsapp&quot;:[0,&quot;Share on WhatsApp&quot;],&quot;highlights&quot;:[0,&quot;Key highlights&quot;],&quot;details&quot;:[0,&quot;Product details&quot;],&quot;description&quot;:[0,&quot;Description&quot;],&quot;specifications&quot;:[0,&quot;Specifications&quot;],&quot;offers&quot;:[0,&quot;Offers&quot;],&quot;offerCode&quot;:[0,&quot;Code {code}&quot;],&quot;offerAutomatic&quot;:[0,&quot;Applied automatically&quot;],&quot;offerConditions&quot;:[0,&quot;Conditions&quot;],&quot;offerPercent&quot;:[0,&quot;{value}% off&quot;],&quot;offerAmount&quot;:[0,&quot;{amount} off&quot;],&quot;deliveryRules&quot;:[0,&quot;Delivery charges&quot;],&quot;freeDeliveryAbove&quot;:[0,&quot;Free delivery on orders of {amount} or more.&quot;],&quot;codFee&quot;:[0,&quot;Cash on Delivery fee: {amount}.&quot;],&quot;codFree&quot;:[0,&quot;No fee for Cash on Delivery.&quot;],&quot;reviews&quot;:[0,&quot;Customer reviews&quot;],&quot;reviewsCount&quot;:[0,&quot;Based on {count} reviews&quot;],&quot;distribution&quot;:[0,&quot;Rating breakdown&quot;],&quot;starsRow&quot;:[0,&quot;{stars} stars: {count}&quot;],&quot;sortBy&quot;:[0,&quot;Sort reviews&quot;],&quot;sortNewest&quot;:[0,&quot;Newest&quot;],&quot;sortHighest&quot;:[0,&quot;Highest rating&quot;],&quot;sortLowest&quot;:[0,&quot;Lowest rating&quot;],&quot;filterBy&quot;:[0,&quot;Show&quot;],&quot;allRatings&quot;:[0,&quot;All ratings&quot;],&quot;starsOption&quot;:[0,&quot;{stars} stars&quot;],&quot;verified&quot;:[0,&quot;Verified purchase&quot;],&quot;noMatch&quot;:[0,&quot;No reviews match this filter.&quot;],&quot;reviewBy&quot;:[0,&quot;By {name}&quot;],&quot;stickyLabel&quot;:[0,&quot;Buy bar&quot;],&quot;railTitle&quot;:[0,&quot;More to explore&quot;],&quot;yes&quot;:[0,&quot;Yes&quot;],&quot;no&quot;:[0,&quot;No&quot;],&quot;block_net_quantity&quot;:[0,&quot;Net quantity&quot;],&quot;block_best_before&quot;:[0,&quot;Dates&quot;],&quot;block_ingredients&quot;:[0,&quot;Ingredients&quot;],&quot;block_suitability&quot;:[0,&quot;Suitable for&quot;],&quot;block_how_to_use&quot;:[0,&quot;How to use&quot;],&quot;block_key_specifications&quot;:[0,&quot;Key specifications&quot;],&quot;block_warranty&quot;:[0,&quot;Warranty&quot;],&quot;block_comparison&quot;:[0,&quot;Compare&quot;],&quot;block_size_guide&quot;:[0,&quot;Size guide&quot;],&quot;block_fit_notes&quot;:[0,&quot;Fit and care&quot;],&quot;block_dimensions&quot;:[0,&quot;Dimensions and weight&quot;],&quot;block_materials&quot;:[0,&quot;Materials&quot;],&quot;block_assembly&quot;:[0,&quot;Assembly&quot;],&quot;block_quantity_tiers&quot;:[0,&quot;Bulk prices&quot;],&quot;block_minimum_order_quantity&quot;:[0,&quot;Minimum order&quot;],&quot;block_quotation_request&quot;:[0,&quot;Request a quotation&quot;],&quot;block_metal&quot;:[0,&quot;Metal&quot;],&quot;block_purity&quot;:[0,&quot;Purity&quot;],&quot;block_weight&quot;:[0,&quot;Weight&quot;],&quot;block_certification&quot;:[0,&quot;Certification&quot;],&quot;tierQuantity&quot;:[0,&quot;Quantity&quot;],&quot;tierPrice&quot;:[0,&quot;Price each&quot;],&quot;tierFrom&quot;:[0,&quot;{qty} or more&quot;],&quot;compareAttribute&quot;:[0,&quot;Specification&quot;],&quot;compareThis&quot;:[0,&quot;{title} (this product)&quot;],&quot;quoteBody&quot;:[0,&quot;This product has no listed price. Ask for a quotation or send an enquiry.&quot;],&quot;quoteCta&quot;:[0,&quot;Request a quotation&quot;],&quot;enquiryCta&quot;:[0,&quot;Send an enquiry&quot;],&quot;buyAgainTitle&quot;:[0,&quot;Buy again&quot;],&quot;buyAgainSignIn&quot;:[0,&quot;Sign in to see the products you ordered before.&quot;],&quot;stepperQty&quot;:[0,&quot;Quantity of {title} in your Cart&quot;],&quot;stepperInc&quot;:[0,&quot;Increase quantity of {title}&quot;],&quot;stepperDec&quot;:[0,&quot;Decrease quantity of {title}&quot;]}],&quot;model&quot;:[0,{&quot;id&quot;:[0,&quot;prod_01M7Q11ZKRD686M8QW3852KAQ7&quot;],&quot;handle&quot;:[0,&quot;magnetic-whiteboard&quot;],&quot;title&quot;:[0,&quot;Magnetic Whiteboard&quot;],&quot;subtitle&quot;:[0,&quot;Aluminium frame, lacquered steel surface&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;images&quot;:[1,[]],&quot;options&quot;:[1,[[0,{&quot;id&quot;:[0,&quot;opt_01M7Q11ZM28SCKT0JF5YY88266&quot;],&quot;title&quot;:[0,&quot;Size&quot;],&quot;values&quot;:[1,[[0,&quot;2 x 3 ft&quot;],[0,&quot;3 x 4 ft&quot;],[0,&quot;4 x 6 ft&quot;]]]}]]],&quot;variants&quot;:[1,[[0,{&quot;id&quot;:[0,&quot;variant_01M7Q11ZNK6QS6NW7JB2GMFEGY&quot;],&quot;title&quot;:[0,&quot;2 x 3 ft&quot;],&quot;sku&quot;:[0,&quot;PM-WB-MAG-2X3&quot;],&quot;thumbnail&quot;:[0,null],&quot;options&quot;:[0,{&quot;opt_01M7Q11ZM28SCKT0JF5YY88266&quot;:[0,&quot;2 x 3 ft&quot;]}],&quot;price&quot;:[0,1890],&quot;prior&quot;:[0,null],&quot;mrp&quot;:[0,null],&quot;netQuantity&quot;:[0,null],&quot;netQuantityUnit&quot;:[0,null],&quot;tiers&quot;:[1,[]],&quot;allowBackorder&quot;:[0,false]}],[0,{&quot;id&quot;:[0,&quot;variant_01M7Q11ZPT4CP9Q2WWP9FJ937V&quot;],&quot;title&quot;:[0,&quot;3 x 4 ft&quot;],&quot;sku&quot;:[0,&quot;PM-WB-MAG-3X4&quot;],&quot;thumbnail&quot;:[0,null],&quot;options&quot;:[0,{&quot;opt_01M7Q11ZM28SCKT0JF5YY88266&quot;:[0,&quot;3 x 4 ft&quot;]}],&quot;price&quot;:[0,3290],&quot;prior&quot;:[0,null],&quot;mrp&quot;:[0,null],&quot;netQuantity&quot;:[0,null],&quot;netQuantityUnit&quot;:[0,null],&quot;tiers&quot;:[1,[]],&quot;allowBackorder&quot;:[0,false]}],[0,{&quot;id&quot;:[0,&quot;variant_01M7Q11ZQW4VYJCWRZZGH8RPW1&quot;],&quot;title&quot;:[0,&quot;4 x 6 ft&quot;],&quot;sku&quot;:[0,&quot;PM-WB-MAG-4X6&quot;],&quot;thumbnail&quot;:[0,null],&quot;options&quot;:[0,{&quot;opt_01M7Q11ZM28SCKT0JF5YY88266&quot;:[0,&quot;4 x 6 ft&quot;]}],&quot;price&quot;:[0,5990],&quot;prior&quot;:[0,null],&quot;mrp&quot;:[0,null],&quot;netQuantity&quot;:[0,null],&quot;netQuantityUnit&quot;:[0,null],&quot;tiers&quot;:[1,[]],&quot;allowBackorder&quot;:[0,false]}]]],&quot;currency&quot;:[0,&quot;INR&quot;],&quot;keyHighlights&quot;:[1,[]],&quot;rating&quot;:[0,null],&quot;categories&quot;:[1,[]],&quot;attributes&quot;:[1,[]],&quot;originCountry&quot;:[0,&quot;in&quot;],&quot;pairings&quot;:[0,{}]}],&quot;liveUrl&quot;:[0,&quot;/_live/v1/products?ids=prod_01M7Q11ZKRD686M8QW3852KAQ7&amp;region=reg_01M7Q11X9B0V2MV3BVZ06QTR3A&amp;currency=inr&quot;],&quot;switches&quot;:[0,{&quot;first_order_offer&quot;:[0,false]}],&quot;showTo&quot;:[0,{}],&quot;requireUnitPrice&quot;:[0,false],&quot;priceOnRequest&quot;:[0,false],&quot;requestLinks&quot;:[0,null],&quot;labels&quot;:[0,{&quot;price&quot;:[0,{&quot;onRequest&quot;:[0,&quot;Price on request&quot;],&quot;onRequestHint&quot;:[0,&quot;Contact us for a price and availability.&quot;],&quot;yourPrice&quot;:[0,&quot;Your price&quot;],&quot;srCurrent&quot;:[0,&quot;Current price {price}&quot;],&quot;srPrior&quot;:[0,&quot;Previous price {price}&quot;],&quot;inclTax&quot;:[0,&quot;incl. of all taxes&quot;],&quot;saving&quot;:[0,&quot;You save {amount} ({percent})&quot;],&quot;savingAmountOnly&quot;:[0,&quot;You save {amount}&quot;],&quot;explainControl&quot;:[0,&quot;What is the previous price?&quot;],&quot;priorExplain&quot;:[0,&quot;The previous price is the lowest price at which we offered this item in the 30 days before the price fell.&quot;],&quot;mrp&quot;:[0,&quot;MRP (incl. of all taxes)&quot;],&quot;unitPrice&quot;:[0,&quot;Unit price:&quot;],&quot;tiersCaption&quot;:[0,&quot;Buy more, pay less per unit&quot;],&quot;tierQuantity&quot;:[0,&quot;Quantity&quot;],&quot;tierPrice&quot;:[0,&quot;Price per unit&quot;],&quot;tierSaving&quot;:[0,&quot;Saving per unit&quot;],&quot;noSaving&quot;:[0,&quot;No saving&quot;],&quot;cartConfirms&quot;:[0,&quot;Your Cart confirms the final price.&quot;]}],&quot;delivery&quot;:[0,{&quot;pinLabel&quot;:[0,&quot;Check delivery to your PIN code&quot;],&quot;pinHint&quot;:[0,&quot;Enter 6 digits.&quot;],&quot;check&quot;:[0,&quot;Check&quot;],&quot;checking&quot;:[0,&quot;Checking&quot;],&quot;change&quot;:[0,&quot;Change PIN code&quot;],&quot;forPin&quot;:[0,&quot;PIN code {pin}&quot;],&quot;between&quot;:[0,&quot;Delivery between {range}&quot;],&quot;workingDays&quot;:[0,&quot;Delivery in {min} to {max} working days&quot;],&quot;workingDaysOne&quot;:[0,&quot;Delivery in {days} working days&quot;],&quot;notServiceable&quot;:[0,&quot;We cannot deliver to this PIN code.&quot;],&quot;noEstimate&quot;:[0,&quot;We have no delivery estimate for this PIN code yet. Checkout confirms it.&quot;],&quot;codYes&quot;:[0,&quot;Cash on Delivery available&quot;],&quot;codNo&quot;:[0,&quot;Cash on Delivery not available&quot;],&quot;error&quot;:[0,&quot;We could not check this PIN code. Try again.&quot;],&quot;pinInvalid&quot;:[0,&quot;Enter a 6-digit PIN code.&quot;],&quot;unknownCountry&quot;:[0,&quot;We cannot estimate delivery for this address yet. Checkout confirms it.&quot;]}],&quot;countdown&quot;:[0,{&quot;saleEndsIn&quot;:[0,&quot;Offer ends in {time}&quot;],&quot;saleThen&quot;:[0,&quot;Price after the offer: {price}&quot;],&quot;saleEndsAt&quot;:[0,&quot;Offer ends at {time}&quot;],&quot;saleEnded&quot;:[0,&quot;The offer has ended. The price is now {price}.&quot;],&quot;srSale&quot;:[0,&quot;Offer ends in about {time}&quot;],&quot;dispatchWithin&quot;:[0,&quot;Order within {time} for dispatch today&quot;],&quot;srDispatch&quot;:[0,&quot;Order within {time} for dispatch today&quot;]}],&quot;social&quot;:[0,{&quot;rating&quot;:[0,&quot;Rated {average} out of 5&quot;],&quot;ratingCount&quot;:[0,&quot;({count} reviews)&quot;],&quot;highlightsTitle&quot;:[0,&quot;What customers say&quot;],&quot;highlightPositive&quot;:[0,&quot;Positive review&quot;],&quot;highlightCritical&quot;:[0,&quot;Critical review&quot;],&quot;highlightBy&quot;:[0,&quot;By {name}&quot;],&quot;popularity&quot;:[0,&quot;{band}+ bought in the last 7 days&quot;],&quot;lowStock&quot;:[0,&quot;Only {count} left in stock&quot;],&quot;trustLabel&quot;:[0,&quot;Why shop here&quot;],&quot;securePayment&quot;:[0,&quot;Secure online payment&quot;],&quot;cod&quot;:[0,&quot;Cash on delivery available&quot;],&quot;returns&quot;:[0,&quot;{value}-day returns&quot;],&quot;gstInvoice&quot;:[0,&quot;GST invoice available&quot;],&quot;origin&quot;:[0,&quot;Made in {value}&quot;]}],&quot;journey&quot;:[0,{&quot;freeProgress&quot;:[0,&quot;Add {amount} more for free delivery&quot;],&quot;freeReached&quot;:[0,&quot;Delivery is free on this Cart&quot;],&quot;savings&quot;:[0,&quot;You save {amount}&quot;],&quot;goesWellTitle&quot;:[0,&quot;Goes well with&quot;],&quot;bundleTitle&quot;:[0,&quot;Buy together&quot;],&quot;bundleTotal&quot;:[0,&quot;Together {price}&quot;],&quot;bundleSave&quot;:[0,&quot;You save {amount}&quot;],&quot;bundleAdd&quot;:[0,&quot;Add all to Cart&quot;],&quot;add&quot;:[0,&quot;Add to Cart&quot;],&quot;recentTitle&quot;:[0,&quot;Recently viewed&quot;],&quot;recentClear&quot;:[0,&quot;Clear list&quot;],&quot;firstOrderTitle&quot;:[0,&quot;First order offer&quot;],&quot;firstOrderClose&quot;:[0,&quot;Close&quot;],&quot;progressLabel&quot;:[0,&quot;Checkout steps&quot;],&quot;stepDone&quot;:[0,&quot;completed&quot;],&quot;stepCurrent&quot;:[0,&quot;current step&quot;],&quot;stickyAdd&quot;:[0,&quot;Add to Cart&quot;]}]}],&quot;freeDeliveryThreshold&quot;:[0,null],&quot;countryCode&quot;:[0,&quot;in&quot;]}" ssr client="load" before-hydration-url="/@id/astro:scripts/before-hydration.js" opts="{&quot;name&quot;:&quot;PdpBuyBox&quot;,&quot;value&quot;:true}" server-render-time="4" await-children><div class="pm-buybox" data-live-product="prod_01M7Q11ZKRD686M8QW3852KAQ7"><div class="pm-buybox__core" id="pdp-buybox"><p class="pm-buybox__from">From</p><div class="pm-price-block" data-state="regular" data-stale="false"><p class="pm-price-block__line"><span class="pm-visually-hidden">Current price ₹1,890</span><strong class="pm-price-block__now" translate="no" aria-hidden="true">₹1,890</strong></p><p class="pm-price-block__tax">incl. of all taxes</p></div><div class="pm-countdown" data-kind="sale" data-active="false"><span class="pm-visually-hidden" role="status" aria-live="polite"></span></div><div class="pm-variants" role="group" aria-labelledby="pdp-opt-label-opt_01M7Q11ZM28SCKT0JF5YY88266" data-pdp-option="opt_01M7Q11ZM28SCKT0JF5YY88266"><p class="pm-variants__label" id="pdp-opt-label-opt_01M7Q11ZM28SCKT0JF5YY88266">Size</p><ul class="pm-variants__list"><li><button type="button" id="pdp-opt-opt_01M7Q11ZM28SCKT0JF5YY88266-0" class="pm-vbtn" aria-pressed="false" data-value="2 x 3 ft" title="2 x 3 ft"><span>2 x 3 ft</span></button></li><li><button type="button" id="pdp-opt-opt_01M7Q11ZM28SCKT0JF5YY88266-1" class="pm-vbtn" aria-pressed="false" data-value="3 x 4 ft" title="3 x 4 ft"><span>3 x 4 ft</span></button></li><li><button type="button" id="pdp-opt-opt_01M7Q11ZM28SCKT0JF5YY88266-2" class="pm-vbtn" aria-pressed="false" data-value="4 x 6 ft" title="4 x 6 ft"><span>4 x 6 ft</span></button></li></ul></div><p class="pm-error pm-buybox__missing" role="alert" hidden></p><div class="pm-buybox__status" aria-live="polite"><div class="pm-countdown" data-kind="dispatch" data-active="false"><span class="pm-visually-hidden" role="status" aria-live="polite"></span></div></div><div class="pm-delivery" data-state="idle"><form class="pm-delivery__form"><div class="pm-delivery__field"><label for="P8-0-pin">Check delivery to your PIN code</label><input id="P8-0-pin" class="pm-delivery__input" type="text" inputmode="numeric" autocomplete="postal-code" maxlength="6" value aria-invalid="false" aria-describedby="P8-0-hint"/></div><button type="submit" class="pm-delivery__btn">Check</button><p id="P8-0-hint" class="pm-delivery__hint">Enter 6 digits.</p></form><div role="status" aria-live="polite"></div></div><div class="pm-buybox__actions"><div class="pm-qty" role="group" aria-label="Quantity"><button type="button" class="pm-qty__btn" aria-label="Decrease quantity" disabled>−</button><input class="pm-qty__input" type="number" inputmode="numeric" min="1" max="100" value="1" aria-label="Quantity"/><button type="button" class="pm-qty__btn" aria-label="Increase quantity">+</button></div><button type="button" class="pm-button pm-button--primary pm-buybox__add" data-add-to-cart="true" data-product-id="prod_01M7Q11ZKRD686M8QW3852KAQ7" data-variant-id>Add to Cart</button></div><p class="pm-unavailable-note pm-error" data-unavailable-note="true" data-product-id="prod_01M7Q11ZKRD686M8QW3852KAQ7" hidden>This product is not available any more.</p><p class="pm-error" role="alert" hidden></p><div class="pm-added" role="status" aria-live="polite"></div></div></div><!--astro:end--></astro-island> <div class="pm-pdp__extras" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/requests/PdpAlerts.astro" data-astro-source-loc="11:29">  </div> <div data-pm-bis data-product-id="prod_01M7Q11ZKRD686M8QW3852KAQ7" data-variant-ids="[&quot;variant_01M7Q11ZNK6QS6NW7JB2GMFEGY&quot;,&quot;variant_01M7Q11ZPT4CP9Q2WWP9FJ937V&quot;,&quot;variant_01M7Q11ZQW4VYJCWRZZGH8RPW1&quot;]" data-live-url="/_live/v1/products?ids=prod_01M7Q11ZKRD686M8QW3852KAQ7&amp;region=reg_01M7Q11X9B0V2MV3BVZ06QTR3A&amp;currency=inr" hidden data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/requests/BackInStockForm.astro" data-astro-source-loc="11:136"> <section class="pm-request" id="pm-bis" aria-labelledby="pm-bis-h" data-pm-requests data-locale="en" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/requests/RequestSection.astro" data-astro-source-loc="8:155"> <h2 id="pm-bis-h" class="pm-request__heading" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/requests/RequestSection.astro" data-astro-source-loc="9:62">Tell me when it is back</h2> <p class="pm-request__intro" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/requests/RequestSection.astro" data-astro-source-loc="10:42">This option is out of stock. We send one email when it is available again and use your address for nothing else.</p>  <form class="pm-request__form" data-pm-form data-action="back_in_stock" novalidate data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/requests/BackInStockForm.astro" data-astro-source-loc="13:88"> <input type="hidden" name="variant_id" value="" data-bis-variant data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/requests/BackInStockForm.astro" data-astro-source-loc="14:8"> <div class="pm-field" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/requests/BackInStockForm.astro" data-astro-source-loc="15:30"><label class="pm-label" for="pm-bis-email" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/requests/BackInStockForm.astro" data-astro-source-loc="15:73">Email address</label> <input class="pm-input" id="pm-bis-email" name="email" type="email" inputmode="email" maxlength="254" autocomplete="email" required data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/requests/BackInStockForm.astro" data-astro-source-loc="16:10"></div> <div class="pm-request__captcha" data-pm-captcha data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/requests/FormEnd.astro" data-astro-source-loc="8:2"></div> <button type="submit" class="pm-button pm-button--primary" data-pm-submit data-sending="Sending…" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/requests/FormEnd.astro" data-astro-source-loc="9:112">Notify me</button> </form> <div class="pm-request__done" data-pm-done hidden data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/requests/BackInStockForm.astro" data-astro-source-loc="19:6"></div>  <p class="pm-request__status" data-pm-status role="status" aria-live="polite" hidden data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/requests/RequestSection.astro" data-astro-source-loc="12:4"></p> </section>  </div>   <ul class="pm-trust-strip" aria-label="Why shop here"><li>Made in in</li></ul> <div class="pm-share" data-share data-title="Magnetic Whiteboard" data-copied="Link copied" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/pdp/PdpPage.astro" data-astro-source-loc="249:93"> <button type="button" class="pm-button pm-button--ghost" data-share-button data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/pdp/PdpPage.astro" data-astro-source-loc="250:86">Share</button> <div class="pm-share__fallback" data-share-fallback hidden data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/pdp/PdpPage.astro" data-astro-source-loc="251:70"> <button type="button" class="pm-link" data-share-copy data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/pdp/PdpPage.astro" data-astro-source-loc="252:67">Copy link</button> <a class="pm-link" data-share-whatsapp href="https://wa.me/" target="_blank" rel="noopener noreferrer" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/pdp/PdpPage.astro" data-astro-source-loc="253:116">Share on WhatsApp</a> </div> <p class="pm-share__status" role="status" data-share-status data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/pdp/PdpPage.astro" data-astro-source-loc="255:12"></p> </div> </div> </div>  <section class="pm-blocks" aria-labelledby="pdp-details" data-blocks data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/pdp/PdpPage.astro" data-astro-source-loc="267:74"> <h2 id="pdp-details" class="pm-visually-hidden" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/pdp/PdpPage.astro" data-astro-source-loc="268:55">Product details</h2> <details class="pm-block" open data-block="description" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/pdp/PdpPage.astro" data-astro-source-loc="272:69"> <summary data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/pdp/PdpPage.astro" data-astro-source-loc="273:24">Description</summary> <div class="pm-block__body" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/pdp/PdpPage.astro" data-astro-source-loc="274:16">A magnetic dry-erase whiteboard with an aluminium frame and a marker tray. Wall-mounting kit included.</div> </details><details class="pm-block" data-block="specifications" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/pdp/PdpPage.astro" data-astro-source-loc="280:67"> <summary data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/pdp/PdpPage.astro" data-astro-source-loc="281:24">Specifications</summary> <dl class="pm-block__body pm-specs" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/pdp/PdpPage.astro" data-astro-source-loc="282:51"> <div data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/pdp/PdpPage.astro" data-astro-source-loc="283:41"><dt data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/pdp/PdpPage.astro" data-astro-source-loc="283:44">manufactured on</dt><dd data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/pdp/PdpPage.astro" data-astro-source-loc="283:83">Oct 2026</dd></div><div data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/pdp/PdpPage.astro" data-astro-source-loc="283:41"><dt data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/pdp/PdpPage.astro" data-astro-source-loc="283:44">net quantity</dt><dd data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/pdp/PdpPage.astro" data-astro-source-loc="283:83">1 unit</dd></div> </dl> </details> </section> <section class="pm-pdp-legal" aria-labelledby="pm-pdp-declarations" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/legal/Declarations.astro" data-astro-source-loc="12:71"><h2 id="pm-pdp-declarations" class="pm-pdp-legal__heading" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/legal/Declarations.astro" data-astro-source-loc="13:64">Product details required by law</h2><dl class="pm-legal__facts" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/legal/Declarations.astro" data-astro-source-loc="14:33"><div data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/legal/Declarations.astro" data-astro-source-loc="15:31"><dt data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/legal/Declarations.astro" data-astro-source-loc="15:34">Country of origin</dt><dd data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/legal/Declarations.astro" data-astro-source-loc="15:77">India</dd></div><div data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/legal/Declarations.astro" data-astro-source-loc="15:31"><dt data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/legal/Declarations.astro" data-astro-source-loc="15:34">Manufacturer or packer</dt><dd data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/legal/Declarations.astro" data-astro-source-loc="15:77">Plusmark Boards Pvt. Ltd., Bengaluru 560058</dd></div><div data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/legal/Declarations.astro" data-astro-source-loc="15:31"><dt data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/legal/Declarations.astro" data-astro-source-loc="15:34">Generic name</dt><dd data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/legal/Declarations.astro" data-astro-source-loc="15:77">Magnetic Whiteboard</dd></div><div data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/legal/Declarations.astro" data-astro-source-loc="15:31"><dt data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/legal/Declarations.astro" data-astro-source-loc="15:34">Consumer care</dt><dd data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/legal/Declarations.astro" data-astro-source-loc="15:77">care@plusmark.local, +91 80 0000 0000</dd></div></dl></section> <section class="pm-pdp-legal" aria-labelledby="pm-pdp-summary" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/legal/PdpSummary.astro" data-astro-source-loc="12:64"> <h2 id="pm-pdp-summary" class="pm-pdp-legal__heading" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/legal/PdpSummary.astro" data-astro-source-loc="13:57">Returns, warranty and delivery</h2> <ul class="pm-pdp-legal__list" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/legal/PdpSummary.astro" data-astro-source-loc="14:34"> <li data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/legal/PdpSummary.astro" data-astro-source-loc="16:11"> <strong data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/legal/PdpSummary.astro" data-astro-source-loc="17:17">Returns:</strong>  See the full policy for details.  <a class="pm-link" href="/policies/returns" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/legal/PdpSummary.astro" data-astro-source-loc="19:86">Read the full policy</a> </li><li data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/legal/PdpSummary.astro" data-astro-source-loc="16:11"> <strong data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/legal/PdpSummary.astro" data-astro-source-loc="17:17">Warranty:</strong>  See the full policy for details.  <a class="pm-link" href="/policies/warranties" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/legal/PdpSummary.astro" data-astro-source-loc="19:86">Read the full policy</a> </li><li data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/legal/PdpSummary.astro" data-astro-source-loc="16:11"> <strong data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/legal/PdpSummary.astro" data-astro-source-loc="17:17">Delivery:</strong>  See the full policy for details.  <a class="pm-link" href="/policies/shipping" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/legal/PdpSummary.astro" data-astro-source-loc="19:86">Read the full policy</a> </li> </ul> </section>    <section class="pm-rail" aria-labelledby="pdp-rail" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/pdp/PdpPage.astro" data-astro-source-loc="389:59"> <h2 id="pdp-rail" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/pdp/PdpPage.astro" data-astro-source-loc="390:27">More to explore</h2> <ul class="pm-grid pm-rail__grid" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/pdp/PdpPage.astro" data-astro-source-loc="391:43"> <li class="pm-card pm-product-card" data-live-product="prod_01M7Q11ZBQV0YA87FEJS1XHW6G" data-product-id="prod_01M7Q11ZBQV0YA87FEJS1XHW6G" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/plp/ProductCard.astro" data-astro-source-loc="25:91"> <a class="pm-card__media" href="/product/glass-writing-board" tabindex="-1" aria-hidden="true" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/plp/ProductCard.astro" data-astro-source-loc="26:74"> <img class="pm-card__img" src="https://placehold.co/800x800/eef1f5/334155/png?text=Glass+Writing+Board" width="480" height="480" alt="" loading="lazy" decoding="async" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/plp/ProductCard.astro" data-astro-source-loc="30:12"> </a> <ul class="pm-card__badges" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/plp/ProductCard.astro" data-astro-source-loc="34:33"> <li data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/plp/ProductCard.astro" data-astro-source-loc="35:36"><span class="pm-badge" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/ui/Badge.astro" data-astro-source-loc="3:25">Made in India</span></li> </ul> <h3 class="pm-card__title" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/plp/ProductCard.astro" data-astro-source-loc="38:31"><a href="/product/glass-writing-board" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/plp/ProductCard.astro" data-astro-source-loc="38:45">Glass Writing Board</a></h3>  <p class="pm-card__price" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/plp/ProductCard.astro" data-astro-source-loc="47:29"> <span class="pm-card__from" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/plp/ProductCard.astro" data-astro-source-loc="48:45">from </span> <span class="pm-price" translate="no" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/ui/Price.astro" data-astro-source-loc="4:40"> <span class="pm-card__now" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/plp/ProductCard.astro" data-astro-source-loc="50:34"> <span class="pm-visually-hidden" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/plp/ProductCard.astro" data-astro-source-loc="51:42">Current price ₹3,490</span> <span aria-hidden="true" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/plp/ProductCard.astro" data-astro-source-loc="52:34">₹3,490</span> </span> </span>  </p>  <p class="pm-unavailable-note" data-unavailable-note data-product-id="prod_01M7Q11ZBQV0YA87FEJS1XHW6G" hidden data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/plp/ProductCard.astro" data-astro-source-loc="64:89">This product is no longer available.</p> <a class="pm-button pm-button--secondary pm-card__add" href="/product/glass-writing-board" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/plp/ProductCard.astro" data-astro-source-loc="67:74">Choose options</a> </li><li class="pm-card pm-product-card" data-live-product="prod_01M7Q11ZTJHNG9H51CK868D4E2" data-product-id="prod_01M7Q11ZTJHNG9H51CK868D4E2" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/plp/ProductCard.astro" data-astro-source-loc="25:91"> <a class="pm-card__media" href="/product/mobile-whiteboard-stand" tabindex="-1" aria-hidden="true" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/plp/ProductCard.astro" data-astro-source-loc="26:74"> <img class="pm-card__img" src="https://placehold.co/800x800/eef1f5/334155/png?text=Mobile+Whiteboard+Stand" width="480" height="480" alt="" loading="lazy" decoding="async" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/plp/ProductCard.astro" data-astro-source-loc="30:12"> </a> <ul class="pm-card__badges" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/plp/ProductCard.astro" data-astro-source-loc="34:33"> <li data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/plp/ProductCard.astro" data-astro-source-loc="35:36"><span class="pm-badge" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/ui/Badge.astro" data-astro-source-loc="3:25">Made in India</span></li> </ul> <h3 class="pm-card__title" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/plp/ProductCard.astro" data-astro-source-loc="38:31"><a href="/product/mobile-whiteboard-stand" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/plp/ProductCard.astro" data-astro-source-loc="38:45">Mobile Whiteboard Stand</a></h3>  <p class="pm-card__price" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/plp/ProductCard.astro" data-astro-source-loc="47:29">  <span class="pm-price" translate="no" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/ui/Price.astro" data-astro-source-loc="4:40"> <span class="pm-card__now" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/plp/ProductCard.astro" data-astro-source-loc="50:34"> <span class="pm-visually-hidden" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/plp/ProductCard.astro" data-astro-source-loc="51:42">Current price ₹8,990</span> <span aria-hidden="true" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/plp/ProductCard.astro" data-astro-source-loc="52:34">₹8,990</span> </span> </span>  </p>  <p class="pm-unavailable-note" data-unavailable-note data-product-id="prod_01M7Q11ZTJHNG9H51CK868D4E2" hidden data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/plp/ProductCard.astro" data-astro-source-loc="64:89">This product is no longer available.</p> <button type="button" class="pm-button pm-button--secondary pm-card__add" data-add-to-cart data-product-id="prod_01M7Q11ZTJHNG9H51CK868D4E2" data-variant-id="variant_01M7Q11ZVT5W504YQSQF4RF2V1" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/plp/ProductCard.astro" data-astro-source-loc="66:163">Add to cart</button> </li><li class="pm-card pm-product-card" data-live-product="prod_01M7Q11ZY3A8GTGWFEBG6T6E08" data-product-id="prod_01M7Q11ZY3A8GTGWFEBG6T6E08" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/plp/ProductCard.astro" data-astro-source-loc="25:91"> <a class="pm-card__media" href="/product/non-magnetic-whiteboard" tabindex="-1" aria-hidden="true" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/plp/ProductCard.astro" data-astro-source-loc="26:74"> <img class="pm-card__img" src="https://placehold.co/800x800/eef1f5/334155/png?text=Non-Magnetic+Whiteboard" width="480" height="480" alt="" loading="lazy" decoding="async" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/plp/ProductCard.astro" data-astro-source-loc="30:12"> </a> <ul class="pm-card__badges" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/plp/ProductCard.astro" data-astro-source-loc="34:33"> <li data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/plp/ProductCard.astro" data-astro-source-loc="35:36"><span class="pm-badge" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/ui/Badge.astro" data-astro-source-loc="3:25">Made in India</span></li> </ul> <h3 class="pm-card__title" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/plp/ProductCard.astro" data-astro-source-loc="38:31"><a href="/product/non-magnetic-whiteboard" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/plp/ProductCard.astro" data-astro-source-loc="38:45">Non-Magnetic Whiteboard</a></h3>  <p class="pm-card__price" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/plp/ProductCard.astro" data-astro-source-loc="47:29"> <span class="pm-card__from" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/plp/ProductCard.astro" data-astro-source-loc="48:45">from </span> <span class="pm-price" translate="no" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/ui/Price.astro" data-astro-source-loc="4:40"> <span class="pm-card__now" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/plp/ProductCard.astro" data-astro-source-loc="50:34"> <span class="pm-visually-hidden" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/plp/ProductCard.astro" data-astro-source-loc="51:42">Current price ₹1,190</span> <span aria-hidden="true" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/plp/ProductCard.astro" data-astro-source-loc="52:34">₹1,190</span> </span> </span>  </p>  <p class="pm-unavailable-note" data-unavailable-note data-product-id="prod_01M7Q11ZY3A8GTGWFEBG6T6E08" hidden data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/plp/ProductCard.astro" data-astro-source-loc="64:89">This product is no longer available.</p> <a class="pm-button pm-button--secondary pm-card__add" href="/product/non-magnetic-whiteboard" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/plp/ProductCard.astro" data-astro-source-loc="67:74">Choose options</a> </li> </ul> </section> </div> </div> <dialog class="pm-zoom" id="pdp-zoom" aria-label="View full size" data-zoom data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/pdp/PdpPage.astro" data-astro-source-loc="399:72"> <div class="pm-zoom__bar" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/pdp/PdpPage.astro" data-astro-source-loc="400:29"> <button type="button" class="pm-button pm-button--secondary" data-zoom-out aria-label="Zoom out" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/pdp/PdpPage.astro" data-astro-source-loc="401:106">−</button> <button type="button" class="pm-button pm-button--secondary" data-zoom-in aria-label="Zoom in" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/pdp/PdpPage.astro" data-astro-source-loc="402:104">+</button> <button type="button" class="pm-button pm-button--primary" data-zoom-close data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/pdp/PdpPage.astro" data-astro-source-loc="403:80">Close</button> </div> <div class="pm-zoom__stage" data-zoom-stage tabindex="0" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/pdp/PdpPage.astro" data-astro-source-loc="405:61"><img class="pm-zoom__img" data-zoom-img alt="" src="data:," data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/pdp/PdpPage.astro" data-astro-source-loc="405:61"></div> </dialog> <script type="module" src="/@id/C:/Users/palha/plusmark/apps/storefront/src/components/pdp/PdpPage.astro?astro&type=script&index=0&lang.ts"></script>  </main> <footer class="pm-footer" aria-label="Site footer" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="17:70"> <div class="pm-container pm-footer__grid" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="18:45"> <section aria-labelledby="pm-footer-policies" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="19:51"> <h2 id="pm-footer-policies" class="pm-footer__heading" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="20:62">Policies</h2> <ul class="pm-footer__list" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="21:35"> <li data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="23:16"><a class="pm-link" href="/policies/returns" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="23:67">Returns</a></li><li data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="23:16"><a class="pm-link" href="/policies/refunds" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="23:67">Refunds</a></li><li data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="23:16"><a class="pm-link" href="/policies/exchanges" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="23:67">Exchanges</a></li><li data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="23:16"><a class="pm-link" href="/policies/cancellations" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="23:67">Cancellations</a></li><li data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="23:16"><a class="pm-link" href="/policies/shipping" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="23:67">Shipping and delivery</a></li><li data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="23:16"><a class="pm-link" href="/policies/payments" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="23:67">Payment methods</a></li><li data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="23:16"><a class="pm-link" href="/policies/warranties" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="23:67">Warranties and guarantees</a></li><li data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="23:16"><a class="pm-link" href="/policies/privacy" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="23:67">Privacy notice</a></li><li data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="23:16"><a class="pm-link" href="/policies/terms" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="23:67">Terms of use</a></li> </ul> </section> <section aria-labelledby="pm-footer-help" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="27:47"> <h2 id="pm-footer-help" class="pm-footer__heading" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="28:58">Help and information</h2> <ul class="pm-footer__list" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="29:35"> <li data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="30:14"><a class="pm-link" href="/contact" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="30:56">Contact us</a></li> <li data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="31:14"><a class="pm-link" href="/seller" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="31:55">Seller details and Grievance Officer</a></li> <li data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="32:14"><a class="pm-link" href="/ranking-disclosure" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="32:67">How we rank products</a></li> <li data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="33:14"><a class="pm-link" href="/why" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="33:44">Why each part of this store is here</a></li> <li data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="34:14"><a class="pm-link" href="/compliance-certificate" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="34:71">Compliance certificate</a></li> <li data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="35:14"><a class="pm-link" href="/policies/privacy#choices" data-pm-privacy-choices data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="35:97">Privacy choices</a></li> <li data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="36:14"><a class="pm-link" href="/hi/product/magnetic-whiteboard" hreflang="hi" lang="hi" data-pm-lang-switch data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="36:121">हिन्दी</a></li> </ul> </section> <section aria-labelledby="pm-footer-seller" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="39:49"> <h2 id="pm-footer-seller" class="pm-footer__heading" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="40:60">Seller details</h2> <p class="pm-footer__text" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="41:35"><strong data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="41:42">Plusmark Traders Private Limited</strong><br data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="41:70">12 Example Street, Mumbai, Maharashtra 400001</p> <dl class="pm-footer__facts" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="42:36"> <div data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="43:15"><dt data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="43:18">GSTIN</dt><dd data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="43:54">27ABCDE1234F1Z5</dd></div> <div data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="44:15"><dt data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="44:18">Customer care</dt><dd data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="44:54"><a href="tel:+912255550100" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="44:120">+91 22 5555 0100</a>, <a href="mailto:care@example.com" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="44:199">care@example.com</a></dd></div> <div data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="45:15"><dt data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="45:18">Grievance Officer</dt><dd data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="45:58">A. Sharma, Grievance Officer, <a href="tel:+912255550101" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="45:180">+91 22 5555 0101</a>, <a href="mailto:grievance@example.com" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="45:255">grievance@example.com</a></dd></div> </dl> </section> </div> <div class="pm-container" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="49:29"> <section class="pm-request" id="pm-news" aria-labelledby="pm-news-h" data-pm-requests data-locale="en" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/requests/RequestSection.astro" data-astro-source-loc="8:155"> <h2 id="pm-news-h" class="pm-request__heading" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/requests/RequestSection.astro" data-astro-source-loc="9:62">Newsletter</h2> <p class="pm-request__intro" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/requests/RequestSection.astro" data-astro-source-loc="10:42">Offers and news by email. We send a link to confirm your address first.</p>  <form class="pm-request__form" data-pm-form data-action="newsletter_signup" novalidate data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/requests/NewsletterForm.astro" data-astro-source-loc="12:90"> <div class="pm-field" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/requests/NewsletterForm.astro" data-astro-source-loc="13:28"><label class="pm-label" for="pm-news-email" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/requests/NewsletterForm.astro" data-astro-source-loc="13:71">Email address</label> <input class="pm-input" id="pm-news-email" name="email" type="email" inputmode="email" maxlength="254" autocomplete="email" required data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/requests/NewsletterForm.astro" data-astro-source-loc="14:8"></div> <div class="pm-request__captcha" data-pm-captcha data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/requests/FormEnd.astro" data-astro-source-loc="8:2"></div> <button type="submit" class="pm-button pm-button--primary" data-pm-submit data-sending="Sending…" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/requests/FormEnd.astro" data-astro-source-loc="9:112">Sign up</button> </form> <div class="pm-request__done" data-pm-done hidden data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/requests/NewsletterForm.astro" data-astro-source-loc="17:4"></div>  <p class="pm-request__status" data-pm-status role="status" aria-live="polite" hidden data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/requests/RequestSection.astro" data-astro-source-loc="12:4"></p> </section>  </div> <div class="pm-container pm-footer__legal" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="52:46"> <p data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="53:8">PIN code data: All India Pincode Directory from data.gov.in, published under the Government Open Data License – India.</p> <p data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/Footer.astro" data-astro-source-loc="54:8">© 2026 Plusmark</p> </div> </footer> <nav class="pm-bottomnav" data-pm-bottomnav aria-label="Quick links" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/BottomNav.astro" data-astro-source-loc="17:86"> <ul data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/BottomNav.astro" data-astro-source-loc="18:7"> <li data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/BottomNav.astro" data-astro-source-loc="19:9"> <a class="pm-bottomnav__item" href="/" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/BottomNav.astro" data-astro-source-loc="20:56"><svg class="pm-icon" viewBox="0 0 24 24" focusable="false" aria-hidden="true" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/ui/Icon.astro" data-astro-source-loc="28:169"> <path d="M4 11l8-7 8 7v9H4z" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/ui/Icon.astro" data-astro-source-loc="29:4"></path> </svg><span data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/BottomNav.astro" data-astro-source-loc="20:81">Home</span></a> </li> <li data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/BottomNav.astro" data-astro-source-loc="22:9"> <button type="button" class="pm-bottomnav__item" data-pm-open="pm-menu" aria-haspopup="dialog" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/BottomNav.astro" data-astro-source-loc="23:103"><svg class="pm-icon" viewBox="0 0 24 24" focusable="false" aria-hidden="true" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/ui/Icon.astro" data-astro-source-loc="28:169"> <path d="M4 6h16M4 12h16M4 18h16" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/ui/Icon.astro" data-astro-source-loc="29:4"></path> </svg><span data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/BottomNav.astro" data-astro-source-loc="23:128">Categories</span></button> </li> <li data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/BottomNav.astro" data-astro-source-loc="25:9"> <a class="pm-bottomnav__item" href="/search" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/BottomNav.astro" data-astro-source-loc="26:58"><svg class="pm-icon" viewBox="0 0 24 24" focusable="false" aria-hidden="true" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/ui/Icon.astro" data-astro-source-loc="28:169"> <path d="M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zm9 16-4-4" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/ui/Icon.astro" data-astro-source-loc="29:4"></path> </svg><span data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/BottomNav.astro" data-astro-source-loc="26:85">Search</span></a> </li> <li data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/BottomNav.astro" data-astro-source-loc="28:9"> <a class="pm-bottomnav__item pm-header__cart" href="/cart" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/BottomNav.astro" data-astro-source-loc="29:71"> <svg class="pm-icon" viewBox="0 0 24 24" focusable="false" aria-hidden="true" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/ui/Icon.astro" data-astro-source-loc="28:169"> <path d="M3 4h2l2.5 11h10L20 7H6.5M9 20h.01M17 20h.01" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/ui/Icon.astro" data-astro-source-loc="29:4"></path> </svg><span data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/BottomNav.astro" data-astro-source-loc="30:35">Cart</span> <astro-island uid="1J9qrv" data-preact-island-id="6" component-url="/@id/C:/Users/palha/plusmark/apps/storefront/src/components/shell/CartCount" component-export="default" renderer-url="/@id/@astrojs/preact/client-dev.js" props="{&quot;label&quot;:[0,&quot;{count} items in your cart&quot;]}" ssr client="idle" before-hydration-url="/@id/astro:scripts/before-hydration.js" opts="{&quot;name&quot;:&quot;CartCount&quot;,&quot;value&quot;:true}"></astro-island> </a> </li> <li data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/BottomNav.astro" data-astro-source-loc="34:9"> <a class="pm-bottomnav__item" href="/account" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/BottomNav.astro" data-astro-source-loc="35:59"><svg class="pm-icon" viewBox="0 0 24 24" focusable="false" aria-hidden="true" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/ui/Icon.astro" data-astro-source-loc="28:169"> <path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm-8 9a8 8 0 0 1 16 0" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/ui/Icon.astro" data-astro-source-loc="29:4"></path> </svg><span data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/BottomNav.astro" data-astro-source-loc="35:84">Account</span></a> </li> </ul> </nav> <div class="pm-hindi-prompt" data-pm-hindi-prompt role="region" aria-label="Language" hidden data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/HindiPrompt.astro" data-astro-source-loc="8:117"> <p class="pm-hindi-prompt__text" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/HindiPrompt.astro" data-astro-source-loc="9:36">This page is available in Hindi.</p> <a class="pm-hindi-prompt__accept" href="/hi/product/magnetic-whiteboard" hreflang="hi" lang="hi" data-pm-lang-switch data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/HindiPrompt.astro" data-astro-source-loc="10:119">View in Hindi</a> <button type="button" class="pm-hindi-prompt__close" data-pm-hindi-prompt-close aria-label="Close" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/HindiPrompt.astro" data-astro-source-loc="11:129">&times;</button> </div> <section class="pm-consent" data-pm-consent role="region" aria-labelledby="pm-consent-title" hidden data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/ConsentBanner.astro" data-astro-source-loc="10:101"> <h2 id="pm-consent-title" class="pm-consent__title" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/ConsentBanner.astro" data-astro-source-loc="11:55">Your privacy choices</h2> <p class="pm-consent__text" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/ConsentBanner.astro" data-astro-source-loc="12:31">We always use what the store needs to work. You decide about the rest, and you can change it from the footer at any time.</p> <div class="pm-consent__choices" data-pm-consent-choices hidden data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/ConsentBanner.astro" data-astro-source-loc="13:67"> <label class="pm-consent__switch" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/ConsentBanner.astro" data-astro-source-loc="14:39"> <input type="checkbox" role="switch" data-pm-consent-purpose="analytics" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/ConsentBanner.astro" data-astro-source-loc="15:8"> <span data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/ConsentBanner.astro" data-astro-source-loc="16:14"><strong data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/ConsentBanner.astro" data-astro-source-loc="16:21">Analytics and experiments</strong> Helps us see how the store is used and test changes.</span> </label> <label class="pm-consent__switch" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/ConsentBanner.astro" data-astro-source-loc="18:39"> <input type="checkbox" role="switch" data-pm-consent-purpose="marketing_tags" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/ConsentBanner.astro" data-astro-source-loc="19:8"> <span data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/ConsentBanner.astro" data-astro-source-loc="20:14"><strong data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/ConsentBanner.astro" data-astro-source-loc="20:21">Marketing tags</strong> Lets us measure our advertising.</span> </label> </div> <div class="pm-consent__actions" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/ConsentBanner.astro" data-astro-source-loc="23:36"> <button type="button" class="pm-button pm-button--secondary pm-consent__button" data-pm-consent-accept data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/ConsentBanner.astro" data-astro-source-loc="24:62">Accept all</button> <button type="button" class="pm-button pm-button--secondary pm-consent__button" data-pm-consent-necessary data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/ConsentBanner.astro" data-astro-source-loc="25:65">Only necessary</button> <button type="button" class="pm-button pm-button--secondary pm-consent__button" data-pm-consent-choose aria-expanded="false" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/ConsentBanner.astro" data-astro-source-loc="26:84">Choose</button> <button type="button" class="pm-button pm-button--secondary pm-consent__button" data-pm-consent-save hidden data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/components/shell/ConsentBanner.astro" data-astro-source-loc="27:67">Save my choices</button> </div> </section> <div id="pm-live" class="pm-visually-hidden" role="status" aria-live="polite" aria-atomic="true" data-astro-source-file="C:/Users/palha/plusmark/apps/storefront/src/layouts/BaseLayout.astro" data-astro-source-loc="85:6"></div> <script type="module" src="/@id/C:/Users/palha/plusmark/apps/storefront/src/layouts/BaseLayout.astro?astro&type=script&index=0&lang.ts"></script> </body> </html>

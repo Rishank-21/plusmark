@@ -1,0 +1,93 @@
+{
+ "brand": {
+  "name": "Plusmark"
+ },
+ "categories": [
+  {
+   "slug": "white-boards",
+   "name": {
+    "en": "White Boards",
+    "hi": "White Boards"
+   }
+  },
+  {
+   "slug": "chalk-boards",
+   "name": {
+    "en": "Chalk Boards",
+    "hi": "Chalk Boards"
+   }
+  },
+  {
+   "slug": "double-sided-boards",
+   "name": {
+    "en": "Double-Sided Boards",
+    "hi": "Double-Sided Boards"
+   }
+  },
+  {
+   "slug": "notice-boards",
+   "name": {
+    "en": "Notice Boards",
+    "hi": "Notice Boards"
+   }
+  },
+  {
+   "slug": "acrylic-door-cover-notice-boards",
+   "name": {
+    "en": "Acrylic Door Cover Notice Boards",
+    "hi": "Acrylic Door Cover Notice Boards"
+   }
+  },
+  {
+   "slug": "specialty-boards",
+   "name": {
+    "en": "Specialty Display Boards",
+    "hi": "Specialty Display Boards"
+   }
+  },
+  {
+   "slug": "board-study-essentials",
+   "name": {
+    "en": "Board & Study Essentials",
+    "hi": "Board & Study Essentials"
+   }
+  },
+  {
+   "slug": "display-boards",
+   "name": {
+    "en": "Display Boards",
+    "hi": "Display Boards"
+   }
+  },
+  {
+   "slug": "board-stands",
+   "name": {
+    "en": "Board Stands & Storage",
+    "hi": "Board Stands & Storage"
+   }
+  },
+  {
+   "slug": "clipboards",
+   "name": {
+    "en": "Clipboards",
+    "hi": "Clipboards"
+   }
+  },
+  {
+   "slug": "school-benches",
+   "name": {
+    "en": "School Benches",
+    "hi": "School Benches"
+   }
+  },
+  {
+   "slug": "schedule-boards",
+   "name": {
+    "en": "Schedule Boards",
+    "hi": "Schedule Boards"
+   }
+  }
+ ],
+ "seller": {},
+ "grievanceOfficer": {}
+}

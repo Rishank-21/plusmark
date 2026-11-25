@@ -1,0 +1,14 @@
+order.placed|email|customer|t
+payment.failed|email|customer|t
+order.shipped|email|customer|t
+order.delivered|email|customer|t
+order.canceled|email|customer|t
+refund.issued|email|customer|t
+order_access.code|email|customer|t
+inventory.low_stock|email|admin|t
+enquiry.created|email|admin|t
+quotation.requested|email|admin|t
+back_in_stock|email|customer|t
+newsletter.confirm_requested|email|customer|t
+admin.mfa_reset|email|customer|t
+enquiry.replied|email|customer|t

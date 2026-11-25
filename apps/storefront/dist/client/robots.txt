@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /_live/
+Disallow: /_preview/
+Disallow: /cart
+Disallow: /checkout
+Disallow: /account
+Allow: /

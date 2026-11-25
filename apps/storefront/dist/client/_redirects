@@ -1,0 +1,8 @@
+/register /login 301
+/hi/register /hi/login 301
+/login /sign-in 301
+/hi/login /hi/sign-in 301
+/wishlist /account/wishlist 301
+/hi/wishlist /hi/account/wishlist 301
+/account/wishlist /account?s=wishlists 301
+/hi/account/wishlist /hi/account?s=wishlists 301

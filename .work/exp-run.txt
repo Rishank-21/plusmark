@@ -1,0 +1,158 @@
+BEGIN;
+BEGIN
+CREATE SCHEMA zz_shim;
+CREATE SCHEMA
+CREATE FUNCTION zz_shim.plan(int) RETURNS text LANGUAGE sql AS $$ SELECT '1..'||$1 $$;
+CREATE FUNCTION
+CREATE FUNCTION zz_shim.ok(boolean, text DEFAULT '') RETURNS text LANGUAGE sql AS $$ SELECT CASE WHEN $1 IS TRUE THEN 'ok - ' ELSE 'NOT OK - ' END || $2 $$;
+CREATE FUNCTION
+CREATE FUNCTION zz_shim.is(anyelement, anyelement, text DEFAULT '') RETURNS text LANGUAGE sql AS $$ SELECT CASE WHEN $1 IS NOT DISTINCT FROM $2 THEN 'ok - '||$3 ELSE 'NOT OK - '||$3||' got='||coalesce($1::text,'NULL')||' want='||coalesce($2::text,'NULL') END $$;
+CREATE FUNCTION
+CREATE FUNCTION zz_shim.matches(text, text, text DEFAULT '') RETURNS text LANGUAGE sql AS $$ SELECT CASE WHEN $1 ~ $2 THEN 'ok - '||$3 ELSE 'NOT OK - '||$3||' got='||$1 END $$;
+CREATE FUNCTION
+CREATE FUNCTION zz_shim.finish() RETURNS text LANGUAGE sql AS $$ SELECT 'done' $$;
+CREATE FUNCTION
+SET search_path = zz_shim, public, extensions;
+SET
+SELECT plan(31);
+1..31
+INSERT INTO auth.users (id, email) SELECT ('00000000-0000-4000-8000-00000000207' || i)::uuid, 'ec' || i || '@example.invalid' FROM generate_series(1, 3) i;
+INSERT 0 3
+INSERT INTO medusa."user" (id, email, first_name, last_name) SELECT 'user_ec_' || i, 'ec' || i || '@example.invalid', 'Staff', 'Member' || i FROM generate_series(1, 3) i;
+INSERT 0 3
+INSERT INTO ext.admin_user_link (auth_user_id, user_id, status)
+  SELECT ('00000000-0000-4000-8000-00000000207' || i)::uuid, 'user_ec_' || i, 'active' FROM generate_series(1, 3) i;
+INSERT 0 3
+INSERT INTO ext.admin_user_role (auth_user_id, role_id)
+  SELECT u.id, r.id FROM (VALUES
+    ('00000000-0000-4000-8000-000000002071'::uuid, 'owner'),
+    ('00000000-0000-4000-8000-000000002072', 'analyst')) u(id, rn)
+  JOIN ext.role r ON r.name = u.rn;
+INSERT 0 2
+CREATE FUNCTION pg_temp.as_user(p_n int) RETURNS void LANGUAGE sql AS $f$
+  SELECT set_config('request.jwt.claims',
+    jsonb_build_object('sub', '00000000-0000-4000-8000-00000000207' || p_n, 'aal', 'aal2')::text, true) $f$;
+CREATE FUNCTION
+CREATE FUNCTION pg_temp.cd(j jsonb) RETURNS text LANGUAGE sql AS $f$ SELECT coalesce(j -> 'error' ->> 'code', 'ok') $f$;
+CREATE FUNCTION
+INSERT INTO ext.store_setting (key, value) VALUES ('store.timezone', '"Asia/Kolkata"')
+  ON CONFLICT (key) DO UPDATE SET value = excluded.value;
+INSERT 0 1
+INSERT INTO medusa.customer (id, first_name, last_name, email, phone, has_account, created_at) VALUES
+  ('cus_ec1', 'Asha', 'Rao', 'asha.ec@example.invalid', '+919876500011', true, '2026-03-01 04:00:00+00'),
+  ('cus_ec2', '=Bela', 'Shah', 'bela.ec@example.invalid', NULL, false, '2026-03-02 10:00+00');
+INSERT 0 2
+INSERT INTO medusa.product (id, title, handle, status) VALUES
+  ('prod_ec1', '=SUM(1+1)', 'ec-one', 'published'),
+  ('prod_ec2', 'Plain, "quoted" title', 'ec-two', 'draft');
+INSERT 0 2
+SELECT ok(has_function_privilege('authenticated', 'api.admin_export_create(text,jsonb,text,boolean,text)', 'EXECUTE')
+  AND has_function_privilege('authenticated', 'api.admin_export_page(uuid,integer)', 'EXECUTE'), 'api functions are executable by authenticated');
+ok - api functions are executable by authenticated
+SELECT ok(NOT has_function_privilege('anon', 'api.admin_export_create(text,jsonb,text,boolean,text)', 'EXECUTE')
+  AND NOT has_function_privilege('anon', 'api.admin_export_page(uuid,integer)', 'EXECUTE'), 'anon cannot execute them');
+ok - anon cannot execute them
+SELECT is((SELECT relrowsecurity FROM pg_class WHERE oid = 'ext.export_source'::regclass), true, 'RLS is on for ext.export_source');
+ok - RLS is on for ext.export_source
+SELECT is((SELECT count(*) FROM information_schema.role_table_grants WHERE table_schema = 'ext' AND table_name = 'export_source'
+            AND grantee IN ('anon', 'authenticated', 'service_role', 'PUBLIC')), 0::bigint, 'no API role holds a grant on ext.export_source');
+ok - no API role holds a grant on ext.export_source
+SELECT is((SELECT count(*) FROM ext.export_source WHERE source IN ('orders', 'customers', 'products')), 3::bigint, 'the three sources of this task are registered');
+ok - the three sources of this task are registered
+SELECT pg_temp.as_user(3);
+
+SELECT is(pg_temp.cd(api.admin_export_create('products', '{}', 'csv')), 'permission_denied', 'create needs reports:export');
+ok - create needs reports:export
+SELECT pg_temp.as_user(2);
+
+SELECT is(pg_temp.cd(api.admin_export_create('customers', '{}', 'csv', true)), 'permission_denied', 'unmasked data needs pii:reveal and the source permission');
+ok - unmasked data needs pii:reveal and the source permission
+SELECT pg_temp.as_user(1);
+
+SELECT is(pg_temp.cd(api.admin_export_create('nope', '{}', 'csv')), 'validation_failed', 'an unknown source is rejected');
+ok - an unknown source is rejected
+SELECT is(pg_temp.cd(api.admin_export_create('products', '{}', 'pdf')), 'validation_failed', 'an unknown format is rejected');
+ok - an unknown format is rejected
+SELECT is(pg_temp.cd(api.admin_export_create('products', '{"bogus":"x"}', 'csv')), 'validation_failed', 'an unknown filter is rejected');
+ok - an unknown filter is rejected
+SELECT is(pg_temp.cd(api.admin_export_create('products', '{"created_from":"2026-13-45"}', 'csv')), 'validation_failed', 'a bad date is rejected');
+ok - a bad date is rejected
+CREATE TEMP TABLE r1 AS SELECT api.admin_export_create('products', '{"status":"published"}', 'csv') AS j;
+SELECT 1
+SELECT is((SELECT j ->> 'kind' FROM r1), 'immediate', 'a small export is immediate');
+ok - a small export is immediate
+SELECT is((SELECT (j -> 'row_count')::int FROM r1), 1, 'the row count is returned');
+ok - the row count is returned
+CREATE TEMP TABLE p1 AS SELECT api.admin_export_page((SELECT (j ->> 'id')::uuid FROM r1), 0) AS j;
+SELECT 1
+SELECT ok((SELECT j ->> 'csv' FROM p1) LIKE E'Product ID,Title,Handle,Status,Created at,Updated at\r\nprod_ec1,''=SUM(1+1),ec-one,published,%', 'heading row, then the formula text with a leading apostrophe');
+ok - heading row, then the formula text with a leading apostrophe
+SELECT matches((SELECT j ->> 'csv' FROM p1), '\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\+05:30', 'times carry the Store_Timezone offset');
+ok - times carry the Store_Timezone offset
+CREATE TEMP TABLE r2 AS SELECT api.admin_export_create('products', '{"status":"draft"}', 'csv') AS j;
+SELECT 1
+SELECT ok((SELECT j ->> 'csv' FROM (SELECT api.admin_export_page((SELECT (j ->> 'id')::uuid FROM r2), 0) AS j) q) LIKE E'%\r\nprod_ec2,"Plain, ""quoted"" title",ec-two,draft,%', 'commas and quotes are quoted');
+ok - commas and quotes are quoted
+CREATE TEMP TABLE r3 AS SELECT api.admin_export_create('products', '{"created_from":"2000-01-01","created_to":"2000-01-02"}', 'csv') AS j;
+SELECT 1
+SELECT is((SELECT j ->> 'csv' FROM (SELECT api.admin_export_page((SELECT (j ->> 'id')::uuid FROM r3), 0) AS j) q),
+  E'Product ID,Title,Handle,Status,Created at,Updated at\r\n', 'no rows gives the heading row only');
+ok - no rows gives the heading row only
+CREATE TEMP TABLE r4 AS SELECT api.admin_export_create('customers', '{"created_from":"2026-03-01","created_to":"2026-03-01"}', 'csv') AS j;
+SELECT 1
+SELECT is((SELECT (j -> 'row_count')::int FROM r4), 1, 'the date filter uses Store_Timezone days');
+ok - the date filter uses Store_Timezone days
+CREATE TEMP TABLE p4 AS SELECT api.admin_export_page((SELECT (j ->> 'id')::uuid FROM r4), 0) AS j;
+SELECT 1
+SELECT ok((SELECT j ->> 'csv' FROM p4) NOT LIKE '%asha.ec@example.invalid%' AND (SELECT j ->> 'csv' FROM p4) NOT LIKE '%Asha%', 'personal data is masked by default');
+ok - personal data is masked by default
+CREATE TEMP TABLE r5 AS SELECT api.admin_export_create('customers', '{"created_from":"2026-03-01","created_to":"2026-03-01"}', 'csv', true) AS j;
+SELECT 1
+SELECT ok((SELECT j ->> 'csv' FROM (SELECT api.admin_export_page((SELECT (j ->> 'id')::uuid FROM r5), 0) AS j) q) LIKE '%asha.ec@example.invalid%', 'the owner may export unmasked values');
+ok - the owner may export unmasked values
+SELECT is((SELECT (new_values ->> 'unmasked_pii')::boolean FROM ext.audit_log WHERE action = 'export_create' AND record_id = (SELECT j ->> 'id' FROM r5)), true,
+  'the Audit_Log entry records the unmasked flag');
+ok - the Audit_Log entry records the unmasked flag
+SELECT is((SELECT new_values ->> 'row_count' FROM ext.audit_log WHERE action = 'export_create' AND record_id = (SELECT j ->> 'id' FROM r4)), '1',
+  'the Audit_Log entry records the row count');
+ok - the Audit_Log entry records the row count
+UPDATE ext.admin_user_link SET language = 'hi' WHERE auth_user_id = '00000000-0000-4000-8000-000000002071';
+UPDATE 1
+CREATE TEMP TABLE r6 AS SELECT api.admin_export_create('customers', '{"created_from":"2000-01-01","created_to":"2000-01-02"}', 'csv') AS j;
+SELECT 1
+SELECT matches((SELECT j ->> 'csv' FROM (SELECT api.admin_export_page((SELECT (j ->> 'id')::uuid FROM r6), 0) AS j) q), '^αñùαÑìαñ░αñ╛αñ╣αñò αñåαñêαñíαÑÇ,', 'headings use the Admin_User language');
+ok - headings use the Admin_User language
+CREATE TEMP TABLE r7 AS SELECT api.admin_export_create('customers', '{"search":"asha.ec@example.invalid"}', 'csv') AS j;
+SELECT 1
+SELECT is(pg_temp.cd((SELECT j FROM r7)), 'ok', 'a search by email address is accepted');
+ok - a search by email address is accepted
+SELECT ok((SELECT filters::text FROM ext.export_job WHERE id = (SELECT (j ->> 'id')::uuid FROM r7)) NOT LIKE '%asha.ec%'
+  AND (SELECT filters ? 'search_hash' AND filters ? 'search_masked' FROM ext.export_job WHERE id = (SELECT (j ->> 'id')::uuid FROM r7)),
+  'the job keeps only the hash and the Masked_Value');
+ok - the job keeps only the hash and the Masked_Value
+SELECT is((SELECT (j -> 'row_count')::int FROM r7), 1, 'the hash finds the Customer');
+ok - the hash finds the Customer
+SELECT is(pg_temp.cd(api.admin_export_page((SELECT (j ->> 'id')::uuid FROM r1), 1)), 'validation_failed', 'a page past the end is rejected');
+ok - a page past the end is rejected
+UPDATE ext.export_job SET expires_at = now() - interval '1 minute' WHERE id = (SELECT (j ->> 'id')::uuid FROM r1);
+UPDATE 1
+SELECT is(pg_temp.cd(api.admin_export_page((SELECT (j ->> 'id')::uuid FROM r1), 0)), 'export_expired', 'an expired export has no pages');
+ok - an expired export has no pages
+UPDATE ext.store_setting SET value = '1' WHERE key = 'export.row_threshold';
+UPDATE 0
+INSERT INTO ext.store_setting (key, value) VALUES ('export.row_threshold', '1') ON CONFLICT (key) DO UPDATE SET value = excluded.value;
+INSERT 0 1
+CREATE TEMP TABLE r8 AS SELECT api.admin_export_create('customers', '{}', 'xlsx') AS j;
+SELECT 1
+SELECT is((SELECT j ->> 'kind' || '/' || (j ->> 'status') FROM r8), 'background/queued', 'rows above the threshold queue a Background_Export');
+ok - rows above the threshold queue a Background_Export
+SELECT is(pg_temp.cd(api.admin_export_page((SELECT (j ->> 'id')::uuid FROM r8), 0)), 'validation_failed', 'pages of a background export are not served here');
+ok - pages of a background export are not served here
+INSERT INTO ext.store_setting (key, value) VALUES ('export.running_limit', '1') ON CONFLICT (key) DO UPDATE SET value = excluded.value;
+INSERT 0 1
+SELECT is(pg_temp.cd(api.admin_export_create('customers', '{}', 'csv')), 'export_limit_reached', 'the running export limit is enforced');
+ok - the running export limit is enforced
+SELECT * FROM finish();
+done
+ROLLBACK;
+ROLLBACK

@@ -1,0 +1,135 @@
+{
+  "failures": [
+    "login",
+    "add to cart -> cart line",
+    "mobile layout"
+  ],
+  "results": [
+    {
+      "name": "home",
+      "path": "/",
+      "status": 200,
+      "ok": true,
+      "errors": [],
+      "bad": []
+    },
+    {
+      "name": "category white boards",
+      "path": "/shop/white-boards",
+      "status": 200,
+      "ok": true,
+      "errors": [],
+      "bad": [
+        "404 https://res.cloudinary.com/drt0rpkn2/image/upload/f_auto,q_auto,c_limit,w_640/plusmark/products/eco-regular-white-board-correct"
+      ]
+    },
+    {
+      "name": "product detail",
+      "path": "/product/metallic-premium-white-board",
+      "status": 200,
+      "ok": true,
+      "errors": [],
+      "bad": [
+        "404 https://res.cloudinary.com/drt0rpkn2/image/upload/f_auto,q_auto,c_scale,w_160/plusmark/products/metallic-premium-white-board-3",
+        "404 https://res.cloudinary.com/drt0rpkn2/image/upload/f_auto,q_auto,c_scale,w_160/plusmark/products/metallic-premium-white-board-2",
+        "404 https://res.cloudinary.com/drt0rpkn2/image/upload/f_auto,q_auto,c_scale,w_160/plusmark/products/metallic-premium-white-board-5",
+        "404 https://res.cloudinary.com/drt0rpkn2/image/upload/f_auto,q_auto,c_scale,w_160/plusmark/products/metallic-premium-white-board-4",
+        "404 https://lkjxumiyesvufcxyaqcg.supabase.co/rest/v1/product_reviews?select=*&product_slug=eq.metallic-premium-white-board&order=created_at.desc&limit=200"
+      ]
+    },
+    {
+      "name": "search results",
+      "path": "/search?q=whiteboard",
+      "status": 200,
+      "ok": true,
+      "errors": [],
+      "bad": []
+    },
+    {
+      "name": "cart empty",
+      "path": "/cart",
+      "status": 200,
+      "ok": true,
+      "errors": [],
+      "bad": [
+        "404 https://lkjxumiyesvufcxyaqcg.supabase.co/rest/v1/coupons?select=*&active=eq.true&starts_at=lte.2026-11-20&ends_at=gte.2026-11-20"
+      ]
+    },
+    {
+      "name": "checkout empty",
+      "path": "/checkout",
+      "status": 200,
+      "ok": true,
+      "errors": [],
+      "bad": [
+        "404 https://lkjxumiyesvufcxyaqcg.supabase.co/rest/v1/coupons?select=*&active=eq.true&starts_at=lte.2026-11-20&ends_at=gte.2026-11-20"
+      ]
+    },
+    {
+      "name": "login",
+      "path": "/login",
+      "status": 0,
+      "ok": false,
+      "errors": [
+        "TimeoutError: page.goto: Timeout 45000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"http://localhost:3000/login\", waiting until \"networkidle\"\u001b[22m\n"
+      ],
+      "bad": []
+    },
+    {
+      "name": "wishlist",
+      "path": "/wishlist",
+      "status": 200,
+      "ok": true,
+      "errors": [],
+      "bad": []
+    },
+    {
+      "name": "contact",
+      "path": "/contact",
+      "status": 200,
+      "ok": true,
+      "errors": [],
+      "bad": []
+    },
+    {
+      "name": "faq",
+      "path": "/faq",
+      "status": 200,
+      "ok": true,
+      "errors": [],
+      "bad": []
+    },
+    {
+      "name": "track order",
+      "path": "/track-order",
+      "status": 200,
+      "ok": true,
+      "errors": [],
+      "bad": []
+    },
+    {
+      "name": "add to cart -> cart line",
+      "path": "/product/... -> /cart",
+      "status": 200,
+      "ok": false,
+      "errors": [],
+      "bad": []
+    },
+    {
+      "name": "mobile home",
+      "path": "/",
+      "status": 200,
+      "ok": true,
+      "errors": [],
+      "bad": []
+    },
+    {
+      "name": "mobile layout",
+      "path": "/",
+      "status": 200,
+      "ok": false,
+      "errors": [],
+      "bad": []
+    }
+  ]
+}

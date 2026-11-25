@@ -1,0 +1,147 @@
+name: backend-tests
+
+on:
+  push:
+    paths: ["supabase/**", "tests/**", "NOTICE", "tools/**", ".env*", "deploy/**", "src/**", "apps/storefront/**", "apps/admin/**", "tools/contracts/**", ".github/workflows/backend-tests.yml"]
+  pull_request:
+    paths: ["supabase/**", "tests/**", "NOTICE", "tools/**", ".env*", "deploy/**", "src/**", "apps/storefront/**", "apps/admin/**", "tools/contracts/**", ".github/workflows/backend-tests.yml"]
+
+jobs:
+  license-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node tools/medusa-reference/check-notice.mjs
+      - run: node tools/check-config-manifest.mjs
+      - run: node tools/check-deploy-config.mjs
+
+  client-secret-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node --test tools/scan-client-secrets.test.mjs
+      # No front-end build job exists yet, so scan NEXT_PUBLIC_ variables, .env* files, deploy/ and the config manifest.
+      # When a client build job is added, run: node tools/scan-client-secrets.mjs .next/static (or out/, dist/)
+      - name: Scan NEXT_PUBLIC_ variables and env files for secrets
+        run: node tools/scan-client-secrets.mjs --no-build
+
+  medusa-schema:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install pinned Medusa packages
+        working-directory: tools/medusa-reference
+        run: npm ci --no-audit --no-fund
+      - name: Regenerate the Medusa schema migration and fail on any diff
+        working-directory: tools/medusa-reference
+        run: node generate-schema.mjs --check
+  parity-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install pinned Medusa packages
+        working-directory: tools/medusa-reference
+        run: npm ci --no-audit --no-fund
+      - name: Parity_Check against the Medusa reference database
+        working-directory: tools/medusa-reference
+        run: node parity-check.mjs
+      - name: Export_Rehearsal (sample store into the Medusa reference, Medusa boot)
+        working-directory: tools/medusa-reference
+        run: node export-rehearsal.mjs
+
+  upgrade-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install pinned Medusa packages
+        working-directory: tools/medusa-reference
+        run: npm ci --no-audit --no-fund
+      - name: Upgrade test (previous release, load data, upgrade, assert)
+        run: node tools/medusa-reference/upgrade-test.mjs
+  deno:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+      - run: deno test --config supabase/functions/deno.json supabase/functions
+
+  db:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: supabase/setup-cli@v1
+        with:
+          version: latest
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Start local Supabase stack
+        run: supabase start -x studio,imgproxy,inbucket,edge-runtime,logflare,vector
+      - name: pgTAP
+        run: supabase test db
+      - name: Vitest (single run)
+        working-directory: tests
+        run: npm install --no-audit --no-fund && npx vitest run
+      - name: Stop stack
+        if: always()
+        run: supabase stop --no-backup
+
+  storefront:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/storefront
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci --no-audit --no-fund
+      - run: npm run lint
+      - run: npm run build
+      - name: Build checks (JavaScript budgets, hashed inline scripts, Hindi keys)
+        run: npm run build:check
+      - name: Unit, property and Worker tests (single run)
+        run: npm test
+      - run: npx playwright install --with-deps chromium
+      - name: Accessibility tests against the built output
+        run: npm run test:e2e
+      - name: Build a fixture catalog with a PLP and PDP for Lighthouse
+        run: npm run build:lhci
+      - name: Lighthouse CI (median of 5 mobile runs, LCP 2.5 s, TBT 200 ms, CLS 0.1)
+        run: npm run test:lhci
+
+  admin-lighthouse:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/admin
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci --no-audit --no-fund
+      - name: Build (post-build checks run in the postbuild step)
+        run: npm run build
+      - name: Lighthouse CI (median LCP of 5 runs, sign-in screen and Dashboard)
+        run: npm run test:lhci
+        env:
+          ADMIN_LCP_BUDGET_MS: ${{ vars.ADMIN_LCP_BUDGET_MS || '3000' }}

@@ -1,0 +1,51 @@
+06:27:45 demo data: days=120 orders=60 customers=30 (existing demo orders: 60)
+06:27:49 catalog: 50 demo products already there
+06:27:55 customers: 30
+06:27:57 promotions: DEMO10, DEMOFEST15, DEMOFLAT100, DEMOFREESHIP + DEMOOLD20, campaign demo-festive-sale
+06:27:57 orders: 60 demo orders exist, creating 0
+06:27:58 orders: placed 0/0
+06:27:58 orders: {"delivered":0,"shipped":0,"fulfilled":0,"pending":0,"canceled":0,"returned":0,"refunded":0,"cod":0,"prepaid":0}
+06:27:58 reviews: 0 (0 approved, 0 rejected, 0 pending)
+06:27:59 special dates: 0 new
+06:27:59 order notes: 0
+06:28:00 alerts: 0 demo alerts (the alert_evaluate job adds real ones)
+06:28:01 scheduled report: weekly sales created
+06:28:04 derived: order facts
+06:28:23 derived: rollups (all history)
+06:28:25 derived: customer metrics and RFM scores
+06:28:25 derived: popularity, catalog read model, stock state, contact search
+06:28:26 derived: reconciliation for the last 30 days
+06:28:45 derived: forecast run start, then forecast-worker
+06:28:47   forecast_run_start -> {"day": "2026-11-19", "queued": 27, "run_id": 37, "series": 53, "skipped": false, "no_recent_sales": 5, "not_enough_data": 21}
+06:28:49   forecast-worker -> 200 {"batches":0,"claimed":0,"done":0,"not_enough_data":0,"failed":0,"skipped":0} | run: completed 53 series
+06:28:49   stock-out and anomaly alert evaluation (slow, about 1.5 min)
+node:internal/deps/undici/undici:16416
+      Error.captureStackTrace(err);
+            ^
+
+TypeError: fetch failed
+    at node:internal/deps/undici/undici:16416:13
+    at async http (file:///C:/Users/palha/plusmark/tools/demo-data/lib.mjs:41:13)
+    at async rpc (file:///C:/Users/palha/plusmark/tools/demo-data/lib.mjs:51:13)
+    at async verify (file:///C:/Users/palha/plusmark/tools/demo-data/derived.mjs:54:16)
+    at async file:///C:/Users/palha/plusmark/tools/demo-data/generate.mjs:67:1 {
+  [cause]: SocketError: other side closed
+      at Socket.onHttpSocketEnd (node:internal/deps/undici/undici:7611:26)
+      at Socket.emit (node:events:520:35)
+      at endReadableNT (node:internal/streams/readable:1701:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:89:21) {
+    code: 'UND_ERR_SOCKET',
+    socket: {
+      localAddress: '127.0.0.1',
+      localPort: 49801,
+      remoteAddress: '127.0.0.1',
+      remotePort: 54321,
+      remoteFamily: 'IPv4',
+      timeout: undefined,
+      bytesWritten: 34854,
+      bytesRead: 26465
+    }
+  }
+}
+
+Node.js v24.13.0

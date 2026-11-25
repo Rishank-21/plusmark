@@ -1,0 +1,106 @@
+{
+  "mode": "cod",
+  "email": "delivered@resend.dev",
+  "methods": [
+    "upi",
+    "card",
+    "netbanking",
+    "wallet",
+    "cod"
+  ],
+  "payment-initiate": {
+    "payment_session_id": "payses_01M7QG974YS5ZFDNTYKDBD5P0C",
+    "payment_collection_id": "pay_col_01M7QG96SC2E6A2TYRNRDH1P5T",
+    "provider": "cod",
+    "provider_ref": "cod_payses_01M7QG974YS5ZFDNTYKDBD5P0C",
+    "amount_minor": 23364,
+    "currency_code": "inr",
+    "client_data": {
+      "provider_ref": "cod_payses_01M7QG974YS5ZFDNTYKDBD5P0C",
+      "cash_on_delivery": true
+    }
+  },
+  "bot-gateway": {
+    "order": {
+      "id": "order_01M7QG98GW3RW39QNMS0K6NNDF",
+      "email": "delivered@resend.dev",
+      "items": [
+        {
+          "id": "ordli_01M7QG98XN49AXX96EBAKNRF33",
+          "title": "Single",
+          "quantity": 1,
+          "unit_price": 149,
+          "variant_id": "variant_01M7Q11YWBBKXW4TQNMZK3V3JQ",
+          "variant_sku": "PM-AC-CLP-1",
+          "product_title": "A4 Clipboard",
+          "variant_title": "Single"
+        }
+      ],
+      "status": "pending",
+      "totals": {
+        "total": 233.64,
+        "subtotal": 198,
+        "warnings": [],
+        "tax_total": 35.64,
+        "item_total": 175.82,
+        "currency_code": "inr",
+        "item_subtotal": 149,
+        "decimal_digits": 2,
+        "discount_total": 0,
+        "item_tax_total": 26.82,
+        "original_total": 233.64,
+        "shipping_total": 57.82,
+        "shipping_methods": [
+          {
+            "id": "ordsm_01M7QG99XDBBXXYM2955RG9FKC",
+            "total": 57.82,
+            "amount": 49,
+            "subtotal": 49,
+            "tax_lines": [
+              {
+                "id": "ordsmtxl_01M7QG9AHTQ6NKSCWVHE0R6D82",
+                "code": "gst-18",
+                "rate": 18,
+                "total": 8.82,
+                "subtotal": 8.82,
+                "tax_rate_id": "txr_e2e_in_gst"
+              }
+            ],
+            "tax_total": 8.82,
+            "discount_total": 0,
+            "original_total": 57.82,
+            "is_tax_inclusive": false,
+            "discount_subtotal": 0,
+            "original_subtotal": 49,
+            "discount_tax_total": 0,
+            "original_tax_total": 8.82
+          }
+        ],
+        "discount_subtotal": 0,
+        "original_subtotal": 198,
+        "shipping_subtotal": 49,
+        "discount_tax_total": 0,
+        "original_tax_total": 35.64,
+        "shipping_tax_total": 8.82,
+        "item_discount_total": 0,
+        "original_item_total": 175.82,
+        "original_item_subtotal": 149,
+        "original_item_tax_total": 26.82,
+        "original_shipping_total": 57.82,
+        "shipping_discount_total": 0,
+        "original_shipping_subtotal": 49,
+        "original_shipping_tax_total": 8.82
+      },
+      "is_guest": true,
+      "region_id": "reg_01M7Q11X9B0V2MV3BVZ06QTR3A",
+      "created_at": "2026-11-18T14:17:00.64632+00:00",
+      "display_id": 504,
+      "customer_id": null,
+      "currency_code": "inr"
+    },
+    "order_access_token": "f8de2abe5946510a77cdd8f01006c874d4d8ea36b649d883e83c4b56f1e3fa51"
+  },
+  "finalUrl": "http://localhost:4321/order-confirmation?order=order_01M7QG98GW3RW39QNMS0K6NNDF",
+  "confirmationText": "Order confirmation\nThank you. Your order is placed.\n\nYour order number is 504.\n\nWe sent the details to delivered@resend.dev.\n\nPlaced on Wed, 18 Nov · Status: Pending\n\nItems\nSingle (Single) × 1 · ₹149\n\nTotal ₹233.64\n\nDelivery address\n\nE2E, Guest, 1 Janpath Road, New Delhi, Delhi, 110001\n\nPayment\npp_cod_cod · ₹233.64 · Pending\nStatus history\nWed, 18 Nov · Order.placed\n\nThis page keeps your order only until you close the browser. Save your order number and email address to open it later.\n\nCreate an account to follow your orders\n\nContinue shopping",
+  "cart": null
+}

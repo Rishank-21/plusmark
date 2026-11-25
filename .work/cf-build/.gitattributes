@@ -1,0 +1,2 @@
+# The generated Medusa schema migration is compared byte for byte in CI.
+supabase/migrations/*_medusa_v*_schema.sql text eol=lf

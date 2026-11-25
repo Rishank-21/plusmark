@@ -1,0 +1,699 @@
+CREATE OR REPLACE FUNCTION api.admin_upsert_campaign(p_campaign jsonb)
+ RETURNS jsonb
+ LANGUAGE plpgsql
+ SECURITY DEFINER
+ SET search_path TO ''
+AS $function$
+declare
+  v_msg text; v_detail text; v_ctx text;
+  v jsonb; b jsonb; v_id text; v_new boolean := false; v_ident text;
+  v_old medusa.promotion_campaign%rowtype;
+  v_start timestamptz; v_end timestamptz;
+  v_bud medusa.promotion_campaign_budget%rowtype; v_btype text; v_limit numeric; v_cur text; v_attr text; v_spend boolean; v_has boolean;
+begin
+  begin
+    begin
+      perform internal.require_permission('promotion:write');
+      perform internal.admin_begin_actor();
+
+      v := internal.validate_input(p_campaign, pg_catalog.jsonb_build_object('type', 'object', 'fields', pg_catalog.jsonb_build_object(
+        'id', '{"type":"string","min":1,"max":255}'::jsonb,
+        'name', '{"type":"string","min":1,"max":255}'::jsonb,
+        'campaign_identifier', '{"type":"string","min":1,"max":100}'::jsonb,
+        'description', '{"type":"string","free_text":true,"nullable":true}'::jsonb,
+        'starts_at', '{"type":"string","max":40,"nullable":true}'::jsonb,
+        'ends_at', '{"type":"string","max":40,"nullable":true}'::jsonb,
+        'budget', '{"type":"any","nullable":true}'::jsonb)), false);
+
+      v_id := v ->> 'id';
+      if v_id is not null then
+        select * into v_old from medusa.promotion_campaign where id = v_id and deleted_at is null for update;
+        if not found then perform internal.raise_error('not_found', 'Campaign not found.'); end if;
+      else
+        v_new := true;
+        if not (v ? 'name') then perform internal.catalog_invalid('name', 'is required'); end if;
+        if not (v ? 'campaign_identifier') then perform internal.catalog_invalid('campaign_identifier', 'is required'); end if;
+      end if;
+
+      if v ? 'campaign_identifier' then
+        v_ident := pg_catalog.btrim(v ->> 'campaign_identifier');
+        if v_ident = '' then perform internal.catalog_invalid('campaign_identifier', 'must not be blank'); end if;
+        perform pg_catalog.pg_advisory_xact_lock(pg_catalog.hashtextextended('promo_campaign:' || v_ident, 0));
+        if exists (select 1 from medusa.promotion_campaign
+                    where deleted_at is null and campaign_identifier = v_ident and id <> coalesce(v_id, '')) then
+          perform internal.catalog_conflict('campaign_identifier', 'The identifier "' || v_ident || '" is used by another campaign.', 'identifier_in_use');
+        end if;
+      end if;
+
+      v_start := case when v ? 'starts_at' then internal.promotion_parse_ts('starts_at', v ->> 'starts_at') else v_old.starts_at end;
+      v_end := case when v ? 'ends_at' then internal.promotion_parse_ts('ends_at', v ->> 'ends_at') else v_old.ends_at end;
+      if v_start is not null and v_end is not null and v_end <= v_start then
+        perform internal.catalog_invalid('ends_at', 'must be after starts_at');
+      end if;
+
+      if v_new then
+        v_id := internal.generate_id_for('promotion_campaign');
+        insert into medusa.promotion_campaign (id, name, campaign_identifier) values (v_id, v ->> 'name', v_ident);
+      end if;
+      update medusa.promotion_campaign set
+             name = coalesce(v ->> 'name', name),
+             campaign_identifier = coalesce(v_ident, campaign_identifier),
+             description = case when v ? 'description' then v ->> 'description' else description end,
+             starts_at = v_start, ends_at = v_end, updated_at = pg_catalog.now()
+       where id = v_id;
+
+      if v ? 'budget' then
+        select * into v_bud from medusa.promotion_campaign_budget where campaign_id = v_id and deleted_at is null for update;
+        v_has := found;
+        if pg_catalog.jsonb_typeof(v -> 'budget') = 'null' then
+          if v_has then
+            if v_bud.used > 0 then
+              perform internal.catalog_conflict('budget', 'A budget that has been used cannot be removed.', 'budget_in_use');
+            end if;
+            update medusa.promotion_campaign_budget set deleted_at = pg_catalog.now(), updated_at = pg_catalog.now() where id = v_bud.id;
+          end if;
+        else
+          if pg_catalog.jsonb_typeof(v -> 'budget') <> 'object' then
+            perform internal.catalog_invalid('budget', 'must be an object or null');
+          end if;
+          b := internal.validate_input(v -> 'budget', pg_catalog.jsonb_build_object('type', 'object', 'fields', pg_catalog.jsonb_build_object(
+                 'type', '{"type":"string","enum":["usage","spend","use_by_attribute","spend_by_attribute"],"required":true}'::jsonb,
+                 'limit', '{"type":"any","nullable":true}'::jsonb,
+                 'currency_code', '{"type":"string","format":"currency","nullable":true}'::jsonb,
+                 'attribute', '{"type":"string","enum":["customer_id","customer_email"],"nullable":true}'::jsonb)), false);
+          v_btype := b ->> 'type';
+          v_spend := v_btype in ('spend', 'spend_by_attribute');
+          v_limit := case when b -> 'limit' is null or pg_catalog.jsonb_typeof(b -> 'limit') = 'null' then null
+                          else internal.promotion_number('budget.limit', b -> 'limit') end;
+          if v_limit is not null and v_limit < 0 then
+            perform internal.catalog_invalid('budget.limit', 'must not be negative');
+          end if;
+          if v_limit is not null and not v_spend and v_limit <> pg_catalog.trunc(v_limit) then
+            perform internal.catalog_invalid('budget.limit', 'a usage limit must be a whole number');
+          end if;
+          v_cur := pg_catalog.lower(b ->> 'currency_code');
+          if v_spend and v_cur is null then
+            perform internal.catalog_invalid('budget.currency_code', 'is required for a spend budget');
+          end if;
+          if not v_spend then v_cur := null; end if;
+          if v_cur is not null and not exists (select 1 from medusa.currency where code = v_cur) then
+            perform internal.catalog_invalid('budget.currency_code', 'currency not found');
+          end if;
+          v_attr := b ->> 'attribute';
+          if v_btype in ('use_by_attribute', 'spend_by_attribute') and v_attr is null then
+            perform internal.catalog_invalid('budget.attribute', 'is required for a budget by attribute');
+          end if;
+          if v_btype in ('usage', 'spend') then v_attr := null; end if;
+          if v_has then
+            if v_bud.type <> v_btype and v_bud.used > 0 then
+              perform internal.catalog_conflict('budget', 'The type of a budget that has been used cannot change.', 'budget_in_use');
+            end if;
+            update medusa.promotion_campaign_budget set type = v_btype, "limit" = v_limit,
+                   raw_limit = case when v_limit is null then null else internal.promotion_usage_raw(v_limit) end,
+                   currency_code = v_cur, attribute = v_attr, updated_at = pg_catalog.now()
+             where id = v_bud.id;
+          else
+            insert into medusa.promotion_campaign_budget (id, type, campaign_id, "limit", raw_limit, used, raw_used, currency_code, attribute)
+            values (internal.generate_id_for('promotion_campaign_budget'), v_btype, v_id, v_limit,
+                    case when v_limit is null then null else internal.promotion_usage_raw(v_limit) end,
+                    0, internal.promotion_usage_raw(0), v_cur, v_attr);
+          end if;
+        end if;
+      end if;
+
+      return internal.ok_envelope(internal.campaign_admin_view(v_id));
+    exception when sqlstate 'BK000' then
+      get stacked diagnostics v_msg = message_text, v_detail = pg_exception_detail;
+      return internal.error_from_exception('BK000', v_msg, v_detail);
+    end;
+  exception when others then
+    get stacked diagnostics v_msg = message_text, v_ctx = pg_exception_context;
+    return internal.error_from_exception(sqlstate, v_msg, null, v_ctx, 'api.admin_upsert_campaign');
+  end;
+end
+$function$
+
+CREATE OR REPLACE FUNCTION api.admin_upsert_product(p_product jsonb, p_expected_version text DEFAULT NULL::text, p_idempotency_key text DEFAULT NULL::text)
+ RETURNS jsonb
+ LANGUAGE plpgsql
+ SECURITY DEFINER
+ SET search_path TO ''
+AS $function$
+declare
+  v_msg text; v_detail text; v_ctx text; v_idem jsonb;
+begin
+  begin
+    begin
+      perform internal.require_permission('catalog:write');
+      perform internal.admin_begin_actor();
+      if p_idempotency_key is not null then
+        v_idem := internal.admin_idempotency_begin('upsert_product', p_idempotency_key,
+          pg_catalog.md5(pg_catalog.jsonb_build_array(p_product, p_expected_version)::text));
+        if v_idem ->> 'state' = 'replay' then return v_idem -> 'response'; end if;
+      end if;
+      if pg_catalog.jsonb_typeof(p_product) = 'object' then
+        perform internal.catalog_check_version('product', p_product ->> 'id', p_expected_version);
+      end if;
+      return internal.catalog_finish('product', 'upsert_product', p_idempotency_key, internal.catalog_upsert_product_impl(p_product));
+    exception when sqlstate 'BK000' then
+      get stacked diagnostics v_msg = message_text, v_detail = pg_exception_detail;
+      return internal.error_from_exception('BK000', v_msg, v_detail);
+    end;
+  exception when others then
+    get stacked diagnostics v_msg = message_text, v_ctx = pg_exception_context;
+    return internal.error_from_exception(sqlstate, v_msg, null, v_ctx, 'api.admin_upsert_product');
+  end;
+end
+$function$
+
+CREATE OR REPLACE FUNCTION api.admin_upsert_promotion(p_promotion jsonb)
+ RETURNS jsonb
+ LANGUAGE plpgsql
+ SECURITY DEFINER
+ SET search_path TO ''
+AS $function$
+declare
+  v_msg text; v_detail text; v_ctx text;
+  v jsonb; v_id text; v_new boolean := false; v_code text;
+  v_old medusa.promotion%rowtype; v_row medusa.promotion%rowtype;
+  v_ids text[]; v_oldrules text[];
+begin
+  begin
+    begin
+      perform internal.require_permission('promotion:write');
+      perform internal.admin_begin_actor();
+
+      v := internal.validate_input(p_promotion, pg_catalog.jsonb_build_object('type', 'object', 'fields', pg_catalog.jsonb_build_object(
+        'id', '{"type":"string","min":1,"max":255}'::jsonb,
+        'code', '{"type":"string","min":1,"max":100}'::jsonb,
+        'type', '{"type":"string","enum":["standard","buyget"]}'::jsonb,
+        'status', '{"type":"string","enum":["draft","active","inactive"]}'::jsonb,
+        'is_automatic', '{"type":"boolean"}'::jsonb,
+        'is_tax_inclusive', '{"type":"boolean"}'::jsonb,
+        'limit', '{"type":"integer","min":1,"nullable":true}'::jsonb,
+        'campaign_id', '{"type":"string","max":255,"nullable":true}'::jsonb,
+        'metadata', '{"type":"any","nullable":true}'::jsonb,
+        'per_customer_limit', '{"type":"integer","min":1,"nullable":true}'::jsonb,
+        'stacking', '{"type":"string","enum":["combinable","exclusive"]}'::jsonb,
+        'application_method', '{"type":"any"}'::jsonb,
+        'rules', '{"type":"any"}'::jsonb)), false);
+      if v ? 'metadata' and pg_catalog.jsonb_typeof(v -> 'metadata') not in ('object', 'null') then
+        perform internal.catalog_invalid('metadata', 'must be an object');
+      end if;
+      if v ? 'application_method' and pg_catalog.jsonb_typeof(v -> 'application_method') <> 'object' then
+        perform internal.catalog_invalid('application_method', 'must be an object');
+      end if;
+
+      -- Code: normalized, then unique among live promotions.
+      if v ? 'code' then
+        v_code := internal.normalize_promotion_code(v ->> 'code');
+        if v_code is null or v_code !~ '^[A-Z0-9][A-Z0-9_.-]{0,99}$' then
+          perform internal.catalog_invalid('code', 'may contain letters, digits, underscore, dot and hyphen');
+        end if;
+        v := v || pg_catalog.jsonb_build_object('code', v_code);
+        perform pg_catalog.pg_advisory_xact_lock(pg_catalog.hashtextextended('promo_code:' || v_code, 0));
+      end if;
+
+      v_id := v ->> 'id';
+      if v_id is not null then
+        select * into v_old from medusa.promotion where id = v_id and deleted_at is null for update;
+        if not found then perform internal.raise_error('not_found', 'Promotion not found.'); end if;
+      else
+        v_new := true;
+        if not (v ? 'code') then perform internal.catalog_invalid('code', 'is required'); end if;
+        if not (v ? 'type') then perform internal.catalog_invalid('type', 'is required'); end if;
+      end if;
+
+      if v ? 'code' and exists (select 1 from medusa.promotion
+                                 where deleted_at is null and pg_catalog.upper(code) = v_code and id <> coalesce(v_id, '')) then
+        perform internal.catalog_conflict('code', 'The code "' || v_code || '" is used by another promotion.', 'code_in_use');
+      end if;
+      if (v ->> 'campaign_id') is not null and not exists
+         (select 1 from medusa.promotion_campaign where id = v ->> 'campaign_id' and deleted_at is null) then
+        perform internal.catalog_invalid('campaign_id', 'campaign not found');
+      end if;
+
+      if v_new then
+        v_id := internal.generate_id_for('promotion');
+        insert into medusa.promotion (id, code, type) values (v_id, v ->> 'code', v ->> 'type');
+        select * into v_old from medusa.promotion where id = v_id;
+      elsif v ? 'type' and v ->> 'type' <> v_old.type and not (v ? 'application_method') then
+        perform internal.catalog_invalid('application_method', 'is required when the promotion type changes');
+      end if;
+      v_row := pg_catalog.jsonb_populate_record(v_old, v - 'id' - 'application_method' - 'rules' - 'per_customer_limit' - 'stacking');
+      update medusa.promotion set code = v_row.code, type = v_row.type, status = v_row.status, is_automatic = v_row.is_automatic,
+             is_tax_inclusive = v_row.is_tax_inclusive, "limit" = v_row."limit", campaign_id = v_row.campaign_id,
+             metadata = v_row.metadata, updated_at = pg_catalog.now()
+       where id = v_id;
+
+      if v ? 'application_method' then
+        perform internal.promotion_write_method(v_id, v_row.type, v -> 'application_method');
+      end if;
+      if v_row.status = 'active' and not exists
+         (select 1 from medusa.promotion_application_method where promotion_id = v_id and deleted_at is null) then
+        perform internal.catalog_invalid('application_method', 'an active promotion needs an application method');
+      end if;
+
+      if v ? 'rules' then
+        select pg_catalog.array_agg(promotion_rule_id) into v_oldrules from medusa.promotion_promotion_rule where promotion_id = v_id;
+        v_ids := internal.promotion_create_rules(v -> 'rules', 'cart', 'rules');
+        delete from medusa.promotion_promotion_rule where promotion_id = v_id;
+        perform internal.promotion_drop_rules(v_oldrules);
+        insert into medusa.promotion_promotion_rule (promotion_id, promotion_rule_id) select v_id, x from pg_catalog.unnest(v_ids) x;
+      end if;
+
+      if v ? 'per_customer_limit' or v ? 'stacking' then
+        insert into ext.promotion_setting (promotion_id, per_customer_limit, stacking)
+        values (v_id, (v ->> 'per_customer_limit')::int, coalesce(v ->> 'stacking', 'combinable'))
+        on conflict (promotion_id) do update set
+          per_customer_limit = case when v ? 'per_customer_limit' then excluded.per_customer_limit else ext.promotion_setting.per_customer_limit end,
+          stacking = case when v ? 'stacking' then excluded.stacking else ext.promotion_setting.stacking end;
+      end if;
+
+      return internal.ok_envelope(internal.promotion_admin_view(v_id));
+    exception when sqlstate 'BK000' then
+      get stacked diagnostics v_msg = message_text, v_detail = pg_exception_detail;
+      return internal.error_from_exception('BK000', v_msg, v_detail);
+    end;
+  exception when others then
+    get stacked diagnostics v_msg = message_text, v_ctx = pg_exception_context;
+    return internal.error_from_exception(sqlstate, v_msg, null, v_ctx, 'api.admin_upsert_promotion');
+  end;
+end
+$function$
+
+CREATE OR REPLACE FUNCTION api.admin_upsert_variant(p_variant jsonb, p_expected_version text DEFAULT NULL::text, p_idempotency_key text DEFAULT NULL::text)
+ RETURNS jsonb
+ LANGUAGE plpgsql
+ SECURITY DEFINER
+ SET search_path TO ''
+AS $function$
+declare
+  v_msg text; v_detail text; v_ctx text; v_idem jsonb;
+begin
+  begin
+    begin
+      perform internal.require_permission('catalog:write');
+      perform internal.admin_begin_actor();
+      if p_idempotency_key is not null then
+        v_idem := internal.admin_idempotency_begin('upsert_variant', p_idempotency_key,
+          pg_catalog.md5(pg_catalog.jsonb_build_array(p_variant, p_expected_version)::text));
+        if v_idem ->> 'state' = 'replay' then return v_idem -> 'response'; end if;
+      end if;
+      if pg_catalog.jsonb_typeof(p_variant) = 'object' then
+        perform internal.catalog_check_version('product_variant', p_variant ->> 'id', p_expected_version);
+      end if;
+      return internal.catalog_finish('product_variant', 'upsert_variant', p_idempotency_key, internal.catalog_upsert_variant_impl(p_variant));
+    exception when sqlstate 'BK000' then
+      get stacked diagnostics v_msg = message_text, v_detail = pg_exception_detail;
+      return internal.error_from_exception('BK000', v_msg, v_detail);
+    end;
+  exception when others then
+    get stacked diagnostics v_msg = message_text, v_ctx = pg_exception_context;
+    return internal.error_from_exception(sqlstate, v_msg, null, v_ctx, 'api.admin_upsert_variant');
+  end;
+end
+$function$
+
+CREATE OR REPLACE FUNCTION api.service_request_quotation(p_payload jsonb DEFAULT NULL::jsonb, p_customer_id uuid DEFAULT NULL::uuid)
+ RETURNS jsonb
+ LANGUAGE plpgsql
+ SECURITY DEFINER
+ SET search_path TO ''
+AS $function$
+declare
+  v_msg text; v_detail text; v_ctx text;
+  v_customer text; v_email text; v_region text; v_cur text; v_note text;
+  v_items jsonb; v_it jsonb; v_vid text; v_q numeric;
+  v_limit jsonb; v_id text; v_token text;
+begin
+  begin
+    begin
+      perform internal.require_feature('quotations');
+      if p_payload is null or pg_catalog.jsonb_typeof(p_payload) <> 'object' then
+        perform internal.catalog_invalid('payload', 'must be an object');
+      end if;
+      if p_customer_id is not null then
+        select l.customer_id into v_customer
+          from ext.customer_auth_link l join medusa.customer c on c.id = l.customer_id and c.deleted_at is null
+         where l.auth_user_id = p_customer_id;
+      end if;
+      if exists (select 1 from pg_catalog.jsonb_each(p_payload) k
+                  where k.key in ('email', 'region_id', 'note') and pg_catalog.jsonb_typeof(k.value) not in ('string', 'null')) then
+        perform internal.catalog_invalid('payload', 'text fields must be text');
+      end if;
+      v_email := pg_catalog.lower(internal.review_clean_text(p_payload ->> 'email'));
+      if v_email = '' and v_customer is not null then
+        select pg_catalog.lower(pg_catalog.btrim(c.email)) into v_email from medusa.customer c where c.id = v_customer;
+      end if;
+      if v_email is null or pg_catalog.length(v_email) > 254 or v_email !~ '^[^@\s]+@[^@\s]+\.[^@\s]+$' then
+        perform internal.catalog_invalid('email', 'a valid email is required');
+      end if;
+      v_note := nullif(internal.review_clean_text(p_payload ->> 'note'), '');
+      if v_note is not null and pg_catalog.length(v_note) > 2000 then
+        perform internal.catalog_invalid('note', 'must be at most 2000 characters');
+      end if;
+      v_region := coalesce(nullif(pg_catalog.btrim(coalesce(p_payload ->> 'region_id', '')), ''),
+                           (select s.default_region_id from medusa.store s where s.deleted_at is null order by s.created_at limit 1));
+      select r.currency_code into v_cur from medusa.region r where r.id = v_region and r.deleted_at is null;
+      if v_cur is null then
+        perform internal.catalog_invalid('region_id', 'is not an available region');
+      end if;
+      v_items := p_payload -> 'items';
+      if v_items is null or pg_catalog.jsonb_typeof(v_items) <> 'array' or pg_catalog.jsonb_array_length(v_items) not between 1 and 50 then
+        perform internal.catalog_invalid('items', 'must list 1 to 50 items');
+      end if;
+      for v_it in select e from pg_catalog.jsonb_array_elements(v_items) e loop
+        if pg_catalog.jsonb_typeof(v_it) <> 'object' or pg_catalog.jsonb_typeof(v_it -> 'variant_id') is distinct from 'string'
+           or pg_catalog.jsonb_typeof(v_it -> 'quantity') is distinct from 'number' then
+          perform internal.catalog_invalid('items', 'each item needs a variant_id and a quantity');
+        end if;
+        v_q := (v_it ->> 'quantity')::numeric;
+        if v_q <> pg_catalog.trunc(v_q) or v_q < 1 or v_q > 9999 then
+          perform internal.catalog_invalid('items', 'quantity must be a whole number from 1 to 9999');
+        end if;
+        if not exists (select 1 from medusa.product_variant v join medusa.product p on p.id = v.product_id and p.deleted_at is null
+                        where v.id = v_it ->> 'variant_id' and v.deleted_at is null) then
+          perform internal.raise_error('not_found', 'Variant not found.');
+        end if;
+      end loop;
+      if (select pg_catalog.count(distinct e ->> 'variant_id') from pg_catalog.jsonb_array_elements(v_items) e)
+         <> pg_catalog.jsonb_array_length(v_items) then
+        perform internal.catalog_invalid('items', 'each variant may appear once');
+      end if;
+    exception when sqlstate 'BK000' then
+      get stacked diagnostics v_msg = message_text, v_detail = pg_exception_detail;
+      return internal.error_from_exception('BK000', v_msg, v_detail);
+    end;
+
+    v_limit := internal.check_rate_limit('submit_enquiry');
+    if v_limit is not null then
+      return v_limit;
+    end if;
+
+    begin
+      v_token := pg_catalog.translate(pg_catalog.encode(extensions.gen_random_bytes(32), 'base64'), '+/=', '-_');
+      insert into ext.quotation (customer_id, email_norm, region_id, currency_code, note, access_token_hash)
+      values (v_customer, v_email, v_region, v_cur, v_note, internal.cart_token_hash(v_token))
+      returning id into v_id;
+      insert into ext.quotation_item (quotation_id, variant_id, quantity)
+      select v_id, e ->> 'variant_id', (e ->> 'quantity')::integer from pg_catalog.jsonb_array_elements(v_items) e;
+      perform internal.enqueue_notifications('quotation.requested', 'quotation', v_id,
+        pg_catalog.jsonb_build_object('quotation_id', v_id, 'item_count', pg_catalog.jsonb_array_length(v_items)),
+        null, null, 'quotation.requested:' || v_id);
+      return internal.ok_envelope(pg_catalog.jsonb_build_object('id', v_id, 'status', 'requested', 'access_token', v_token));
+    exception when sqlstate 'BK000' then
+      get stacked diagnostics v_msg = message_text, v_detail = pg_exception_detail;
+      return internal.error_from_exception('BK000', v_msg, v_detail);
+    end;
+  exception when others then
+    get stacked diagnostics v_msg = message_text, v_ctx = pg_exception_context;
+    return internal.error_from_exception(sqlstate, v_msg, null, v_ctx, 'api.service_request_quotation');
+  end;
+end
+$function$
+
+CREATE OR REPLACE FUNCTION api.service_submit_enquiry(p_payload jsonb DEFAULT NULL::jsonb, p_customer_id uuid DEFAULT NULL::uuid)
+ RETURNS jsonb
+ LANGUAGE plpgsql
+ SECURITY DEFINER
+ SET search_path TO ''
+AS $function$
+declare
+  v_msg text; v_detail text; v_ctx text;
+  v_customer text;
+  v_type text; v_pid text; v_name text; v_email text; v_phone text; v_body text;
+  v_limit jsonb;
+  v_id text;
+begin
+  begin
+    begin
+      perform internal.require_feature('enquiries');
+      if p_payload is null or pg_catalog.jsonb_typeof(p_payload) <> 'object' then
+        perform internal.catalog_invalid('payload', 'must be an object');
+      end if;
+      if p_customer_id is not null then
+        select l.customer_id into v_customer
+          from ext.customer_auth_link l join medusa.customer c on c.id = l.customer_id and c.deleted_at is null
+         where l.auth_user_id = p_customer_id;
+      end if;
+      -- every optional text field must be text when present
+      if exists (select 1 from pg_catalog.jsonb_each(p_payload) k
+                  where k.key in ('type', 'product_id', 'name', 'email', 'phone', 'message')
+                    and pg_catalog.jsonb_typeof(k.value) not in ('string', 'null')) then
+        perform internal.catalog_invalid('payload', 'text fields must be text');
+      end if;
+      v_type := pg_catalog.lower(coalesce(nullif(pg_catalog.btrim(p_payload ->> 'type'), ''), 'general'));
+      if v_type not in ('general', 'product', 'bulk', 'customisation') then
+        perform internal.catalog_invalid('type', 'must be one of general, product, bulk, customisation');
+      end if;
+      v_name := internal.review_clean_text(p_payload ->> 'name');
+      if v_name = '' or pg_catalog.length(v_name) > 120 then
+        perform internal.catalog_invalid('name', 'must be 1 to 120 characters');
+      end if;
+      v_email := pg_catalog.lower(internal.review_clean_text(p_payload ->> 'email'));
+      if v_email = '' and v_customer is not null then
+        select pg_catalog.lower(pg_catalog.btrim(c.email)) into v_email from medusa.customer c where c.id = v_customer;
+      end if;
+      if v_email is null or pg_catalog.length(v_email) > 254 or v_email !~ '^[^@\s]+@[^@\s]+\.[^@\s]+$' then
+        perform internal.catalog_invalid('email', 'a valid email is required');
+      end if;
+      v_phone := nullif(internal.review_clean_text(p_payload ->> 'phone'), '');
+      if v_phone is not null and pg_catalog.length(v_phone) > 30 then
+        perform internal.catalog_invalid('phone', 'must be at most 30 characters');
+      end if;
+      v_body := internal.review_clean_text(p_payload ->> 'message');
+      if pg_catalog.length(v_body) < 1 or pg_catalog.length(v_body) > 4000 then
+        perform internal.catalog_invalid('message', 'must be 1 to 4000 characters');
+      end if;
+      v_pid := nullif(pg_catalog.btrim(coalesce(p_payload ->> 'product_id', '')), '');
+      if v_pid is not null and not exists (select 1 from medusa.product where id = v_pid and deleted_at is null) then
+        perform internal.raise_error('not_found', 'Product not found.');
+      end if;
+    exception when sqlstate 'BK000' then
+      get stacked diagnostics v_msg = message_text, v_detail = pg_exception_detail;
+      return internal.error_from_exception('BK000', v_msg, v_detail);
+    end;
+
+    -- rate limit outside the inner blocks so the counter survives a rejected call
+    v_limit := internal.check_rate_limit('submit_enquiry');
+    if v_limit is not null then
+      return v_limit;
+    end if;
+
+    begin
+      insert into ext.enquiry (type, product_id, customer_id, name, email, phone, message)
+      values (v_type, v_pid, v_customer, v_name, v_email, v_phone, v_body)
+      returning id into v_id;
+      perform internal.enqueue_notifications('enquiry.created', 'enquiry', v_id,
+        pg_catalog.jsonb_build_object('enquiry_id', v_id, 'type', v_type, 'product_id', v_pid),
+        null, null, 'enquiry.created:' || v_id);
+      perform internal.emit_event('enquiry_submitted',
+        pg_catalog.jsonb_build_object('customer_id', v_customer, 'product_id', v_pid),
+        pg_catalog.jsonb_build_object('enquiry_id', v_id, 'type', v_type));
+      return internal.ok_envelope(pg_catalog.jsonb_build_object('id', v_id, 'status', 'new'));
+    exception when sqlstate 'BK000' then
+      get stacked diagnostics v_msg = message_text, v_detail = pg_exception_detail;
+      return internal.error_from_exception('BK000', v_msg, v_detail);
+    end;
+  exception when others then
+    get stacked diagnostics v_msg = message_text, v_ctx = pg_exception_context;
+    return internal.error_from_exception(sqlstate, v_msg, null, v_ctx, 'api.service_submit_enquiry');
+  end;
+end
+$function$
+
+CREATE OR REPLACE FUNCTION api.service_submit_review(p_payload jsonb DEFAULT NULL::jsonb, p_customer_id uuid DEFAULT NULL::uuid)
+ RETURNS jsonb
+ LANGUAGE plpgsql
+ SECURITY DEFINER
+ SET search_path TO ''
+AS $function$
+declare
+  v_msg text; v_detail text; v_ctx text;
+  v_customer text;
+  v_pid text;
+  v_rating numeric;
+  v_title text;
+  v_body text;
+  v_id text;
+begin
+  begin
+    begin
+      perform internal.require_feature('reviews');
+      if p_customer_id is null then
+        perform internal.raise_error('unauthorized', 'Sign in to review a product.');
+      end if;
+      select l.customer_id into v_customer
+        from ext.customer_auth_link l join medusa.customer c on c.id = l.customer_id and c.deleted_at is null
+       where l.auth_user_id = p_customer_id;
+      if v_customer is null then
+        perform internal.raise_error('unauthorized', 'Sign in to review a product.');
+      end if;
+      if p_payload is null or pg_catalog.jsonb_typeof(p_payload) <> 'object' then
+        perform internal.catalog_invalid('payload', 'must be an object');
+      end if;
+      if pg_catalog.jsonb_typeof(p_payload -> 'product_id') is distinct from 'string' then
+        perform internal.catalog_invalid('product_id', 'is required');
+      end if;
+      v_pid := p_payload ->> 'product_id';
+      if pg_catalog.jsonb_typeof(p_payload -> 'rating') is distinct from 'number' then
+        perform internal.catalog_invalid('rating', 'must be an integer from 1 to 5');
+      end if;
+      v_rating := (p_payload ->> 'rating')::numeric;
+      if v_rating <> pg_catalog.floor(v_rating) or v_rating not between 1 and 5 then
+        perform internal.catalog_invalid('rating', 'must be an integer from 1 to 5');
+      end if;
+      if p_payload ? 'title' and pg_catalog.jsonb_typeof(p_payload -> 'title') not in ('string', 'null') then
+        perform internal.catalog_invalid('title', 'must be text');
+      end if;
+      if pg_catalog.jsonb_typeof(p_payload -> 'body') is distinct from 'string' then
+        perform internal.catalog_invalid('body', 'is required');
+      end if;
+      v_title := nullif(internal.review_clean_text(p_payload ->> 'title'), '');
+      v_body  := internal.review_clean_text(p_payload ->> 'body');
+      if v_title is not null and pg_catalog.length(v_title) > 120 then
+        perform internal.catalog_invalid('title', 'must be at most 120 characters');
+      end if;
+      if pg_catalog.length(v_body) < 1 or pg_catalog.length(v_body) > 4000 then
+        perform internal.catalog_invalid('body', 'must be 1 to 4000 characters');
+      end if;
+      if not exists (select 1 from medusa.product where id = v_pid and deleted_at is null and status = 'published') then
+        perform internal.raise_error('not_found', 'Product not found.');
+      end if;
+      if exists (select 1 from ext.product_review where product_id = v_pid and customer_id = v_customer) then
+        perform internal.raise_error('conflict', 'You have already reviewed this product.');
+      end if;
+      insert into ext.product_review (product_id, customer_id, rating, title, body, verified_purchase)
+      values (v_pid, v_customer, v_rating::smallint, v_title, v_body, internal.review_is_verified(v_customer, v_pid))
+      returning id into v_id;
+      return internal.ok_envelope(pg_catalog.jsonb_build_object('id', v_id, 'status', 'pending',
+        'verified_purchase', (select verified_purchase from ext.product_review where id = v_id)));
+    exception when sqlstate 'BK000' then
+      get stacked diagnostics v_msg = message_text, v_detail = pg_exception_detail;
+      return internal.error_from_exception('BK000', v_msg, v_detail);
+    end;
+  exception when others then
+    get stacked diagnostics v_msg = message_text, v_ctx = pg_exception_context;
+    return internal.error_from_exception(sqlstate, v_msg, null, v_ctx, 'api.service_submit_review');
+  end;
+end
+$function$
+
+CREATE OR REPLACE FUNCTION api.store_track_events(p_session_id text, p_events jsonb, p_consent_id text DEFAULT NULL::text)
+ RETURNS jsonb
+ LANGUAGE plpgsql
+ SECURITY DEFINER
+ SET search_path TO ''
+AS $function$
+declare
+  c_specs   constant jsonb := internal.storefront_event_specs();
+  c_gated   constant text[] := internal.storefront_consent_required_types();
+  v_consent boolean := internal.consent_analytics_granted(p_consent_id);
+  v_limit   jsonb;
+  v_session text := pg_catalog.lower(pg_catalog.btrim(coalesce(p_session_id, '')));
+  v_uid     uuid;
+  v_cust    text;
+  v_cid     text := internal.client_identifier();
+  v_ev      jsonb;
+  v_type    text;
+  v_at      timestamptz;
+  v_props   jsonb;
+  v_now     timestamptz := pg_catalog.now();
+  v_i       integer := 0;
+  v_acc     integer := 0;
+  v_drop    integer := 0;
+  v_results jsonb := '[]'::jsonb;
+  v_reason  text;
+  v_msg     text;
+  v_detail  text;
+  v_ctx     text;
+begin
+  begin
+    if v_session !~ '^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$' then
+      perform internal.raise_error('validation_failed', 'Input validation failed',
+        pg_catalog.jsonb_build_object('session_id', 'must be a UUID'));
+    end if;
+    if p_events is null or pg_catalog.jsonb_typeof(p_events) <> 'array' then
+      perform internal.raise_error('validation_failed', 'Input validation failed',
+        pg_catalog.jsonb_build_object('events', 'must be an array'));
+    end if;
+    if pg_catalog.jsonb_array_length(p_events) > 50 then
+      perform internal.raise_error('validation_failed', 'Input validation failed',
+        pg_catalog.jsonb_build_object('events', 'must contain at most 50 events'));
+    end if;
+
+    v_uid := internal.jwt_user_id();
+    if v_uid is not null then
+      select c.id into v_cust
+        from ext.customer_auth_link l join medusa.customer c on c.id = l.customer_id and c.has_account and c.deleted_at is null
+       where l.auth_user_id = v_uid;
+    end if;
+
+    for v_ev in select e from pg_catalog.jsonb_array_elements(p_events) e loop
+      v_i := v_i + 1;
+      v_reason := null;
+
+      v_limit := internal.check_rate_limit('analytics_events',
+                   pg_catalog.jsonb_build_object('session', v_session)
+                   || case when v_cid is not null then pg_catalog.jsonb_build_object('client', v_cid) else '{}'::jsonb end);
+      if v_limit is not null then
+        if v_acc = 0 and v_drop = 0 then
+          return v_limit;
+        end if;
+        v_reason := 'rate_limited';
+      end if;
+
+      if v_reason is null then
+        begin
+          v_type := case when pg_catalog.jsonb_typeof(v_ev) = 'object' then v_ev ->> 'type' end;
+          if v_type is null or not (c_specs ? v_type) then
+            v_reason := 'unknown_type';
+          elsif (v_type = any (c_gated) and v_consent is not true) or v_consent is false then
+            v_reason := 'consent_required';
+          else
+            begin
+              v_at := (v_ev ->> 'occurred_at')::timestamptz;
+            exception when others then
+              v_at := null;
+            end;
+            v_at := least(greatest(coalesce(v_at, v_now), v_now - interval '24 hours'), v_now + interval '5 minutes');
+            v_props := internal.validate_input(case when pg_catalog.jsonb_typeof(v_ev -> 'payload') = 'object'
+                                                    then v_ev -> 'payload' else '{}'::jsonb end,
+                                               c_specs -> v_type);
+            if internal.emit_event(v_type,
+                 pg_catalog.jsonb_build_object('session_id', v_session, 'occurred_at', v_at)
+                 || case when v_cust is not null then pg_catalog.jsonb_build_object('customer_id', v_cust) else '{}'::jsonb end
+                 || case when v_cid is not null then pg_catalog.jsonb_build_object('client_identifier', v_cid) else '{}'::jsonb end
+                 || case when v_props ? 'product_id' then pg_catalog.jsonb_build_object('product_id', v_props ->> 'product_id') else '{}'::jsonb end
+                 || case when v_props ? 'variant_id' then pg_catalog.jsonb_build_object('variant_id', v_props ->> 'variant_id') else '{}'::jsonb end,
+                 v_props, 'client') is null then
+              v_reason := 'not_stored';
+            end if;
+          end if;
+        exception when sqlstate 'BK000' then
+          v_reason := 'invalid_payload';
+        end;
+      end if;
+
+      if v_reason is null then
+        v_acc := v_acc + 1;
+        v_results := v_results || pg_catalog.jsonb_build_array(pg_catalog.jsonb_build_object('index', v_i - 1, 'accepted', true));
+      else
+        v_drop := v_drop + 1;
+        v_results := v_results || pg_catalog.jsonb_build_array(
+          pg_catalog.jsonb_build_object('index', v_i - 1, 'accepted', false, 'reason', v_reason));
+      end if;
+    end loop;
+
+    return internal.ok_envelope(pg_catalog.jsonb_build_object('accepted', v_acc, 'dropped', v_drop, 'results', v_results));
+  exception when sqlstate 'BK000' then
+    get stacked diagnostics v_msg = message_text, v_detail = pg_exception_detail;
+    return internal.error_from_exception('BK000', v_msg, v_detail);
+  end;
+exception when others then
+  get stacked diagnostics v_msg = message_text, v_ctx = pg_exception_context;
+  return internal.error_from_exception(sqlstate, v_msg, null, v_ctx, 'api.store_track_events');
+end
+$function$
+

@@ -1,0 +1,79 @@
+BEGIN
+1..33
+INSERT 0 2
+INSERT 0 2
+INSERT 0 2
+INSERT 0 2
+CREATE FUNCTION
+CREATE FUNCTION
+INSERT 0 100
+INSERT 0 10
+INSERT 0 10
+INSERT 0 10
+INSERT 0 10
+INSERT 0 10
+ok 1 - RLS is on for both tables
+ok 2 - no API role holds a table grant
+ok 3 - a partial unique index limits a component to one running Experiment
+ok 4 - the hourly job is registered
+ok 5 - the admin functions are granted to authenticated only
+
+ok 6 - an analyst can read the list
+ok 7 - an analyst cannot plan
+ok 8 - an analyst cannot save
+
+not ok 9 - an area that is not a Persuasion_Component is refused
+# Failed test 9: "an area that is not a Persuasion_Component is refused"
+#         have: validation_failed:400
+#         want: validation_failed:422
+not ok 10 - a share outside 10 to 90 is refused
+# Failed test 10: "a share outside 10 to 90 is refused"
+#         have: validation_failed:400
+#         want: validation_failed:422
+ok 11 - the sample size follows the design formula
+ok 12 - a 50 percent share splits the plan evenly
+ok 13 - the baseline is the share of sessions that reached an Order
+CREATE TABLE
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+ok 14 - a saved Experiment is a draft
+ok 15 - the plan is stored with the draft
+not ok 16 - an unknown treatment kind is refused
+# Failed test 16: "an unknown treatment kind is refused"
+#         have: validation_failed:400
+#         want: validation_failed:422
+ok 17 - a draft can be edited
+INSERT 0 1
+ok 18 - a draft starts
+ok 19 - a second running Experiment on one component is refused
+ok 20 - a running Experiment cannot be edited
+{"id": "4958382e-a350-4397-bb95-91239d53621c", "name": "Review C", "plan": {"power": 0.8, "reason": null, "component": "review_summary", "computed_at": "2026-11-15T12:22:53.611569+00:00", "target_rate": 0.120000, "significance": 0.05, "baseline_rate": 0.100000, "duration_days": null, "daily_sessions": 0.00, "min_change_pct": 20, "total_sessions": 7677, "control_sessions": 3839, "baseline_sessions": 100, "treatment_sessions": 3839, "treatment_share_pct": 50, "baseline_conversions": 10}, "status": "running", "verdict": null, "version": "1794745373611569", "component": "review_summary", "created_at": "2026-11-15T12:22:53.611569+00:00", "started_at": "2026-11-15T12:22:53.611569+00:00", "stopped_at": null, "updated_at": "2026-11-15T12:22:53.611569+00:00", "min_change_pct": 20, "treatment_variant": "other_state", "chosen_component_on": null, "treatment_share_pct": 50, "planned_control_sessions": 3839, "planned_treatment_sessions": 3839}
+{"id": "f857a15e-2ed9-4f6a-8408-6a5f9e36352b", "name": "Popularity D", "plan": {"power": 0.8, "reason": null, "component": "popularity_notice", "computed_at": "2026-11-15T12:22:53.611569+00:00", "target_rate": 0.120000, "significance": 0.05, "baseline_rate": 0.100000, "duration_days": null, "daily_sessions": 0.00, "min_change_pct": 20, "total_sessions": 7677, "control_sessions": 3839, "baseline_sessions": 100, "treatment_sessions": 3839, "treatment_share_pct": 50, "baseline_conversions": 10}, "status": "running", "verdict": null, "version": "1794745373611569", "component": "popularity_notice", "created_at": "2026-11-15T12:22:53.611569+00:00", "started_at": "2026-11-15T12:22:53.611569+00:00", "stopped_at": null, "updated_at": "2026-11-15T12:22:53.611569+00:00", "min_change_pct": 20, "treatment_variant": "other_state", "chosen_component_on": null, "treatment_share_pct": 50, "planned_control_sessions": 3839, "planned_treatment_sessions": 3839}
+ok 21 - a fourth running Experiment is refused
+ok 22 - the build read lists the three running Experiments
+UPDATE 1
+INSERT 0 1000
+INSERT 0 2
+INSERT 0 130
+INSERT 0 130
+INSERT 0 130
+INSERT 0 130
+INSERT 0 130
+SELECT 1
+ok 23 - one Exposure counts once per session
+ok 24 - Conversions are counted per exposed session
+ok 25 - revenue per exposed session is kept per currency
+ok 26 - a lower bound above 0 is a better verdict
+ok 27 - the interval is the difference plus or minus 1.96 standard errors
+INSERT 0 1
+ok 28 - stop concludes with the verdict
+ok 29 - the Component_Switch is set to the chosen state
+ok 30 - the results are kept
+ok 31 - a stopped Experiment reads its stored results
+ok 32 - a stopped Experiment cannot be stopped again
+ok 33 - a stopped Experiment leaves the build read
+# Looks like you failed 3 tests of 33
+ROLLBACK

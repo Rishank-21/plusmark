@@ -1,0 +1,37 @@
+﻿BEGIN
+1..23
+ok 1 - a name keeps the first letter of each word
+ok 2 - a short name is masked in full
+ok 3 - an email keeps the first local character and the domain
+ok 4 - a short local part is masked in full
+ok 5 - a value without an @ is masked in full
+ok 6 - a phone keeps 2 digits at each end of the national number
+ok 7 - a short phone is masked in full
+ok 8 - an address keeps the first character of each line
+ok 9 - an IPv4 address keeps the first octet
+ok 10 - an IPv6 address is masked in full
+ok 11 - null stays null
+ok 12 - a postal code keeps its first 2 characters
+ok 13 - every Masked_Value hides more than half of the counted characters
+ok 14 - a masked phone hides more than half of its digits
+ok 15 - mask_row masks registered columns and keeps the rest
+ok 16 - mask_row masks a postal code and leaves the city visible
+ok 17 - error details hold Masked_Values for PII keys
+26
+ok 18 - ext.error_log entries hold Masked_Values
+ok 19 - the registry lists the PII columns of the medusa and ext tables
+ok 20 - no column that looks like personal data is missing from the registry
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+{"id": "enq_671b7638e8eb4438a9d02996d4a40e24", "status": "new"}
+{"aal": "aal2", "sub": "00000000-0000-4000-8000-000000000e03"}
+ok 21 - the enquiry list masks the email
+ok 22 - the enquiry list masks the name and phone
+
+DELETE 1
+ok 23 - the Audit_Log viewer masks registered columns
+ROLLBACK
+

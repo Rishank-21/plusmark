@@ -1,0 +1,492 @@
+# Migration report mrun_cf77253c149449edae4985650babe871
+
+- Mode: apply
+- Committed: yes
+- Reconciled: yes
+- Source checksum: 8386efbc9651fc05298c0efc09538219a42801fdde0666bcb6e0a9bf89e3a27d
+
+## Steps
+
+| Step | Status | Counts |
+| --- | --- | --- |
+| catalog | ok | categories_read=12, category_created=12, subcategory_created=32, products_read=300, variants_read=896, products_created=300, images_created=590, images_mapped=590, attributes_mapped=1999, variants_created=896, prices_on_request=128, stock_locations_created=1, inventory_levels_created=292, prices_created=768, inventory_not_tracked=379, inventory_missing_stock=225, catalog_rows_rebuilt=300 |
+| customers | ok | profiles_read=3003, customers_created=3000, links_created=3000, admin_profiles_not_customers=3, addresses_read=2698, addresses_created=2698 |
+| admin_users | ok | admin_profiles_read=3, admins_created=3, manager_roles_granted=3 |
+| orders | ok | orders_read=6000, orders_created=6000, guest_orders_without_customer=1614, display_sequence_advanced=1, rollups_rebuilt=1 |
+| remaining | ok | reviews_read=1498, reviews_created=1470, review_skipped=28, saved_boards_read=3994, wishlists_created=2186, wishlist_items_created=3913, saved_board_skipped=81, coupons_read=42, coupon_minimum_rules=20, coupons_created=40, coupon_budgets_written=18, coupon_skipped=2, shipping_methods_read=6, service_zones_created=1, shipping_profiles_created=1, shipping_options_created=5, shipping_method_skipped=1, site_content_read=30, site_content_created=30, payment_events_read=3648, payment_events_created=3648 |
+
+## Entities
+
+| Entity | Source | Migrated | Skipped | Failed | Source checksum (count / sum / md5) | Target checksum (count / sum / md5) |
+| --- | ---: | ---: | ---: | ---: | --- | --- |
+| category | 12 | 12 | 0 | 0 | 12 / - / 068afd5c6685 | 12 / - / 068afd5c6685 |
+| product | 300 | 300 | 0 | 0 | 300 / - / 06a43d7156b5 | 300 / - / 06a43d7156b5 |
+| variant | 896 | 896 | 0 | 0 | 896 / - / fd488ab30607 | 896 / - / fd488ab30607 |
+| stock | 292 | 292 | 0 | 0 | 292 / 28901.00 / 5173f1104b3f | 292 / 28901.00 / 5173f1104b3f |
+| customer | 3000 | 3000 | 0 | 0 | 3000 / - / 652d4a934b0d | 3000 / - / 652d4a934b0d |
+| customer_address | 2698 | 2698 | 0 | 0 | 2698 / - / f4529aa32e15 | 2698 / - / f4529aa32e15 |
+| admin_user | 3 | 3 | 0 | 0 | 3 / - / 260845da9449 | 3 / - / 260845da9449 |
+| order | 6000 | 6000 | 0 | 0 | 6000 / 2784446181.41 / 3ade84d8183e | 6000 / 2784446181.41 / 3ade84d8183e |
+| review | 1498 | 1470 | 28 | 0 | 1498 / - / bf30d5fa5fbe | 1470 / - / 665e687617c6 |
+| saved_board | 3994 | 3913 | 81 | 0 | 3994 / - / 32df9c33c3cf | 3913 / - / 7267e13ca1d2 |
+| coupon | 42 | 40 | 2 | 0 | 42 / - / e5e164d2cd9d | 40 / - / 823b598830b4 |
+| shipping_method | 6 | 5 | 1 | 0 | 6 / - / dae8ff3eb43a | 5 / - / d22186880507 |
+
+## Mismatches
+
+None.
+
+## Skipped and failed records
+
+- review b5ecdd33-72e9-4402-ada3-cf72671a478d: review b5ecdd33-72e9-4402-ada3-cf72671a478d: no product for slug "ghost-14"
+- review dc7b0504-3bfc-4c7e-abac-d1790780d82b: review dc7b0504-3bfc-4c7e-abac-d1790780d82b: no product for slug "ghost-82"
+- review 53bb9360-bb2e-4883-a13e-2a8dfda91e8d: review 53bb9360-bb2e-4883-a13e-2a8dfda91e8d: no product for slug "ghost-125"
+- review 8c64b5f4-d5b9-4bc4-ad65-7dad2f304171: review 8c64b5f4-d5b9-4bc4-ad65-7dad2f304171: no product for slug "ghost-162"
+- review d889cff5-5839-4f46-aedf-bf698c1e4cd3: review d889cff5-5839-4f46-aedf-bf698c1e4cd3: no product for slug "ghost-250"
+- review 1ed91507-2331-4f19-a90f-ecd8a0ce8b6b: review 1ed91507-2331-4f19-a90f-ecd8a0ce8b6b: no product for slug "ghost-317"
+- review 0089f0b3-eb8f-47cd-a618-2a98c02459cb: review 0089f0b3-eb8f-47cd-a618-2a98c02459cb: no product for slug "ghost-412"
+- review 2cc98c79-aed3-4b85-ae45-9b3f61f11c9a: review 2cc98c79-aed3-4b85-ae45-9b3f61f11c9a: no product for slug "ghost-414"
+- review 5abe9e18-8102-4070-a10d-36259c27a0f9: review 5abe9e18-8102-4070-a10d-36259c27a0f9: no product for slug "ghost-446"
+- review 249fdcae-6ac0-4302-a185-adb6ecdcbbad: review 249fdcae-6ac0-4302-a185-adb6ecdcbbad: no product for slug "ghost-477"
+- review 5bbf7363-fd5f-4ba2-a38b-96f786605499: review 5bbf7363-fd5f-4ba2-a38b-96f786605499: no product for slug "ghost-499"
+- review 156cee7f-e30d-47c5-acac-93a1be4d0bca: review 156cee7f-e30d-47c5-acac-93a1be4d0bca: no product for slug "ghost-607"
+- review 63b069de-a22c-40eb-a86f-9564eedd4b8e: review 63b069de-a22c-40eb-a86f-9564eedd4b8e: no product for slug "ghost-626"
+- review fcdc6f46-842a-4e2e-a668-001be7836cb7: review fcdc6f46-842a-4e2e-a668-001be7836cb7: no product for slug "ghost-655"
+- review f9c53966-dd50-4e86-ad5c-53bc8c9568ed: review f9c53966-dd50-4e86-ad5c-53bc8c9568ed: no product for slug "ghost-741"
+- review d868403e-a517-45ef-ad5d-de31a34a1420: review d868403e-a517-45ef-ad5d-de31a34a1420: no product for slug "ghost-805"
+- review 10316325-fd33-435d-a00a-6190ece1ae7b: review 10316325-fd33-435d-a00a-6190ece1ae7b: no product for slug "ghost-838"
+- review f1760c77-8994-46d0-a473-6c6a51a37078: review f1760c77-8994-46d0-a473-6c6a51a37078: no product for slug "ghost-868"
+- review 3103edcd-06d0-422c-a307-1db3e8d0aaeb: review 3103edcd-06d0-422c-a307-1db3e8d0aaeb: no product for slug "ghost-871"
+- review 4c3c2fde-2b55-4166-a6b2-e522f03abb0f: review 4c3c2fde-2b55-4166-a6b2-e522f03abb0f: no product for slug "ghost-877"
+- review f1e66abb-c625-4650-a823-4644e9651c80: review f1e66abb-c625-4650-a823-4644e9651c80: no product for slug "ghost-923"
+- review ba8f4e2b-d9e2-4cca-a168-c98c609e11a2: review ba8f4e2b-d9e2-4cca-a168-c98c609e11a2: no product for slug "ghost-936"
+- review b3595ae2-a245-4bda-adc6-61599583db3c: review b3595ae2-a245-4bda-adc6-61599583db3c: no product for slug "ghost-965"
+- review 46c60822-af39-4a31-a2cf-1392ad72a43e: review 46c60822-af39-4a31-a2cf-1392ad72a43e: no product for slug "ghost-981"
+- review 6ad94789-f372-4eb6-ac9f-c316fb42ab81: review 6ad94789-f372-4eb6-ac9f-c316fb42ab81: no product for slug "ghost-1122"
+- review 0f7e3dd3-b01e-49ee-a40d-ed2ca23550ca: review 0f7e3dd3-b01e-49ee-a40d-ed2ca23550ca: no product for slug "ghost-1144"
+- review d294807c-9b1e-4ed1-a50d-ec703ed12493: review d294807c-9b1e-4ed1-a50d-ec703ed12493: no product for slug "ghost-1309"
+- review 4089b7d8-5c0f-470b-aecd-d88c1bf68c40: review 4089b7d8-5c0f-470b-aecd-d88c1bf68c40: no product for slug "ghost-1375"
+- saved_board 2464b9a6-c7f2-4470-abe3-bbe416fbb801:ghost-41: saved_board 2464b9a6-c7f2-4470-abe3-bbe416fbb801:ghost-41: no product for slug "ghost-41"
+- saved_board f5b8a8dd-53d4-43cd-a977-fbaeb5d55180:ghost-74: saved_board f5b8a8dd-53d4-43cd-a977-fbaeb5d55180:ghost-74: no product for slug "ghost-74"
+- saved_board 88a8d06c-1d65-4c1e-a1a9-93b2131598f2:ghost-93: saved_board 88a8d06c-1d65-4c1e-a1a9-93b2131598f2:ghost-93: no product for slug "ghost-93"
+- saved_board c45cc906-fa19-4cd4-a60d-f9cb1a965f25:ghost-131: saved_board c45cc906-fa19-4cd4-a60d-f9cb1a965f25:ghost-131: no product for slug "ghost-131"
+- saved_board eb2ae721-a507-4138-a9b8-67c86e93e682:ghost-153: saved_board eb2ae721-a507-4138-a9b8-67c86e93e682:ghost-153: no product for slug "ghost-153"
+- saved_board 4048f36e-627a-4abe-abb0-08bc1b4dafa7:ghost-279: saved_board 4048f36e-627a-4abe-abb0-08bc1b4dafa7:ghost-279: no product for slug "ghost-279"
+- saved_board a6339969-bb9e-47cb-ae52-5a1791e5dc38:ghost-280: saved_board a6339969-bb9e-47cb-ae52-5a1791e5dc38:ghost-280: no product for slug "ghost-280"
+- saved_board c7e75e5c-7dae-4408-a7a9-5c84b026383d:ghost-290: saved_board c7e75e5c-7dae-4408-a7a9-5c84b026383d:ghost-290: no product for slug "ghost-290"
+- saved_board 8241d760-43d2-4e40-a8cc-d0836f11baa7:ghost-324: saved_board 8241d760-43d2-4e40-a8cc-d0836f11baa7:ghost-324: no product for slug "ghost-324"
+- saved_board eeee0de1-5def-4a50-ac34-83bc6c771efb:ghost-448: saved_board eeee0de1-5def-4a50-ac34-83bc6c771efb:ghost-448: no product for slug "ghost-448"
+- saved_board 0837c673-f3fc-4344-a19c-44a0b68ce7ec:ghost-493: saved_board 0837c673-f3fc-4344-a19c-44a0b68ce7ec:ghost-493: no product for slug "ghost-493"
+- saved_board 3d62a2aa-0dc7-4e5c-afc0-085498dc7f97:ghost-503: saved_board 3d62a2aa-0dc7-4e5c-afc0-085498dc7f97:ghost-503: no product for slug "ghost-503"
+- saved_board 4052dd00-e8d3-477e-ae3c-79439a50b1e9:ghost-575: saved_board 4052dd00-e8d3-477e-ae3c-79439a50b1e9:ghost-575: no product for slug "ghost-575"
+- saved_board 4f73b369-c9a3-4cc4-a5a9-a762d9e82b64:ghost-596: saved_board 4f73b369-c9a3-4cc4-a5a9-a762d9e82b64:ghost-596: no product for slug "ghost-596"
+- saved_board 50ecbc9d-3014-4085-aa78-57711886384d:ghost-630: saved_board 50ecbc9d-3014-4085-aa78-57711886384d:ghost-630: no product for slug "ghost-630"
+- saved_board 24819bbf-e4e7-4a2a-a29f-c1dfdcaa0b16:ghost-769: saved_board 24819bbf-e4e7-4a2a-a29f-c1dfdcaa0b16:ghost-769: no product for slug "ghost-769"
+- saved_board 1d3d219c-297f-428c-abbf-df21ccd6645a:ghost-771: saved_board 1d3d219c-297f-428c-abbf-df21ccd6645a:ghost-771: no product for slug "ghost-771"
+- saved_board b832a72f-cb3b-400e-a272-6c3174dd0ebf:ghost-786: saved_board b832a72f-cb3b-400e-a272-6c3174dd0ebf:ghost-786: no product for slug "ghost-786"
+- saved_board 81a74a13-24c0-4a6e-a35a-1f29dee60869:ghost-819: saved_board 81a74a13-24c0-4a6e-a35a-1f29dee60869:ghost-819: no product for slug "ghost-819"
+- saved_board db0d5f28-df1e-4fb1-a424-8413af8123c8:ghost-917: saved_board db0d5f28-df1e-4fb1-a424-8413af8123c8:ghost-917: no product for slug "ghost-917"
+- saved_board 75bc3685-1e24-4105-a77c-94af105c8582:ghost-946: saved_board 75bc3685-1e24-4105-a77c-94af105c8582:ghost-946: no product for slug "ghost-946"
+- saved_board 48174614-38ef-4bda-ac2f-573badf903c3:ghost-1142: saved_board 48174614-38ef-4bda-ac2f-573badf903c3:ghost-1142: no product for slug "ghost-1142"
+- saved_board 89e1b448-981f-4a42-ae35-3222936e429c:ghost-1164: saved_board 89e1b448-981f-4a42-ae35-3222936e429c:ghost-1164: no product for slug "ghost-1164"
+- saved_board 2bc56685-4d97-4014-a2bb-76c4634ef7e6:ghost-1191: saved_board 2bc56685-4d97-4014-a2bb-76c4634ef7e6:ghost-1191: no product for slug "ghost-1191"
+- saved_board e414ff07-1a18-4aef-ad79-f3d14efdac99:ghost-1218: saved_board e414ff07-1a18-4aef-ad79-f3d14efdac99:ghost-1218: no product for slug "ghost-1218"
+- saved_board 5927666f-e6b9-43ae-a4d4-86927fead534:ghost-1227: saved_board 5927666f-e6b9-43ae-a4d4-86927fead534:ghost-1227: no product for slug "ghost-1227"
+- saved_board d4471b2f-4912-4406-abe5-3aa6f1be35fc:ghost-1247: saved_board d4471b2f-4912-4406-abe5-3aa6f1be35fc:ghost-1247: no product for slug "ghost-1247"
+- saved_board 126cb3a6-3869-499d-ab2e-e50d25b84491:ghost-1252: saved_board 126cb3a6-3869-499d-ab2e-e50d25b84491:ghost-1252: no product for slug "ghost-1252"
+- saved_board fdbe8b7d-be7d-46b5-a4f9-93cf64545d01:ghost-1342: saved_board fdbe8b7d-be7d-46b5-a4f9-93cf64545d01:ghost-1342: no product for slug "ghost-1342"
+- saved_board 459b6a9d-8871-40a1-af47-637e164f0945:ghost-1374: saved_board 459b6a9d-8871-40a1-af47-637e164f0945:ghost-1374: no product for slug "ghost-1374"
+- saved_board 77e9ff01-faf8-49f8-a4cd-fe6ad43d185f:ghost-1506: saved_board 77e9ff01-faf8-49f8-a4cd-fe6ad43d185f:ghost-1506: no product for slug "ghost-1506"
+- saved_board bdf09eef-64d5-4fe9-aa07-35e1047a61cd:ghost-1542: saved_board bdf09eef-64d5-4fe9-aa07-35e1047a61cd:ghost-1542: no product for slug "ghost-1542"
+- saved_board 1af0b44d-ca22-4062-a062-64c5a1d7ad16:ghost-1569: saved_board 1af0b44d-ca22-4062-a062-64c5a1d7ad16:ghost-1569: no product for slug "ghost-1569"
+- saved_board d6b5c577-5cd3-4698-a2c6-a277e61e0585:ghost-1587: saved_board d6b5c577-5cd3-4698-a2c6-a277e61e0585:ghost-1587: no product for slug "ghost-1587"
+- saved_board 54aecdbf-148f-4a16-a969-028e85562f7e:ghost-1607: saved_board 54aecdbf-148f-4a16-a969-028e85562f7e:ghost-1607: no product for slug "ghost-1607"
+- saved_board 928313a5-3ce6-44ba-a7ef-1ec2fc425e44:ghost-1900: saved_board 928313a5-3ce6-44ba-a7ef-1ec2fc425e44:ghost-1900: no product for slug "ghost-1900"
+- saved_board 0b9aa160-576d-43c2-a9e7-c609e0a89052:ghost-1905: saved_board 0b9aa160-576d-43c2-a9e7-c609e0a89052:ghost-1905: no product for slug "ghost-1905"
+- saved_board e5673610-63b4-42be-ad37-5f4a1d40a3e1:ghost-1980: saved_board e5673610-63b4-42be-ad37-5f4a1d40a3e1:ghost-1980: no product for slug "ghost-1980"
+- saved_board c8d38d3b-49bf-4d36-aba4-bb2dd539a122:ghost-2009: saved_board c8d38d3b-49bf-4d36-aba4-bb2dd539a122:ghost-2009: no product for slug "ghost-2009"
+- saved_board 69cef5b4-0b79-4d7c-a907-f5ddb2ee98be:ghost-2012: saved_board 69cef5b4-0b79-4d7c-a907-f5ddb2ee98be:ghost-2012: no product for slug "ghost-2012"
+- saved_board 34a7ca26-9ac9-4e1a-a37c-60e382484059:ghost-2085: saved_board 34a7ca26-9ac9-4e1a-a37c-60e382484059:ghost-2085: no product for slug "ghost-2085"
+- saved_board 07c3c0d8-a88c-4c18-a792-0ba20418d917:ghost-2102: saved_board 07c3c0d8-a88c-4c18-a792-0ba20418d917:ghost-2102: no product for slug "ghost-2102"
+- saved_board 96388b4e-9b1c-478e-a954-26f8b055c9ff:ghost-2165: saved_board 96388b4e-9b1c-478e-a954-26f8b055c9ff:ghost-2165: no product for slug "ghost-2165"
+- saved_board fca7681d-727d-468c-ab6e-1b812b6e4fb0:ghost-2218: saved_board fca7681d-727d-468c-ab6e-1b812b6e4fb0:ghost-2218: no product for slug "ghost-2218"
+- saved_board 3a9772bb-2d43-4305-acb5-8b18b60cfd46:ghost-2226: saved_board 3a9772bb-2d43-4305-acb5-8b18b60cfd46:ghost-2226: no product for slug "ghost-2226"
+- saved_board 4f343347-cc59-4143-a76b-3619c4215123:ghost-2284: saved_board 4f343347-cc59-4143-a76b-3619c4215123:ghost-2284: no product for slug "ghost-2284"
+- saved_board 9957c8ea-9d7c-484a-a0a4-8ddd5e019757:ghost-2328: saved_board 9957c8ea-9d7c-484a-a0a4-8ddd5e019757:ghost-2328: no product for slug "ghost-2328"
+- saved_board 0349754e-f7f6-4997-a107-41165c814430:ghost-2330: saved_board 0349754e-f7f6-4997-a107-41165c814430:ghost-2330: no product for slug "ghost-2330"
+- saved_board cd61823a-cc4f-4739-a12e-c9b44c3c7a02:ghost-2344: saved_board cd61823a-cc4f-4739-a12e-c9b44c3c7a02:ghost-2344: no product for slug "ghost-2344"
+- saved_board 6745b258-882d-4615-ae0d-62738c8924a3:ghost-2391: saved_board 6745b258-882d-4615-ae0d-62738c8924a3:ghost-2391: no product for slug "ghost-2391"
+- saved_board 6b725d93-6d97-494a-a7d0-1f91c8c24ea3:ghost-2394: saved_board 6b725d93-6d97-494a-a7d0-1f91c8c24ea3:ghost-2394: no product for slug "ghost-2394"
+- saved_board 34a34e01-1feb-4fca-afaf-95e195c0ea0f:ghost-2414: saved_board 34a34e01-1feb-4fca-afaf-95e195c0ea0f:ghost-2414: no product for slug "ghost-2414"
+- saved_board c8fbd56e-eee3-4708-aff5-0cdcd51a596e:ghost-2417: saved_board c8fbd56e-eee3-4708-aff5-0cdcd51a596e:ghost-2417: no product for slug "ghost-2417"
+- saved_board 03761add-6cac-464e-a6d5-95caab4c2916:ghost-2444: saved_board 03761add-6cac-464e-a6d5-95caab4c2916:ghost-2444: no product for slug "ghost-2444"
+- saved_board 778049ee-ef6f-43a0-a777-8c2838878cd8:ghost-2447: saved_board 778049ee-ef6f-43a0-a777-8c2838878cd8:ghost-2447: no product for slug "ghost-2447"
+- saved_board 190a24fd-1404-46d0-a0f2-0477dfb0500f:ghost-2510: saved_board 190a24fd-1404-46d0-a0f2-0477dfb0500f:ghost-2510: no product for slug "ghost-2510"
+- saved_board 082b9aa1-c5f3-4e01-a30a-e31c495504f9:ghost-2539: saved_board 082b9aa1-c5f3-4e01-a30a-e31c495504f9:ghost-2539: no product for slug "ghost-2539"
+- saved_board b6aa06e3-5253-485c-ae37-a031caef5de9:ghost-2556: saved_board b6aa06e3-5253-485c-ae37-a031caef5de9:ghost-2556: no product for slug "ghost-2556"
+- saved_board 4ec7a7e2-ec66-4f77-a154-9524256360ad:ghost-2582: saved_board 4ec7a7e2-ec66-4f77-a154-9524256360ad:ghost-2582: no product for slug "ghost-2582"
+- saved_board 92bd8059-07fc-4bb0-a00c-bffceec3be80:ghost-2604: saved_board 92bd8059-07fc-4bb0-a00c-bffceec3be80:ghost-2604: no product for slug "ghost-2604"
+- saved_board d139ee17-6eed-4442-a356-55577462c61f:ghost-2622: saved_board d139ee17-6eed-4442-a356-55577462c61f:ghost-2622: no product for slug "ghost-2622"
+- saved_board 027d46ba-ad44-48fa-a224-7a679617a25a:ghost-2654: saved_board 027d46ba-ad44-48fa-a224-7a679617a25a:ghost-2654: no product for slug "ghost-2654"
+- saved_board 112846d1-bdcd-4e50-a9b8-f5c997fbf700:ghost-2821: saved_board 112846d1-bdcd-4e50-a9b8-f5c997fbf700:ghost-2821: no product for slug "ghost-2821"
+- saved_board f010b0f6-2344-4819-ae48-325badba2ad5:ghost-2849: saved_board f010b0f6-2344-4819-ae48-325badba2ad5:ghost-2849: no product for slug "ghost-2849"
+- saved_board 4c170c2e-9cca-4412-ab62-705f0a519c88:ghost-2871: saved_board 4c170c2e-9cca-4412-ab62-705f0a519c88:ghost-2871: no product for slug "ghost-2871"
+- saved_board c3b1c6a6-bb9e-4972-a664-e2478517e44b:ghost-3011: saved_board c3b1c6a6-bb9e-4972-a664-e2478517e44b:ghost-3011: no product for slug "ghost-3011"
+- saved_board a0671bf3-4c94-4726-a5fd-9f008acfd71e:ghost-3027: saved_board a0671bf3-4c94-4726-a5fd-9f008acfd71e:ghost-3027: no product for slug "ghost-3027"
+- saved_board d80078e0-a8ed-4128-a1db-9f562897176c:ghost-3092: saved_board d80078e0-a8ed-4128-a1db-9f562897176c:ghost-3092: no product for slug "ghost-3092"
+- saved_board ee55f75d-2f58-4fe4-a2cc-d9f3c1c98671:ghost-3138: saved_board ee55f75d-2f58-4fe4-a2cc-d9f3c1c98671:ghost-3138: no product for slug "ghost-3138"
+- saved_board 1cbfaf9c-e289-4161-ad9d-8e2e80646fa4:ghost-3187: saved_board 1cbfaf9c-e289-4161-ad9d-8e2e80646fa4:ghost-3187: no product for slug "ghost-3187"
+- saved_board a7d85627-7570-4d84-a2df-d9cd0bb49a46:ghost-3244: saved_board a7d85627-7570-4d84-a2df-d9cd0bb49a46:ghost-3244: no product for slug "ghost-3244"
+- saved_board 7f3354da-4331-4e88-a2ea-8729faebc3c8:ghost-3266: saved_board 7f3354da-4331-4e88-a2ea-8729faebc3c8:ghost-3266: no product for slug "ghost-3266"
+- saved_board b6d7681f-319f-432b-a8f0-64b98b415f38:ghost-3407: saved_board b6d7681f-319f-432b-a8f0-64b98b415f38:ghost-3407: no product for slug "ghost-3407"
+- saved_board 44d5a3b1-d845-4653-a846-4cf634ae66bd:ghost-3612: saved_board 44d5a3b1-d845-4653-a846-4cf634ae66bd:ghost-3612: no product for slug "ghost-3612"
+- saved_board 2de1c5c6-6118-4b8f-a93a-15c3ade326ea:ghost-3733: saved_board 2de1c5c6-6118-4b8f-a93a-15c3ade326ea:ghost-3733: no product for slug "ghost-3733"
+- saved_board a1a426f5-c0e8-4249-a76f-720031e0feea:ghost-3749: saved_board a1a426f5-c0e8-4249-a76f-720031e0feea:ghost-3749: no product for slug "ghost-3749"
+- saved_board 7d471ede-7c79-4275-a967-ed70676f5a8c:ghost-3759: saved_board 7d471ede-7c79-4275-a967-ed70676f5a8c:ghost-3759: no product for slug "ghost-3759"
+- saved_board 69550059-541f-4694-a3be-e5c78619ff8b:ghost-3777: saved_board 69550059-541f-4694-a3be-e5c78619ff8b:ghost-3777: no product for slug "ghost-3777"
+- saved_board 331e3923-5b69-4982-a1a6-5ecf2df104d4:ghost-3782: saved_board 331e3923-5b69-4982-a1a6-5ecf2df104d4:ghost-3782: no product for slug "ghost-3782"
+- saved_board 3a9772bb-2d43-4305-acb5-8b18b60cfd46:ghost-3820: saved_board 3a9772bb-2d43-4305-acb5-8b18b60cfd46:ghost-3820: no product for slug "ghost-3820"
+- saved_board 6305c95f-7342-43cf-a368-9ecf32c16c99:ghost-3868: saved_board 6305c95f-7342-43cf-a368-9ecf32c16c99:ghost-3868: no product for slug "ghost-3868"
+- coupon dcea12bf-4133-4718-a71e-3609c9f58a07: coupon dcea12bf-4133-4718-a71e-3609c9f58a07: percentage 150.00 is over 100
+- coupon 2db0e144-3f72-4328-af74-6debecda5207: coupon 2db0e144-3f72-4328-af74-6debecda5207: ends_at Thu Jan 01 2026 00:00:00 GMT+0530 (India Standard Time) is before starts_at Sun Mar 01 2026 00:00:00 GMT+0530 (India Standard Time)
+- shipping_method freight: shipping_method freight: price on request: a flat Shipping_Option needs a price
+
+## Step reasons
+
+- [catalog] note variant 8e341422-b70d-4fed-aa2f-5c9065b57c29: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant f704f244-a871-4e49-a405-ecd946c72730: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant c26acb17-6a8b-4ff3-ad05-c0b6e0b586e7: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant b95fa15c-792d-4644-aabc-e0fc015ba5d0: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 7ce7ddc9-a3b0-4598-a5ee-cb783030c035: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 54ae965f-0dc4-48c4-a49e-e17a81ef1929: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 7b1201dd-ede0-49dc-a83f-51ab99c90bc8: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant d47608ef-dc75-4b4f-a45f-4e1562e43960: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant a7c57a63-083a-488a-a552-a518107ed54f: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 7b469e30-5378-4b1c-a9ae-6680e6853148: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 7a6fcfcf-a667-4e41-aa47-98c3e4b7a7bd: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 0ba6f7bc-2edf-4582-aff5-9c794adc0c20: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 14239cc0-67d1-4eb3-a4e0-a8c40090117e: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 578d524f-e354-4c06-a247-3b738f861381: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 517cde89-13ef-401c-a8e8-ce3dc30b741d: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 74094357-4549-460c-a345-82b8e50e112a: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant df5ef8d4-ae94-4dbf-a9e9-3e7928dd4c0b: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 33ba71d5-6041-42e2-a3f1-bf62577f7cea: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 7636627c-e6e2-4814-a270-7d4de6c01488: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant d0e0afb3-331e-4543-ad8f-9cec437859c7: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 0cead402-ddc5-4793-a55c-3f8d25418acb: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant add1535d-7975-41aa-ab66-3b9ea04b0e0e: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 6c399684-7003-4c0a-a8e6-76fd7d292e0d: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant e68d67ae-5513-4b22-a108-b35ae2fa070f: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 599bf854-3cf8-450b-a131-ace7d7d99de7: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 8dd21bee-ddea-4e3d-a192-b358d0d87b5c: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant b908c285-4116-49ff-aff6-14a882ceeb24: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant daff0f8d-8544-45b9-ab73-43fa0bde181e: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 493f27da-20e0-404f-a315-b90e3bfd48c2: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 667895d4-57e8-4d8a-ac56-f75a007c64ac: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant b0e88b76-9261-45f0-a8ba-65b336889570: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 5fa31fbd-a2f0-4c82-aca5-66615082788f: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant b5cf209e-f7f1-45ec-a157-85a947b3dcbb: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 5a876ac5-72b9-4b03-ad9c-9622045200f5: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant d659be34-5b6a-428c-af1a-8006c738c7a2: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant cd4ef486-c151-4772-a585-ddab55b8ff68: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 4d69a4a9-9c9c-41b3-a9ff-8c32854e239a: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 9176ddc3-ec84-4916-a150-a5b384738c98: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant fb8b70e8-c763-4ce7-a8a1-f6e4ba949cda: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 32976acb-f685-4bd9-a5ad-c75e3b406bba: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 1dd2d600-a16e-4d91-ad79-71d6e334030c: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 4f9fb941-e48e-4017-a47a-026092199457: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 9df557a8-21f3-4f2a-aa40-0ce38f9f68fd: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 4a8de675-c281-421f-af35-18e0cf5eb7a2: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 1a4d15c7-be95-4b4d-a05f-846d461ec02b: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 7365d4d7-010f-4ca9-ae57-58c6927974d8: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 6250bf5a-b8ed-4b31-aada-294fcf7e1220: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 32cfdf07-caf4-4dd5-acb1-ebddcfafac76: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant f92aa850-eab6-454f-a1a7-2ccce509ab1f: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 8856f412-46b1-4cdf-af0b-26721cb7064e: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 41610f42-51ee-49ca-ae40-f2f98f00e908: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 235edf15-d105-4756-a7c3-a0adc59d7c94: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant ca0d9296-826a-4fdf-a47b-0f3de792298a: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant e67c12ed-f49e-4d45-a55f-786e83639c93: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant a3afae12-d163-49dd-ac9f-06c79cca6273: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant db887ade-7ffe-44ad-aefb-839d630ca895: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 153bf37c-2c04-4754-a575-6d22f4e6bcae: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 7bd98383-5a6f-4dad-a64c-97fd5570a4d9: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 4d72a0b0-b7c2-41f7-a666-45c30d345d54: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 4026d576-a5fd-4120-a58e-6d6ce4396185: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 1fd7752e-5fa4-4ebe-aa25-d2ce91cf06ab: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 8a350934-8c57-4d34-a3c4-b389c4df3c7f: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant e2ae1f00-7f46-4b7d-aba4-d72a8ea468e9: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant ed326ffe-6951-4c66-aa03-7068285a51ed: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant ecd5a0ca-29cd-46b5-a11d-3966ce37bb38: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 0dc78be0-323e-4f8e-a34c-8b3c4e8be056: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 10fccb1e-3f1d-43c7-a955-33d23356e144: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant e57b94eb-55de-4a93-a023-bfcab4dde64f: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant c04cf0f2-c588-47a5-a27d-5486a0a43994: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 6b498a7b-b5df-4296-a456-6abfb6e2ec0b: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 8259cc62-6911-497b-a95c-91e7c84bf55f: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 9fffa1e9-456e-4ad0-a1df-b07b0b322a5c: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant c429824e-8b9b-4ecc-aee0-80eb42e990b5: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant c2ba2a7c-fcb8-4f2c-a7df-a0cb432164c5: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 417e1185-da7b-4ea3-a212-3fe5bc49c3cb: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 0aa84bc2-88e8-4688-a6fc-80e46ff9b0a7: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 12142473-e839-405a-ac14-219f49f287e7: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 32369b86-6ef7-4d58-adeb-ec2bb770f844: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 49b6f3c1-2c02-48a2-acd2-bf59421defdf: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant a5b59e02-4a7f-4f65-a7f6-494e66c1860b: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant b3bde69c-bfd2-4ced-ab33-83fa0f12c8c6: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 219206f4-0f45-4791-a9be-d618ef26d503: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 90871767-2d7d-4e17-a188-56f0c77fcea1: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 57aaba7d-edf7-452c-a814-e6ba8372033d: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant fa0dcba6-460d-498f-ac69-99a2ed87c185: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 6c8a17e3-400d-4f4f-af80-2c21d7bb78ea: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 2afdf3c8-5fed-4c9b-aea2-40cab7e04dda: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 16e79bba-8eb0-4aac-a17b-101ca13f634e: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 6177fe8b-61b3-479a-ab3e-81d75a90fc97: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 22a2bfcd-db4f-4113-ae55-55359c1c0c76: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant fa78a2a5-c23e-4e35-a9bd-00fb6ac64205: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant e37d60a0-a023-4190-a078-c08c30aa8eac: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 7da4fa28-d632-4aad-a289-6dfd42e871a1: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant c04cf454-6f9e-447b-ab29-1cdf47a2701d: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 9d4bef20-2497-4e67-a136-cafe9820bdc6: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant f2b6978f-7ec1-47a6-ae9a-e37681b3d60f: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 8b7cc4ec-c3b6-4537-aa65-79ccfb329545: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant b6149eec-f24b-46ae-a506-e8a58e103822: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant eb9ce0ad-3eda-4942-acac-867d5362799d: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant af7f55ab-bb3a-460d-ae55-5e595b289d1e: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 6ca0550e-0a80-4fc4-a360-20ac4e5a61a6: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant fde55c45-b278-4462-a144-7b4d0f58449e: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 495d15bb-3c76-4924-ac1b-e2baf106e0f6: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 6388440f-5b68-4848-aa4a-7e696a8e8fca: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant a6afcda8-87f1-419c-afa9-09ef1409cabb: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 7f8b04f1-5ea1-48e8-ab21-e8b3bdeaf5d0: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant ef0e4ce5-e9eb-425a-a21c-c688e0848a17: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant aead5acd-264a-4230-a209-12754421b138: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 227bf7bb-9e2c-4c65-a8be-ab2860b368a0: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant f2b8090d-8df4-442b-adc9-c2e6c7894802: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant f8bc7b27-02e7-4dc9-a123-71f786fb0de4: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 28a37b27-3ed2-413b-a37c-f649930f0ffd: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant abe1c495-5e1e-4270-a350-61a14d99ff33: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 22347c09-8e22-426f-a8c9-a85a49b582bf: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant f2a00d64-7b83-4a27-a4ea-6857fee9456c: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant a6d2c864-b05e-4b2e-a447-a67baf09d14f: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 5046a3ce-9534-4f67-a1ee-67dedf3e958b: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 0cfbfaa9-9a60-4199-a157-47548bd52e16: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 46ec4ac4-1649-40d1-a2c2-d80af6329422: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant d90cf98a-c801-4b46-a013-47fb14493c29: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 59a66051-4dfc-46f5-a181-ed79f4ec32f4: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 05999f35-9f89-4a04-a817-3dd88c5fd710: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant b3571420-ea49-4127-a9c7-f5fb86290561: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant e9160f8d-be51-458b-aaaa-2818493fc0ec: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant a1b5abad-ff8f-4488-acce-55cdc986dd10: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 8c988e51-2603-4db5-abdd-69ef39776d11: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 4a9fccd7-1edb-4502-ac9a-3041f8c97669: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 4e00ca46-da38-40f8-a198-b01724339d1f: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 249ed6e9-b576-4057-a89f-d7ff0d81cea4: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 6530dc8c-4ad3-478b-a8c8-5153291ca2a8: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 68a57bcf-5b6e-4fa9-abe3-124ae76ff96a: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 6695c628-b241-4f9c-a64c-c624a7265ece: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 5d674a33-fce3-4341-aee1-897aa4449b3b: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 4d056cf9-e416-438d-ac57-07202d34bebf: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 02f5af8a-9b76-4640-af90-a773f6248c80: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 9b56e357-edf9-46d5-a239-23e5cebfe9b7: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 4ea5e311-d515-4233-ae7c-c62665309e0e: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant bf88ed88-7f95-49c7-a10b-7fd9ea316e4b: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 85b80844-c085-4417-a8b1-248142af7f2b: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 773f1736-9742-44cb-afce-e507cecc5a56: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 2e7c6cbb-8d9f-46fa-a8fc-a289e8bd6f5c: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 229174ee-24b0-4e00-ad5f-d9a848f59d1a: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 1fd5b25b-ba2a-41dd-a5fe-196ad01c63ea: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 6bd09087-5b0a-4ac9-aa64-fa0ce5ee9ed5: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant c52e8d26-87d9-41d5-ae8a-0cd92a720628: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 05b5b5e4-1b6e-4b35-a74e-2da7a3374485: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 103e6429-5317-4203-a057-4e1d813deb94: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant e495db5f-c6c2-4bd4-a0a4-94830110ef09: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 2e7da244-0287-4c3d-ae15-da2a3b1d76c8: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 5586d624-9779-429d-a8f2-034b9a47a791: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 3320144a-db8b-415c-ada2-3ed8f799d004: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant fe234e57-f6cf-42a3-a6f5-7215b0768103: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant ef043c9b-d4d7-4f5e-abd3-1eae14c390e7: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 888b9e03-21aa-4543-a2e0-b51a7d02ee9e: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant c361cddb-f2ce-4a63-a850-969883ff7539: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant cf2803b0-ae7e-4668-ad9a-56c44f151d41: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant cf3d4bfb-d2c6-4cb2-a0f9-533f3ae266c9: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 0d54d6e8-60a2-430c-a243-0070ff451979: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 4f0f5c64-a553-49ad-aa0c-21a35ec59f8a: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant f45a2a38-6574-4963-abe8-55b814fd9035: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant c4bdd283-45d9-4088-a864-cf0fd4a0e26d: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 7943c71f-75a8-417c-a33c-4f7dcae897c1: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant f3b2fa00-690d-41a2-a112-291f6c42a9a2: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 8e3e000a-09c0-4587-aac6-b22c383a6d1e: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant cd1dee1a-edcc-43a2-ab63-6cc73f531ae5: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant f36ceb4b-44ed-46a8-a350-af175b0bb0bb: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 43d67873-6ab9-4de8-ac0e-185c2a635f6e: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant d56dd5e8-6b13-4429-a7a8-242e14b4bfdc: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 2daa24cf-c9e4-4b1f-a21b-98a7c973efda: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant c3793593-9bd5-4497-a67d-115973b8c2ce: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant bc85cd94-ff71-424e-a33d-1cc46543f6c7: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant dff542eb-bda7-4614-abbb-22eb9a94c722: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant ca09fb6a-adea-4fe8-ae4f-006742386f6b: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 2a6c3a2c-ba33-42ec-a64c-3c4da6daedd1: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 0a5d4bb5-969a-4254-a73e-d7e5716b6c6a: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 4c78beb4-1bfd-49e5-a77d-316f2a6c1d3f: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 1d7490e9-09bb-463d-a702-071fad5b636c: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 327f8143-d276-40d5-af30-654ba68a7452: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 0aaf2668-97e1-4d1a-a3ac-a743b13afb08: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 0f59e21c-d15d-4370-ad25-18214b8d067e: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 0cb1f6da-5b74-4bf3-aa91-c433aca42802: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant cc3750e0-bb89-41e3-a751-c1debf1fc3de: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant c34570d3-0991-4bed-aea0-cc673f040b97: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 39aa2e55-86fa-4abb-a204-8e995d3c80b2: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant e3b9cfa6-1843-4d30-a834-24a0740d90fe: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant d68a0d9a-91d6-498c-ac42-d2064578479f: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant a7c7d344-9947-4ddb-af1b-3b815e52286d: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 33fd3cce-32f7-4313-a2f8-f8d2f288cba9: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 9777b730-1d30-4792-a9b0-e60559419749: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 9fc4b66c-1457-48be-a329-513f033cff98: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 56b2b1a5-bbb2-4098-a187-81698f37d478: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 70c50eab-4fe2-475d-a5f6-95e04e85813d: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 5f8d00ca-234c-41ce-a778-ec75dc339655: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant f537de38-eddc-4ff3-adc3-f0d0930fa43c: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 7d7530e9-281f-4abc-abf9-0b197aeb878a: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 36c26f1d-fba6-4332-a729-4ec666f177d6: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 48fb00a0-2ace-4e3a-a380-0bff0453a69d: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant b4855258-07b1-4722-a0a2-0d9d16ac7c27: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 4b64cf03-d700-4ef0-ac3d-eda772db3b81: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 8d01b178-4c43-44b5-a82c-34a8e57d770a: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 882f9445-278d-414c-a4b6-8605bbf9399c: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 0667c165-5a16-4c52-afb1-d44b57093205: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 2ed418d3-c252-4f9a-aa5e-d41f0ee3a132: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 5dfe2655-eb6c-43b5-a3fa-7c4ea0eacbe1: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant c662f7a9-7ea3-4302-acab-cdcefc1b2572: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 22dd87fa-8c22-43af-aed5-19dad5868548: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant a046ac13-669a-482c-abdf-9cf7e4724eb1: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 97f947ca-dd3c-44ed-a033-5ee18e50957d: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant a602fc7b-5966-46aa-a173-0f52d7b0454d: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant f91dffaa-8f8a-4bf0-a928-72d05bf2c250: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 31aea25c-6970-4cac-a7e7-aa1e9748e94e: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 24a561cb-98f3-4c61-a8e8-5beca03b27b6: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 6a188e4b-c2b5-437c-a166-f9e4df9b7427: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 3e88311b-a4bc-43ed-a5da-26d2eba15212: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant a0142674-8125-4629-a717-e713e5fb8622: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant f3bfeda7-ca8d-467b-a444-e97a27e977ed: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 91e01dd9-dc67-464c-ae2c-8a6b9f5d4221: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 1946a4c0-c452-4641-a0bb-53ba66c3e4dd: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 5cb97932-0dca-4ca1-a30b-955895003fe5: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 408db641-d9b9-42de-ad16-18468982f313: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant c165fcd7-1ad4-4e28-ae18-1cfd36a732ef: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 45e47db9-5aea-47c6-ae26-d8c22814bfab: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 400bd235-f5c3-48a2-adeb-1e960d78b32e: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 09c5de1b-bf85-435a-a42d-6000eeed740c: track_inventory is on but stock is empty, no inventory level created
+- [catalog] note variant 650a1fb7-f7c0-4598-a76e-06de8381f7d0: track_inventory is on but stock is empty, no inventory level created
+- [remaining] review 0089f0b3-eb8f-47cd-a618-2a98c02459cb: no product for slug "ghost-412"
+- [remaining] review 53bb9360-bb2e-4883-a13e-2a8dfda91e8d: no product for slug "ghost-125"
+- [remaining] review b3595ae2-a245-4bda-adc6-61599583db3c: no product for slug "ghost-965"
+- [remaining] review 0f7e3dd3-b01e-49ee-a40d-ed2ca23550ca: no product for slug "ghost-1144"
+- [remaining] review 6ad94789-f372-4eb6-ac9f-c316fb42ab81: no product for slug "ghost-1122"
+- [remaining] review 156cee7f-e30d-47c5-acac-93a1be4d0bca: no product for slug "ghost-607"
+- [remaining] review fcdc6f46-842a-4e2e-a668-001be7836cb7: no product for slug "ghost-655"
+- [remaining] review 4089b7d8-5c0f-470b-aecd-d88c1bf68c40: no product for slug "ghost-1375"
+- [remaining] review dc7b0504-3bfc-4c7e-abac-d1790780d82b: no product for slug "ghost-82"
+- [remaining] review 4c3c2fde-2b55-4166-a6b2-e522f03abb0f: no product for slug "ghost-877"
+- [remaining] review 1ed91507-2331-4f19-a90f-ecd8a0ce8b6b: no product for slug "ghost-317"
+- [remaining] review f1e66abb-c625-4650-a823-4644e9651c80: no product for slug "ghost-923"
+- [remaining] review f9c53966-dd50-4e86-ad5c-53bc8c9568ed: no product for slug "ghost-741"
+- [remaining] review 2cc98c79-aed3-4b85-ae45-9b3f61f11c9a: no product for slug "ghost-414"
+- [remaining] review 63b069de-a22c-40eb-a86f-9564eedd4b8e: no product for slug "ghost-626"
+- [remaining] review 5abe9e18-8102-4070-a10d-36259c27a0f9: no product for slug "ghost-446"
+- [remaining] review d889cff5-5839-4f46-aedf-bf698c1e4cd3: no product for slug "ghost-250"
+- [remaining] review 46c60822-af39-4a31-a2cf-1392ad72a43e: no product for slug "ghost-981"
+- [remaining] review d868403e-a517-45ef-ad5d-de31a34a1420: no product for slug "ghost-805"
+- [remaining] review 5bbf7363-fd5f-4ba2-a38b-96f786605499: no product for slug "ghost-499"
+- [remaining] review 3103edcd-06d0-422c-a307-1db3e8d0aaeb: no product for slug "ghost-871"
+- [remaining] review b5ecdd33-72e9-4402-ada3-cf72671a478d: no product for slug "ghost-14"
+- [remaining] review d294807c-9b1e-4ed1-a50d-ec703ed12493: no product for slug "ghost-1309"
+- [remaining] review ba8f4e2b-d9e2-4cca-a168-c98c609e11a2: no product for slug "ghost-936"
+- [remaining] review 8c64b5f4-d5b9-4bc4-ad65-7dad2f304171: no product for slug "ghost-162"
+- [remaining] review f1760c77-8994-46d0-a473-6c6a51a37078: no product for slug "ghost-868"
+- [remaining] review 10316325-fd33-435d-a00a-6190ece1ae7b: no product for slug "ghost-838"
+- [remaining] review 249fdcae-6ac0-4302-a185-adb6ecdcbbad: no product for slug "ghost-477"
+- [remaining] saved_board 027d46ba-ad44-48fa-a224-7a679617a25a:ghost-2654: no product for slug "ghost-2654"
+- [remaining] saved_board 0349754e-f7f6-4997-a107-41165c814430:ghost-2330: no product for slug "ghost-2330"
+- [remaining] saved_board 03761add-6cac-464e-a6d5-95caab4c2916:ghost-2444: no product for slug "ghost-2444"
+- [remaining] saved_board 07c3c0d8-a88c-4c18-a792-0ba20418d917:ghost-2102: no product for slug "ghost-2102"
+- [remaining] saved_board 082b9aa1-c5f3-4e01-a30a-e31c495504f9:ghost-2539: no product for slug "ghost-2539"
+- [remaining] saved_board 0837c673-f3fc-4344-a19c-44a0b68ce7ec:ghost-493: no product for slug "ghost-493"
+- [remaining] saved_board 0b9aa160-576d-43c2-a9e7-c609e0a89052:ghost-1905: no product for slug "ghost-1905"
+- [remaining] saved_board 112846d1-bdcd-4e50-a9b8-f5c997fbf700:ghost-2821: no product for slug "ghost-2821"
+- [remaining] saved_board 126cb3a6-3869-499d-ab2e-e50d25b84491:ghost-1252: no product for slug "ghost-1252"
+- [remaining] saved_board 190a24fd-1404-46d0-a0f2-0477dfb0500f:ghost-2510: no product for slug "ghost-2510"
+- [remaining] saved_board 1af0b44d-ca22-4062-a062-64c5a1d7ad16:ghost-1569: no product for slug "ghost-1569"
+- [remaining] saved_board 1cbfaf9c-e289-4161-ad9d-8e2e80646fa4:ghost-3187: no product for slug "ghost-3187"
+- [remaining] saved_board 1d3d219c-297f-428c-abbf-df21ccd6645a:ghost-771: no product for slug "ghost-771"
+- [remaining] saved_board 2464b9a6-c7f2-4470-abe3-bbe416fbb801:ghost-41: no product for slug "ghost-41"
+- [remaining] saved_board 24819bbf-e4e7-4a2a-a29f-c1dfdcaa0b16:ghost-769: no product for slug "ghost-769"
+- [remaining] saved_board 2bc56685-4d97-4014-a2bb-76c4634ef7e6:ghost-1191: no product for slug "ghost-1191"
+- [remaining] saved_board 2de1c5c6-6118-4b8f-a93a-15c3ade326ea:ghost-3733: no product for slug "ghost-3733"
+- [remaining] saved_board 331e3923-5b69-4982-a1a6-5ecf2df104d4:ghost-3782: no product for slug "ghost-3782"
+- [remaining] saved_board 34a34e01-1feb-4fca-afaf-95e195c0ea0f:ghost-2414: no product for slug "ghost-2414"
+- [remaining] saved_board 34a7ca26-9ac9-4e1a-a37c-60e382484059:ghost-2085: no product for slug "ghost-2085"
+- [remaining] saved_board 3a9772bb-2d43-4305-acb5-8b18b60cfd46:ghost-3820: no product for slug "ghost-3820"
+- [remaining] saved_board 3a9772bb-2d43-4305-acb5-8b18b60cfd46:ghost-2226: no product for slug "ghost-2226"
+- [remaining] saved_board 3d62a2aa-0dc7-4e5c-afc0-085498dc7f97:ghost-503: no product for slug "ghost-503"
+- [remaining] saved_board 4048f36e-627a-4abe-abb0-08bc1b4dafa7:ghost-279: no product for slug "ghost-279"
+- [remaining] saved_board 4052dd00-e8d3-477e-ae3c-79439a50b1e9:ghost-575: no product for slug "ghost-575"
+- [remaining] saved_board 44d5a3b1-d845-4653-a846-4cf634ae66bd:ghost-3612: no product for slug "ghost-3612"
+- [remaining] saved_board 459b6a9d-8871-40a1-af47-637e164f0945:ghost-1374: no product for slug "ghost-1374"
+- [remaining] saved_board 48174614-38ef-4bda-ac2f-573badf903c3:ghost-1142: no product for slug "ghost-1142"
+- [remaining] saved_board 4c170c2e-9cca-4412-ab62-705f0a519c88:ghost-2871: no product for slug "ghost-2871"
+- [remaining] saved_board 4ec7a7e2-ec66-4f77-a154-9524256360ad:ghost-2582: no product for slug "ghost-2582"
+- [remaining] saved_board 4f343347-cc59-4143-a76b-3619c4215123:ghost-2284: no product for slug "ghost-2284"
+- [remaining] saved_board 4f73b369-c9a3-4cc4-a5a9-a762d9e82b64:ghost-596: no product for slug "ghost-596"
+- [remaining] saved_board 50ecbc9d-3014-4085-aa78-57711886384d:ghost-630: no product for slug "ghost-630"
+- [remaining] saved_board 54aecdbf-148f-4a16-a969-028e85562f7e:ghost-1607: no product for slug "ghost-1607"
+- [remaining] saved_board 5927666f-e6b9-43ae-a4d4-86927fead534:ghost-1227: no product for slug "ghost-1227"
+- [remaining] saved_board 6305c95f-7342-43cf-a368-9ecf32c16c99:ghost-3868: no product for slug "ghost-3868"
+- [remaining] saved_board 6745b258-882d-4615-ae0d-62738c8924a3:ghost-2391: no product for slug "ghost-2391"
+- [remaining] saved_board 69550059-541f-4694-a3be-e5c78619ff8b:ghost-3777: no product for slug "ghost-3777"
+- [remaining] saved_board 69cef5b4-0b79-4d7c-a907-f5ddb2ee98be:ghost-2012: no product for slug "ghost-2012"
+- [remaining] saved_board 6b725d93-6d97-494a-a7d0-1f91c8c24ea3:ghost-2394: no product for slug "ghost-2394"
+- [remaining] saved_board 75bc3685-1e24-4105-a77c-94af105c8582:ghost-946: no product for slug "ghost-946"
+- [remaining] saved_board 778049ee-ef6f-43a0-a777-8c2838878cd8:ghost-2447: no product for slug "ghost-2447"
+- [remaining] saved_board 77e9ff01-faf8-49f8-a4cd-fe6ad43d185f:ghost-1506: no product for slug "ghost-1506"
+- [remaining] saved_board 7d471ede-7c79-4275-a967-ed70676f5a8c:ghost-3759: no product for slug "ghost-3759"
+- [remaining] saved_board 7f3354da-4331-4e88-a2ea-8729faebc3c8:ghost-3266: no product for slug "ghost-3266"
+- [remaining] saved_board 81a74a13-24c0-4a6e-a35a-1f29dee60869:ghost-819: no product for slug "ghost-819"
+- [remaining] saved_board 8241d760-43d2-4e40-a8cc-d0836f11baa7:ghost-324: no product for slug "ghost-324"
+- [remaining] saved_board 88a8d06c-1d65-4c1e-a1a9-93b2131598f2:ghost-93: no product for slug "ghost-93"
+- [remaining] saved_board 89e1b448-981f-4a42-ae35-3222936e429c:ghost-1164: no product for slug "ghost-1164"
+- [remaining] saved_board 928313a5-3ce6-44ba-a7ef-1ec2fc425e44:ghost-1900: no product for slug "ghost-1900"
+- [remaining] saved_board 92bd8059-07fc-4bb0-a00c-bffceec3be80:ghost-2604: no product for slug "ghost-2604"
+- [remaining] saved_board 96388b4e-9b1c-478e-a954-26f8b055c9ff:ghost-2165: no product for slug "ghost-2165"
+- [remaining] saved_board 9957c8ea-9d7c-484a-a0a4-8ddd5e019757:ghost-2328: no product for slug "ghost-2328"
+- [remaining] saved_board a0671bf3-4c94-4726-a5fd-9f008acfd71e:ghost-3027: no product for slug "ghost-3027"
+- [remaining] saved_board a1a426f5-c0e8-4249-a76f-720031e0feea:ghost-3749: no product for slug "ghost-3749"
+- [remaining] saved_board a6339969-bb9e-47cb-ae52-5a1791e5dc38:ghost-280: no product for slug "ghost-280"
+- [remaining] saved_board a7d85627-7570-4d84-a2df-d9cd0bb49a46:ghost-3244: no product for slug "ghost-3244"
+- [remaining] saved_board b6aa06e3-5253-485c-ae37-a031caef5de9:ghost-2556: no product for slug "ghost-2556"
+- [remaining] saved_board b6d7681f-319f-432b-a8f0-64b98b415f38:ghost-3407: no product for slug "ghost-3407"
+- [remaining] saved_board b832a72f-cb3b-400e-a272-6c3174dd0ebf:ghost-786: no product for slug "ghost-786"
+- [remaining] saved_board bdf09eef-64d5-4fe9-aa07-35e1047a61cd:ghost-1542: no product for slug "ghost-1542"
+- [remaining] saved_board c3b1c6a6-bb9e-4972-a664-e2478517e44b:ghost-3011: no product for slug "ghost-3011"
+- [remaining] saved_board c45cc906-fa19-4cd4-a60d-f9cb1a965f25:ghost-131: no product for slug "ghost-131"
+- [remaining] saved_board c7e75e5c-7dae-4408-a7a9-5c84b026383d:ghost-290: no product for slug "ghost-290"
+- [remaining] saved_board c8d38d3b-49bf-4d36-aba4-bb2dd539a122:ghost-2009: no product for slug "ghost-2009"
+- [remaining] saved_board c8fbd56e-eee3-4708-aff5-0cdcd51a596e:ghost-2417: no product for slug "ghost-2417"
+- [remaining] saved_board cd61823a-cc4f-4739-a12e-c9b44c3c7a02:ghost-2344: no product for slug "ghost-2344"
+- [remaining] saved_board d139ee17-6eed-4442-a356-55577462c61f:ghost-2622: no product for slug "ghost-2622"
+- [remaining] saved_board d4471b2f-4912-4406-abe5-3aa6f1be35fc:ghost-1247: no product for slug "ghost-1247"
+- [remaining] saved_board d6b5c577-5cd3-4698-a2c6-a277e61e0585:ghost-1587: no product for slug "ghost-1587"
+- [remaining] saved_board d80078e0-a8ed-4128-a1db-9f562897176c:ghost-3092: no product for slug "ghost-3092"
+- [remaining] saved_board db0d5f28-df1e-4fb1-a424-8413af8123c8:ghost-917: no product for slug "ghost-917"
+- [remaining] saved_board e414ff07-1a18-4aef-ad79-f3d14efdac99:ghost-1218: no product for slug "ghost-1218"
+- [remaining] saved_board e5673610-63b4-42be-ad37-5f4a1d40a3e1:ghost-1980: no product for slug "ghost-1980"
+- [remaining] saved_board eb2ae721-a507-4138-a9b8-67c86e93e682:ghost-153: no product for slug "ghost-153"
+- [remaining] saved_board ee55f75d-2f58-4fe4-a2cc-d9f3c1c98671:ghost-3138: no product for slug "ghost-3138"
+- [remaining] saved_board eeee0de1-5def-4a50-ac34-83bc6c771efb:ghost-448: no product for slug "ghost-448"
+- [remaining] saved_board f010b0f6-2344-4819-ae48-325badba2ad5:ghost-2849: no product for slug "ghost-2849"
+- [remaining] saved_board f5b8a8dd-53d4-43cd-a977-fbaeb5d55180:ghost-74: no product for slug "ghost-74"
+- [remaining] saved_board fca7681d-727d-468c-ab6e-1b812b6e4fb0:ghost-2218: no product for slug "ghost-2218"
+- [remaining] saved_board fdbe8b7d-be7d-46b5-a4f9-93cf64545d01:ghost-1342: no product for slug "ghost-1342"
+- [remaining] coupon 2db0e144-3f72-4328-af74-6debecda5207: ends_at Thu Jan 01 2026 00:00:00 GMT+0530 (India Standard Time) is before starts_at Sun Mar 01 2026 00:00:00 GMT+0530 (India Standard Time)
+- [remaining] coupon dcea12bf-4133-4718-a71e-3609c9f58a07: percentage 150.00 is over 100
+- [remaining] shipping_method freight: price on request: a flat Shipping_Option needs a price

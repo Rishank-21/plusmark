@@ -1,0 +1,105 @@
+{
+  "fails": [],
+  "out": [
+    {
+      "name": "home",
+      "status": 200,
+      "ok": true,
+      "errs": [],
+      "bad": []
+    },
+    {
+      "name": "shop",
+      "status": 200,
+      "ok": true,
+      "errs": [],
+      "bad": []
+    },
+    {
+      "name": "plp",
+      "status": 200,
+      "ok": true,
+      "errs": [],
+      "bad": []
+    },
+    {
+      "name": "pdp",
+      "status": 200,
+      "ok": true,
+      "errs": [],
+      "bad": []
+    },
+    {
+      "name": "search",
+      "status": 200,
+      "ok": true,
+      "errs": [],
+      "bad": []
+    },
+    {
+      "name": "cart",
+      "status": 200,
+      "ok": true,
+      "errs": [],
+      "bad": []
+    },
+    {
+      "name": "checkout",
+      "status": 200,
+      "ok": true,
+      "errs": [],
+      "bad": [
+        "404 https://plusmark-storefront.pages.dev/api/payments/razorpay/config"
+      ]
+    },
+    {
+      "name": "login",
+      "status": 200,
+      "ok": true,
+      "errs": [],
+      "bad": []
+    },
+    {
+      "name": "contact",
+      "status": 200,
+      "ok": true,
+      "errs": [],
+      "bad": []
+    },
+    {
+      "name": "faq",
+      "status": 200,
+      "ok": true,
+      "errs": [],
+      "bad": []
+    },
+    {
+      "name": "collections",
+      "status": 200,
+      "ok": true,
+      "errs": [],
+      "bad": []
+    },
+    {
+      "name": "add to cart",
+      "status": 200,
+      "ok": true,
+      "errs": [],
+      "bad": []
+    },
+    {
+      "name": "mobile home",
+      "status": 200,
+      "ok": true,
+      "errs": [],
+      "bad": []
+    },
+    {
+      "name": "mobile layout",
+      "status": 200,
+      "ok": true,
+      "errs": [],
+      "bad": []
+    }
+  ]
+}

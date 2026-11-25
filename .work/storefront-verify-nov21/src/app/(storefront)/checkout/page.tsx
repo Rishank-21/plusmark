@@ -1,0 +1,10 @@
+import type { Metadata } from "next";
+import { CheckoutFlow } from "@/components/checkout/CheckoutFlow";
+
+export const dynamic = "force-static";
+
+export const metadata: Metadata = { title: "Checkout", robots: { index: false, follow: false } };
+
+export default function CheckoutPage() {
+  return <CheckoutFlow />;
+}

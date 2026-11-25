@@ -1,0 +1,24 @@
+{
+ "cod": {
+  "fee": null,
+  "max_order_amount": null
+ },
+ "options": [
+  {
+   "id": "so_01M7ZE3MQ15BR2XPQ0KQP0XSV3",
+   "name": "Standard delivery",
+   "price_type": "flat",
+   "charge_rules": [
+    {
+     "amount": 0,
+     "max_item_total": null,
+     "min_item_total": null
+    }
+   ],
+   "requires_quote": false
+  }
+ ],
+ "region_id": "reg_01M7W6G2TTAMHEP6AGZZ88G9Z2",
+ "currency_code": "inr",
+ "free_delivery_threshold": 0
+}

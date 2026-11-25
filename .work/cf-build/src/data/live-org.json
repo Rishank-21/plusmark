@@ -1,0 +1,49 @@
+{
+ "@context": "https://schema.org",
+ "@type": "Organization",
+ "@id": "https://plusmarkboards.com/#organization",
+ "name": "Plusmark Display System",
+ "alternateName": [
+  "Plusmark",
+  "Plusmark Brands",
+  "Plusmark Writing & Display System"
+ ],
+ "url": "https://plusmarkboards.com",
+ "logo": {
+  "@type": "ImageObject",
+  "url": "https://plusmarkboards.com/images/plusmark-mark.png",
+  "width": 642,
+  "height": 666
+ },
+ "slogan": "Quality Jo Pehchaan Ban Jaaye",
+ "foundingDate": "2015",
+ "description": "Established in 2015, Plusmark Brands is a trusted and reputed Indian manufacturing brand specializing in high-quality educational and institutional products. Our mission is to deliver durable, high-performance products that combine superior quality with the best market rates.",
+ "areaServed": {
+  "@type": "Country",
+  "name": "India"
+ },
+ "knowsAbout": [
+  "White Boards",
+  "Chalk Boards",
+  "Notice Boards",
+  "Ceramic Boards",
+  "Magnetic Boards",
+  "School Benches",
+  "All Types of Board Stands"
+ ],
+ "telephone": "+919913967888",
+ "contactPoint": {
+  "@type": "ContactPoint",
+  "contactType": "sales",
+  "telephone": "+919913967888",
+  "areaServed": "IN"
+ },
+ "address": {
+  "@type": "PostalAddress",
+  "streetAddress": "Survey No. 181/1, Nr. Radha Krishna Packaging, Venus Denim Lane, Shahwadi Gam, Narolgam",
+  "addressLocality": "Ahmedabad",
+  "addressRegion": "Gujarat",
+  "postalCode": "382405",
+  "addressCountry": "IN"
+ }
+}

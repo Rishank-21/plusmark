@@ -1,0 +1,6 @@
+# Demo admin users (local only). Sign in at http://localhost:3001/sign-in. Authenticator: add the TOTP secret (base32, SHA1, 6 digits, 30 s) to any authenticator app, or compute a code with the snippet in docs/TESTING.md.
+demo-analyst@plusmark.test password=Demo-analyst-2026! totp_secret=2YJBGSAL5WRB5WVVBFDGYMXPX3P22GAT role=analyst
+demo-catalog-editor@plusmark.test password=Demo-catalogeditor-2026! totp_secret=W4U6RATDPU5W34YVQN5JKYFYCKV5CXLH role=catalog_editor
+demo-manager@plusmark.test password=Demo-manager-2026! totp_secret=JXNVWY7SJ6S3QRNYQJZN5YNOWF2KD7M3 role=manager
+demo-order-manager@plusmark.test password=Demo-ordermanager-2026! totp_secret=2A6CKDOGNDQUH5T6KEBUIPXSYSE55AJU role=order_manager
+demo-support-agent@plusmark.test password=Demo-supportagent-2026! totp_secret=ZGJAGDMRIKVEBDKELVC4I6ETSZILZJ35 role=support_agent

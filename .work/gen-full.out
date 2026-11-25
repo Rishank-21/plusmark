@@ -1,0 +1,67 @@
+06:43:53 demo data: days=120 orders=400 customers=150 (existing demo orders: 0)
+06:46:29 catalog: 50 products, 122 variants
+06:47:12 customers: 150
+06:47:13 promotions: DEMO10, DEMOFEST15, DEMOFLAT100, DEMOFREESHIP + DEMOOLD20, campaign demo-festive-sale
+06:47:14 orders: 0 demo orders exist, creating 400
+06:47:56 orders placed: 25/400
+06:48:19 order 35 failed: service_complete_cart: http_500 {"code":"57014","details":null,"hint":null,"message":"canceling statement due to statement timeout"} ""
+06:48:38 orders placed: 50/400
+06:49:15 orders placed: 75/400
+06:49:48 orders placed: 100/400
+06:50:03 order 106 failed: service_complete_cart: http_500 {"code":"57014","details":null,"hint":null,"message":"canceling statement due to statement timeout"} ""
+06:50:25 orders placed: 125/400
+06:51:01 orders placed: 150/400
+06:51:32 order 167 failed: service_complete_cart: http_500 {"code":"57014","details":null,"hint":null,"message":"canceling statement due to statement timeout"} ""
+06:51:40 orders placed: 175/400
+06:52:19 orders placed: 200/400
+06:53:03 orders placed: 225/400
+06:53:36 orders placed: 250/400
+06:54:13 orders placed: 275/400
+06:54:42 order 291 failed: service_complete_cart: http_500 {"code":"57014","details":null,"hint":null,"message":"canceling statement due to statement timeout"} ""
+06:54:55 orders placed: 300/400
+06:55:34 orders placed: 325/400
+06:56:08 orders placed: 350/400
+06:56:46 orders placed: 375/400
+06:57:20 orders placed: 400/400
+06:57:20 orders: placed 396/400
+06:58:14 lifecycle: 25/396
+06:59:05 lifecycle: 50/396
+06:59:50 lifecycle: 75/396
+07:00:36 lifecycle: 100/396
+07:01:24 lifecycle: 125/396
+07:02:10 lifecycle: 150/396
+07:02:53 lifecycle: 175/396
+07:03:38 lifecycle: 200/396
+07:04:29 lifecycle: 225/396
+07:05:05 lifecycle: 250/396
+07:05:47 lifecycle: 275/396
+07:06:26 lifecycle: 300/396
+07:07:18 lifecycle: 325/396
+07:08:07 lifecycle: 350/396
+07:08:57 lifecycle: 375/396
+07:10:19 orders: moved 396 orders back in time
+07:10:19 orders: {"delivered":355,"shipped":9,"fulfilled":3,"pending":7,"canceled":22,"returned":25,"refunded":42,"cod":179,"prepaid":217}
+07:10:41 analytics: 30129 events, 150 consent choices
+07:11:18 reviews: 89 (66 approved, 8 rejected, 15 pending)
+07:11:30 enquiries: 45 (6 replied)
+07:11:38 quotations: 14 (11 priced, 2 accepted)
+07:11:41 wishlist items: 157
+07:11:45 stock: 4 variants at 0, 10 low, 10 supply profiles
+07:11:45 special dates: 0 new
+07:11:46 order notes: 25
+07:11:48 alerts: 5 demo alerts (the alert_evaluate job adds real ones)
+07:11:49 scheduled report: weekly sales created
+07:11:50 admin user: demo-analyst@plusmark.test (analyst)
+07:11:51 admin user: demo-catalog-editor@plusmark.test (catalog_editor)
+07:11:52 admin user: demo-manager@plusmark.test (manager)
+07:11:53 admin user: demo-order-manager@plusmark.test (order_manager)
+07:11:54 admin user: demo-support-agent@plusmark.test (support_agent)
+07:11:57 derived: order facts
+07:13:49 derived: rollups (all history)
+07:13:59 derived: customer metrics and RFM scores
+07:14:00 derived: popularity, catalog read model, stock state, contact search
+07:14:01 derived: reconciliation for the last 30 days
+07:14:22 derived: forecast run start, then forecast-worker
+07:14:24   forecast_run_start -> {"day": "2026-11-19", "queued": 79, "run_id": 39, "series": 114, "skipped": false, "no_recent_sales": 3, "not_enough_data": 32}
+07:14:27   forecast-worker -> 200 {"batches":0,"claimed":0,"done":0,"not_enough_data":0,"failed":0,"skipped":0} | run: completed 114 series
+07:14:27   stock-out and anomaly alert evaluation (slow, about 1.5 min)

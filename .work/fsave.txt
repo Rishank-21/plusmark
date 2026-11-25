@@ -1,0 +1,120 @@
+CREATE OR REPLACE FUNCTION api.service_forecast_save(p_run_id bigint DEFAULT NULL::bigint, p_results jsonb DEFAULT NULL::jsonb)
+ RETURNS jsonb
+ LANGUAGE plpgsql
+ SECURITY DEFINER
+ SET search_path TO ''
+AS $function$
+declare
+  v_msg text; v_ctx text;
+  v_max     constant integer := 3;
+  v_run     ext.forecast_run;
+  v_series  ext.forecast_series;
+  r         record;
+  v_horizon integer;
+  v_as_of   timestamptz;
+  v_ok      boolean;
+  v_err     text;
+  v_cnt     integer;
+  v_days    integer;
+  v_saved   integer := 0;
+  v_ned     integer := 0;
+  v_failed  integer := 0;
+  v_skipped integer := 0;
+  v_status  text;
+begin
+  begin
+    if p_run_id is null or p_results is null or pg_catalog.jsonb_typeof(p_results) <> 'array' then
+      raise exception 'run id and a results array are required' using errcode = '22023';
+    end if;
+    select * into v_run from ext.forecast_run where id = p_run_id for update;
+    if not found then
+      raise exception 'unknown Forecast run' using errcode = '22023';
+    end if;
+    if v_run.status <> 'running' then
+      -- the run window ended: nothing of this batch is saved, each series keeps its previous Forecast
+      return internal.ok_envelope(pg_catalog.jsonb_build_object('saved', 0, 'not_enough_data', 0, 'failed', 0,
+        'skipped', pg_catalog.jsonb_array_length(p_results), 'run_status', v_run.status));
+    end if;
+    v_horizon := (v_run.settings ->> 'horizon_days')::integer;
+    v_as_of := (v_run.local_day::timestamp at time zone internal.store_tz());
+
+    for r in
+      select * from pg_catalog.jsonb_to_recordset(p_results)
+        as x (series_id bigint, outcome text, model text, wape numeric, holdout_empty boolean, error text, points jsonb)
+    loop
+      select * into v_series from ext.forecast_series s
+       where s.id = r.series_id and s.run_id = p_run_id and s.status = 'queued' for update;
+      if not found then
+        v_skipped := v_skipped + 1;
+        continue;
+      end if;
+
+      v_err := null;
+      if r.outcome = 'done' then
+        v_ok := r.model in ('seasonal_naive', 'moving_average', 'holt_winters')
+                and r.points is not null and pg_catalog.jsonb_typeof(r.points) = 'array';
+        if v_ok then
+          select pg_catalog.count(*)::integer, pg_catalog.count(distinct p.day)::integer
+            into v_cnt, v_days
+            from pg_catalog.jsonb_to_recordset(r.points) as p (day date);
+          v_ok := v_cnt = v_horizon and v_days = v_horizon
+                  and not exists (select 1 from pg_catalog.jsonb_to_recordset(r.points) as p (day date)
+                                   where p.day < v_run.local_day or p.day >= v_run.local_day + v_horizon);
+        end if;
+        if not v_ok then
+          v_err := 'the worker returned an incomplete Forecast';
+        end if;
+      elsif r.outcome = 'failed' then
+        v_ok := false;
+        v_err := pg_catalog.left(coalesce(nullif(pg_catalog.btrim(r.error), ''), 'the Forecast could not be computed'), 500);
+      elsif r.outcome <> 'not_enough_data' then
+        v_ok := false;
+        v_err := 'the worker returned an unknown outcome';
+      end if;
+
+      if r.outcome = 'done' and v_ok then
+        delete from ext.forecast_point where series_id = v_series.id and run_id = p_run_id;
+        insert into ext.forecast_point (series_id, run_id, day, value, lower_80, upper_80, lower_95, upper_95, std_dev)
+        select v_series.id, p_run_id, p.day, p.value, p.lower_80, p.upper_80, p.lower_95, p.upper_95, coalesce(p.std_dev, 0)
+          from pg_catalog.jsonb_to_recordset(r.points)
+            as p (day date, value numeric, lower_80 numeric, upper_80 numeric, lower_95 numeric, upper_95 numeric, std_dev numeric);
+        update ext.forecast_series
+           set status = 'done', forecast_run_id = p_run_id, model = r.model, wape = case when r.holdout_empty then null else r.wape end,
+               holdout_empty = coalesce(r.holdout_empty, false), data_as_of = v_as_of,
+               lease_until = null, last_error = null, updated_at = pg_catalog.now()
+         where id = v_series.id;
+        v_saved := v_saved + 1;
+      elsif r.outcome = 'not_enough_data' then
+        -- every model was left out: "not enough data" replaces the Forecast
+        update ext.forecast_series
+           set status = 'not_enough_data', forecast_run_id = null, model = null, wape = null, holdout_empty = false,
+               lease_until = null, last_error = null, updated_at = pg_catalog.now()
+         where id = v_series.id;
+        v_ned := v_ned + 1;
+      else
+        -- failure: forecast_run_id, model, wape and data_as_of stay as they were
+        v_status := case when v_series.attempts + 1 >= v_max then 'failed' else 'queued' end;
+        update ext.forecast_series
+           set status = v_status, attempts = v_series.attempts + 1, lease_until = null, last_error = v_err, updated_at = pg_catalog.now()
+         where id = v_series.id;
+        v_failed := v_failed + 1;
+      end if;
+    end loop;
+
+    -- Day-ahead points stay for 90 days for the Anomaly rule; a point a series still shows is never removed
+    delete from ext.forecast_point p
+     using ext.forecast_run old
+     where old.id = p.run_id and old.local_day < v_run.local_day - 90
+       and not exists (select 1 from ext.forecast_series s where s.forecast_run_id = old.id and s.id = p.series_id);
+
+    perform internal.forecast_run_refresh(p_run_id);
+    select status into v_status from ext.forecast_run where id = p_run_id;
+    return internal.ok_envelope(pg_catalog.jsonb_build_object('saved', v_saved, 'not_enough_data', v_ned, 'failed', v_failed,
+      'skipped', v_skipped, 'run_status', v_status));
+  exception when others then
+    get stacked diagnostics v_msg = message_text, v_ctx = pg_exception_context;
+    return internal.error_from_exception(sqlstate, v_msg, null, v_ctx, 'api.service_forecast_save');
+  end;
+end
+$function$
+

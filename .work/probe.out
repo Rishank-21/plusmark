@@ -1,0 +1,12 @@
+05:44:29 admin user: demo-analyst@plusmark.test (analyst)
+05:44:30 admin user: demo-catalog-editor@plusmark.test (catalog_editor)
+05:44:31 admin user: demo-manager@plusmark.test (manager)
+05:44:32 admin user: demo-order-manager@plusmark.test (order_manager)
+05:44:33 admin user: demo-support-agent@plusmark.test (support_agent)
+[
+  'demo-analyst@plusmark.test',
+  'demo-catalog-editor@plusmark.test',
+  'demo-manager@plusmark.test',
+  'demo-order-manager@plusmark.test',
+  'demo-support-agent@plusmark.test'
+]

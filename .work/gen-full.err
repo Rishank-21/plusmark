@@ -1,0 +1,17 @@
+file:///C:/Users/palha/plusmark/tools/demo-data/lib.mjs:35
+    throw new Error('psql failed: ' + (e.stderr?.toString() || e.message).slice(0, 800));
+          ^
+
+Error: psql failed: ERROR:  canceling statement due to user request
+CONTEXT:  SQL function "setting_text" during startup
+SQL function "store_tz" statement 1
+SQL function "reorder_rows" statement 1
+PL/pgSQL function internal.alert_eval_stock_out() line 11 at FOR over SELECT rows
+PL/pgSQL function internal.alert_evaluate_forecast() line 7 at assignment
+
+    at psql (file:///C:/Users/palha/plusmark/tools/demo-data/lib.mjs:35:11)
+    at buildDerived (file:///C:/Users/palha/plusmark/tools/demo-data/derived.mjs:45:3)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async file:///C:/Users/palha/plusmark/tools/demo-data/generate.mjs:66:1
+
+Node.js v24.13.0

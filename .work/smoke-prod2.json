@@ -1,0 +1,149 @@
+{
+  "fails": [
+    "home",
+    "shop",
+    "plp",
+    "search",
+    "cart",
+    "checkout",
+    "login",
+    "contact",
+    "faq",
+    "add to cart",
+    "mobile home",
+    "mobile layout"
+  ],
+  "out": [
+    {
+      "name": "home",
+      "status": 503,
+      "ok": false,
+      "errs": [],
+      "bad": [
+        "503 https://plusmark-storefront.palhariom698.workers.dev/"
+      ]
+    },
+    {
+      "name": "shop",
+      "status": 503,
+      "ok": false,
+      "errs": [],
+      "bad": [
+        "503 https://plusmark-storefront.palhariom698.workers.dev/shop"
+      ]
+    },
+    {
+      "name": "plp",
+      "status": 503,
+      "ok": false,
+      "errs": [],
+      "bad": [
+        "503 https://plusmark-storefront.palhariom698.workers.dev/shop/white-boards"
+      ]
+    },
+    {
+      "name": "pdp",
+      "status": 200,
+      "ok": true,
+      "errs": [],
+      "bad": [
+        "503 https://plusmark-storefront.palhariom698.workers.dev/wishlist?_rsc=Z7hyWLQ32d82scRd",
+        "500 https://plusmark-storefront.palhariom698.workers.dev/shop/white-boards?_rsc=Z7hyWLQ32d82scRd",
+        "500 https://plusmark-storefront.palhariom698.workers.dev/?_rsc=Z7hyWLQ32d82scRd",
+        "503 https://plusmark-storefront.palhariom698.workers.dev/shop/notice-boards?_rsc=Z7hyWLQ32d82scRd"
+      ]
+    },
+    {
+      "name": "search",
+      "status": 503,
+      "ok": false,
+      "errs": [],
+      "bad": [
+        "503 https://plusmark-storefront.palhariom698.workers.dev/shop/board-stands?_rsc=Z7hyWLQ32d82scRd",
+        "503 https://plusmark-storefront.palhariom698.workers.dev/search?q=ceramic"
+      ]
+    },
+    {
+      "name": "cart",
+      "status": 503,
+      "ok": false,
+      "errs": [],
+      "bad": [
+        "503 https://plusmark-storefront.palhariom698.workers.dev/cart"
+      ]
+    },
+    {
+      "name": "checkout",
+      "status": 503,
+      "ok": false,
+      "errs": [],
+      "bad": [
+        "503 https://plusmark-storefront.palhariom698.workers.dev/checkout"
+      ]
+    },
+    {
+      "name": "login",
+      "status": 503,
+      "ok": false,
+      "errs": [],
+      "bad": [
+        "503 https://plusmark-storefront.palhariom698.workers.dev/login"
+      ]
+    },
+    {
+      "name": "contact",
+      "status": 503,
+      "ok": false,
+      "errs": [],
+      "bad": [
+        "503 https://plusmark-storefront.palhariom698.workers.dev/contact"
+      ]
+    },
+    {
+      "name": "faq",
+      "status": 503,
+      "ok": false,
+      "errs": [],
+      "bad": [
+        "503 https://plusmark-storefront.palhariom698.workers.dev/faq"
+      ]
+    },
+    {
+      "name": "collections",
+      "status": 200,
+      "ok": true,
+      "errs": [],
+      "bad": [
+        "500 https://plusmark-storefront.palhariom698.workers.dev/shop/white-boards?_rsc=YNv77TQE6nk8ffuS",
+        "500 https://plusmark-storefront.palhariom698.workers.dev/wishlist?_rsc=YNv77TQE6nk8ffuS",
+        "503 https://plusmark-storefront.palhariom698.workers.dev/shop/display-boards?_rsc=YNv77TQE6nk8ffuS",
+        "503 https://plusmark-storefront.palhariom698.workers.dev/collections/deluxe-standard?_rsc=YNv77TQE6nk8ff"
+      ]
+    },
+    {
+      "name": "add to cart",
+      "status": 200,
+      "ok": false,
+      "errs": [],
+      "bad": []
+    },
+    {
+      "name": "mobile home",
+      "status": 503,
+      "ok": false,
+      "errs": [],
+      "bad": [
+        "503 https://plusmark-storefront.palhariom698.workers.dev/"
+      ]
+    },
+    {
+      "name": "mobile layout",
+      "status": 200,
+      "ok": false,
+      "errs": [
+        "overflow 80"
+      ],
+      "bad": []
+    }
+  ]
+}
