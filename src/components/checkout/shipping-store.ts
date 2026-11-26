@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { listShippingMethods } from "@/lib/supabase/admin";
+import { fetchShippingMethods } from "@/lib/backend/storefront";
 import type { ShippingMethod } from "@/types";
 
 /**
@@ -21,7 +21,7 @@ async function load() {
   state = "loading";
   emit();
   try {
-    methods = await listShippingMethods();
+    methods = await fetchShippingMethods();
     state = "ready";
   } catch {
     methods = [];

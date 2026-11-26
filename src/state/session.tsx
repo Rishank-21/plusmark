@@ -59,6 +59,7 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
   const [orders, setOrders] = useState<Order[]>([]);
   const [enquiries, setEnquiries] = useState<BulkEnquiry[]>([]);
   const [hydrated, setHydrated] = useState(false);
+  const [adminVerified, setAdminVerified] = useState(false);
   const [accountLoading, setAccountLoading] = useState(false);
   const [accountError, setAccountError] = useState<string | null>(null);
   const [legacyPrompt, setLegacyPrompt] = useState<LegacySnapshot | null>(null);
@@ -97,6 +98,13 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
       const profile = await getProfile(nextUser);
       if (activeUser.current !== nextUser.id) return;
       setAccount(profile);
+      if (profile.role === "admin") {
+        const client = getSupabaseBrowserClient();
+        const level = client ? await client.auth.mfa.getAuthenticatorAssuranceLevel() : null;
+        if (activeUser.current === nextUser.id) setAdminVerified(level?.data?.currentLevel === "aal2");
+      } else {
+        setAdminVerified(false);
+      }
     } catch (error) {
       if (activeUser.current !== nextUser.id) return;
       setAccountError(error instanceof Error ? error.message : "Your profile could not be loaded.");
@@ -126,11 +134,12 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
         activeUser.current = null;
         setUser(null);
         setAccount(null);
+        setAdminVerified(false);
         setAccountError(null);
         setAccountLoading(false);
         return;
       }
-      if (event === "SIGNED_IN" || event === "USER_UPDATED") {
+      if (event === "SIGNED_IN" || event === "USER_UPDATED" || event === "MFA_CHALLENGE_VERIFIED") {
         const nextUser = session?.user ?? null;
         window.setTimeout(() => {
           if (alive) void loadAccount(nextUser);
@@ -163,6 +172,7 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
     const supabase = getSupabaseBrowserClient();
     activeUser.current = null;
     setAccount(null);
+    setAdminVerified(false);
     setUser(null);
     setAccountError(null);
     setLegacyPrompt(null);
@@ -241,7 +251,8 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
     setEnquiries((current) => [enquiry, ...current]);
   }, []);
 
-  const adminSignedIn = account?.role === "admin";
+  /* An admin session only counts once the 6 digit authenticator code has been entered (aal2). */
+  const adminSignedIn = account?.role === "admin" && adminVerified;
 
   const value = useMemo<SessionContextValue>(
     () => ({

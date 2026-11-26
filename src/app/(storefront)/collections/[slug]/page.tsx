@@ -1,3 +1,4 @@
+import { ensureLiveCatalog } from "@/lib/backend/server";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -13,6 +14,7 @@ export function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  await ensureLiveCatalog();
   const collection = getCollection((await params).slug);
   return collection
     ? pageMetadata({
@@ -24,6 +26,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 }
 
 export default async function CollectionPage({ params }: { params: Promise<{ slug: string }> }) {
+  await ensureLiveCatalog();
   const collection = getCollection((await params).slug);
   if (!collection) notFound();
   const selected = collection.select();

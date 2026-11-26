@@ -15,7 +15,10 @@
     "backend:sync-config": "node scripts/backend/sync-local-config.mjs",
     "backend:admin": "node scripts/backend/admin-bootstrap.mjs",
     "backend:smoke": "node scripts/backend/smoke-test.mjs",
-    "backend:types": "supabase gen types typescript --local > src/lib/backend/database.types.ts"
+    "backend:types": "supabase gen types typescript --local > src/lib/backend/database.types.ts",
+    "backend:pay-page": "node scripts/backend/pay-server.mjs",
+    "backend:cli": "node scripts/backend/cli.mjs",
+    "backend:import": "node scripts/backend/import-catalog.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.7",

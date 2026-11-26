@@ -3,14 +3,13 @@ import {
   Boxes,
   CreditCard,
   FolderTree,
-  Layers,
   LayoutDashboard,
-  LayoutTemplate,
   Package,
   ShoppingBag,
   Star,
   Ticket,
-  Truck,
+  Settings,
+  Undo2,
   Users,
   type LucideIcon
 } from "lucide-react";
@@ -42,16 +41,16 @@ export const ADMIN_NAV: AdminNavSection[] = [
     items: [
       { href: "/admin/products", label: "Products", icon: Package },
       { href: "/admin/categories", label: "Categories", icon: FolderTree },
-      { href: "/admin/variants", label: "Variants", icon: Layers },
-      { href: "/admin/inventory", label: "Inventory", icon: Boxes }
+      { href: "/admin/inventory", label: "Inventory", icon: Boxes },
+      { href: "/admin/reviews", label: "Reviews", icon: Star }
     ]
   },
   {
     title: "Orders",
     items: [
       { href: "/admin/orders", label: "Orders", icon: ShoppingBag },
-      { href: "/admin/payments", label: "Payments", icon: CreditCard },
-      { href: "/admin/shipping", label: "Shipping", icon: Truck }
+      { href: "/admin/returns", label: "Returns", icon: Undo2 },
+      { href: "/admin/payments", label: "Payments", icon: CreditCard }
     ]
   },
   {
@@ -62,11 +61,8 @@ export const ADMIN_NAV: AdminNavSection[] = [
     ]
   },
   {
-    title: "Site",
-    items: [
-      { href: "/admin/content", label: "Content", icon: LayoutTemplate },
-      { href: "/admin/reviews", label: "Reviews", icon: Star }
-    ]
+    title: "Setup",
+    items: [{ href: "/admin/settings", label: "Settings", icon: Settings }]
   }
 ];
 
@@ -75,18 +71,16 @@ export const ADMIN_AREA_LABELS: Record<string, string> = {
   login: "Sign in",
   products: "Products",
   categories: "Categories",
-  variants: "Variants",
   inventory: "Inventory",
   orders: "Orders",
+  returns: "Returns",
   customers: "Customers",
   coupons: "Coupons",
   reviews: "Reviews",
-  content: "Content",
-  shipping: "Shipping",
   payments: "Payments",
-  reports: "Reports"
+  reports: "Reports",
+  settings: "Settings"
 };
-
 export function isAdminArea(segment: string | undefined): boolean {
   return segment !== undefined && Object.prototype.hasOwnProperty.call(ADMIN_AREA_LABELS, segment);
 }

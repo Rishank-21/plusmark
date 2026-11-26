@@ -412,3 +412,223 @@ export function priceRangeFor(product: Product): { min: number | null; max: numb
 export function heroImageFor(publicId: string): string {
   return imageUrl(publicId, { fit: "fill", width: 1600, height: 1000 });
 }
+
+/* ------------------------------ live overlay ------------------------------ */
+/*
+ * The built-in catalogue above is the starting point. The backend (Supabase) is the authority for what is
+ * published, what things cost and which products exist: prices and visibility edited in the admin, new
+ * products, and new variants are applied on top of it. The server refreshes this about once a minute and
+ * the browser applies the same snapshot, so every sync accessor above keeps working unchanged.
+ */
+
+/** A row as read from the database (products with media, options and variants embedded). */
+export interface LiveRow {
+  slug: string;
+  name: string;
+  category_id: string;
+  series_id: string | null;
+  subcategory_ids: string[] | null;
+  surface: string | null;
+  frame: string | null;
+  corners: string | null;
+  magnetic: boolean;
+  double_sided: boolean;
+  board_type: BoardType;
+  surface_kind: SurfaceKind;
+  usage: string | null;
+  blurb: string | null;
+  description: string | null;
+  features: string[] | null;
+  specs: ProductSpec[] | null;
+  customisation: string | null;
+  video_id: string | null;
+  price_mode: "fixed" | "on_request";
+  gst_rate: number | string;
+  hsn_code: string | null;
+  bulk_suggestion_quantity: number;
+  enquiry_only: boolean;
+  needs_data: boolean;
+  featured: boolean;
+  created_at: string;
+  product_media: { public_id: string; alt: string | null; width: number | null; height: number | null; source: string; sort_order: number }[];
+  product_variants: {
+    sku: string;
+    external_ref: string | null;
+    title: string;
+    options: Record<string, string>;
+    price_mode: "fixed" | "on_request";
+    price_inr: number | string | null;
+    compare_at_inr: number | string | null;
+    stock: number;
+    track_inventory: boolean;
+    allow_backorder: boolean;
+    available: boolean;
+    lead_time_days: number | null;
+    pack_qty: number;
+    sort_order: number;
+    id: string;
+  }[];
+}
+
+export interface LiveCatalog {
+  publishedSlugs: string[];
+  /** Variants of built-in products, keyed by the storefront variant id. */
+  overrides: Record<string, { variants: Record<string, Pick<Variant, "priceInr" | "compareAtInr" | "available" | "stock" | "trackInventory" | "leadTimeDays">>; added: Variant[]; featured: boolean }>;
+  /** Products that exist only in the database. */
+  extra: Product[];
+}
+
+const BASE_SLUGS = new Set(allProducts.map((p) => p.slug));
+const BASE_VARIANT_IDS = new Map(allProducts.map((p) => [p.slug, new Set(p.variants.map((v) => v.id))]));
+const liveExtraSlugs = new Set<string>();
+/** Variants that were added to built-in products by an earlier overlay, so a refresh can remove them first. */
+const liveAddedVariants = new Map<string, Set<string>>();
+
+const asNumber = (value: number | string | null): number | null => (value === null || value === undefined ? null : Number(value));
+
+function variantFromRow(row: LiveRow["product_variants"][number], slug: string): Variant {
+  const label = row.options?.Size ?? row.title;
+  return {
+    id: row.external_ref ?? row.sku,
+    productId: slug,
+    sku: row.sku,
+    size: buildSize(sizeId(label), label),
+    priceMode: row.price_mode === "fixed" && row.price_inr !== null ? "fixed" : "on_request",
+    priceInr: row.price_mode === "fixed" ? asNumber(row.price_inr) : null,
+    compareAtInr: asNumber(row.compare_at_inr),
+    stock: row.track_inventory ? row.stock : null,
+    trackInventory: row.track_inventory,
+    available: row.available && (!row.track_inventory || row.stock > 0 || row.allow_backorder),
+    leadTimeDays: row.lead_time_days,
+    packQty: row.pack_qty > 1 ? row.pack_qty : undefined
+  };
+}
+
+function productFromRow(row: LiveRow): Product {
+  const variants = [...row.product_variants].sort((a, b) => a.sort_order - b.sort_order).map((v) => variantFromRow(v, row.slug));
+  const subject = categoryById.get(row.category_id)?.subject ?? "product";
+  return {
+    id: row.slug,
+    slug: row.slug,
+    name: row.name,
+    categoryId: row.category_id,
+    seriesId: row.series_id,
+    subcategoryIds: row.subcategory_ids ?? [],
+    surface: row.surface,
+    frame: row.frame,
+    corners: row.corners,
+    magnetic: row.magnetic,
+    doubleSided: row.double_sided,
+    boardType: row.board_type,
+    surfaceKind: row.surface_kind,
+    usage: row.usage ?? categoryById.get(row.category_id)?.description ?? "",
+    blurb: row.blurb ?? row.name,
+    description: row.description ?? row.blurb ?? row.name,
+    features: row.features ?? [],
+    specs: row.specs ?? [],
+    customisation: row.customisation,
+    media: [...row.product_media]
+      .sort((a, b) => a.sort_order - b.sort_order)
+      .map((m) => ({
+        publicId: m.public_id,
+        alt: m.alt ?? `${row.name} - ${subject} by Plusmark`,
+        width: m.width ?? 1400,
+        height: m.height ?? 1400,
+        source: (m.source as MediaAsset["source"]) ?? "product"
+      })),
+    videoId: row.video_id,
+    variants,
+    priceMode: variants.every((v) => v.priceMode === "on_request") ? "on_request" : "fixed",
+    gstRatePercent: Number(row.gst_rate),
+    hsnCode: row.hsn_code,
+    minimumOrderQuantity: 1,
+    bulkSuggestionQuantity: row.bulk_suggestion_quantity,
+    enquiryOnly: row.enquiry_only,
+    needsData: row.needs_data,
+    published: true,
+    featured: row.featured,
+    createdAt: row.created_at
+  };
+}
+
+/** Turns the rows into a small snapshot: only what differs from the built-in catalogue. */
+export function buildLiveCatalog(rows: LiveRow[]): LiveCatalog {
+  const overrides: LiveCatalog["overrides"] = {};
+  const extra: Product[] = [];
+  for (const row of rows) {
+    if (!BASE_SLUGS.has(row.slug)) {
+      extra.push(productFromRow(row));
+      continue;
+    }
+    const known = BASE_VARIANT_IDS.get(row.slug) ?? new Set<string>();
+    const entry: LiveCatalog["overrides"][string] = { variants: {}, added: [], featured: row.featured };
+    for (const v of row.product_variants) {
+      const mapped = variantFromRow(v, row.slug);
+      if (known.has(mapped.id)) {
+        entry.variants[mapped.id] = {
+          priceInr: mapped.priceInr,
+          compareAtInr: mapped.compareAtInr,
+          available: mapped.available,
+          stock: mapped.stock,
+          trackInventory: mapped.trackInventory,
+          leadTimeDays: mapped.leadTimeDays
+        };
+      } else {
+        entry.added.push(mapped);
+      }
+    }
+    overrides[row.slug] = entry;
+  }
+  return { publishedSlugs: rows.map((r) => r.slug), overrides, extra };
+}
+
+/** Applies a snapshot to the in-memory catalogue. Safe to call repeatedly; the newest snapshot wins. */
+export function applyLiveCatalog(live: LiveCatalog | null): void {
+  if (!live || live.publishedSlugs.length === 0) return;
+  const published = new Set(live.publishedSlugs);
+
+  // take back anything an earlier snapshot added
+  for (const slug of liveExtraSlugs) {
+    const index = allProducts.findIndex((p) => p.slug === slug);
+    if (index >= 0) allProducts.splice(index, 1);
+  }
+  liveExtraSlugs.clear();
+  for (const [slug, ids] of liveAddedVariants) {
+    const product = allProducts.find((p) => p.slug === slug);
+    if (product) product.variants = product.variants.filter((v) => !ids.has(v.id));
+  }
+  liveAddedVariants.clear();
+
+  for (const product of allProducts) {
+    if (!BASE_SLUGS.has(product.slug)) continue;
+    const entry = live.overrides[product.slug];
+    product.published = published.has(product.slug);
+    if (!entry) continue;
+    product.featured = entry.featured;
+    for (const variant of product.variants) {
+      const o = entry.variants[variant.id];
+      if (!o) {
+        variant.available = false;
+        continue;
+      }
+      variant.priceInr = o.priceInr;
+      variant.priceMode = o.priceInr === null ? "on_request" : "fixed";
+      variant.compareAtInr = o.compareAtInr;
+      variant.available = o.available;
+      variant.stock = o.stock;
+      variant.trackInventory = o.trackInventory;
+      variant.leadTimeDays = o.leadTimeDays;
+    }
+    if (entry.added.length) {
+      product.variants.push(...entry.added);
+      liveAddedVariants.set(product.slug, new Set(entry.added.map((v) => v.id)));
+    }
+    product.priceMode = product.variants.every((v) => v.priceMode === "on_request") ? "on_request" : "fixed";
+  }
+
+  for (const product of live.extra) {
+    allProducts.push(product);
+    liveExtraSlugs.add(product.slug);
+  }
+  products.splice(0, products.length, ...allProducts.filter((p) => p.published));
+}

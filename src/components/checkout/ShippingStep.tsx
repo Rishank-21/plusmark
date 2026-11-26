@@ -64,8 +64,7 @@ export function ShippingStep({
 
       <Notice
         tone="neutral"
-        title="Delivery dates are not published on this page"
-        icon={<Badge tone="neutral">Configurable</Badge>}
+        title="Delivery dates are confirmed with the invoice"
       >
         Lead time depends on the series, the size and whether the consignment is palletised. The works confirms it with
         the invoice. These cards are driven from the same freight table the admin maintains.

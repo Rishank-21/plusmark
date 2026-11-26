@@ -1,3 +1,4 @@
+import { ensureLiveCatalog } from "@/lib/backend/server";
 import type { Metadata } from "next";
 import { collections } from "@/components/static/collection-data";
 import { PageHeader } from "@/components/static/Editorial";
@@ -10,7 +11,8 @@ export const metadata: Metadata = pageMetadata({
   description: "Browse Plusmark by series, board type and format. Every collection is a structural selection from the published catalogue."
 });
 
-export default function CollectionsPage() {
+export default async function CollectionsPage() {
+  await ensureLiveCatalog();
   const items: BrowseCollection[] = collections.map((collection) => {
     const products = collection.select();
     const lead = products.find((product) => product.media.length > 0);

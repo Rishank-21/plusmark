@@ -15,5 +15,7 @@ export default async function TrackOrderPage({
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const params = await searchParams;
-  return <TrackOrderPanel initialReference={typeof params.ref === "string" ? params.ref : ""} />;
+  const ref = typeof params.order === "string" ? params.order : typeof params.ref === "string" ? params.ref : "";
+  const token = typeof params.token === "string" ? params.token : "";
+  return <TrackOrderPanel initialReference={ref} initialToken={token} />;
 }

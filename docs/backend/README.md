@@ -58,8 +58,14 @@ access for categories, products, coupons, carriers and settings (RLS allows only
 * If a payment arrives after the unpaid order expired, the stock is re-taken. If it is gone, the
   order is flagged `needs_attention` and the admin gets an email.
 
-## Not built here
-* Admin web screens and storefront wiring (the frontend still uses dummy data).
-* Rate limiting / captcha for guest checkout (add Cloudflare Turnstile or Supabase CAPTCHA before launch).
+## Also included
+* Admin app (`/admin`): dashboard, orders (filters, export, shipping with tracking, returns, refunds), products (options, variants, photos, compare picks), categories, inventory, coupons, reviews moderation, payments, customers, reports, settings. Needs email + password + authenticator code.
+* Storefront wiring: cart and checkout are priced by the server (`quote_cart`), orders are placed by the `place-order` function (guests too), payments by `create-payment` / `verify-payment`, invoices by the `invoice` function (PDF), tracking by `track_order`.
+* Compare table and "You may also like" follow `product_relations`, set in the product editor.
+* Reviews: only delivered buyers, automatic fraud scoring, moderation queue.
+* Abuse limits: per-network rate limits on checkout, tracking, reviews, quotes; COD and unpaid-order caps.
+
+## Not done yet
+* Guest checkout captcha: the function supports it (`REQUIRE_CAPTCHA=true`) but the checkout page does not show the Turnstile widget yet, so leave it off until that is added.
+* Colour choices are stored on the order line, but stock is tracked per size, not per colour.
 * Automatic courier tracking sync (you update status by hand, as planned).
-* GST invoice PDF (the data is complete: invoice number, HSN, rates, CGST/SGST/IGST per order).

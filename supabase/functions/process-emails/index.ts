@@ -24,13 +24,18 @@ Deno.serve(async (req) => {
   const siteUrl = (Deno.env.get("SITE_URL") ?? "http://localhost:3000").replace(/\/$/, "");
   const db = adminClient();
 
+  const { data: settings } = await db.from("store_settings").select("return_window_days").single();
+  let sent = 0, failed = 0, claimed = 0;
+  const started = Date.now();
+
+  // Keep draining the queue (up to ~100 seconds) so overlapping wake-ups are not needed.
+  while (Date.now() - started < 100_000) {
   const { data: rows, error } = await db.rpc("claim_emails", { p_limit: 20 });
   if (error) return json(req, { error: "claim_failed", message: error.message }, 500);
+  if (!rows?.length) break;
+  claimed += rows.length;
 
-  const { data: settings } = await db.from("store_settings").select("return_window_days").single();
-  let sent = 0, failed = 0;
-
-  for (const row of rows ?? []) {
+  for (const row of rows) {
     try {
       if (!apiKey) {
         await db.rpc("finish_email", { p_id: row.id, p_ok: false, p_error: "RESEND_API_KEY is not set" });
@@ -65,5 +70,6 @@ Deno.serve(async (req) => {
     }
     await sleep(600); // Resend free tier allows 2 requests per second
   }
-  return json(req, { ok: true, claimed: rows?.length ?? 0, sent, failed });
+  }
+  return json(req, { ok: true, claimed, sent, failed });
 });

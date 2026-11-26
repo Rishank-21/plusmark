@@ -185,7 +185,7 @@ export function Header() {
       )}
     >
       <AnnouncementBar />
-      <div className={classNames("border-b border-line/80 bg-surface transition-shadow lg:bg-surface/85 lg:backdrop-blur-md", scrolled && "shadow-card")}>
+      <div className="border-b border-line bg-surface">
         <div className="pm-shell flex h-14 items-center gap-2 max-[359px]:gap-1 lg:h-[4.5rem] lg:gap-7">
           <button
             type="button"
@@ -215,7 +215,7 @@ export function Header() {
               type="button"
               onClick={chrome.openSearch}
               aria-label="Search products"
-              className="flex size-11 shrink-0 items-center justify-center rounded-md text-ink transition-colors hover:bg-primary-soft hover:text-primary-strong lg:hidden"
+              className="flex size-11 shrink-0 items-center justify-center rounded-md text-ink transition-colors hover:bg-subtle lg:hidden"
             >
               <Search className="size-5" aria-hidden />
             </button>
@@ -275,7 +275,7 @@ function HeaderAction({
   hideOnMobile?: boolean;
 }) {
   const className = classNames(
-    "relative flex h-11 items-center justify-center gap-2 rounded-md px-3 text-caption font-medium text-ink transition-colors hover:bg-primary-soft hover:text-primary-strong lg:h-10 lg:px-2.5",
+    "relative flex h-11 items-center justify-center gap-2 rounded-md px-3 text-caption font-medium text-ink transition-colors hover:bg-subtle lg:h-10 lg:px-2.5",
     hideOnMobile && "hidden lg:flex"
   );
   if (href) {
@@ -324,7 +324,7 @@ function NavMenu({ item }: { item: NavItem }) {
         aria-controls={id}
         className={classNames(
           "relative block rounded-xs px-3 py-2 text-body-sm font-medium transition-colors hover:text-ink",
-          open && "bg-primary-soft text-primary-strong",
+          open && "bg-subtle text-ink",
           !open && (active ? "text-ink" : "text-muted")
         )}
       >
@@ -454,7 +454,7 @@ function MegaMenu() {
         onClick={() => setOpen((v) => !v)}
         className={classNames(
           "rounded-xs px-3 py-2 text-body-sm font-medium transition-colors hover:text-ink",
-          open ? "bg-primary-soft text-primary-strong" : "text-ink"
+          open ? "bg-subtle text-ink" : "text-ink"
         )}
       >
         Shop All Boards

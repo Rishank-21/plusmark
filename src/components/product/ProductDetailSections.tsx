@@ -351,7 +351,7 @@ export function ProductDetailSections({
         <>
           <div
             ref={barRef}
-            className={classNames("sticky z-40 hidden bg-surface transition-shadow lg:block", stuck && "shadow-card")}
+            className={classNames("sticky z-40 hidden bg-surface lg:block", stuck && "border-b border-line")}
             style={{ top: headerH }}
           >
             <div className="relative border-b border-line">
@@ -520,7 +520,7 @@ export function ProductDetailSections({
                 key={`${feature.title}-${index}`}
                 className="flex h-full gap-3 rounded-lg border border-line bg-surface p-4 transition-colors hover:border-line-strong"
               >
-                <span className="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full bg-primary-soft text-primary-strong">
+                <span className="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-md border border-line bg-subtle text-ink">
                   <Check className="size-3.5" strokeWidth={1.75} aria-hidden />
                 </span>
                 <div className="min-w-0">
@@ -697,10 +697,10 @@ export function ProductDetailSections({
                           }}
                           aria-pressed={selected}
                           className={classNames(
-                            "h-11 rounded-full border px-3.5 text-[0.8125rem] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary lg:h-8",
+                            "h-11 rounded-md border px-3.5 text-[0.8125rem] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary lg:h-8",
                             selected
                               ? "border-primary bg-primary text-onprimary"
-                              : "border-line-strong bg-surface text-ink hover:border-primary hover:text-primary-strong"
+                              : "border-line-strong bg-surface text-ink hover:border-ink/45 hover:bg-subtle"
                           )}
                         >
                           {selected ? "Selected" : "Select"}
@@ -739,7 +739,7 @@ export function ProductDetailSections({
                   className="flex h-full flex-col rounded-lg border border-line bg-surface p-5 transition-colors hover:border-line-strong"
                 >
                   <div className="flex items-center gap-3">
-                    <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-primary-soft text-primary-strong">
+                    <span className="flex size-10 shrink-0 items-center justify-center rounded-md border border-line bg-subtle text-ink">
                       <Icon className="size-[1.125rem]" strokeWidth={1.75} aria-hidden />
                     </span>
                     <h3 className="font-display text-body font-bold text-ink">{card.title}</h3>
@@ -783,7 +783,7 @@ export function ProductDetailSections({
                   key={application.title}
                   className="flex h-full gap-3 rounded-lg border border-line bg-surface p-4 transition-colors hover:border-line-strong"
                 >
-                  <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-primary-soft text-primary-strong">
+                  <span className="flex size-10 shrink-0 items-center justify-center rounded-md border border-line bg-subtle text-ink">
                     <Icon className="size-5" strokeWidth={1.75} aria-hidden />
                   </span>
                   <div className="min-w-0">

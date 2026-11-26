@@ -15,7 +15,7 @@ import { useWishlist } from "@/state/wishlist";
 import { useState } from "react";
 import type { Product } from "@/types";
 
-const CARD = "rounded-[12px] border border-line bg-surface shadow-card";
+const CARD = "rounded-md border border-line bg-surface";
 
 export function WishlistView({ inAccount = false }: { inAccount?: boolean }) {
   const wishlist = useWishlist();
@@ -73,7 +73,7 @@ export function WishlistView({ inAccount = false }: { inAccount?: boolean }) {
             )}
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {products.map((product) => (
-                <article key={product.slug} className={`${CARD} group flex flex-col overflow-hidden transition-shadow duration-200 hover:shadow-lift`}>
+                <article key={product.slug} className={`${CARD} group flex flex-col overflow-hidden transition-colors hover:border-line-strong`}>
                   <LinkCardImage product={product} />
                   <div className="flex flex-1 flex-col gap-1 px-4 pb-3 pt-3">
                     <LinkCardName product={product} />
@@ -158,7 +158,7 @@ function LinkCardImage({ product }: { product: Product }) {
         name={product.name}
         categoryId={product.categoryId}
         sizes="(max-width: 639px) 90vw, (max-width: 1023px) 45vw, 30vw"
-        className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-[1.02]"
+        className="h-full w-full object-contain"
       />
     </Link>
   );
@@ -166,7 +166,7 @@ function LinkCardImage({ product }: { product: Product }) {
 
 function LinkCardName({ product }: { product: Product }) {
   return (
-    <Link href={`/product/${product.slug}`} className="line-clamp-2 text-body-sm font-semibold text-ink transition-colors hover:text-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
+    <Link href={`/product/${product.slug}`} className="line-clamp-2 text-body-sm font-semibold text-ink underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
       {product.name}
     </Link>
   );

@@ -1,3 +1,4 @@
+import { ensureLiveCatalog } from "@/lib/backend/server";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Listing } from "@/components/commerce/Listing";
@@ -17,6 +18,7 @@ export async function generateMetadata({
 }: {
   params: Promise<{ category: string }>;
 }): Promise<Metadata> {
+  await ensureLiveCatalog();
   const { category: slug } = await params;
   const category = getCategory(slug);
   if (!category) return {};
@@ -34,6 +36,7 @@ export default async function CategoryPage({
   params: Promise<{ category: string }>;
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
+  await ensureLiveCatalog();
   const { category: slug } = await params;
   const category = getCategory(slug);
   if (!category) notFound();

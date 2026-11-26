@@ -1,225 +1,190 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { KeyRound, ShieldCheck, ShieldX, UserRoundX } from "lucide-react";
-import { useSession } from "@/state/session";
+import { Suspense, useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { KeyRound, ShieldCheck } from "lucide-react";
+import { Button } from "@/components/ui/Button";
+import { TextField } from "@/components/ui/Field";
+import { Notice } from "@/components/ui/States";
 import { getSupabaseBrowserClient } from "@/lib/supabase/client";
 import { validateEmail } from "@/lib/validation";
-import { Button } from "@/components/ui/Button";
-import { Notice } from "@/components/ui/States";
-import { TextField } from "@/components/ui/Field";
+import { useSession } from "@/state/session";
 
-type Result = { tone: "none" } | { tone: "error"; message: string } | { tone: "success" };
+type Step = "password" | "enroll" | "code";
 
-export default function AdminLoginPage() {
-  const { adminSignedIn, account, accountLoading, refreshAccount } = useSession();
+function AdminLogin() {
   const router = useRouter();
+  const params = useSearchParams();
+  const session = useSession();
+  const next = params.get("next")?.startsWith("/admin") ? (params.get("next") as string) : "/admin";
+  const [step, setStep] = useState<Step>("password");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [emailError, setEmailError] = useState<string | null>(null);
-  const [passwordError, setPasswordError] = useState<string | null>(null);
-  const [result, setResult] = useState<Result>({ tone: "none" });
-  const [submitting, setSubmitting] = useState(false);
-  const [denied, setDenied] = useState(false);
-  const [nextPath, setNextPath] = useState("/admin");
+  const [code, setCode] = useState("");
+  const [factorId, setFactorId] = useState("");
+  const [enroll, setEnroll] = useState<{ secret: string; qr: string } | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [busy, setBusy] = useState(false);
 
+  const supabase = getSupabaseBrowserClient();
+
+  // Already signed in with a password (for example redirected here for the code): go straight to the code step.
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    setDenied(params.get("denied") === "1");
-    const next = params.get("next");
-    if (next && next.startsWith("/admin")) setNextPath(next);
-  }, []);
+    if (!supabase || step !== "password") return;
+    void (async () => {
+      const { data } = await supabase.auth.getSession();
+      if (!data.session) return;
+      const level = await supabase.auth.mfa.getAuthenticatorAssuranceLevel();
+      if (level.data?.currentLevel === "aal2") {
+        router.replace(next);
+        return;
+      }
+      await proceedAfterPassword();
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [supabase]);
 
-  const submit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    if (submitting) return;
-    setResult({ tone: "none" });
-    setDenied(false);
-
-    const cleanEmail = email.trim().toLowerCase();
-    const nextEmailError = cleanEmail ? validateEmail(cleanEmail) : "Enter the email of the person operating this desk.";
-    const nextPasswordError = password ? null : "Enter your account password.";
-    setEmailError(nextEmailError);
-    setPasswordError(nextPasswordError);
-    if (nextEmailError || nextPasswordError) return;
-
-    const supabase = getSupabaseBrowserClient();
-    if (!supabase) {
-      setResult({ tone: "error", message: "Accounts are not connected in this build. Add the Supabase keys to .env.local." });
-      return;
-    }
-
-    setSubmitting(true);
-    const { data, error } = await supabase.auth.signInWithPassword({ email: cleanEmail, password });
-    if (error || !data.user) {
-      setSubmitting(false);
-      setPasswordError(
-        error?.message?.toLowerCase().includes("invalid login")
-          ? "That email and password do not match an account."
-          : error?.message || "Sign in failed. Try again."
-      );
-      return;
-    }
-
-    const { data: profile, error: profileError } = await supabase
-      .from("profiles")
-      .select("role")
-      .eq("id", data.user.id)
-      .maybeSingle();
-
-    if (profileError || profile?.role !== "admin") {
+  async function proceedAfterPassword() {
+    if (!supabase) return;
+    const { data: user } = await supabase.auth.getUser();
+    if (!user.user) return;
+    const { data: profile } = await supabase.from("profiles").select("role").eq("id", user.user.id).maybeSingle();
+    if (profile?.role !== "admin") {
       await supabase.auth.signOut();
-      setSubmitting(false);
-      setResult({
-        tone: "error",
-        message: "This account exists but does not have administrator rights. Sign in with an administrator account."
-      });
+      setError("This account is not an administrator.");
+      setStep("password");
       return;
     }
-
-    await refreshAccount();
-    setResult({ tone: "success" });
-    router.replace(nextPath);
-    router.refresh();
-  };
-
-  if (accountLoading) {
-    return (
-      <div className="mx-auto max-w-page px-4 py-12 sm:px-6" role="status" aria-live="polite">
-        <span className="sr-only">Checking your session</span>
-        <div className="h-8 w-48 animate-pulse rounded-xs bg-sand" />
-      </div>
-    );
+    const factors = await supabase.auth.mfa.listFactors();
+    const verified = factors.data?.totp?.find((f) => f.status === "verified");
+    if (verified) {
+      setFactorId(verified.id);
+      setStep("code");
+      return;
+    }
+    // first sign-in for this admin: set up the authenticator app
+    for (const stale of factors.data?.all ?? []) {
+      if (stale.status === "unverified") await supabase.auth.mfa.unenroll({ factorId: stale.id });
+    }
+    const created = await supabase.auth.mfa.enroll({ factorType: "totp", friendlyName: "Plusmark admin" });
+    if (created.error || !created.data) {
+      setError(created.error?.message ?? "Could not start authenticator setup.");
+      return;
+    }
+    setFactorId(created.data.id);
+    setEnroll({ secret: created.data.totp.secret, qr: created.data.totp.qr_code });
+    setStep("enroll");
   }
 
-  if (adminSignedIn) {
-    return (
-      <div className="mx-auto flex max-w-page flex-col gap-4 px-4 py-12 sm:px-6">
-        <h1 className="font-display text-h2 leading-tight">Already signed in</h1>
-        <p className="max-w-reading text-body-sm text-graphite">
-          This browser holds an administrator session{account ? ` for ${account.email}` : ""}. Open the dashboard, or sign
-          out first to switch accounts.
-        </p>
-        <div>
-          <Link href="/admin" className="pm-link text-body-sm font-medium">
-            Open the admin dashboard
-          </Link>
-        </div>
-      </div>
-    );
+  async function signIn(event: React.FormEvent) {
+    event.preventDefault();
+    setError(null);
+    const emailError = validateEmail(email);
+    if (emailError || !password) {
+      setError(emailError ?? "Enter your password.");
+      return;
+    }
+    if (!supabase) {
+      setError("The backend is not configured.");
+      return;
+    }
+    setBusy(true);
+    try {
+      const { error: signError } = await supabase.auth.signInWithPassword({ email: email.trim().toLowerCase(), password });
+      if (signError) {
+        setError("Those details did not match an account.");
+        return;
+      }
+      await proceedAfterPassword();
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function verify(event: React.FormEvent) {
+    event.preventDefault();
+    setError(null);
+    if (!supabase) return;
+    if (!/^\d{6}$/.test(code.trim())) {
+      setError("Enter the 6 digit code from your authenticator app.");
+      return;
+    }
+    setBusy(true);
+    try {
+      const { error: verifyError } = await supabase.auth.mfa.challengeAndVerify({ factorId, code: code.trim() });
+      if (verifyError) {
+        setError("That code was not accepted. Wait for a new code and try again.");
+        setCode("");
+        return;
+      }
+      // Make sure the new (aal2) tokens are in the cookies before the server checks them on the next page.
+      await supabase.auth.refreshSession();
+      await session.refreshAccount();
+      await supabase.auth.getSession();
+      // Give the browser a moment to write the new cookies, otherwise the server still sees the old level and bounces back here.
+      await new Promise((resolve) => setTimeout(resolve, 800));
+      window.location.assign(next);
+    } finally {
+      setBusy(false);
+    }
   }
 
   return (
-    <div className="mx-auto grid max-w-page gap-8 px-4 py-8 sm:px-6 sm:py-12 lg:grid-cols-[minmax(0,26rem)_minmax(0,1fr)]">
-      <div className="flex min-w-0 flex-col gap-5">
-        <div className="flex flex-col gap-2">
-          <p className="pm-eyebrow">Plusmark · internal</p>
-          <h1 className="font-display text-h1 leading-tight">Admin sign in</h1>
-          <p className="max-w-reading text-body-sm text-graphite">
-            The administration desk for catalogue, orders and site settings. Sign in with an account that holds the
-            administrator role.
-          </p>
+    <div className="mx-auto max-w-md px-4 py-12 sm:px-6">
+      <div className="flex flex-col gap-4 rounded-md border border-line bg-surface p-6 shadow-card">
+        <div className="flex items-center gap-3">
+          {step === "password" ? <KeyRound className="size-6 text-primary" aria-hidden /> : <ShieldCheck className="size-6 text-primary" aria-hidden />}
+          <h1 className="font-display text-h2 font-extrabold text-ink">Admin sign in</h1>
         </div>
 
-        {denied && (
-          <Notice tone="warning" title="Administrator rights required" icon={<ShieldX className="size-4" aria-hidden />}>
-            That account is signed in as a customer. Use an administrator account, or ask an existing administrator to
-            grant the role.
+        {params.get("denied") && (
+          <Notice tone="danger" title="Not an administrator">
+            That account does not have admin access.
           </Notice>
         )}
 
-        {account && (
-          <Notice tone="warning" title="A customer account is signed in" icon={<UserRoundX className="size-4" aria-hidden />}>
-            This browser is signed in as <span className="font-medium text-ink">{account.email}</span>, which is not an
-            administrator. Signing in below replaces that session.
-          </Notice>
+        {step === "password" && (
+          <form onSubmit={signIn} noValidate className="flex flex-col gap-3">
+            <TextField label="Email" type="email" autoComplete="username" value={email} onChange={(e) => setEmail(e.target.value)} required />
+            <TextField label="Password" type="password" autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+            {error && <p role="alert" className="text-body-sm font-medium text-danger">{error}</p>}
+            <Button type="submit" loading={busy} disabled={busy}>Continue</Button>
+            <p className="text-caption text-muted">Next you will be asked for the 6 digit code from your authenticator app.</p>
+          </form>
         )}
 
-        {result.tone === "error" && (
-          <Notice tone="danger" title="Sign in failed">
-            {result.message}
-          </Notice>
+        {step === "enroll" && enroll && (
+          <form onSubmit={verify} noValidate className="flex flex-col gap-3">
+            <p className="text-body-sm text-ink">
+              Set up your authenticator app once. Scan this code with Google Authenticator, Authy or 1Password, or type the key in.
+            </p>
+            {/* The QR image comes from Supabase as an SVG data URL. */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={enroll.qr} alt="Authenticator QR code" className="mx-auto size-44 rounded-sm border border-line bg-white p-2" />
+            <p className="break-all rounded-sm bg-subtle p-2 text-center font-mono text-caption text-ink">{enroll.secret}</p>
+            <TextField label="6 digit code" inputMode="numeric" autoComplete="one-time-code" maxLength={6} value={code} onChange={(e) => setCode(e.target.value.replace(/\D/g, ""))} />
+            {error && <p role="alert" className="text-body-sm font-medium text-danger">{error}</p>}
+            <Button type="submit" loading={busy} disabled={busy}>Finish setup</Button>
+          </form>
         )}
 
-        {result.tone === "success" && (
-          <Notice tone="success" title="Administrator session opened" icon={<ShieldCheck className="size-4" aria-hidden />}>
-            Opening the dashboard.
-          </Notice>
+        {step === "code" && (
+          <form onSubmit={verify} noValidate className="flex flex-col gap-3">
+            <p className="text-body-sm text-ink">Enter the 6 digit code from your authenticator app.</p>
+            <TextField label="6 digit code" inputMode="numeric" autoComplete="one-time-code" maxLength={6} autoFocus value={code} onChange={(e) => setCode(e.target.value.replace(/\D/g, ""))} />
+            {error && <p role="alert" className="text-body-sm font-medium text-danger">{error}</p>}
+            <Button type="submit" loading={busy} disabled={busy}>Verify and open admin</Button>
+          </form>
         )}
-
-        <form onSubmit={submit} noValidate className="flex flex-col gap-4 rounded-sm border border-hair bg-surface p-5">
-          <TextField
-            label="Admin email"
-            type="email"
-            name="email"
-            autoComplete="email"
-            inputMode="email"
-            value={email}
-            error={emailError}
-            onChange={(event) => {
-              setEmail(event.target.value);
-              if (emailError) setEmailError(null);
-            }}
-            placeholder="you@plusmark.in"
-            required
-          />
-          <TextField
-            label="Password"
-            type="password"
-            name="password"
-            autoComplete="current-password"
-            value={password}
-            error={passwordError}
-            onChange={(event) => {
-              setPassword(event.target.value);
-              if (passwordError) setPasswordError(null);
-            }}
-            required
-          />
-          <Button type="submit" fullWidth disabled={submitting}>
-            <KeyRound className="size-4" aria-hidden />
-            {submitting ? "Signing in…" : "Sign in to admin"}
-          </Button>
-          <p className="text-[0.6875rem] leading-relaxed text-graphite-light">
-            Access is decided by the <span className="font-medium">profiles.role</span> column in Postgres and enforced
-            by row-level security. The browser cannot grant itself administrator rights.
-          </p>
-        </form>
-
-        <div className="flex items-center gap-3 text-caption text-graphite">
-          <Link href="/" className="pm-link">
-            Back to storefront
-          </Link>
-        </div>
       </div>
-
-      <aside className="flex min-w-0 flex-col gap-4 rounded-sm border border-hair bg-sand/35 p-5">
-        <div className="flex items-center gap-2">
-          <h2 className="font-display text-h3 leading-tight">What this desk contains</h2>
-        </div>
-        <p className="text-body-sm text-graphite">
-          Catalogue, stock, customer orders and storefront settings for the Plusmark retail store.
-        </p>
-        <dl className="flex flex-col divide-y divide-hair border-t border-hair">
-          {[
-            ["Catalogue", "Products, series, categories, sizes and SKUs saved in Supabase."],
-            ["Orders", "Customer orders with status transitions and payment state."],
-            ["Customers", "Registered accounts, their saved addresses and order history."],
-            ["Site", "Announcement, shipping methods, coupons and review moderation."]
-          ].map(([term, definition]) => (
-            <div key={term} className="flex flex-col gap-0.5 py-2.5">
-              <dt className="text-caption font-medium uppercase tracking-[0.1em] text-ink">{term}</dt>
-              <dd className="text-caption text-graphite">{definition}</dd>
-            </div>
-          ))}
-        </dl>
-        <p className="border-t border-hair pt-3 text-[0.6875rem] leading-relaxed text-graphite">
-          Orders placed in this browser are stored locally until checkout is connected to the server; they appear in the
-          Orders screen alongside server orders.
-        </p>
-      </aside>
     </div>
+  );
+}
+
+export default function AdminLoginPage() {
+  return (
+    <Suspense fallback={null}>
+      <AdminLogin />
+    </Suspense>
   );
 }

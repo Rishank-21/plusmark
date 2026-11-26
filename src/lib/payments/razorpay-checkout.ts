@@ -1,4 +1,4 @@
-import { requireSupabaseBrowserClient } from "@/lib/supabase/client";
+import { callBackendFunction, guestTokenFor } from "@/lib/supabase/account";
 
 interface RazorpayHandlerResponse {
   razorpay_payment_id: string;
@@ -22,23 +22,21 @@ declare global {
 }
 
 interface CreatedPayment {
-  keyId: string;
-  razorpayOrderId: string;
+  key_id: string;
+  razorpay_order_id: string;
   amount: number;
   currency: string;
-  reference: string;
+  order_number: string;
   name: string;
   description: string;
   prefill: { name: string; email: string; contact: string };
 }
-
 interface VerifiedPayment {
   ok: boolean;
-  orderId: string;
+  order_number: string;
+  /** Kept so existing callers can read the order number as `reference`. */
   reference: string;
-  paymentStatus: string;
 }
-
 let scriptPromise: Promise<void> | null = null;
 
 function loadCheckout(): Promise<void> {
@@ -60,25 +58,13 @@ function loadCheckout(): Promise<void> {
   return scriptPromise;
 }
 
-async function accessToken(): Promise<string> {
-  const supabase = requireSupabaseBrowserClient();
-  const { data } = await supabase.auth.getSession();
-  const token = data.session?.access_token;
-  if (!token) throw new Error("Sign in again to pay online.");
-  return token;
-}
-
-async function post<T>(path: string, body: unknown, token: string): Promise<T> {
-  const response = await fetch(path, {
-    method: "POST",
-    headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-    body: JSON.stringify(body)
-  });
-  const data = (await response.json().catch(() => null)) as (T & { error?: string }) | null;
-  if (!response.ok) throw new Error(data?.error ?? "The payment request was rejected.");
+async function post<T>(name: string, body: Record<string, unknown>): Promise<T> {
+  const { status, data } = await callBackendFunction<T & { message?: string; error?: string }>(name, body);
+  if (status >= 400) {
+    throw new Error(data?.message ?? data?.error ?? "The payment request was rejected.");
+  }
   return data as T;
 }
-
 export type PaymentResult = "paid" | "dismissed";
 
 /**
@@ -90,8 +76,8 @@ export async function startRazorpayCheckout(input: {
   orderId: string;
   onPaid: (result: VerifiedPayment) => void;
 }): Promise<PaymentResult> {
-  const token = await accessToken();
-  const created = await post<CreatedPayment>("/api/payments/razorpay/order", { orderId: input.orderId }, token);
+  const guestToken = guestTokenFor(input.orderId);
+  const created = await post<CreatedPayment>("create-payment", { order_id: input.orderId, guest_token: guestToken });
   await loadCheckout();
 
   return new Promise<PaymentResult>((resolve, reject) => {
@@ -114,12 +100,12 @@ export async function startRazorpayCheckout(input: {
     }
 
     const checkout = new Razorpay({
-      key: created.keyId,
+      key: created.key_id,
       amount: created.amount,
       currency: created.currency,
       name: created.name,
       description: created.description,
-      order_id: created.razorpayOrderId,
+      order_id: created.razorpay_order_id,
       prefill: created.prefill,
       theme: { color: "#17324F" },
       modal: {
@@ -128,17 +114,14 @@ export async function startRazorpayCheckout(input: {
       handler: (response: RazorpayHandlerResponse) => {
         void (async () => {
           try {
-            const verified = await post<VerifiedPayment>(
-              "/api/payments/razorpay/verify",
-              {
-                orderId: input.orderId,
-                razorpay_order_id: response.razorpay_order_id,
-                razorpay_payment_id: response.razorpay_payment_id,
-                razorpay_signature: response.razorpay_signature
-              },
-              token
-            );
-            input.onPaid(verified);
+            const verified = await post<VerifiedPayment>("verify-payment", {
+              order_id: input.orderId,
+              guest_token: guestToken,
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature: response.razorpay_signature
+            });
+            input.onPaid({ ...verified, reference: verified.order_number });
             finish("paid");
           } catch (reason) {
             fail(reason instanceof Error ? reason : new Error("The payment could not be verified."));

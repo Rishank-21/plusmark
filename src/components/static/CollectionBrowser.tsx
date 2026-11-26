@@ -84,7 +84,7 @@ export function CollectionBrowser({ items }: { items: BrowseCollection[] }) {
                         name={collection.productName}
                         categoryId={collection.categoryId}
                         sizes="(max-width: 639px) 46vw, (max-width: 1023px) 31vw, 23vw"
-                        className="size-full object-contain p-3 transition-transform duration-500 group-hover:scale-[1.03]"
+                        className="size-full object-contain p-3"
                       />
                     )}
                   </div>

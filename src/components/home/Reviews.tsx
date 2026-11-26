@@ -41,7 +41,7 @@ export function Reviews() {
 
         <div className="no-scrollbar -mx-md mt-5 flex snap-x snap-mandatory scroll-pl-md gap-3 overflow-x-auto px-md pb-1 sm:mx-0 sm:mt-10 sm:grid sm:scroll-pl-0 sm:grid-cols-2 sm:gap-5 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-3">
           {customerReviews.map((review) => (
-            <figure key={review.id} className="flex h-full w-[86%] shrink-0 snap-start flex-col rounded-xl border border-line bg-surface p-5 shadow-card sm:w-auto sm:p-6">
+            <figure key={review.id} className="flex h-full w-[86%] shrink-0 snap-start flex-col rounded-md border border-line bg-surface p-5 sm:w-auto sm:p-6">
               <Stars className="flex items-center gap-1 text-rating" />
               <blockquote className="mt-3 line-clamp-4 flex-1 text-body-sm leading-relaxed text-ink sm:text-body">“{review.quote}”</blockquote>
               <figcaption className="mt-3 text-caption text-muted">

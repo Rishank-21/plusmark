@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { listActiveCoupons } from "@/lib/supabase/admin";
+import { fetchPublicCoupons } from "@/lib/backend/storefront";
 import type { Coupon } from "@/types";
 
 /**
@@ -21,7 +21,7 @@ async function load() {
   state = "loading";
   emit();
   try {
-    coupons = await listActiveCoupons();
+    coupons = await fetchPublicCoupons();
     state = "ready";
   } catch {
     coupons = [];

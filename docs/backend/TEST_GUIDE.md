@@ -1,257 +1,166 @@
-# Test guide (local, nothing touches your live Supabase project)
+# Test guide (local only, your live Supabase project is not touched)
 
-You do these steps first. When you are done, tell me what worked and what did not. I will then run
-the full automated test and fix problems.
-
+You test. Tell me for each numbered step: **worked**, or the exact message or what looked wrong.
 Open PowerShell in `c:\Users\palha\plusmark`. Docker Desktop must be running.
 
-## 0. Start everything (3 terminals)
+## 0. Start everything
 
 ```powershell
-# Terminal 1: database, auth, API, Studio
-npm run backend:start
-# Terminal 2: payment and email functions (leave running)
-npm run backend:functions
-# Terminal 3: your tests. First, one time after every database reset:
-npm run backend:sync-config
+npm run backend:start          # database, auth, API, Studio   (terminal 1)
+npm run backend:functions      # payments, emails, invoice      (terminal 2, leave open)
+npm run backend:sync-config    # once after every database reset
+npm run backend:import         # loads your real storefront catalogue (boards) into the database
+npm run dev                    # the website on http://localhost:3000 (terminal 3)
 ```
+
+`npm run dev` uses the **local** backend because of `.env.development.local` (already created, git-ignored).
+Your live project settings in `.env.local` are not used in dev.
 
 | What | URL |
 |---|---|
-| API | http://127.0.0.1:55321 |
+| Website | http://localhost:3000 |
+| Admin | http://localhost:3000/admin |
 | Studio (tables, SQL) | http://127.0.0.1:55323 |
-| Auth emails inbox (signup / reset mails) | http://127.0.0.1:55324 |
+| Auth emails inbox | http://127.0.0.1:55324 |
 
-Razorpay test keys and the Resend key are read from `supabase/functions/.env.local`.
-While your Resend domain is unverified, Resend only delivers to the email you registered with, so
-use that address as the customer email below.
+Start from clean data any time: `npm run backend:reset`, then `backend:sync-config`, then `backend:import`.
 
-Clean data any time: `npm run backend:reset`, then `npm run backend:sync-config` again.
+Notes before you start
+* Prices on the site are **GST extra** ("+ GST"), as the product page says. Change this in Admin > Settings if you want GST-inclusive prices.
+* Resend only delivers to the email you signed up with until you verify a domain. Use that address as the customer email, otherwise emails show as "failed" in Admin > Settings > Email log (that is expected).
+* The import brings your 69 board products with their sizes. Prices are the storefront's demo rate card until you edit them in the admin.
 
-Paste this helper once in the terminal:
-
-```powershell
-function sb { node scripts/backend/cli.mjs @args }
-```
-`sb rpc <function>` calls a database function, `sb table <name>` reads a table, `sb fn <name>` calls
-an edge function. JSON is piped in with a trailing `-`.
-
-## 1. Products, attributes and variants
-
-1. Studio > Table editor > `products`: 6 products (bottle, tawa, notebook, gel pens, container set, custom diaries).
-2. `product_variants`: the bottle has 9 variants (3 sizes x 3 colours) priced 349 / 449 / 549 by size.
-   The notebook has 9 (3 covers x 3 rulings). Gel pens have 3 pack sizes with their own prices.
-3. As a guest:
-   ```powershell
-   sb table product_listing --select "slug,name,min_price_inr,max_price_inr,in_stock,cover_image"
-   ```
-   The diaries show no price (enquiry only).
-4. A guest must not see private data. Both of these must return `[]` or an error:
-   ```powershell
-   sb table orders
-   sb table coupons
-   ```
-
-## 2. Admin account with TOTP
+## 1. Create your admin account (one time)
 
 ```powershell
 npm run backend:admin -- --email admin@plusmark.test --password "Plusmark#Admin1"
 ```
-It prints a secret key and writes `.work\admin-totp-qr.svg`. Open that file, scan it with Google
-Authenticator or Authy (or type the secret in), then enter the 6 digit code.
+It prints a secret key and writes `.work\admin-totp-qr.svg`. Scan that file with Google Authenticator or Authy and enter the 6 digit code.
 
-Check the lock:
-```powershell
-$A = @('--email','admin@plusmark.test','--password','Plusmark#Admin1')
-sb rpc admin_dashboard @A              # password only: must say TOTP verification required
-sb rpc admin_dashboard @A --code 123456   # use the current code from your app: must return numbers
-```
-Codes last 30 seconds. Use a fresh code in every admin command below.
+## 2. Admin sign in with the authenticator code
 
-## 3. Product create / edit / delete (admin)
+1. Open http://localhost:3000/admin. You are sent to the sign in page.
+2. Email and password, then Continue. A second box asks for the **6 digit code**.
+3. Try opening http://localhost:3000/admin/orders now without the code: you must be sent back to the sign in page.
+4. A wrong code is refused. The right code opens the dashboard.
+5. A normal customer account (create one on the site) must see "not an administrator" at /admin/login.
 
-Create a product with Size, Colour and a custom option, then generate every combination:
+## 3. Storefront: compare section and related products (controlled from the admin)
 
-```powershell
-'{ "slug":"steel-lunch-box","name":"Steel Lunch Box","category_id":"kitchen","gst_rate":18,"hsn_code":"7323","published":false,
-   "blurb":"3 compartment lunch box",
-   "options":[
-     {"name":"Size","kind":"size","values":["Small","Large"]},
-     {"name":"Color","kind":"color","values":[{"value":"Silver","swatch_hex":"#c0c0c0"},{"value":"Blue","swatch_hex":"#1d4ed8"}]},
-     {"name":"Lid","kind":"custom","values":["Plain","Printed"]}
-   ]}' | sb rpc admin_upsert_product @A --code 123456 -
-```
-Copy the returned id:
-```powershell
-$p = "<paste id>"
-"{`"p_product_id`":`"$p`",`"p_base_price_inr`":299,`"p_price_by_value`":{`"Size`":{`"Small`":299,`"Large`":399}},`"p_stock`":20}" | sb rpc admin_generate_variants @A --code 123456 -
-```
-Expect `8` (2 x 2 x 2). In Studio > `product_variants`, Small variants cost 299 and Large 399.
-Publish and edit, then archive and restore:
-```powershell
-"{`"id`":`"$p`",`"published`":true,`"blurb`":`"Updated blurb`"}" | sb rpc admin_upsert_product @A --code 123456 -
-"{`"p_product_id`":`"$p`"}" | sb rpc admin_delete_product @A --code 123456 -
-"{`"p_product_id`":`"$p`"}" | sb rpc admin_restore_product @A --code 123456 -
-```
-While archived, the product must not appear in `product_listing` for a guest.
+1. Admin > Products > open "Metallic Premium White Board" > section **Compare and suggestions**.
+2. Under "Compare with similar products" add 2 or 3 other boards, reorder with the arrows, Save product.
+3. Open http://localhost:3000/product/metallic-premium-white-board and scroll down. The comparison table now shows exactly those products in that order. (The page refreshes within about a minute.)
+4. Remove all picks, save: the table goes back to the automatic choice.
+5. "You may also like": add picks the same way. Picks come first, then products customers bought together fill the rest.
 
-Stock (pick a variant id in Studio):
-```powershell
-'{"p_variant_id":"<variant id>","p_delta":10,"p_reason":"purchase","p_note":"new batch"}' | sb rpc admin_adjust_stock @A --code 123456 -
-```
-`inventory_movements` must show the entry.
+## 4. Storefront: cart, coupons, GST
 
-## 4. Prices, GST and coupons (as a guest)
+1. Add a board to the cart. Cart page shows subtotal, GST and delivery from the server.
+2. Apply `WELCOME10` (first order, 10 percent, max Rs 200) and `FLAT100`. A wrong code shows a clear message.
+3. Admin > Coupons > New coupon: make a code for **specific people** (type their email). Try it in the cart with that email signed in or typed at checkout, and with a different email: it must refuse the other person.
+4. At checkout choose a state in Gujarat, then another state: Gujarat shows CGST+SGST, other states show IGST, and the delivery charge follows Admin > Settings > "Delivery charge by state".
 
-```powershell
-$v = (sb table product_variants --select id --filter "sku=eq.CONT-SET-3" | ConvertFrom-Json)[0].id
-"{`"p_items`":[{`"variant_id`":`"$v`",`"quantity`":2}],`"p_state`":`"Gujarat`"}" | sb rpc quote_cart -
-```
-Container set costs Rs 499 with 18% GST included. Check for 2 pieces to Gujarat (the seller's state):
-subtotal 998, shipping 40, `cgst` = `sgst`, `igst` 0.
-* State `Maharashtra`: `igst` is filled, `cgst`/`sgst` are 0, shipping 60.
-* 3 pieces (1497): shipping becomes 0 (free above 999).
+## 5. Guest checkout, cash on delivery
 
-Coupons: add `"p_coupon":"CODE"` to the call.
-* `FLAT100`: needs Rs 999 or more (use 3 pieces), takes Rs 100 off.
-* `WELCOME10`: first orders only, 10%, max Rs 200, minimum Rs 499.
-* `FREESHIP`: removes shipping.
-* `VIP20`: "not available for your account" for a guest. Works with `"p_email":"vip@example.com"`.
-* `STATIONERY15`: nothing on kitchen items, 15% on stationery items.
-* A wrong code gives a clear message and the cart still prices.
+1. Cart > Checkout without signing in. Fill the form, choose Cash on delivery, Place order.
+2. The confirmation shows an order number like `PM-2611-1001`. You get an email with that number.
+3. Open the tracking link from the email (or Track an order with number + email). Wrong email must not show the order.
 
-## 5. A real online payment (Razorpay test mode)
+## 6. Real online payment (Razorpay test mode)
 
-Place the order (use the email you registered on Resend):
-```powershell
-$order = @"
-{"p_items":[{"variant_id":"$v","quantity":1}],"p_email":"YOUR_RESEND_EMAIL","p_phone":"9876543210","p_customer_name":"Test Buyer",
- "p_shipping_address":{"recipientName":"Test Buyer","phone":"9876543210","line1":"12 Test Street","city":"Ahmedabad","state":"Gujarat","pincode":"380001"},
- "p_payment_method":"razorpay"}
-"@
-$order | sb rpc place_order -
-```
-Copy `order_id` and `guest_token` from the result, then run `node scripts/backend/pay-server.mjs` and
-open `http://localhost:4010/?order=<order_id>&token=<guest_token>`. Razorpay Checkout opens. Pay with
-test card `4111 1111 1111 1111` (any future date, any CVV, OTP `1234`) or test UPI `success@razorpay`.
+1. Checkout as a guest or signed in, choose Pay online, Pay. Razorpay opens.
+2. Test card `4111 1111 1111 1111`, any future date and CVV, OTP `1234` (or UPI `success@razorpay`).
+3. You land on the confirmation page, the order is `confirmed` and **paid**, an invoice number exists, you get the confirmation email.
+4. Close the Razorpay window without paying: the order stays "payment pending" and shows a **Pay now** button on the order page. It is auto-cancelled and the stock returned after 60 minutes.
+5. Try paying twice or reloading after paying: still one payment.
+6. Customer page > order > **GST invoice (PDF)**: a proper tax invoice opens (CGST/SGST or IGST, HSN, amount in words).
 
-Expect on the page `{"ok":true,"order_number":"PM-..."}`. Then check:
-* `orders`: status `confirmed`, payment_status `paid`, `invoice_number` set.
-* `payments`: one row `captured`. `inventory_movements`: a `sale` row, stock down by 1.
-* Your inbox: "Order PM-xxxx confirmed" with items, CGST/SGST, total and the order number.
-* Failure: close Checkout without paying. The order stays `payment_pending` and is cancelled with
-  the stock returned after 60 minutes (you can force it: Studio SQL `select expire_unpaid_orders();`
-  after setting `unpaid_order_expiry_minutes` to 0 in `store_settings`).
+## 7. Admin: orders, filters, shipping with tracking
 
-The webhook (`razorpay-webhook`) is needed on the live site only. See the end of this guide.
+1. Admin > Orders. Use the filters (status, payment, date range, state, coupon, guest/registered, amount, "no tracking added") and the search box (order number, email, phone, name, tracking number). **Export CSV** downloads the filtered list.
+2. Open an order. Move **Confirmed to Processing** (tick "Email the customer").
+3. **Shipping and tracking**: pick a courier, type the tracking number (or paste your own link), Save and mark dispatched. The order becomes Dispatched and the customer gets the shipped email with a Track button. On the customer's order page the tracking link shows.
+4. Edit the shipment to "In transit", then set it to **Delivered**: the order becomes Delivered (a COD order becomes Paid).
+5. Internal notes save and are never shown to the customer.
 
-## 6. Cash on delivery order, shipping with tracking, status updates
+## 8. Returns and refunds
 
-Place the same order with `"p_payment_method":"cod"`. Status is `confirmed` at once (COD is on in the
-seed with a Rs 40 fee). Then, as admin:
-```powershell
-'{"p_filters":{"status":["confirmed"],"search":"Test Buyer"}}' | sb rpc admin_list_orders @A --code 123456 -
-```
-Filters you can combine: `status`, `payment_status`, `payment_method`, `date_from`, `date_to`,
-`min_total`, `max_total`, `state`, `city`, `pincode`, `coupon`, `has_coupon`, `needs_attention`,
-`customer_type` (guest / registered), `shipment_status`, `no_tracking`, `has_return`, `product_id`,
-`search` (order number, email, phone, name, invoice, tracking number), `sort`, `dir`, `limit`, `offset`.
+1. As the customer, order page > **Request a return** (works only after delivery and inside the return window, default 7 days).
+2. Admin > Returns shows it. Open the order: **Approve**, then **Received and restock** (stock goes back), then **Create refund**.
+3. Admin > Payments > **Refund via Razorpay** sends the real test refund (order becomes Refunded, refund email goes out). For COD orders use **Paid manually**.
+4. Cancel a paid, unshipped order as the customer: stock returns and a full refund appears under Payments waiting for you.
 
-Pack, then ship with your own courier details:
-```powershell
-$o = "<order_id>"
-"{`"p_order_id`":`"$o`",`"p_status`":`"processing`"}" | sb rpc admin_update_order_status @A --code 123456 -
-"{`"p_order_id`":`"$o`",`"p_carrier_id`":`"delhivery`",`"p_tracking_number`":`"DL123456789`",`"p_eta_from`":`"2026-12-01`",`"p_eta_to`":`"2026-12-03`"}" | sb rpc admin_set_shipment @A --code 123456 -
-```
-Expect: order `dispatched`, a shipment with a Delhivery tracking link, and a "on its way" email with the
-tracking button. For a courier not in the list use `"p_carrier_id":"other","p_carrier_name":"My Courier","p_tracking_url":"https://..."`.
+## 9. Admin: products, variants, inventory
 
-What the customer sees (guest, with email):
-```powershell
-'{"p_order_number":"PM-xxxx-xxxx","p_email":"YOUR_RESEND_EMAIL"}' | sb rpc track_order -
-```
-(wrong email must return `not_found`). Mark delivered by setting the shipment status to `delivered`
-(call `admin_set_shipment` again with `"p_shipment_id":"<id>","p_status":"delivered"`). The order
-becomes `delivered`, and a COD order becomes `paid`.
+1. Admin > Products > **New product**: name, category, attributes (surface, frame, magnetic and so on), photos (upload or paste a link).
+2. Add options: **+ Size** (values Small, Large), **+ Colour** (Red, Blue), **+ Custom option** (for example Lid: Plain, Printed). Optionally type a price next to a value (size specific pricing).
+3. Enter a base price and **Build all combinations**: every size x colour x custom combination becomes a variant with its own SKU, price and stock. Edit any row, Save product.
+4. Publish it and check it in the shop. Edit it, then **Archive** from the list (it leaves the shop, order history stays) and **Restore**.
+5. Admin > Inventory: add or remove stock with a reason, see low stock, open History for every movement. Place an order and watch stock drop.
 
-## 7. Returns and refunds
+## 10. Reviews and fraud protection
 
-As the customer (guest token from the order):
-```powershell
-$item = (sb table order_items --select id --filter "order_id=eq.$o" @A --code 123456 | ConvertFrom-Json)[0].id
-"{`"p_order_id`":`"$o`",`"p_guest_token`":`"<guest_token>`",`"p_reason`":`"Item damaged`",`"p_reason_code`":`"damaged`",`"p_items`":[{`"order_item_id`":`"$item`",`"quantity`":1}]}" | sb rpc request_return -
-```
-Then as admin, with the returned `return_id` as `$r`: `approve`, `receive`, `refund`
-(`admin_decide_return` with `p_return_id` and `p_action`). Receiving puts the stock back. Refund creates a
-pending row in `refunds`.
-* Razorpay order: `'{"refund_id":"<id>"}' | sb fn admin-refund @A --code 123456 -` sends the real
-  test refund. Order becomes `refunded`, refund email goes out.
-* COD order: `'{"p_refund_id":"<id>","p_reference":"UPI-ref"}' | sb rpc admin_mark_refund_done @A --code 123456 -`
+1. On a product you bought and received, write a review. It publishes at once.
+2. Try a review with a web link, a phone number or "call me / discount code": it is held. It does not count in the star rating until you approve it.
+3. A customer who never received the product cannot review it.
+4. Admin > Reviews shows held reviews with the reasons (link, phone, promotional, same text as another customer, many reviews in a day, several accounts from one network). Publish or Reject.
 
-Also try: cancel an unshipped paid order with `cancel_own_order` (stock returns, a pending refund is created), and
-a return request after the 7 day window must be refused.
+## 11. Reports
 
-## 8. Reports
+Admin > Reports: sales by day, week and month, GST (CGST, SGST, IGST by month and rate), best sellers, categories, sizes and colours sold, payments, stock and cover, customers, coupons, returns, state and city, fulfilment speed, busy hours, customer cohorts. Each has **CSV**. Compare a few totals with the orders you placed.
+
+## 12. Customers, accounts, consent, settings
+
+* Admin > Customers: search, see lifetime value, block or unblock, open a customer to see orders, addresses and cookie choices.
+* On the website: register, save an address with a phone number, wishlist a product, log out and in again.
+* Admin > Settings: store details and GSTIN (used on invoices), COD on/off and fee, delivery charges, return window, courier tracking link patterns, and the **Email log** with "Send again" for failures.
+
+## 13. Abuse protection
+
+* Place many guest orders quickly from one computer: after a few the site says "too many orders from this network".
+* Try more than 3 cash on delivery orders in a day with one email or phone: refused.
+* A guest cannot open anyone else's order, invoice or payment with a guessed order number.
+
+## 14. When you go live (later)
+
+1. New Supabase project (or reset the old one), `supabase db push`.
+2. `supabase secrets set --env-file supabase/functions/.env.local` then `supabase functions deploy`.
+3. Razorpay > Webhooks: `https://<project-ref>.supabase.co/functions/v1/razorpay-webhook`, same secret as `RAZORPAY_WEBHOOK_SECRET`, events `payment.captured`, `payment.failed`, `order.paid`, `refund.processed`, `refund.failed`.
+4. Supabase Auth: enable MFA TOTP, set site URL and redirect URLs, turn on CAPTCHA.
+5. In SQL: `insert into app_config values ('edge_base_url','https://<ref>.supabase.co/functions/v1'),('job_secret','<same as NOTIFICATION_JOB_SECRET>')`.
+6. Set `REQUIRE_CAPTCHA=true` and `TURNSTILE_SECRET_KEY` for the functions so guest checkout needs the security check.
+7. Use `rzp_live_*` keys only when ready for real money.
+
+## Command line helpers (optional)
 
 ```powershell
-sb rpc admin_dashboard @A --code 123456
-'{"p_group":"day"}' | sb rpc report_sales @A --code 123456 -
-sb rpc report_gst @A --code 123456
-sb rpc report_top_products @A --code 123456
-sb rpc report_inventory @A --code 123456
-sb rpc report_payments @A --code 123456
-sb rpc report_customers @A --code 123456
-sb rpc report_coupons @A --code 123456
-sb rpc report_returns @A --code 123456
-sb rpc report_variant_options @A --code 123456
-sb rpc report_cohorts @A --code 123456
-sb rpc report_fulfilment @A --code 123456
+npm run backend:cli -- rpc admin_dashboard --email admin@plusmark.test --password "Plusmark#Admin1" --code 123456
+npm run backend:cli -- table product_listing --select "slug,name,min_price_inr" --limit 5
+npm run backend:smoke          # the automatic backend check I used (only if you want to run it)
 ```
-Also `report_category_sales`, `report_geo`, `report_time_patterns`. Compare the sales and GST numbers
-with the orders you placed.
 
-## 9. Customer accounts, phone, email, cookie consent
+---
 
-1. Studio > Authentication > Add user (tick auto confirm), email `buyer@plusmark.test` and a password.
-   `profiles` must have a row with that email. Set the phone as that user:
-   ```powershell
-   $B = @('--email','buyer@plusmark.test','--password','<their password>')
-   $id = (sb table profiles --select id @B | ConvertFrom-Json)[0].id
-   '{"full_name":"Buyer One","phone":"9876543210"}' | sb patch profiles - --filter "id=eq.$id" @B
-   ```
-2. Place an order while signed in (add `@B` to `place_order`) and confirm it shows with
-   `sb table orders @B` for that user only. A second user must not see it.
-3. A customer must not be able to make themselves admin. This must fail with "permission denied":
-   ```powershell
-   '{"role":"admin"}' | sb patch profiles - --filter "id=eq.$id" @B
-   ```
-4. Cookie consent:
-   ```powershell
-   '{"p_anon_id":"browser-abc-12345","p_preferences":true,"p_analytics":false,"p_marketing":false}' | sb rpc record_consent -
-   ```
-   A new row appears in `consents`.
+## Round 2: fixes for what you reported (please re-check)
 
-## 10. Emails
+Restart `npm run dev` first (and run `npm run backend:functions` again if it was stopped). The `site_content` table already exists in your local database; after any reset it comes back by itself.
 
-Studio > `email_outbox` shows every email with status `sent` / `pending` / `failed` and the error text.
-Types sent: order confirmation (with order number), payment failed, packing, shipped (with tracking
-link), delivered, cancelled, return requested / approved / rejected / received, refund processed,
-and two admin alerts (new order, needs attention) to `store_settings.seller_email`.
-To resend a failed one: `'{"p_id":"<id>"}' | sb rpc admin_retry_email @A --code 123456 -`.
+R1. **Admin changes reach the website** (the big one)
+* Admin > Products > open a board > change a variant price, Save. Within about 30 to 60 seconds the product page, the shop cards and the cart show the new price (the cart and checkout charge exactly that price).
+* Unpublish a board: it disappears from /shop, search and its own page (404). Publish it again: it returns.
+* Create a brand new product (for example the Steel Tiffin with sizes and colours), publish it. It appears in /shop and opens at /product/<its-address>. Add it to the cart and place an order.
+* Add a new size (variant) to an existing board in the editor: it shows in the size picker.
 
-## 11. Live site setup (later, not for this local test)
+R2. **No more "Demo" wording** when the backend is connected: no demo badges, no "Demo price" notes, "Order confirmed" instead of "Payment confirmed" for COD, and the guest confirmation says "Plusmark order system (guest order)".
 
-1. Create the production Supabase project (or reset the old one) and run `supabase db push`.
-2. Set function secrets: `supabase secrets set --env-file supabase/functions/.env.local`, then
-   `supabase functions deploy`.
-3. Razorpay dashboard > Webhooks: `https://<project-ref>.supabase.co/functions/v1/razorpay-webhook`,
-   same secret as `RAZORPAY_WEBHOOK_SECRET`, events `payment.captured`, `payment.failed`, `order.paid`,
-   `refund.processed`, `refund.failed`.
-4. Supabase Auth: enable MFA TOTP, set site URL, turn on CAPTCHA, set `store_settings.seller_email`.
-5. Run in SQL: `insert into app_config values ('edge_base_url','https://<ref>.supabase.co/functions/v1'),('job_secret','<same as NOTIFICATION_JOB_SECRET>')`.
-6. Switch to `rzp_live_*` keys only when you are ready for real money.
+R3. **Guest unpaid order**: open the tracking link of a payment-pending guest order. It now has **Pay now**, **Cancel** and, after delivery, **Request a return**. The Razorpay form is prefilled with +91 and the 10 digit number (use a real looking mobile number such as 9825012345; Razorpay rejects some dummy numbers).
 
-## What to send me
+R4. **Reviews**: a held review now says "saved and will appear after a quick check". The footer text no longer says reviews are not verified.
 
-For each section: "worked" or the exact message you saw. Anything that looked wrong even if it did
-not error (a wrong total, a missing email) is just as useful.
+R5. **Checkout**: there is a **Discount code** box on the checkout page too (so email-only codes work after you type your email). The GST breakdown now lists delivery and cash on delivery GST, and says "Includes CGST + SGST" (same state) or "Includes IGST" (other states).
+
+R6. **Admin customers**: the detail page header now matches the list (completed sales and net spend); the order list below still shows every order.
+
+R7. The browser console 404 for `site_content` is gone.
+
+Still as designed (not bugs): untracked made-to-order boards do not change stock on return; a return refund covers the returned items only, not delivery.

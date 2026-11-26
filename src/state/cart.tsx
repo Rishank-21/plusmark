@@ -23,6 +23,8 @@ interface CartContextValue {
   closeDrawer: () => void;
   couponCode: string | null;
   applyCoupon: (code: string, coupons: Coupon[]) => { ok: boolean; message: string };
+  /** Stores a code the server has already accepted for this cart. */
+  setCoupon: (code: string) => void;
   clearCoupon: () => void;
   shippingMethod: ShippingMethod;
   setShippingMethod: (method: ShippingMethod) => void;
@@ -187,6 +189,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       closeDrawer: () => setDrawerOpen(false),
       couponCode,
       applyCoupon,
+      setCoupon: (code) => setCouponCode(code.trim().toUpperCase()),
       clearCoupon: () => setCouponCode(null),
       shippingMethod,
       setShippingMethod: (m) => setShippingMethodId(m.id),

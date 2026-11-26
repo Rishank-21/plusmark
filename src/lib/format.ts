@@ -69,3 +69,62 @@ export function variantLabel(variant: { size: { label: string }; packQty?: numbe
     ? `Pack of ${variant.packQty} · ${variant.size.label}`
     : variant.size.label;
 }
+
+function compactSize(label: string): string {
+  return label.replace(/\s*x\s*/gi, "×");
+}
+
+function shortFrame(frame: string | null): string | null {
+  if (!frame) return null;
+  const f = frame.toLowerCase();
+  if (f.includes("heavy-duty")) return "Heavy aluminium frame";
+  if (f.includes("ribbed")) return "Ribbed aluminium frame";
+  if (f.includes("deluxe")) return "Deluxe aluminium frame";
+  if (f.includes("aluminium") || f.includes("aluminum")) return "Aluminium frame";
+  return frame.length <= 28 ? frame : null;
+}
+
+/** Concise plain-text category attributes for product cards and comparison rows. */
+export function productCardMeta(product: {
+  name: string;
+  boardType: string;
+  magnetic: boolean;
+  doubleSided: boolean;
+  frame: string | null;
+  enquiryOnly: boolean;
+  variants: { size: { label: string; widthCm: number | null; heightCm: number | null }; packQty?: number }[];
+}): string {
+  const singleSizes = [
+    ...new Set(
+      product.variants
+        .filter((v) => (v.packQty ?? 1) === 1)
+        .map((v) => v.size.label)
+        .filter((label) => label !== "Made to order")
+    )
+  ];
+
+  let sizePart = "";
+  if (singleSizes.length > 1) {
+    const first = compactSize(singleSizes[0]).replace(/\s*ft$/i, "");
+    const last = compactSize(singleSizes[singleSizes.length - 1]);
+    sizePart = `${first} – ${last}`;
+  } else if (singleSizes.length === 1) {
+    const only = product.variants.find((v) => (v.packQty ?? 1) === 1)?.size;
+    if (only?.widthCm && only?.heightCm) {
+      sizePart = `${compactSize(only.label)} (${only.widthCm} × ${only.heightCm} cm)`;
+    } else {
+      sizePart = compactSize(singleSizes[0]);
+    }
+  } else {
+    sizePart = product.enquiryOnly ? "Quoted by size" : "Custom size";
+  }
+
+  let boardTrait: string | null = null;
+  if (product.boardType === "ceramic") boardTrait = "Ceramic";
+  else if (product.boardType === "magnetic" || product.magnetic) boardTrait = "Magnetic";
+  else if (product.doubleSided) boardTrait = "Double-sided";
+  else if (product.boardType === "non-magnetic") boardTrait = "Non-magnetic";
+
+  const frameTrait = shortFrame(product.frame);
+  return [sizePart, boardTrait, frameTrait].filter(Boolean).slice(0, 3).join(" · ");
+}

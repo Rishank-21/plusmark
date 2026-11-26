@@ -307,8 +307,8 @@ function Segmented({ label, value, options, onChange }: { label: string; value: 
           aria-pressed={value === option.value}
           onClick={() => onChange(option.value)}
           className={classNames(
-            "h-9 rounded-xs border px-3 text-caption font-medium transition-colors",
-            value === option.value ? "border-primary bg-primary text-onprimary" : "border-line-strong text-muted hover:border-primary hover:text-primary"
+            "h-9 rounded-md border px-3 text-caption font-medium transition-colors",
+            value === option.value ? "border-primary bg-primary text-onprimary" : "border-line-strong text-muted hover:border-ink/45 hover:text-ink"
           )}
         >
           {option.label}

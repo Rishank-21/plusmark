@@ -54,7 +54,8 @@ export function readLegacySnapshot(): LegacySnapshot | null {
 
   const account = readJson<LegacyAccount>(STORAGE_KEYS.session);
   const wishlist = readJson<string[]>(STORAGE_KEYS.wishlist) ?? [];
-  const orders = readJson<Order[]>("plusmark.orders.v1") ?? [];
+  // Orders now live on the server and are priced there, so browser-only prototype orders are not imported.
+  const orders: Order[] = [];
   const addresses = Array.isArray(account?.addresses) ? account!.addresses.filter(isAddressEntry) : [];
 
   const fullName = typeof account?.fullName === "string" ? account.fullName.trim() : "";

@@ -1,175 +1,95 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { formatInr } from "@/lib/format";
-import { ErrorState } from "@/components/ui/States";
-import { StatusBadge } from "@/components/ui/Badge";
-import { AdminPageHeader, AdminPanel, DemoBars, StatStrip } from "@/components/admin/Metrics";
-import { DateControl, FilterBar } from "@/components/admin/FilterBar";
-import { DataTable, type AdminColumn } from "@/components/admin/DataTable";
-import { useAdminQuery } from "@/components/admin/useAdminQuery";
-import { ALL_ORDER_STATUSES, orderValueInr } from "@/components/admin/adminData";
-import { listAdminCategories, listAdminOrders, listAdminProducts } from "@/lib/supabase/admin";
-import type { Order } from "@/types";
+import { useState } from "react";
+import { AdminPageHeader } from "@/components/admin/Metrics";
+import { ErrorLine, Input, Loading, Pick, Section, SimpleTable } from "@/components/admin/kit";
+import { Button } from "@/components/ui/Button";
+import { downloadText, rpc, toCsv, type Json } from "@/lib/backend/admin";
 
-interface MonthRow { month: string; orders: number; valueInr: number }
+interface ReportDef { id: string; label: string; fn: string; dates: boolean; extra?: Record<string, unknown>; note: string }
+const REPORTS: ReportDef[] = [
+  { id: "sales_day", label: "Sales by day", fn: "report_sales", dates: true, extra: { p_group: "day" }, note: "Orders, goods value, discounts, shipping, GST, total, refunds and net." },
+  { id: "sales_week", label: "Sales by week", fn: "report_sales", dates: true, extra: { p_group: "week" }, note: "Same as above, grouped by week." },
+  { id: "sales_month", label: "Sales by month", fn: "report_sales", dates: true, extra: { p_group: "month" }, note: "Same as above, grouped by month." },
+  { id: "gst", label: "GST report (CGST / SGST / IGST)", fn: "report_gst", dates: true, note: "Taxable value and tax by month and GST rate. Use for your GST return." },
+  { id: "top", label: "Best selling products", fn: "report_top_products", dates: true, extra: { p_limit: 50 }, note: "By revenue, with units, orders and returned units." },
+  { id: "category", label: "Sales by category", fn: "report_category_sales", dates: true, note: "Units and revenue per category." },
+  { id: "options", label: "Sizes, colours and options sold", fn: "report_variant_options", dates: true, note: "Which sizes and colours (and custom options) sell." },
+  { id: "payments", label: "Payments", fn: "report_payments", dates: true, note: "By method and status, refunds, failure rate and orders needing attention." },
+  { id: "inventory", label: "Stock and cover", fn: "report_inventory", dates: false, note: "Stock value, units sold in 30 days and days of cover." },
+  { id: "inventory_low", label: "Low stock only", fn: "report_inventory", dates: false, extra: { p_only_low: true }, note: "Items at or below their low stock level." },
+  { id: "customers", label: "Customers", fn: "report_customers", dates: true, note: "Top customers, new vs returning, sign ups, guest share." },
+  { id: "coupons", label: "Coupons", fn: "report_coupons", dates: true, note: "Discount given and order value per code." },
+  { id: "returns", label: "Returns", fn: "report_returns", dates: true, note: "Return rate, reasons and the products returned most." },
+  { id: "geo", label: "Sales by state and city", fn: "report_geo", dates: true, note: "Where your orders go." },
+  { id: "fulfilment", label: "Fulfilment speed and funnel", fn: "report_fulfilment", dates: true, note: "Placed to paid to dispatched to delivered, and orders overdue to ship." },
+  { id: "time", label: "Busy days and hours", fn: "report_time_patterns", dates: true, note: "Orders by weekday and hour (IST)." },
+  { id: "cohorts", label: "Customer cohorts", fn: "report_cohorts", dates: false, extra: { p_months: 12 }, note: "How each month's new customers keep buying." }
+];
+
+const isRows = (v: unknown): v is Json[] => Array.isArray(v) && v.every((x) => x && typeof x === "object" && !Array.isArray(x));
+const label = (k: string) => k.replace(/_/g, " ");
+const show = (v: unknown) => (v === null || v === undefined ? "" : typeof v === "object" ? JSON.stringify(v) : String(v));
+
+function Table({ rows }: { rows: Json[] }) {
+  const cols = [...new Set(rows.flatMap((r) => Object.keys(r)))];
+  return <SimpleTable head={cols.map(label)} rows={rows.map((r) => cols.map((c) => <span key={c} className="tabular whitespace-nowrap">{show(r[c])}</span>))} empty="No data for this period." />;
+}
 
 export default function AdminReportsPage() {
-  const query = useAdminQuery(async () => {
-    const [orders, products, categories] = await Promise.all([
-      listAdminOrders(),
-      listAdminProducts(),
-      listAdminCategories()
-    ]);
-    return { orders, products, categories };
-  });
-  const orders = query.data?.orders ?? [];
-  const products = query.data?.products ?? [];
-  const categories = query.data?.categories ?? [];
+  const [id, setId] = useState(REPORTS[0].id);
+  const [from, setFrom] = useState(() => new Date(Date.now() - 29 * 86_400_000).toISOString().slice(0, 10));
+  const [to, setTo] = useState(() => new Date().toISOString().slice(0, 10));
+  const [data, setData] = useState<unknown>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const def = REPORTS.find((r) => r.id === id) ?? REPORTS[0];
 
-  const [from, setFrom] = useState("");
-  const [to, setTo] = useState("");
+  const run = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const args: Record<string, unknown> = { ...(def.extra ?? {}) };
+      if (def.dates) {
+        args.p_from = new Date(`${from}T00:00:00+05:30`).toISOString();
+        args.p_to = new Date(new Date(`${to}T00:00:00+05:30`).getTime() + 86_400_000).toISOString();
+      }
+      setData(await rpc(def.fn, args));
+    } catch (e) {
+      setError((e as Error).message);
+      setData(null);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-  const scoped = useMemo(
-    () => orders.filter((order) => {
-      const day = order.placedAt.slice(0, 10);
-      return (!from || day >= from) && (!to || day <= to);
-    }),
-    [orders, from, to]
-  );
-
-  const active = scoped.filter((order) => order.status !== "cancelled");
-  const value = active.reduce((sum, order) => sum + orderValueInr(order), 0);
-  const delivered = active.filter((order) => order.status === "delivered");
-  const average = active.length ? Math.round(value / active.length) : 0;
-  const units = active.reduce((sum, order) => sum + order.lines.reduce((lineSum, line) => lineSum + line.quantity, 0), 0);
-
-  const monthRows = useMemo<MonthRow[]>(() => {
-    const map = new Map<string, MonthRow>();
-    scoped.forEach((order) => {
-      const month = order.placedAt.slice(0, 7);
-      const row = map.get(month) ?? { month, orders: 0, valueInr: 0 };
-      row.orders += 1;
-      row.valueInr += orderValueInr(order);
-      map.set(month, row);
-    });
-    return Array.from(map.values()).sort((a, b) => a.month.localeCompare(b.month));
-  }, [scoped]);
-
-  const statusRows = useMemo(
-    () => ALL_ORDER_STATUSES.map((status) => ({
-      status,
-      count: scoped.filter((order) => order.status === status).length,
-      valueInr: scoped.filter((order) => order.status === status).reduce((sum, order) => sum + orderValueInr(order), 0)
-    })),
-    [scoped]
-  );
-
-  const categoryRows = useMemo(() => {
-    const bySlug = new Map(products.map((product) => [product.slug, product.categoryId]));
-    const byCategory = new Map<string, { valueInr: number; units: number }>();
-    active.forEach((order) => {
-      order.lines.forEach((line) => {
-        const categoryId = bySlug.get(line.slug) ?? "uncategorised";
-        const entry = byCategory.get(categoryId) ?? { valueInr: 0, units: 0 };
-        entry.valueInr += line.lineTotalInr;
-        entry.units += line.quantity;
-        byCategory.set(categoryId, entry);
-      });
-    });
-    return Array.from(byCategory.entries())
-      .map(([id, entry]) => ({
-        label: categories.find((category) => category.id === id)?.name ?? "Uncategorised",
-        valueInr: entry.valueInr,
-        units: entry.units
-      }))
-      .sort((a, b) => b.valueInr - a.valueInr);
-  }, [active, products, categories]);
-
-  const columns: AdminColumn<MonthRow>[] = [
-    { id: "month", header: "Month", sortValue: (row) => row.month, render: (row) => row.month },
-    { id: "orders", header: "Orders", numeric: true, sortValue: (row) => row.orders, render: (row) => row.orders },
-    { id: "value", header: "Booked value", numeric: true, sortValue: (row) => row.valueInr, render: (row) => formatInr(row.valueInr) }
-  ];
+  const csv = () => {
+    const rows = isRows(data) ? data : data && typeof data === "object" ? Object.values(data).find(isRows) : null;
+    if (rows) downloadText(`${def.id}.csv`, toCsv(rows));
+  };
 
   return (
-    <div className="flex flex-col gap-6">
-      <AdminPageHeader
-        title="Reports"
-        crumbs={[{ label: "Admin", href: "/admin" }, { label: "Reports" }]}
-        lede="Counts and values computed from the live orders table. No figure here is a forecast, benchmark or Plusmark trading claim."
-      />
-      {query.error ? (
-        <ErrorState title="Reports could not be loaded" body={query.error} onRetry={query.reload} />
-      ) : (
-        <>
-          <FilterBar
-            resultLabel={`${scoped.length} of ${orders.length} orders in the selected range`}
-            onReset={from || to ? () => { setFrom(""); setTo(""); } : undefined}
-          >
-            <DateControl label="From" value={from} onChange={setFrom} />
-            <DateControl label="To" value={to} onChange={setTo} />
-          </FilterBar>
-          <StatStrip
-            caption="Selected range"
-            items={[
-              { label: "Orders", value: query.loading ? "—" : scoped.length.toLocaleString("en-IN") },
-              { label: "Active value", value: query.loading ? "—" : formatInr(value), note: "Cancelled excluded" },
-              { label: "Delivered", value: query.loading ? "—" : delivered.length.toLocaleString("en-IN") },
-              { label: "Average order", value: query.loading ? "—" : formatInr(average), note: "Active orders only" },
-              { label: "Units", value: query.loading ? "—" : units.toLocaleString("en-IN"), note: "Active orders only" },
-              { label: "Cancelled", value: query.loading ? "—" : scoped.filter((order) => order.status === "cancelled").length.toLocaleString("en-IN") }
-            ]}
-          />
-          <div className="grid gap-6 xl:grid-cols-2">
-            <DemoBars
-              title="Orders by status"
-              unit="orders"
-              rows={statusRows.map((row) => ({ label: row.status.replace(/_/g, " "), value: row.count, secondary: formatInr(row.valueInr) }))}
-              note="Status vocabulary matches the order desk. Zero-count states are listed for reference."
-            />
-            <DemoBars
-              title="Value by category"
-              unit="booked value"
-              rows={categoryRows.map((row) => ({ label: row.label, value: row.valueInr, secondary: `${row.units} units` }))}
-              note="Line values from live orders, matched to the catalogue by product slug. Cancelled orders are excluded."
-            />
+    <>
+      <AdminPageHeader title="Reports" crumbs={[{ label: "Admin", href: "/admin" }, { label: "Reports" }]} lede="Counts only real sales: cancelled, unpaid and failed orders are left out. Dates use Indian time." />
+      <div className="mb-4 grid gap-3 rounded-md border border-line bg-surface p-4 sm:grid-cols-[1fr_10rem_10rem_auto]">
+        <Pick label="Report" value={id} onChange={(v) => { setId(v); setData(null); }} options={REPORTS.map((r) => [r.id, r.label] as [string, string])} hint={def.note} />
+        <Input label="From" type="date" value={from} onChange={(e) => setFrom(e.target.value)} disabled={!def.dates} />
+        <Input label="To" type="date" value={to} onChange={(e) => setTo(e.target.value)} disabled={!def.dates} />
+        <div className="flex items-end gap-2"><Button onClick={() => void run()} disabled={loading}>Run report</Button><Button variant="secondary" onClick={csv} disabled={!data}>CSV</Button></div>
+      </div>
+      {error && <ErrorLine message={error} />}
+      {loading && <Loading what="Running report" />}
+      {!loading && data !== null && (
+        isRows(data) ? <div className="rounded-md border border-line bg-surface p-2"><Table rows={data} /></div> : (
+          <div className="flex flex-col gap-4">
+            {Object.entries(data as Json).map(([key, value]) => (
+              <Section key={key} title={label(key)}>
+                {isRows(value) ? <Table rows={value} /> : value && typeof value === "object" ? <dl className="grid gap-1 text-body-sm sm:grid-cols-2">{Object.entries(value as Json).map(([k, v]) => <div key={k} className="flex justify-between gap-4 border-b border-line/60 py-1"><dt className="text-muted">{label(k)}</dt><dd className="tabular font-medium">{show(v)}</dd></div>)}</dl> : <p className="tabular text-h3 font-bold">{show(value) || "—"}</p>}
+              </Section>
+            ))}
           </div>
-          <AdminPanel title="Monthly volume" description="Every order in scope grouped by its placed month. The table ignores the range filter." padded={false}>
-            <div className="p-3">
-              <DataTable
-                caption="Monthly order count and value"
-                columns={columns}
-                rows={monthRows}
-                keyFor={(row) => row.month}
-                loading={query.loading}
-                defaultSort={{ id: "month", dir: "asc" }}
-                emptyTitle="No orders in this range"
-                emptyBody="Clear the date range or wait until orders exist."
-              />
-            </div>
-          </AdminPanel>
-          <div className="grid gap-6 xl:grid-cols-2">
-            <AdminPanel title="Status definitions" description="What each state means.">
-              <ul className="flex flex-col divide-y divide-hair">
-                {ALL_ORDER_STATUSES.map((status) => (
-                  <li key={status} className="flex items-center justify-between gap-3 py-2.5">
-                    <StatusBadge status={status} />
-                    <span className="text-caption text-graphite">{scoped.filter((order) => order.status === status).length} records</span>
-                  </li>
-                ))}
-              </ul>
-            </AdminPanel>
-            <AdminPanel title="What these numbers are not" description="A deliberate limit on this screen.">
-              <p className="text-body-sm leading-relaxed text-graphite">
-                These totals describe the orders recorded in this database. They are not Plusmark trading history, do not
-                establish a bestseller, and must not be used as a demand forecast, conversion rate or performance claim.
-                Orders placed only in a customer’s browser are not visible here.
-              </p>
-            </AdminPanel>
-          </div>
-        </>
+        )
       )}
-    </div>
+    </>
   );
 }

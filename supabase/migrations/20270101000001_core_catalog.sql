@@ -9,6 +9,38 @@ create or replace function public.set_updated_at()
 returns trigger language plpgsql as $$
 begin new.updated_at = now(); return new; end $$;
 
+-- ---------------------------------------------------------------- rate limiting
+create table public.rate_limits (
+  key text not null,
+  window_start timestamptz not null,
+  hits int not null default 1,
+  primary key (key, window_start)
+);
+alter table public.rate_limits enable row level security;
+
+-- Caller's IP as seen by the API gateway (null when called from SQL or a trusted job).
+create or replace function public._client_ip()
+returns text language plpgsql stable as $$
+declare h json;
+begin
+  h := nullif(current_setting('request.headers', true), '')::json;
+  return nullif(trim(split_part(coalesce(h->>'cf-connecting-ip', h->>'x-forwarded-for', h->>'x-real-ip', ''), ',', 1)), '');
+exception when others then return null;
+end $$;
+
+-- Counts a hit and says whether the caller is still within the limit.
+create or replace function public._rate_ok(p_key text, p_limit int, p_window_seconds int)
+returns boolean language plpgsql security definer set search_path = public as $$
+declare v_bucket timestamptz; v_hits int;
+begin
+  v_bucket := to_timestamp(floor(extract(epoch from now()) / p_window_seconds) * p_window_seconds);
+  insert into public.rate_limits (key, window_start) values (p_key, v_bucket)
+  on conflict (key, window_start) do update set hits = public.rate_limits.hits + 1
+  returning hits into v_hits;
+  return v_hits <= p_limit;
+end $$;
+revoke all on function public._rate_ok(text, int, int) from public, anon, authenticated;
+
 -- ---------------------------------------------------------------- settings
 create table public.store_settings (
   id boolean primary key default true check (id),            -- singleton row
@@ -18,7 +50,7 @@ create table public.store_settings (
   seller_address text,
   seller_phone text,
   seller_email text,
-  price_includes_gst boolean not null default true,           -- listed prices are GST-inclusive
+  price_includes_gst boolean not null default false,          -- false: listed prices exclude GST ('+ GST'), true: GST-inclusive
   shipping_flat_inr numeric(10,2) not null default 60,
   free_shipping_over_inr numeric(10,2) default 999,
   shipping_gst_rate numeric(5,2) not null default 18,
@@ -280,6 +312,7 @@ create table public.product_variants (
   id uuid primary key default gen_random_uuid(),
   product_id uuid not null references public.products(id) on delete cascade,
   sku text not null unique,
+  external_ref text unique,                                     -- id the storefront uses for this variant (e.g. "slug--4-x-3-ft")
   title text not null,                                          -- e.g. "4 x 3 ft / Red"
   options jsonb not null default '{}'::jsonb,                   -- {"Size":"4 x 3 ft","Color":"Red"}
   price_mode text not null default 'fixed' check (price_mode in ('fixed','on_request')),

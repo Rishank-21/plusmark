@@ -1,17 +1,25 @@
-import { createRequire } from 'node:module';
-const require = createRequire('c:/Users/palha/plusmark/apps/storefront/package.json');
-const { chromium } = require('playwright');
-const b = await chromium.launch();
-const p = await b.newPage();
-p.on('console', (m) => console.log('[c]', m.type(), m.text().slice(0, 300)));
-p.on('pageerror', (e) => console.log('[pageerror]', String(e).slice(0, 300)));
-p.on('response', (r) => { if (!r.url().includes('/_astro/') && !r.url().includes('placehold')) console.log('[r]', r.request().method(), r.url().slice(0, 110), r.status()); });
-await p.goto('http://localhost:4321/product/a4-clipboard', { waitUntil: 'domcontentloaded' });
-await p.waitForTimeout(3000);
-await p.locator('button.pm-vbtn[data-value="Single"]').click();
-await p.waitForTimeout(1000);
-console.log(await p.locator('[data-add-to-cart]').first().evaluate((e) => e.outerHTML));
-await p.locator('[data-add-to-cart]').first().click();
-await p.waitForTimeout(3000);
-console.log(await p.evaluate(() => JSON.stringify(Object.entries(localStorage).map(([k, v]) => [k, v.slice(0, 100)]))));
-await b.close();
+import { chromium } from "playwright-core";
+
+const browser = await chromium.launch({ channel: "chrome", headless: true });
+const ctx = await browser.newContext({ viewport: { width: 1280, height: 900 } });
+const page = await ctx.newPage();
+page.on("pageerror", (e) => console.log("PAGEERROR", e.message.slice(0, 200)));
+page.on("console", (m) => { if (m.type() === "error") console.log("CONSOLE", m.text().slice(0, 200)); });
+
+const cart = {
+  lines: [{ id: "l1", productId: "eco-regular-white-board", variantId: "eco-regular-white-board--2-x-3-ft", quantity: 2, addedAt: new Date().toISOString() }],
+  couponCode: null,
+  shippingMethodId: "standard",
+};
+await page.addInitScript((c) => { if (!localStorage.getItem("plusmark.cart.v1")) localStorage.setItem("plusmark.cart.v1", JSON.stringify(c)); }, cart);
+
+await page.goto("http://localhost:3000/cart", { waitUntil: "networkidle", timeout: 120000 });
+await page.waitForTimeout(2500);
+console.log("CART TEXT:", (await page.locator("main").innerText()).replace(/\s+/g, " ").slice(0, 900));
+
+await page.goto("http://localhost:3000/checkout", { waitUntil: "networkidle", timeout: 120000 });
+await page.waitForTimeout(2000);
+const labels = await page.$$eval("input,select,textarea", (els) => els.map((e) => `${e.tagName}#${e.id}[${e.getAttribute("name") ?? ""}] ${e.getAttribute("type") ?? ""}`));
+console.log("FIELDS:", labels.join("\n"));
+await page.screenshot({ path: "checkout.png", fullPage: true });
+await browser.close();

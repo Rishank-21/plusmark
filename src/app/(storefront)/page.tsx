@@ -1,3 +1,5 @@
+export const revalidate = 60;
+import { ensureLiveCatalog } from "@/lib/backend/server";
 import { ProductBenefits } from "@/components/home/Story";
 import { FaqSection } from "@/components/home/FaqSection";
 import { HeroCarousel } from "@/components/home/HeroCarousel";
@@ -47,7 +49,8 @@ function selectionFromCatalogue(count: number, skip: number): Product[] {
   return picked.slice(skip, count + skip);
 }
 
-export default function HomePage() {
+export default async function HomePage() {
+  await ensureLiveCatalog();
   const featured = selectionFromCatalogue(8, 0);
   const more = selectionFromCatalogue(8, featured.length);
   const spotlight = products.find((product) => product.slug === "metallic-premium-white-board") ?? featured[0];

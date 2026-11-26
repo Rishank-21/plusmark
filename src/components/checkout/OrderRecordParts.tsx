@@ -5,7 +5,7 @@ import { Banknote, ExternalLink, Info, MapPin } from "lucide-react";
 import { Badge, DemoBadge, StatusBadge } from "@/components/ui/Badge";
 import { paymentMethodLabel, paymentWording } from "@/components/checkout/order-display";
 import { classNames, formatInr } from "@/lib/format";
-import { DEMO_PRICING_LABEL } from "@/lib/config";
+import { DEMO_PRICING_LABEL, PRICES_ARE_LIVE } from "@/lib/config";
 import type { AddressBookEntry, Order } from "@/types";
 
 /** Shared read-only blocks for a recorded order: totals, addresses, lines. */
@@ -58,7 +58,7 @@ export function TotalsTable({ order, showDemoFlag = true }: { order: Order; show
           ))}
         </tbody>
       </table>
-      {showDemoFlag && (
+      {showDemoFlag && !PRICES_ARE_LIVE && (
         <p className="mt-2 text-caption leading-relaxed text-muted">
           <DemoBadge label="Demo" className="mr-1.5 align-middle" />
           {DEMO_PRICING_LABEL}. The GST figure follows the demo rate card; Plusmark’s tax treatment is fixed on the

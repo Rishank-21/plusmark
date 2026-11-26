@@ -19,15 +19,14 @@ export function FaqSection({ limit = 7 }: { limit?: number }) {
             Frequently asked questions
           </h2>
           <p className="max-w-[36ch] font-sans text-body-sm leading-relaxed text-muted">
-            Answers are the ones published by Plusmark. Anything that depends on a custom size is confirmed before you
-            order.
+            Common questions on board surfaces, frames, GST invoicing, custom sizing and delivery across India.
           </p>
           <Link
             href="/faq"
-            className="group mt-1 inline-flex items-center gap-2 border-b border-ink/30 pb-1 font-sans text-body-sm font-normal text-ink transition-colors hover:border-ink"
+            className="mt-1 inline-flex items-center gap-2 border-b border-ink/30 pb-1 font-sans text-body-sm font-normal text-ink transition-colors hover:border-ink"
           >
             All questions
-            <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" aria-hidden />
+            <ArrowRight className="size-4" aria-hidden />
           </Link>
         </div>
 

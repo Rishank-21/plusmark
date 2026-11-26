@@ -30,3 +30,6 @@ export const B2B_SITE_URL = process.env.NEXT_PUBLIC_B2B_SITE_URL ?? "https://plu
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://plusmark.vercel.app";
 
 export const META_TITLE_SUFFIX = "Plusmark — Writing & Display Systems";
+
+/** True when prices and orders come from the Plusmark backend, so no "demo" wording should appear. */
+export const PRICES_ARE_LIVE = Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL && (process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY));

@@ -30,7 +30,9 @@ export function ProductImage({
   categoryId?: string;
   preset?: "card" | "gallery" | "thumb";
 }) {
-  if (!asset) {
+  const [failedId, setFailedId] = useState<string | null>(null);
+
+  if (!asset || failedId === asset.publicId) {
     return (
       <PhotoPending className={className} name={name} categoryId={categoryId} />
     );
@@ -55,6 +57,7 @@ export function ProductImage({
       }
       unoptimized={!isCloudinaryPublicId(asset.publicId)}
       {...blurProps(asset.publicId)}
+      onError={() => setFailedId(asset.publicId)}
       className={className}
     />
   );
@@ -130,7 +133,7 @@ function blurProps(publicId: string) {
   return data ? { placeholder: "blur" as const, blurDataURL: data } : {};
 }
 
-function PhotoPending({
+export function PhotoPending({
   className,
   name,
   categoryId
@@ -143,9 +146,7 @@ function PhotoPending({
     <div className={`flex flex-col items-center justify-center gap-2 bg-subtle/70 text-center ${className ?? ""}`}>
       <BoardGlyph categoryId={categoryId} />
       <p className="max-w-[16rem] px-3 text-caption leading-snug text-muted">Photograph pending</p>
-      <p className="px-3 pb-1 text-[0.625rem] uppercase tracking-[0.12em] text-muted">
-        Replace in admin · {name}
-      </p>
+      <p className="sr-only">{name}</p>
     </div>
   );
 }

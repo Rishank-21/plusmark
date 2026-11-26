@@ -81,11 +81,11 @@ export function Listing(
         </div>
       </header>
 
-      <div className="sticky top-[var(--pm-header-h)] z-30 -mx-md flex items-center gap-2 border-b border-line bg-page/95 px-md py-2 backdrop-blur-sm sm:static sm:mx-0 sm:border-0 sm:bg-transparent sm:px-0 sm:py-0 sm:pb-5 sm:backdrop-blur-none lg:hidden">
+      <div className="sticky top-[var(--pm-header-h)] z-30 -mx-md flex items-center gap-2 border-b border-line bg-page px-md py-2 sm:static sm:mx-0 sm:border-0 sm:bg-transparent sm:px-0 sm:py-0 sm:pb-5 lg:hidden">
         <button
           type="button"
           onClick={() => setDrawerOpen(true)}
-          className="inline-flex h-11 flex-1 items-center justify-center gap-2 rounded-md border border-line-strong bg-surface px-4 text-body-sm font-medium text-brand transition-colors hover:border-primary hover:text-primary-strong"
+          className="inline-flex h-11 flex-1 items-center justify-center gap-2 rounded-md border border-line-strong bg-surface px-4 text-body-sm font-medium text-ink transition-colors hover:border-ink/45 hover:bg-subtle"
         >
           <SlidersHorizontal className="size-4" aria-hidden />
           Filters
@@ -130,7 +130,7 @@ export function Listing(
                 <li key={chip.label} className="shrink-0">
                   <Link
                     href={chip.href}
-                    className="inline-flex h-9 items-center gap-1.5 whitespace-nowrap rounded-full border border-primary/25 bg-primary-soft px-3 text-caption text-ink transition-colors hover:border-primary lg:h-8 lg:rounded-md lg:px-2.5"
+                    className="inline-flex h-9 items-center gap-1.5 whitespace-nowrap rounded-md border border-line-strong bg-subtle px-2.5 text-caption font-medium text-ink transition-colors hover:border-ink/45 lg:h-8"
                   >
                     {chip.label}
                     <X className="size-3" aria-hidden />
@@ -142,7 +142,7 @@ export function Listing(
                 <button
                   type="button"
                   onClick={clearAll}
-                  className="inline-flex h-9 items-center whitespace-nowrap rounded-full px-2 text-caption font-medium text-primary underline decoration-primary/35 underline-offset-4 hover:decoration-primary lg:h-8"
+                  className="inline-flex h-9 items-center whitespace-nowrap rounded-md px-2 text-caption font-medium text-muted underline decoration-line-strong underline-offset-4 hover:text-ink lg:h-8"
                 >
                   Clear all
                 </button>

@@ -1,0 +1,44 @@
+{
+  "name": "plusmark-storefront",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 3000",
+    "build": "next build",
+    "start": "next start -p 3000",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "backend:start": "supabase start -x vector,logflare,imgproxy",
+    "backend:stop": "supabase stop",
+    "backend:reset": "supabase db reset --local",
+    "backend:functions": "supabase functions serve --env-file supabase/functions/.env.local",
+    "backend:sync-config": "node scripts/backend/sync-local-config.mjs",
+    "backend:admin": "node scripts/backend/admin-bootstrap.mjs",
+    "backend:smoke": "node scripts/backend/smoke-test.mjs",
+    "backend:types": "supabase gen types typescript --local > src/lib/backend/database.types.ts",
+    "backend:pay-page": "node scripts/backend/pay-server.mjs",
+    "backend:cli": "node scripts/backend/cli.mjs",
+    "backend:import": "node scripts/backend/import-catalog.mjs"
+  },
+  "dependencies": {
+    "@supabase/ssr": "^0.12.7",
+    "@supabase/supabase-js": "^2.119.0",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.469.0",
+    "next": "^15.1.6",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.7",
+    "@types/react": "^19.0.7",
+    "@types/react-dom": "^19.0.3",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^8.57.1",
+    "eslint-config-next": "^15.1.6",
+    "pg": "^8.23.1",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.7.3"
+  }
+}

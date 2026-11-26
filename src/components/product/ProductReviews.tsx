@@ -31,7 +31,7 @@ function Stars({ rating, size = "size-4" }: { rating: number; size?: string }) {
           <span key={index} className={`relative inline-flex ${size} items-center justify-center`} aria-hidden>
             <Star className={`absolute ${size} text-hair-strong`} strokeWidth={1.5} />
             <span className="absolute inset-y-0 left-0 overflow-hidden" style={{ width: `${fill * 100}%` }}>
-              <Star className={`${size} fill-current text-primary`} strokeWidth={0} />
+              <Star className={`${size} fill-current text-rating`} strokeWidth={0} />
             </span>
           </span>
         );
@@ -143,7 +143,11 @@ export function ProductReviews({ productName, productSlug }: { productName: stri
       });
       setFormOpen(false);
       setShowAll(true);
-      setMessage("Your review is published. Thank you for helping other customers.");
+      setMessage(
+        saved.status === "pending"
+          ? "Thank you. Your review is saved and will appear after a quick check by our team."
+          : "Your review is published. Thank you for helping other customers."
+      );
     } catch (error) {
       const typed = error as ReviewError;
       setFormErrors({ [typed.field ?? "form"]: typed.message });
@@ -248,8 +252,8 @@ export function ProductReviews({ productName, productSlug }: { productName: stri
           )}
 
           <p className="pt-4 text-caption leading-relaxed text-muted">
-            Reviews are written by signed-in customers on this product page. Plusmark does not seed ratings, and no review
-            is marked as a verified purchase until server-side order records can confirm it.
+            Only customers who received this product can review it, and each review is checked automatically for spam and
+            fake reviews. Plusmark does not seed ratings.
           </p>
 
           <div className="border-t border-line pt-4">
@@ -395,8 +399,8 @@ export function ProductReviews({ productName, productSlug }: { productName: stri
                 )}
 
                 <p className="text-caption leading-relaxed text-muted">
-                  Published publicly under {session.account?.fullName || session.user?.email}. It is not marked as a
-                  verified purchase because checkout is not linked to a server order yet.
+                  Shown publicly with your first name and last initial and marked as a verified purchase. Reviews that look
+                  like spam wait for a quick check first.
                 </p>
 
                 <div className="flex flex-wrap items-center gap-2">

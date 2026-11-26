@@ -1,17 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import { CreditCard, FileText, RotateCcw, XCircle } from "lucide-react";
-import { Button, ButtonLink } from "@/components/ui/Button";
+import { CreditCard, FileText, RefreshCw, RotateCcw, XCircle } from "lucide-react";
+import { Button } from "@/components/ui/Button";
 import { TextArea } from "@/components/ui/Field";
 import { ConfirmDialog, Modal } from "@/components/ui/Modal";
 import { startRazorpayCheckout } from "@/lib/payments/razorpay-checkout";
-import { cancelOwnOrder, requestOrderReturn } from "@/lib/supabase/account";
+import { cancelOwnOrder, getOrderByReference, openInvoicePdf, requestOrderReturn } from "@/lib/supabase/account";
 import { useSession } from "@/state/session";
 import { useToast } from "@/state/toast";
 import type { Order, OrderStatus } from "@/types";
 
-const CANCELLABLE: OrderStatus[] = ["placed", "payment_pending", "confirmed", "processing"];
+const CANCELLABLE: OrderStatus[] = ["placed", "payment_pending", "payment_failed", "confirmed"];
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 function message(reason: unknown, fallback: string) {
@@ -25,14 +25,35 @@ export function OrderActions({ order, onUpdated }: { order: Order; onUpdated: ()
   const [returnOpen, setReturnOpen] = useState(false);
   const [reason, setReason] = useState("");
   const [reasonError, setReasonError] = useState<string | null>(null);
-  const [busy, setBusy] = useState<"cancel" | "return" | "pay" | null>(null);
+  const [busy, setBusy] = useState<"cancel" | "return" | "pay" | "status" | null>(null);
 
   const storedOnServer = UUID.test(order.id);
   const canCancel = CANCELLABLE.includes(order.status);
   const canReturn = order.status === "delivered";
-  const canPay = storedOnServer && order.paymentMethod === "razorpay" && order.paymentStatus === "pending";
+  const canPay =
+    storedOnServer && order.paymentMethod === "razorpay" && (order.paymentStatus === "pending" || order.paymentStatus === "failed") && order.status !== "cancelled";
+  const canCheckStatus = storedOnServer && order.paymentMethod === "razorpay" && order.paymentStatus === "pending" && order.status !== "cancelled";
 
   if (!canCancel && !canReturn && !canPay && !order.invoiceNumber) return null;
+
+  const checkStatus = async () => {
+    setBusy("status");
+    try {
+      const fresh = await getOrderByReference(order.reference, order.email);
+      if (fresh) {
+        onUpdated();
+        if (fresh.paymentStatus === "paid") toast.push(`Payment confirmed for ${fresh.reference}.`, "success");
+        else if (fresh.paymentStatus === "failed") toast.push("Payment failed — you can retry payment now.", "error");
+        else toast.push("Payment is still pending gateway confirmation.", "info");
+      } else {
+        toast.push("Order status could not be verified right now.", "error");
+      }
+    } catch (error) {
+      toast.push(message(error, "Could not check payment status."), "error");
+    } finally {
+      setBusy(null);
+    }
+  };
 
   const pay = async () => {
     setBusy("pay");
@@ -94,15 +115,28 @@ export function OrderActions({ order, onUpdated }: { order: Order; onUpdated: ()
   return (
     <div className="flex flex-wrap items-center gap-2">
       {order.invoiceNumber && (
-        <ButtonLink href={`/account/orders/${order.id}/invoice`} variant="secondary" size="sm" className="h-10 rounded-lg">
+        <Button
+          variant="secondary"
+          size="sm"
+          className="h-10 rounded-lg"
+          onClick={() =>
+            void openInvoicePdf(order).catch((error) => toast.push(message(error, "The invoice could not be opened."), "error"))
+          }
+        >
           <FileText className="size-4" aria-hidden />
-          GST invoice
-        </ButtonLink>
+          GST invoice (PDF)
+        </Button>
       )}
       {canPay && (
-        <Button size="sm" className="h-10 rounded-lg" loading={busy === "pay"} disabled={busy !== null} onClick={() => void pay()}>
+        <Button size="sm" className="h-10 rounded-md" loading={busy === "pay"} disabled={busy !== null} onClick={() => void pay()}>
           <CreditCard className="size-4" aria-hidden />
-          Pay now
+          {order.paymentStatus === "failed" ? "Retry payment" : "Pay now"}
+        </Button>
+      )}
+      {canCheckStatus && (
+        <Button variant="secondary" size="sm" className="h-10 rounded-md" loading={busy === "status"} disabled={busy !== null} onClick={() => void checkStatus()}>
+          <RefreshCw className="size-4" aria-hidden />
+          Check payment status
         </Button>
       )}
       {canCancel && (

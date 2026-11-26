@@ -16,7 +16,12 @@ const nextConfig = {
       }
     ];
   },
+  // Cloudflare Workers has no sharp runtime; Cloudinary already negotiates AVIF/WebP.
+  outputFileTracingExcludes: {
+    "*": ["node_modules/sharp/**", "node_modules/@img/**"]
+  },
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: "https",

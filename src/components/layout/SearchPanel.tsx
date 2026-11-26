@@ -114,7 +114,7 @@ export function SearchPanel({
           aria-autocomplete="list"
           autoFocus={autoFocus}
           className={classNames(
-            "h-12 w-full rounded-full border border-line-strong bg-page/55 pl-10 pr-10 text-body-sm text-ink placeholder:text-muted focus:border-line-strong focus:bg-surface focus:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 [&::-webkit-search-cancel-button]:hidden",
+            "h-11 w-full rounded-md border border-line-strong bg-surface pl-10 pr-10 text-body-sm text-ink placeholder:text-muted focus-visible:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-page [&::-webkit-search-cancel-button]:hidden",
             inline && "text-center"
           )}
         />
@@ -164,7 +164,7 @@ export function SearchPanel({
                     key={term}
                     type="button"
                     onClick={() => setQuery(term)}
-                    className="h-8 rounded-full border border-line px-3 text-caption text-muted transition-colors hover:border-line-strong hover:text-ink"
+                    className="h-8 rounded-md border border-line-strong bg-surface px-3 text-caption text-ink transition-colors hover:border-ink/45 hover:bg-subtle"
                   >
                     {term}
                   </button>
@@ -174,17 +174,17 @@ export function SearchPanel({
           )}
 
           {!loading && debounced && suggestions.length === 0 && (
-            <div className="rounded-sm border border-dashed border-line-strong bg-subtle/40 p-5">
+            <div className="rounded-md border border-dashed border-line-strong bg-subtle/40 p-5">
               <p className="font-display text-h4">No matches for “{debounced}”.</p>
               <p className="mt-1 text-body-sm text-muted">
                 Plusmark makes boards to order in non-standard sizes. Check the spelling, use a shorter word, or ask the
                 Plusmark team about what you need.
               </p>
               <div className="mt-3 flex flex-wrap gap-2">
-                <Link href="/shop" className="h-9 rounded-xs border border-line-strong px-3 text-caption font-medium text-ink transition-colors hover:bg-subtle">
+                <Link href="/shop" className="inline-flex h-9 items-center rounded-md border border-line-strong bg-surface px-3 text-caption font-medium text-ink transition-colors hover:bg-subtle">
                   Browse all products
                 </Link>
-                <Link href="/contact" className="h-9 rounded-xs border border-line-strong px-3 text-caption font-medium text-ink transition-colors hover:bg-subtle">
+                <Link href="/contact" className="inline-flex h-9 items-center rounded-md border border-line-strong bg-surface px-3 text-caption font-medium text-ink transition-colors hover:bg-subtle">
                   Ask about this product
                 </Link>
               </div>

@@ -273,6 +273,7 @@ create table public.email_outbox (
   order_id uuid references public.orders(id) on delete set null,
   status text not null default 'pending' check (status in ('pending','sending','sent','failed','skipped')),
   attempts int not null default 0,
+  next_attempt_at timestamptz not null default now(),
   error text,
   provider_id text,
   dedupe_key text unique,

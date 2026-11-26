@@ -1,5 +1,6 @@
 "use client";
 
+import { PRICES_ARE_LIVE } from "@/lib/config";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { CheckCircle2, Heart, MapPin, MessageCircle, Truck } from "lucide-react";
@@ -79,7 +80,7 @@ export function PurchasePanel({
   return (
     <aside
       id="buy-box"
-      className="flex min-w-0 flex-col gap-4 rounded-2xl border border-line bg-surface p-4 shadow-card sm:gap-5 sm:p-6 md:col-start-2 md:row-start-2 xl:col-start-3 xl:row-start-1 xl:sticky xl:top-52 xl:self-start"
+      className="flex min-w-0 flex-col gap-4 rounded-md border border-line bg-surface p-4 sm:gap-5 sm:p-6 md:col-start-2 md:row-start-2 xl:col-start-3 xl:row-start-1 xl:sticky xl:top-52 xl:self-start"
       aria-label="Buy this board"
     >
       <div>
@@ -100,15 +101,15 @@ export function PurchasePanel({
         )}
       </div>
 
-      <div className="rounded-xl bg-subtle/70 p-3 text-[0.8125rem] leading-relaxed sm:p-4 sm:text-body-sm">
+      <div className="rounded-md border border-line bg-subtle/60 p-3 text-[0.8125rem] leading-relaxed sm:p-4 sm:text-body-sm">
         <p className="flex items-start gap-2.5">
-          <Truck className="mt-0.5 size-4 shrink-0 text-primary" aria-hidden />
+          <Truck className="mt-0.5 size-4 shrink-0 text-ink" aria-hidden />
           <span>
             <span className="font-semibold text-ink">Pan-India dispatch</span> from the Ahmedabad works. Freight and the
             delivery date are confirmed by the order desk for your PIN code.{" "}
             <Link
               href="/policies/shipping"
-              className="font-medium text-primary underline decoration-primary/30 underline-offset-4 hover:decoration-primary"
+              className="font-medium text-ink underline decoration-line-strong underline-offset-4 hover:decoration-ink"
             >
               Shipping details
             </Link>
@@ -117,11 +118,11 @@ export function PurchasePanel({
         <p className="mt-2 pl-[1.625rem] text-muted">Free pickup from the Ahmedabad works.</p>
 
         <div className="mt-3 flex flex-wrap items-center gap-x-1.5 gap-y-1 pl-[1.625rem] text-caption text-muted">
-          <MapPin className="size-3.5 text-primary" aria-hidden />
+          <MapPin className="size-3.5 text-ink" aria-hidden />
           <span>
             Delivering to <strong className="font-semibold text-ink">{pincode ? pincode : "your PIN code"}</strong>
           </span>
-          <button type="button" onClick={openPincode} className="font-medium text-primary underline-offset-4 hover:underline">
+          <button type="button" onClick={openPincode} className="font-medium text-ink underline decoration-line-strong underline-offset-4 hover:decoration-ink">
             · Update location
           </button>
         </div>
@@ -165,14 +166,14 @@ export function PurchasePanel({
               href={whatsappHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex h-12 w-full items-center justify-center gap-2 rounded-md bg-primary text-body-sm font-semibold text-onprimary shadow-card transition-colors hover:bg-primary-strong"
+              className="flex h-12 w-full items-center justify-center gap-2 rounded-md bg-primary text-body-sm font-semibold text-onprimary transition-colors hover:bg-primary-strong"
             >
               <MessageCircle className="size-4" aria-hidden />
               Ask on WhatsApp
             </a>
             <Link
               href={contactHref}
-              className="flex h-12 w-full items-center justify-center rounded-md border border-line-strong bg-surface text-body-sm font-semibold text-ink transition-colors hover:border-primary/50 hover:bg-subtle"
+              className="flex h-12 w-full items-center justify-center rounded-md border border-line-strong bg-surface text-body-sm font-semibold text-ink transition-colors hover:border-ink/45 hover:bg-subtle"
             >
               Send an enquiry
             </Link>
@@ -185,14 +186,14 @@ export function PurchasePanel({
             <button
               type="button"
               onClick={onBuyNow}
-              className="h-12 w-full rounded-md bg-primary text-body-sm font-semibold text-onprimary shadow-card transition-colors hover:bg-primary-strong"
+              className="h-12 w-full rounded-md bg-primary text-body-sm font-semibold text-onprimary transition-colors hover:bg-primary-strong"
             >
               Buy Now
             </button>
             <button
               type="button"
               onClick={onAdd}
-              className="h-12 w-full rounded-md border border-line-strong bg-surface text-body-sm font-semibold text-ink transition-colors hover:border-primary/50 hover:bg-subtle"
+              className="h-12 w-full rounded-md border border-line-strong bg-surface text-body-sm font-semibold text-ink transition-colors hover:border-ink/45 hover:bg-subtle"
             >
               Add to cart
             </button>
@@ -205,11 +206,19 @@ export function PurchasePanel({
         )}
       </div>
 
-      <dl className="grid grid-cols-[auto_minmax(0,1fr)] gap-x-3 gap-y-2 rounded-xl bg-subtle/70 p-3 text-[0.75rem] sm:p-4 sm:text-caption">
+      <dl className="grid grid-cols-[auto_minmax(0,1fr)] gap-x-3 gap-y-2 rounded-md border border-line bg-subtle/50 p-3 text-[0.75rem] sm:p-4 sm:text-caption">
         <InfoRow label="Ships from" value="Plusmark, Ahmedabad" />
         <InfoRow label="Sold by" value="Plusmark Boards" />
         <InfoRow label="GST invoice" value="With HSN" />
-        <InfoRow label="Payment" value="Demo checkout — no real payment" />
+        <InfoRow
+          label="Returns"
+          value={
+            <Link href="/policies/returns" className="underline decoration-line-strong underline-offset-4 hover:text-ink">
+              Transit damage &amp; defects reviewed
+            </Link>
+          }
+        />
+        <InfoRow label="Payment" value={PRICES_ARE_LIVE ? "Razorpay online or cash on delivery" : "Demo checkout — no real payment"} />
       </dl>
 
       <div className="flex flex-wrap items-center justify-between gap-2">
@@ -236,7 +245,9 @@ export function PurchasePanel({
       <p className="text-[0.75rem] leading-relaxed text-muted">
         {product.enquiryOnly
           ? "This product is quoted individually. Share the size, quantity and delivery city and the order desk confirms the price."
-          : "Demo price — not a Plusmark quotation. Prices, stock and GST are confirmed by the order desk for the exact size and quantity."}{" "}
+          : PRICES_ARE_LIVE
+            ? "Prices exclude GST. GST and delivery are shown at checkout for your state."
+            : "Demo price — not a Plusmark quotation. Prices, stock and GST are confirmed by the order desk for the exact size and quantity."}{" "}
         {variant ? `Selected: ${variantLabel(variant)}.` : ""}
       </p>
 
@@ -268,11 +279,11 @@ export function PurchasePanel({
             <button
               type="button"
               onClick={() => setPincodeOpen(false)}
-              className="h-10 rounded-full border border-line-strong px-4 text-caption font-medium text-ink hover:bg-subtle"
+              className="h-10 rounded-md border border-line-strong px-4 text-caption font-medium text-ink hover:bg-subtle"
             >
               Cancel
             </button>
-            <button type="submit" className="h-10 rounded-full bg-primary px-4 text-caption font-semibold text-onprimary hover:bg-primary-strong">
+            <button type="submit" className="h-10 rounded-md bg-primary px-4 text-caption font-semibold text-onprimary hover:bg-primary-strong">
               Save PIN code
             </button>
           </div>
@@ -285,7 +296,7 @@ export function PurchasePanel({
   );
 }
 
-function InfoRow({ label, value }: { label: string; value: string }) {
+function InfoRow({ label, value }: { label: string; value: React.ReactNode }) {
   return (
     <>
       <dt className="text-muted">{label}</dt>

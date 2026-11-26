@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Search } from "lucide-react";
 import { AddressBlock, DispatchBlock, OrderLinesTable, PaymentStateNote, TotalsTable } from "@/components/checkout/OrderRecordParts";
 import { OrderTimeline, timelineSummary } from "@/components/checkout/OrderTimeline";
@@ -10,24 +10,66 @@ import { TextField } from "@/components/ui/Field";
 import { Breadcrumbs } from "@/components/ui/Nav";
 import { EmptyState, Notice } from "@/components/ui/States";
 import { demoOrders } from "@/lib/demo-data";
+import { OrderActions } from "@/components/account/OrderActions";
+import { getOrderByReference } from "@/lib/supabase/account";
+import { isSupabaseConfigured } from "@/lib/supabase/config";
 import { validateEmail } from "@/lib/validation";
 import { useSession } from "@/state/session";
 import type { Order } from "@/types";
 
-export function TrackOrderPanel({ initialReference }: { initialReference: string }) {
+export function TrackOrderPanel({ initialReference, initialToken = "" }: { initialReference: string; initialToken?: string }) {
   const session = useSession();
   const [reference, setReference] = useState(initialReference);
   const [email, setEmail] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [order, setOrder] = useState<Order | null>(null);
 
-  const lookup = (event: React.FormEvent) => {
+  const [checking, setChecking] = useState(false);
+
+  // Links in order emails carry a private token, so the order opens without asking for the email.
+  useEffect(() => {
+    if (!initialReference || !initialToken || !isSupabaseConfigured) return;
+    setChecking(true);
+    getOrderByReference(initialReference, undefined, initialToken)
+      .then((found) => {
+        if (found) {
+          setOrder(found);
+          setError(null);
+        } else {
+          setError("That link is no longer valid. Enter the order reference and email instead.");
+        }
+      })
+      .catch(() => setError("The order could not be loaded right now. Try again shortly."))
+      .finally(() => setChecking(false));
+  }, [initialReference, initialToken]);
+
+  const lookup = async (event: React.FormEvent) => {
     event.preventDefault();
     const emailError = validateEmail(email);
     if (!reference.trim() || emailError) {
       setError(!reference.trim() ? "Enter the order reference." : emailError);
       setOrder(null);
       return;
+    }
+    if (isSupabaseConfigured) {
+      setChecking(true);
+      try {
+        const found = await getOrderByReference(reference.trim(), email.trim());
+        if (found) {
+          setError(null);
+          setOrder(found);
+          return;
+        }
+        setOrder(null);
+        setError("No order matches that reference and email. Check both and try again.");
+        return;
+      } catch {
+        setOrder(null);
+        setError("The order could not be looked up right now. Try again shortly.");
+        return;
+      } finally {
+        setChecking(false);
+      }
     }
     const needle = reference.trim().toUpperCase();
     const match = [...session.orders, ...demoOrders].find(
@@ -51,10 +93,12 @@ export function TrackOrderPanel({ initialReference }: { initialReference: string
           <p className="max-w-reading text-body-sm leading-relaxed text-muted">
             Enter the reference and email on the order. Only stages actually recorded are shown; delivery dates are never guessed.
           </p>
-          <Notice tone="info" title="Browser-local prototype tracking">
-            This looks up records stored on this device plus clearly labelled demonstration records. It is not connected to
-            Plusmark or a carrier, and it cannot show the status of a real order.
-          </Notice>
+          {!isSupabaseConfigured && (
+            <Notice tone="info" title="Browser-local prototype tracking">
+              This looks up records stored on this device plus clearly labelled demonstration records. It is not connected to
+              Plusmark or a carrier, and it cannot show the status of a real order.
+            </Notice>
+          )}
         </div>
         <form onSubmit={lookup} noValidate className="flex flex-col gap-md rounded-sm border border-line bg-surface p-lg">
           <TextField
@@ -76,7 +120,7 @@ export function TrackOrderPanel({ initialReference }: { initialReference: string
             onChange={(event) => setEmail(event.target.value)}
           />
           {error && <p role="alert" className="text-body-sm font-medium text-danger">{error}</p>}
-          <Button type="submit">
+          <Button type="submit" loading={checking} disabled={checking}>
             <Search className="size-4" aria-hidden />
             Find this order
           </Button>
@@ -89,7 +133,7 @@ export function TrackOrderPanel({ initialReference }: { initialReference: string
           <div className="flex flex-wrap items-center gap-3">
             <h2 id="tracking-result" className="font-display text-h2 font-extrabold text-ink">Order {order.reference}</h2>
             <StatusBadge status={order.status} demo />
-            <Badge tone="neutral">No live carrier feed</Badge>
+            <Badge tone="neutral">{order.shipment?.awb ? "Updated by Plusmark" : "Awaiting dispatch"}</Badge>
           </div>
           <div className="mt-xl grid items-start gap-xl lg:grid-cols-[minmax(0,1fr)_20rem]">
             <div className="flex flex-col gap-xl">
@@ -103,6 +147,16 @@ export function TrackOrderPanel({ initialReference }: { initialReference: string
             </div>
             <aside className="rounded-sm border border-line bg-surface p-md">
               <TotalsTable order={order} />
+              <div className="mt-md">
+                <OrderActions
+                  order={order}
+                  onUpdated={() => {
+                    void getOrderByReference(order.reference, order.email, initialToken || undefined)
+                      .then((fresh) => fresh && setOrder(fresh))
+                      .catch(() => undefined);
+                  }}
+                />
+              </div>
               <ButtonLink href={`/order-confirmation?ref=${encodeURIComponent(order.reference)}`} variant="secondary" fullWidth className="mt-md">
                 Open full order record
               </ButtonLink>

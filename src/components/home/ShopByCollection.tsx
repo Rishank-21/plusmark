@@ -15,7 +15,7 @@ export function ShopByCollection() {
           <div>
             <h2 id="collections-heading" className="font-display text-[1.375rem] font-extrabold leading-7 text-ink sm:text-h2 sm:leading-[1.15]">Shop by Collection</h2>
           </div>
-          <Link href="/collections" className="-my-2 inline-flex min-h-11 items-center gap-2 text-body-sm font-medium text-primary hover:text-primary-strong lg:my-0 lg:min-h-0">
+          <Link href="/collections" className="-my-2 inline-flex min-h-11 items-center gap-2 text-body-sm font-medium text-ink underline-offset-4 hover:underline lg:my-0 lg:min-h-0">
             View all collections <ArrowRight className="size-4" aria-hidden />
           </Link>
         </header>
@@ -31,12 +31,12 @@ export function ShopByCollection() {
             ) ?? collectionProducts.find((item) => item.media.length > 0);
             return (
               <Link key={collection.slug} href={`/collections/${collection.slug}`} className="group w-[76%] shrink-0 snap-start sm:w-auto sm:min-w-0">
-                <div className="aspect-[4/3] bg-surface">
-                  {product && <ProductImage asset={product.media[0]} name={product.name} categoryId={product.categoryId} sizes="(max-width: 639px) 76vw, 23vw" className="size-full object-contain transition-transform duration-500 group-hover:scale-[1.03]" />}
+                <div className="aspect-[4/3] overflow-hidden rounded-md border border-line bg-surface p-3 transition-colors group-hover:border-line-strong">
+                  {product && <ProductImage asset={product.media[0]} name={product.name} categoryId={product.categoryId} sizes="(max-width: 639px) 76vw, 23vw" className="size-full object-contain" />}
                 </div>
-                <h3 className="mt-3 font-display text-[1.125rem] font-bold leading-6 text-ink group-hover:text-primary-strong sm:mt-4 sm:text-[1.35rem] sm:leading-tight">{collection.name}</h3>
+                <h3 className="mt-3 font-display text-[1.125rem] font-bold leading-6 text-ink underline-offset-4 group-hover:underline sm:mt-4 sm:text-[1.25rem] sm:leading-tight">{collection.name}</h3>
                 <p className="mt-1.5 line-clamp-2 text-caption leading-snug text-muted sm:mt-2 sm:text-body-sm sm:leading-relaxed">{collection.blurb}</p>
-                <span className="mt-2 inline-flex items-center gap-2 text-caption font-semibold text-primary sm:mt-3 sm:text-body-sm">Shop now <ArrowRight className="size-4" /></span>
+                <span className="mt-2 inline-flex items-center gap-2 text-caption font-semibold text-ink sm:mt-3 sm:text-body-sm">Shop series <ArrowRight className="size-4" /></span>
               </Link>
             );
           })}

@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
-import { Badge, DemoBadge } from "@/components/ui/Badge";
+import { DemoBadge } from "@/components/ui/Badge";
 import { classNames } from "@/lib/format";
-import { DEMO_PRICING_ENABLED, DEMO_PRICING_LABEL } from "@/lib/config";
+import { DEMO_PRICING_ENABLED, DEMO_PRICING_LABEL, PRICES_ARE_LIVE } from "@/lib/config";
 import { formatInr } from "@/lib/format";
 import type { CartLineView, CartTotals, Coupon, ShippingMethod } from "@/types";
 
@@ -25,6 +25,7 @@ export function OrderSummary({
   shippingMethod,
   coupon,
   gstRows,
+  taxNote,
   heading = "Order summary",
   children
 }: {
@@ -33,6 +34,7 @@ export function OrderSummary({
   shippingMethod: ShippingMethod;
   coupon: Coupon | null;
   gstRows: GstRow[];
+  taxNote?: string | null;
   heading?: string;
   children?: React.ReactNode;
 }) {
@@ -42,7 +44,7 @@ export function OrderSummary({
   const linesUnpriced = lines.some((line) => line.lineTotalInr === null || line.problem !== null);
 
   return (
-    <section aria-label={heading} className="flex flex-col gap-3 rounded-lg border border-line bg-surface p-4 shadow-card lg:gap-4 lg:rounded-2xl lg:p-5">
+    <section aria-label={heading} className="flex flex-col gap-3 rounded-md border border-line bg-surface p-4 lg:gap-4 lg:p-5">
       <header className="flex items-baseline justify-between gap-3">
         <h2 className="font-display text-h4 font-bold text-ink">{heading}</h2>
         <p className="tabular text-caption text-muted">
@@ -97,7 +99,7 @@ export function OrderSummary({
             </button>
             {showGst && (
               <table className="mt-2 w-full text-caption">
-                <caption className="sr-only">GST split by rate, on demo prices</caption>
+                <caption className="sr-only">GST split by rate</caption>
                 <thead>
                   <tr className="text-left text-muted">
                     <th scope="col" className="font-medium">
@@ -122,6 +124,7 @@ export function OrderSummary({
                 </tbody>
               </table>
             )}
+            {showGst && taxNote && <p className="mt-2 text-caption text-muted">{taxNote}</p>}
           </div>
         )}
 
@@ -155,7 +158,7 @@ export function OrderSummary({
         </div>
       </dl>
 
-      {DEMO_PRICING_ENABLED && (
+      {DEMO_PRICING_ENABLED && !PRICES_ARE_LIVE && (
         <p className="rounded-xs border border-dashed border-line-strong bg-subtle/70 px-3 py-2 text-caption leading-relaxed text-muted">
           <DemoBadge label="Demo pricing" className="mr-2 align-middle" />
           {DEMO_PRICING_LABEL}. Plusmark does not publish list prices, so these totals exist only to exercise the
@@ -165,17 +168,17 @@ export function OrderSummary({
 
       {totals.subtotalInr !== null && (
         <p className="text-caption leading-relaxed text-muted">
-          Indicative only. Prices, stock and GST are confirmed by the Plusmark order desk; this page is never
-          authoritative for any of them.
+          {PRICES_ARE_LIVE
+            ? "GST is shown as charged. The final amount is confirmed again by Plusmark when you place the order."
+            : "Indicative only. Prices, stock and GST are confirmed by the Plusmark order desk; this page is never authoritative for any of them."}
         </p>
       )}
 
       {children && <div className="flex flex-col gap-2 pt-1">{children}</div>}
 
-      <div className="flex flex-wrap items-center gap-2">
-        <Badge tone="neutral">Not a reservation</Badge>
-        <p className="text-caption text-muted">Adding to the cart does not hold stock or a price.</p>
-      </div>
+      <p className="border-t border-line pt-3 text-caption text-muted">
+        Adding to the cart does not reserve stock or hold a price until the order is placed.
+      </p>
     </section>
   );
 }

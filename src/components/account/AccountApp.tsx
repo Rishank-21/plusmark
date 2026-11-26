@@ -47,7 +47,7 @@ const NAV: { id: Exclude<AccountSection, "order">; label: string; href: string; 
   { id: "wishlist", label: "Saved boards", href: "/account/wishlist", icon: Heart }
 ];
 
-const CARD = "rounded-[12px] border border-line bg-surface shadow-card";
+const CARD = "rounded-md border border-line bg-surface";
 const FOCUS = "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2";
 const PAGE = "bg-page pm-account-fade";
 const WIDTH = "mx-auto w-full max-w-[74rem] px-4 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10";
@@ -598,14 +598,14 @@ function AccountStat({ icon: Icon, label, shortLabel, value, href }: { icon: Luc
   return (
     <Link
       href={href}
-      className={`group flex flex-col gap-2 rounded-[12px] border border-line bg-surface p-3 shadow-card transition-[transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-lift sm:p-5 ${FOCUS}`}
+      className={`group flex flex-col gap-2 rounded-md border border-line bg-surface p-3 transition-colors hover:border-line-strong sm:p-5 ${FOCUS}`}
     >
-      <span className="grid size-8 place-items-center rounded-lg bg-primary-soft text-brand sm:size-10">
+      <span className="grid size-8 place-items-center rounded-md border border-line bg-subtle text-ink sm:size-10">
         <Icon className="size-4 sm:size-5" aria-hidden />
       </span>
       <span className="flex items-end justify-between gap-2">
         <span className="tabular text-[1.375rem] font-semibold leading-none text-ink sm:text-[1.875rem]">
-          {value === null ? <span className="inline-block h-6 w-8 animate-pulse rounded bg-subtle sm:h-8" aria-hidden /> : value}
+          {value === null ? <span className="inline-block h-6 w-8 rounded bg-subtle sm:h-8" aria-hidden /> : value}
         </span>
         <ArrowUpRight className="hidden size-4 text-muted opacity-0 transition-opacity duration-200 group-hover:opacity-100 sm:block" aria-hidden />
       </span>

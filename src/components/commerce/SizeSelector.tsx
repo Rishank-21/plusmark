@@ -40,7 +40,7 @@ export function SizeSelector({
               const variant = options.find((option) => option.id === event.target.value);
               if (variant) onSelect(variant);
             }}
-            className="h-12 w-full appearance-none rounded-md border border-line-strong bg-surface pl-3 pr-10 text-body-sm text-ink transition-colors hover:border-primary focus-visible:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/25"
+            className="h-12 w-full appearance-none rounded-md border border-line-strong bg-surface pl-3 pr-10 text-body-sm text-ink transition-colors hover:border-ink/45 focus-visible:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/25"
           >
             {options.map((variant) => {
               const price = showPrice && variant.priceInr !== null && DEMO_PRICING_ENABLED ? ` — ${formatInr(variant.priceInr)}` : "";
@@ -76,13 +76,13 @@ export function SizeSelector({
                 "flex min-h-12 min-w-[5.5rem] flex-col items-start justify-center gap-0.5 rounded-md border-2 px-3 py-2 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
                 selected
                   ? "border-primary bg-primary-soft text-ink"
-                  : "border-line bg-surface text-ink hover:border-graphite-light",
-                !variant.available && "cursor-not-allowed opacity-45 hover:border-line"
+                  : "border-line-strong bg-surface text-ink hover:border-ink/45",
+                !variant.available && "cursor-not-allowed opacity-45 hover:border-line-strong"
               )}
             >
-              <span className="flex items-center gap-1 text-[0.9375rem] font-semibold leading-tight">
+              <span className="flex items-center gap-1.5 text-[0.9375rem] font-semibold leading-tight">
                 {variantLabel(variant)}
-                {selected && <Check className="size-3.5 text-primary-strong sm:hidden" strokeWidth={2.5} aria-hidden />}
+                {selected && <Check className="size-3.5 text-ink" strokeWidth={2.5} aria-hidden />}
               </span>
               {showPrice && variant.priceInr !== null && DEMO_PRICING_ENABLED && (
                 <span className={classNames("tabular text-caption leading-tight max-sm:text-[0.75rem]", selected ? "text-primary-strong" : "text-muted")}>

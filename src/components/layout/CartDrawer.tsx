@@ -137,11 +137,11 @@ export function CartDrawer() {
                       </button>
                     </div>
                     <p className="flex flex-wrap items-center gap-1.5 text-[0.75rem] text-muted lg:text-caption">
-                      <span className="inline-flex items-center rounded-full bg-subtle px-2 py-0.5 leading-4 lg:bg-transparent lg:p-0 lg:leading-normal">
+                      <span>
                         {line.variant ? variantLabel(line.variant) : "Size no longer offered"}
                         {line.colour ? ` · ${line.colour}` : ""}
                       </span>
-                      <span className="tabular">{line.variant?.sku}</span>
+                      <span className="tabular">· {line.variant?.sku}</span>
                     </p>
                     {line.problem && (
                       <p className="text-caption font-medium text-danger">
@@ -179,7 +179,7 @@ export function CartDrawer() {
             </div>
             <p className="mt-1 text-caption text-muted">
               {showSubtotal
-                ? "GST and freight are confirmed at checkout. Shipping rules are still being configured by Plusmark."
+                ? "GST and delivery charges are confirmed at checkout for your state."
                 : "Plusmark confirms the price for made-to-order sizes."}
             </p>
             <div className="mt-4 flex flex-col gap-2">

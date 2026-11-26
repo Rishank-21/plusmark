@@ -1,0 +1,37 @@
+{
+  "cookies": [
+    {
+      "name": "sb-127-auth-token",
+      "value": "base64-eyJhY2Nlc3NfdG9rZW4iOiJleUpoYkdjaU9pSklVekkxTmlJc0luUjVjQ0k2SWtwWFZDSjkuZXlKcGMzTWlPaUpvZEhSd09pOHZNVEkzTGpBdU1DNHhPalUxTXpJeEwyRjFkR2d2ZGpFaUxDSnpkV0lpT2lJM1kyVXlPV1JrWXkxbE16QTFMVFE0TVRJdFltUTBZeTAwTWprelpqa3pOVGswWlRraUxDSmhkV1FpT2lKaGRYUm9aVzUwYVdOaGRHVmtJaXdpWlhod0lqb3hOemsxTnpBek1qTTRMQ0pwWVhRaU9qRTNPVFUyT1RrMk16Z3NJbVZ0WVdsc0lqb2lZV1J0YVc1QWNHeDFjMjFoY21zdWRHVnpkQ0lzSW5Cb2IyNWxJam9pSWl3aVlYQndYMjFsZEdGa1lYUmhJanA3SW5CeWIzWnBaR1Z5SWpvaVpXMWhhV3dpTENKd2NtOTJhV1JsY25NaU9sc2laVzFoYVd3aVhYMHNJblZ6WlhKZmJXVjBZV1JoZEdFaU9uc2laVzFoYVd4ZmRtVnlhV1pwWldRaU9uUnlkV1VzSW1aMWJHeGZibUZ0WlNJNklsTjBiM0psSUVGa2JXbHVJbjBzSW5KdmJHVWlPaUpoZFhSb1pXNTBhV05oZEdWa0lpd2lZV0ZzSWpvaVlXRnNNaUlzSW1GdGNpSTZXM3NpYldWMGFHOWtJam9pY0dGemMzZHZjbVFpTENKMGFXMWxjM1JoYlhBaU9qRTNPVFUyT1RRek5ETjlMSHNpYldWMGFHOWtJam9pZEc5MGNDSXNJblJwYldWemRHRnRjQ0k2TVRjNU5UWTVORE0wTTMxZExDSnpaWE56YVc5dVgybGtJam9pWlRsak5tVmxOakV0WVdFell5MDBPRE0zTFdGa01XSXRNelkzTldJek5tTm1ObVV6SWl3aWFYTmZZVzV2Ym5sdGIzVnpJanBtWVd4elpYMC5NU0VlWkt5c1hTVkswNjBOeWp0Z2owSnNUUWJFbkJpOC1hdUJlTlRtb1BRIiwidG9rZW5fdHlwZSI6ImJlYXJlciIsImV4cGlyZXNfaW4iOjM2MDAsImV4cGlyZXNfYXQiOjE3OTU3MDMyMzgsInJlZnJlc2hfdG9rZW4iOiJxM3kzamh1Y2pjbHQiLCJ1c2VyIjp7ImlkIjoiN2NlMjlkZGMtZTMwNS00ODEyLWJkNGMtNDI5M2Y5MzU5NGU5IiwiYXVkIjoiYXV0aGVudGljYXRlZCIsInJvbGUiOiJhdXRoZW50aWNhdGVkIiwiZW1haWwiOiJhZG1pbkBwbHVzbWFyay50ZXN0IiwiZW1haWxfY29uZmlybWVkX2F0IjoiMjAyNi0xMS0yNlQxMTo1NDoyOS43NDQyMjFaIiwicGhvbmUiOiIiLCJjb25maXJtZWRfYXQiOiIyMDI2LTExLTI2VDExOjU0OjI5Ljc0NDIyMVoiLCJsYXN0X3NpZ25faW5fYXQiOiIyMDI2LTExLTI2VDEyOjUzOjUwLjA0MzY2MVoiLCJhcHBfbWV0YWRhdGEiOnsicHJvdmlkZXIiOiJlbWFpbCIsInByb3ZpZGVycyI6WyJlbWFpbCJdfSwidXNlcl9tZXRhZGF0YSI6eyJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiZnVsbF9uYW1lIjoiU3RvcmUgQWRtaW4ifSwiZmFjdG9ycyI6W3siaWQiOiI1ZDIwMTMzMS03YzIxLTRkOGYtOGQxMi1kZDUwNGVlYTA3ZDkiLCJjcmVhdGVkX2F0IjoiMjAyNi0xMS0yNlQxMTo1NDoyOS45NjMxOTRaIiwidXBkYXRlZF9hdCI6IjIwMjYtMTEtMjZUMTM6MDA6MjIuODM2OTY1WiIsInN0YXR1cyI6InZlcmlmaWVkIiwiZnJpZW5kbHlfbmFtZSI6IlBsdXNtYXJrIGFkbWluIiwiZmFjdG9yX3R5cGUiOiJ0b3RwIiwicGhvbmUiOiIiLCJsYXN0X2NoYWxsZW5nZWRfYXQiOiIyMDI2LTExLTI2VDEzOjAwOjIyLjgyODc1N1oifV0sImlkZW50aXRpZXMiOlt7ImlkZW50aXR5X2lkIjoiNTBiNGIzYzQtNGMxNi00YjAzLTllZTEtMWM3MGFkZjlkMWU0IiwiaWQiOiI3Y2UyOWRkYy1lMzA1LTQ4MTItYmQ0Yy00MjkzZjkzNTk0ZTkiLCJ1c2VyX2lkIjoiN2NlMjlkZGMtZTMwNS00ODEyLWJkNGMtNDI5M2Y5MzU5NGU5IiwiaWRlbnRpdHlfZGF0YSI6eyJlbWFpbCI6ImFkbWluQHBsdXNtYXJrLnRlc3QiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsInBob25lX3ZlcmlmaWVkIjpmYWxzZSwic3ViIjoiN2NlMjlkZGMtZTMwNS00ODEyLWJkNGMtNDI5M2Y5MzU5NGU5In0sInByb3ZpZGVyIjoiZW1haWwiLCJsYXN0X3NpZ25faW5fYXQiOiIyMDI2LTExLTI2VDExOjU0OjI5Ljc0MDc2NVoiLCJjcmVhdGVkX2F0IjoiMjAyNi0xMS0yNlQxMTo1NDoyOS43NDA4NjFaIiwidXBkYXRlZF9hdCI6IjIwMjYtMTEtMjZUMTE6NTQ6MjkuNzQwODYxWiIsImVtYWlsIjoiYWRtaW5AcGx1c21hcmsudGVzdCJ9XSwiY3JlYXRlZF9hdCI6IjIwMjYtMTEtMjZUMTE6NTQ6MjkuNzM4MjQ3WiIsInVwZGF0ZWRfYXQiOiIyMDI2LTExLTI2VDEzOjI3OjE4LjI0NjE0NFoiLCJpc19hbm9ueW1vdXMiOmZhbHNlfX0",
+      "domain": "localhost",
+      "path": "/",
+      "expires": 1830259638.654884,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    }
+  ],
+  "origins": [
+    {
+      "origin": "http://localhost:3000",
+      "localStorage": [
+        {
+          "name": "plusmark.cart.v1",
+          "value": "{\"lines\":[],\"couponCode\":null,\"shippingMethodId\":\"standard\"}"
+        },
+        {
+          "name": "plusmark.my-enquiries.v1",
+          "value": "[]"
+        },
+        {
+          "name": "plusmark.wishlist.v1",
+          "value": "[]"
+        },
+        {
+          "name": "plusmark.orders.v1",
+          "value": "[]"
+        }
+      ]
+    }
+  ]
+}

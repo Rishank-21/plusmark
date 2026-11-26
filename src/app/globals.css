@@ -187,6 +187,44 @@
   }
 
   /*
+   * Storefront-scoped neutral editorial palette: warm white canvas, near-black
+   * text, neutral dividers, and a solid dark primary CTA. Scoped via
+   * :has([data-surface="storefront"]) so portaled modals/drawers inherit it
+   * while /admin keeps its existing tokens untouched.
+   */
+  :root:has([data-surface="storefront"]) {
+    color-scheme: light;
+    --c-bg: 250 249 246;
+    --c-surface: 255 255 255;
+    --c-surface-muted: 244 242 238;
+    --c-sunken: 235 232 226;
+    --c-text: 20 20 19;
+    --c-text-muted: 87 84 78;
+    --c-border: 228 225 219;
+    --c-border-strong: 196 191 182;
+    --c-primary: 20 20 19;
+    --c-primary-strong: 46 45 42;
+    --c-primary-soft: 242 240 235;
+    --c-on-primary: 255 255 255;
+    --c-shell: 24 24 22;
+    --c-on-shell: 250 249 246;
+    --c-scrim: 15 15 14;
+    --c-success: 21 128 61;
+    --c-success-soft: 240 253 244;
+    --c-warning: 161 98 7;
+    --c-warning-soft: 254 249 195;
+    --c-danger: 185 28 28;
+    --c-danger-soft: 254 242 242;
+    --c-rating: 180 120 15;
+    --c-shadow: 20 20 19;
+    --pm-hero-bg: rgb(244 242 238);
+    --pm-hero-shadow: none;
+    --pm-hero-cta-bg: 20 20 19;
+    --pm-hero-cta-fg: 255 255 255;
+    --pm-hero-focus-offset: 244 242 238;
+  }
+
+  /*
    * Mobile shell metrics. Kept separate from the theme layer because these
    * are geometry, not colour; lg values match the desktop header exactly.
    */

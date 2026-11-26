@@ -1,9 +1,12 @@
+export const revalidate = 60;
+import { ensureLiveCatalog } from "@/lib/backend/server";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ProductApp } from "@/components/product/ProductApp";
 import { ProductComparison } from "@/components/product/ProductComparison";
 import { RelatedProducts } from "@/components/product/RelatedProducts";
 import { getCategory, getProduct, getSeries, products, productsInCategory, relatedProducts } from "@/lib/catalog";
+import { fetchRelations } from "@/lib/backend/server";
 import { DEMO_PRICING_ENABLED } from "@/lib/config";
 import { imageUrl, ogImageUrl } from "@/lib/media";
 import { absoluteUrl, breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
@@ -13,6 +16,7 @@ export function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  await ensureLiveCatalog();
   const { slug } = await params;
   const product = getProduct(slug);
   if (!product) return {};
@@ -28,12 +32,18 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 }
 
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
+  await ensureLiveCatalog();
   const { slug } = await params;
   const product = getProduct(slug);
   if (!product) notFound();
 
   const category = getCategory(product.categoryId);
-  const related = relatedProducts(product, 6);
+  // The admin chooses what appears under "Compare" and "You may also like"; the built-in rules are the fallback.
+  const relations = await fetchRelations(slug, 6);
+  const pickedRelated = (relations?.alsoBought ?? [])
+    .map((s) => getProduct(s))
+    .filter((p): p is NonNullable<typeof p> => Boolean(p) && p!.slug !== product.slug);
+  const related = pickedRelated.length > 0 ? pickedRelated : relatedProducts(product, 6);
   // A stand is a factual companion for a wall board, not a sales suggestion:
   // Plusmark publishes no basket data, so this pairing is by product type only.
   const companions = ["white-boards", "chalk-boards", "notice-boards", "display-boards", "ceramic-boards"].includes(
@@ -90,7 +100,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }}
       />
-      <ProductApp product={product} related={related} comparison={<ProductComparison slug={product.slug} />} />
+      <ProductApp product={product} related={related} comparison={<ProductComparison slug={product.slug} pickedSlugs={relations?.compare} />} />
       {companions.length > 0 && <RelatedProducts products={companions} title="Completes the setup" />}
     </>
   );

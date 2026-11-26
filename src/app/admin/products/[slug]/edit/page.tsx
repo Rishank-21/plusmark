@@ -1,23 +1,15 @@
+"use client";
+
+import { useParams } from "next/navigation";
 import { AdminPageHeader } from "@/components/admin/Metrics";
-import { ProductForm } from "@/components/admin/ProductForm";
+import { ProductEditor } from "@/components/admin/ProductEditor";
 
-export const metadata = { title: "Edit product · Plusmark admin", robots: { index: false, follow: false } };
-
-export default async function AdminEditProductPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
-
+export default function EditProductPage() {
+  const { slug } = useParams<{ slug: string }>();
   return (
-    <div className="flex flex-col gap-5">
-      <AdminPageHeader
-        title="Edit product"
-        crumbs={[
-          { label: "Admin", href: "/admin" },
-          { label: "Products", href: "/admin/products" },
-          { label: "Edit product" }
-        ]}
-        lede={`Editing the live catalogue record for ${slug}. Saving rewrites the product and reconciles its size rows in Supabase.`}
-      />
-      <ProductForm mode="edit" slug={slug} />
-    </div>
+    <>
+      <AdminPageHeader title="Edit product" crumbs={[{ label: "Admin", href: "/admin" }, { label: "Products", href: "/admin/products" }, { label: slug }]} />
+      <ProductEditor key={slug} slug={slug} />
+    </>
   );
 }

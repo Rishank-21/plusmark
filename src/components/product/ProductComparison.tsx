@@ -9,11 +9,16 @@ function listAnd(items: string[]): string {
   return `${items.slice(0, -1).join(", ")} and ${items[items.length - 1]}`;
 }
 
-export function ProductComparison({ slug }: { slug: string }) {
+export function ProductComparison({ slug, pickedSlugs }: { slug: string; pickedSlugs?: string[] }) {
   const current = getCompareEntry(slug);
   if (!current) return null;
 
-  const peers = getSimilarProducts(slug, 3);
+  // Products chosen in the admin win; otherwise the automatic similarity rules apply.
+  const picked = (pickedSlugs ?? [])
+    .map((s) => getCompareEntry(s))
+    .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry) && entry!.slug !== slug)
+    .slice(0, 3);
+  const peers = picked.length > 0 ? picked : getSimilarProducts(slug, 3);
   if (peers.length === 0) return null;
 
   const columns = [current, ...peers];

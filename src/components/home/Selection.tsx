@@ -37,9 +37,9 @@ export function Selection({
             <h2 id={headingId} className="font-display text-[1.375rem] font-extrabold leading-7 text-ink sm:text-h2 sm:leading-[1.15]">{heading}</h2>
             {lead && <p className="line-clamp-2 max-w-[58ch] text-body-sm leading-relaxed text-muted sm:line-clamp-none">{lead}</p>}
           </div>
-          <Link href="/shop" className="group -my-2 inline-flex min-h-11 items-center gap-2 text-body-sm font-medium text-primary hover:text-primary-strong lg:my-0 lg:min-h-0">
+          <Link href="/shop" className="-my-2 inline-flex min-h-11 items-center gap-2 text-body-sm font-medium text-ink underline-offset-4 hover:underline lg:my-0 lg:min-h-0">
             View all products
-            <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" aria-hidden />
+            <ArrowRight className="size-4" aria-hidden />
           </Link>
         </header>
 
@@ -50,9 +50,9 @@ export function Selection({
         </div>
 
         {showCustomSizeNote && (
-          <div className="mt-6 flex flex-wrap items-center justify-between gap-3 pt-4 sm:mt-8 sm:gap-4 sm:pt-6">
+          <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-line pt-5 sm:mt-8 sm:gap-4 sm:pt-6">
             <p className="text-caption text-muted sm:text-body-sm">Looking for a size that is not listed? Boards are cut to order.</p>
-            <Link href="/contact" className="inline-flex h-11 items-center rounded-md border border-primary/25 bg-surface px-5 text-body-sm font-medium text-brand transition-colors hover:border-primary hover:bg-primary-soft">
+            <Link href="/contact" className="inline-flex h-11 items-center rounded-md border border-line-strong bg-surface px-5 text-body-sm font-medium text-ink transition-colors hover:border-ink/45 hover:bg-subtle">
               Ask about a custom size
             </Link>
           </div>

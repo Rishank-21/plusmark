@@ -113,9 +113,16 @@ begin
 
   -- lines
   for r in
-    select (e->>'variant_id')::uuid as vid, sum((e->>'quantity')::int) as qty
-      from jsonb_array_elements(p_items) e group by 1 order by 1
+    select coalesce(nullif(e->>'variant_id','')::uuid,
+                    (select pv.id from public.product_variants pv where pv.external_ref = e->>'ref'),
+                    (select pv.id from public.product_variants pv where pv.sku = e->>'sku')) as vid,
+           nullif(trim(left(coalesce(e->>'colour', ''), 40)), '') as colour,
+           sum(coalesce(nullif(e->>'quantity','')::int, 0)) as qty
+      from jsonb_array_elements(p_items) e group by 1, 2 order by 1, 2
   loop
+    if r.vid is null then
+      return jsonb_build_object('ok', false, 'error', 'variant_not_found', 'message', 'An item in your cart is no longer available');
+    end if;
     if r.qty < 1 or r.qty > 999 then
       return jsonb_build_object('ok', false, 'error', 'bad_quantity', 'message', 'Quantity must be 1 to 999', 'variant_id', r.vid);
     end if;
@@ -146,7 +153,8 @@ begin
 
       v_line := jsonb_build_object(
         'variant_id', v.id, 'product_id', p.id, 'name', p.name, 'slug', p.slug,
-        'category_id', p.category_id, 'variant_label', v.title, 'options', v.options,
+        'category_id', p.category_id, 'variant_label', v.title || coalesce(' · ' || r.colour, ''),
+        'options', v.options || case when r.colour is not null then jsonb_build_object('Colour', r.colour) else '{}'::jsonb end,
         'sku', v.sku, 'hsn_code', p.hsn_code,
         'image', coalesce(v.image_public_id, (select m.public_id from public.product_media m where m.product_id = p.id order by m.sort_order limit 1)),
         'quantity', r.qty, 'unit_price', v.price_inr,
@@ -239,7 +247,8 @@ begin
   return jsonb_build_object(
     'ok', true, 'lines', v_lines, 'coupon', v_coupon,
     'subtotal', v_sub, 'discount', v_disc,
-    'shipping', v_ship_split.total, 'cod_fee', coalesce(v_cod_split.total, 0),
+    'shipping', v_ship_split.total, 'shipping_net', v_ship_split.taxable,
+    'cod_fee', coalesce(v_cod_split.total, 0), 'cod_fee_net', coalesce(v_cod_split.taxable, 0),
     'taxable', v_taxable, 'cgst', v_cgst, 'sgst', v_sgst, 'igst', v_igst, 'gst', v_gst,
     'total', v_total, 'total_paise', round(v_total * 100)::bigint,
     'prices_include_gst', v_inclusive, 'gst_breakup', v_breakup);
@@ -250,10 +259,15 @@ revoke all on function public.compute_cart(jsonb, text, text, uuid, text, text) 
 create or replace function public.quote_cart(
   p_items jsonb, p_coupon text default null, p_state text default null,
   p_email text default null, p_payment_method text default 'razorpay')
-returns jsonb language sql stable security definer set search_path = public as $$
-  select public.compute_cart(p_items, p_coupon, p_state, auth.uid(),
+returns jsonb language plpgsql security definer set search_path = public as $$
+declare v_ip text := public._client_ip();
+begin
+  if v_ip is not null and not public._rate_ok('quote:ip:' || v_ip, 300, 60) then
+    return jsonb_build_object('ok', false, 'error', 'rate_limited', 'message', 'Too many requests. Please slow down.');
+  end if;
+  return public.compute_cart(p_items, p_coupon, p_state, auth.uid(),
     coalesce(p_email, (select email from public.profiles where id = auth.uid())), p_payment_method);
-$$;
+end $$;
 
 -- ---------------------------------------------------------------------
 -- stock helpers (internal)
@@ -324,14 +338,14 @@ revoke all on function public._order_event(uuid, text, text, text, boolean) from
 -- ---------------------------------------------------------------------
 -- place_order: guests and signed-in customers
 -- ---------------------------------------------------------------------
-create or replace function public.place_order(
-  p_items jsonb, p_email text, p_phone text, p_customer_name text,
+create or replace function public._place_order(
+  p_uid uuid, p_ip text, p_items jsonb, p_email text, p_phone text, p_customer_name text,
   p_shipping_address jsonb, p_billing_address jsonb default null,
   p_coupon text default null, p_payment_method text default 'razorpay', p_notes text default null)
 returns jsonb language plpgsql security definer set search_path = public as $$
 declare
   s public.store_settings;
-  v_uid uuid := auth.uid();
+  v_uid uuid := p_uid;
   v_email text;
   v_phone text;
   v_bill jsonb;
@@ -348,6 +362,9 @@ begin
   select * into s from public.store_settings;
   if p_payment_method not in ('razorpay','cod') then
     return jsonb_build_object('ok', false, 'error', 'bad_payment_method', 'message', 'Unsupported payment method');
+  end if;
+  if p_ip is not null and not public._rate_ok('order:ip:' || p_ip, 8, 600) then
+    return jsonb_build_object('ok', false, 'error', 'rate_limited', 'message', 'Too many orders from this network. Please try again in a few minutes.');
   end if;
   if p_payment_method = 'cod' and not s.cod_enabled then
     return jsonb_build_object('ok', false, 'error', 'cod_disabled', 'message', 'Cash on delivery is not available');
@@ -370,6 +387,14 @@ begin
     return jsonb_build_object('ok', false, 'error', 'bad_phone', 'message', 'A valid 10 digit mobile number is required');
   end if;
 
+  if (select count(*) from public.orders where status = 'payment_pending' and placed_at > now() - interval '1 hour'
+        and (lower(email) = lower(v_email) or phone = v_phone)) >= 4 then
+    return jsonb_build_object('ok', false, 'error', 'too_many_pending', 'message', 'You have several unpaid orders. Please complete or wait for them to expire.');
+  end if;
+  if p_payment_method = 'cod' and (select count(*) from public.orders where payment_method = 'cod' and status = 'confirmed'
+        and placed_at > now() - interval '1 day' and (lower(email) = lower(v_email) or phone = v_phone)) >= 3 then
+    return jsonb_build_object('ok', false, 'error', 'cod_limit', 'message', 'Too many cash on delivery orders today. Please pay online.');
+  end if;
   v_bill := coalesce(p_billing_address, p_shipping_address);
   perform public._validate_address(p_shipping_address);
   perform public._validate_address(v_bill);
@@ -392,7 +417,9 @@ begin
     prices_include_gst, coupon_id, coupon_code, shipping_address, billing_address, notes)
   values (
     v_num, v_uid, v_email, v_phone, nullif(trim(p_customer_name), ''), v_status, v_pay_status, p_payment_method,
-    (q->>'subtotal')::numeric, (q->>'discount')::numeric, (q->>'shipping')::numeric, (q->>'cod_fee')::numeric,
+    (q->>'subtotal')::numeric, (q->>'discount')::numeric,
+    case when (q->>'prices_include_gst')::boolean then (q->>'shipping')::numeric else (q->>'shipping_net')::numeric end,
+    case when (q->>'prices_include_gst')::boolean then (q->>'cod_fee')::numeric else (q->>'cod_fee_net')::numeric end,
     (q->>'taxable')::numeric, (q->>'cgst')::numeric, (q->>'sgst')::numeric, (q->>'igst')::numeric,
     (q->>'gst')::numeric, (q->>'total')::numeric,
     (q->>'prices_include_gst')::boolean, v_cid, q->'coupon'->>'code', p_shipping_address, v_bill,
@@ -441,6 +468,8 @@ begin
     'guest_token', v_order.guest_token, 'status', v_status, 'payment_method', p_payment_method,
     'total_inr', v_order.total_inr, 'total_paise', round(v_order.total_inr * 100)::bigint);
 end $$;
+
+revoke all on function public._place_order(uuid, text, jsonb, text, text, text, jsonb, jsonb, text, text, text) from public, anon, authenticated;
 
 -- Cancel unpaid orders and give the stock back (called by cron / edge job).
 create or replace function public.expire_unpaid_orders()

@@ -96,9 +96,12 @@ export function computeTotals(input: {
     const lineNet = (line.lineTotalInr ?? 0) - (discountInr * ((line.lineTotalInr ?? 0) / subtotalInr));
     gstInr += (lineNet * rate) / 100;
   }
+  const listedShipping = input.shippingMethod?.priceInr ?? null;
+  const freeOver = input.shippingMethod?.freeOverInr;
+  const shippingInr =
+    listedShipping !== null && freeOver !== null && freeOver !== undefined && netAfterDiscount >= freeOver ? 0 : listedShipping;
+  if (shippingInr) gstInr += (shippingInr * (input.shippingMethod?.gstRatePercent ?? 0)) / 100;
   gstInr = Math.round(gstInr);
-
-  const shippingInr = input.shippingMethod?.priceInr ?? null;
   const totalInr = shippingInr === null ? null : netAfterDiscount + gstInr + shippingInr;
 
   return {

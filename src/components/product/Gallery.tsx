@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight, Play, Share2 } from "lucide-react";
 import { Modal } from "@/components/ui/Modal";
-import { ProductImage } from "@/components/ui/ProductImage";
+import { BrokenImageFallback, ProductImage } from "@/components/ui/ProductImage";
 import { cloudinaryLoader, imageUrl, videoPoster, videoUrl, galleryLoader, zoomLoader, isCloudinaryPublicId } from "@/lib/media";
 import { classNames } from "@/lib/format";
 import type { Product } from "@/types";
@@ -33,6 +33,8 @@ export function Gallery({ product }: { product: Product }) {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const [playing, setPlaying] = useState(false);
   const [shareNote, setShareNote] = useState("");
+  const [failedIds, setFailedIds] = useState<Record<string, boolean>>({});
+  const markFailed = (id: string) => setFailedIds((prev) => (prev[id] ? prev : { ...prev, [id]: true }));
 
   const media = product.media;
   const current = media[active] ?? media[0] ?? null;
@@ -130,7 +132,8 @@ export function Gallery({ product }: { product: Product }) {
               width={160}
               height={160}
               {...deliveryProps(asset.publicId, cloudinaryLoader)}
-              className="size-full object-contain"
+              onError={() => markFailed(asset.publicId)}
+              className={classNames("size-full object-contain", failedIds[asset.publicId] && "opacity-30")}
             />
           </button>
         ))}
@@ -203,6 +206,10 @@ export function Gallery({ product }: { product: Product }) {
               className="aspect-[4/3] w-full bg-subtle object-contain"
               aria-label={`Plusmark product video for ${product.name}`}
             />
+          ) : failedIds[current.publicId] ? (
+            <div className="aspect-[4/3] w-full">
+              <BrokenImageFallback label={`${product.name} image unavailable`} />
+            </div>
           ) : (
             <Image
               src={imageUrl(current.publicId, { fit: "limit", width: 1200 })}
@@ -218,6 +225,7 @@ export function Gallery({ product }: { product: Product }) {
               }}
               onMouseLeave={clearPointer}
               onMouseMove={trackPointer}
+              onError={() => markFailed(current.publicId)}
               onClick={() => setLightboxIndex(active)}
               className={classNames(
                 "aspect-[4/3] w-full cursor-zoom-in bg-surface object-contain transition-transform duration-300",
@@ -230,13 +238,13 @@ export function Gallery({ product }: { product: Product }) {
           {!playing && media.length > 1 && (
             <span
               aria-hidden
-              className="pointer-events-none absolute bottom-2 right-2 rounded-full bg-surface/95 px-2.5 py-1 text-[0.75rem] font-semibold tabular text-ink shadow-card md:hidden"
+              className="pointer-events-none absolute bottom-2 right-2 rounded-md border border-line bg-surface px-2.5 py-1 text-[0.75rem] font-semibold tabular text-ink md:hidden"
             >
               {active + 1} / {media.length}
             </span>
           )}
 
-          {pointer && !playing && (
+          {pointer && !playing && !failedIds[current.publicId] && (
             <div
               aria-hidden
               className="pointer-events-none absolute z-20 hidden -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-full bg-surface shadow-[0_18px_45px_-18px_rgb(var(--c-shadow)/0.4)] ring-1 ring-navy/15 xl:block"
@@ -290,20 +298,27 @@ export function Gallery({ product }: { product: Product }) {
         {lightboxAsset && lightboxIndex !== null && (
           <div className="flex flex-col gap-3">
             <div className="relative flex items-center justify-center rounded-md bg-surface">
-              <Image
-                src={imageUrl(lightboxAsset.publicId, { fit: "limit", width: 2000 })}
-                alt={lightboxAsset.alt}
-                width={2000}
-                height={1500}
-                {...deliveryProps(lightboxAsset.publicId, zoomLoader)}
-                sizes="100vw"
-                className="max-h-[64vh] w-full object-contain"
-              />
+              {failedIds[lightboxAsset.publicId] ? (
+                <div className="aspect-[4/3] w-full max-h-[64vh]">
+                  <BrokenImageFallback label={`${product.name} image unavailable`} />
+                </div>
+              ) : (
+                <Image
+                  src={imageUrl(lightboxAsset.publicId, { fit: "limit", width: 2000 })}
+                  alt={lightboxAsset.alt}
+                  width={2000}
+                  height={1500}
+                  {...deliveryProps(lightboxAsset.publicId, zoomLoader)}
+                  onError={() => markFailed(lightboxAsset.publicId)}
+                  sizes="100vw"
+                  className="max-h-[64vh] w-full object-contain"
+                />
+              )}
               <button
                 type="button"
                 onClick={() => setLightboxIndex((lightboxIndex - 1 + media.length) % media.length)}
                 aria-label="Previous image"
-                className="absolute left-0 flex size-11 items-center justify-center rounded-full border border-line bg-surface/95 text-ink shadow-card hover:bg-subtle lg:size-9"
+                className="absolute left-0 flex size-11 items-center justify-center rounded-md border border-line bg-surface text-ink hover:bg-subtle lg:size-9"
               >
                 <ChevronLeft className="size-4" aria-hidden />
               </button>
@@ -311,7 +326,7 @@ export function Gallery({ product }: { product: Product }) {
                 type="button"
                 onClick={() => setLightboxIndex((lightboxIndex + 1) % media.length)}
                 aria-label="Next image"
-                className="absolute right-0 flex size-11 items-center justify-center rounded-full border border-line bg-surface/95 text-ink shadow-card hover:bg-subtle lg:size-9"
+                className="absolute right-0 flex size-11 items-center justify-center rounded-md border border-line bg-surface text-ink hover:bg-subtle lg:size-9"
               >
                 <ChevronRight className="size-4" aria-hidden />
               </button>
@@ -326,7 +341,7 @@ export function Gallery({ product }: { product: Product }) {
                   aria-current={index === lightboxIndex}
                   className={classNames(
                     "size-12 overflow-hidden rounded-sm border-2 bg-surface",
-                    index === lightboxIndex ? "border-primary" : "border-line hover:border-graphite-light"
+                    index === lightboxIndex ? "border-primary" : "border-line hover:border-line-strong"
                   )}
                 >
                   <Image
@@ -335,7 +350,8 @@ export function Gallery({ product }: { product: Product }) {
                     width={96}
                     height={96}
                     {...deliveryProps(asset.publicId, cloudinaryLoader)}
-                    className="size-full object-contain"
+                    onError={() => markFailed(asset.publicId)}
+                    className={classNames("size-full object-contain", failedIds[asset.publicId] && "opacity-30")}
                   />
                 </button>
               ))}

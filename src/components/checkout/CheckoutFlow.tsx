@@ -14,17 +14,21 @@ import { Button, ButtonLink } from "@/components/ui/Button";
 import { CheckboxField, PhoneField, TextField } from "@/components/ui/Field";
 import { EmptyState, Notice, Skeleton } from "@/components/ui/States";
 import { Breadcrumbs } from "@/components/ui/Nav";
-import { DEMO_PRICING_LABEL } from "@/lib/config";
+import { DEMO_PRICING_LABEL, PRICES_ARE_LIVE } from "@/lib/config";
 import { formatInr, variantLabel } from "@/lib/format";
 import { computeTotals, gstBreakdownByRate, SHIPPING_METHODS } from "@/lib/pricing";
 import { lookupPincode, type PincodePlace } from "@/lib/pincode";
 import { validateEmail, validateName, validatePhone, validatePincode } from "@/lib/validation";
 import { startRazorpayCheckout } from "@/lib/payments/razorpay-checkout";
-import { getOrderByReference, saveOrder } from "@/lib/supabase/account";
+import { getOrderByReference, guestTokenFor, saveOrder } from "@/lib/supabase/account";
+import { useServerQuote } from "@/components/checkout/useServerQuote";
+import { CouponControl } from "@/components/checkout/CouponControl";
+import { quoteCart, quoteLinesFrom } from "@/lib/backend/storefront";
+import { isSupabaseConfigured } from "@/lib/supabase/config";
 import { useCart } from "@/state/cart";
 import { useSession } from "@/state/session";
 import { useToast } from "@/state/toast";
-import type { AddressBookEntry, Order, ShippingMethod } from "@/types";
+import type { AddressBookEntry, Coupon, Order, ShippingMethod } from "@/types";
 
 interface CheckoutFields {
   fullName: string;
@@ -77,6 +81,13 @@ type PinStatus =
  * for, in the order it is needed; prices, freight, stock and tax stay
  * server-authoritative and nothing is charged from this page.
  */
+/** Signed-in customers go to their account; guests get a private tracking link. */
+function orderLink(placed: Order): string {
+  return placed.customerId
+    ? `/account/orders/${placed.id}`
+    : `/track-order?order=${encodeURIComponent(placed.reference)}&token=${encodeURIComponent(guestTokenFor(placed.id) ?? "")}`;
+}
+
 export function CheckoutFlow() {
   const cart = useCart();
   const session = useSession();
@@ -99,39 +110,10 @@ export function CheckoutFlow() {
 
   const couponFeed = useLiveCoupons();
   const shippingFeed = useLiveShipping();
-  const [online, setOnline] = useState<{ enabled: boolean; reason: string }>({
-    enabled: false,
-    reason: "Checking whether online payment is configured…"
-  });
-
-  useEffect(() => {
-    let alive = true;
-    void fetch("/api/payments/razorpay/config", { cache: "no-store" })
-      .then(async (response) => {
-        const data = (await response.json().catch(() => null)) as
-          | { enabled?: boolean; webhookConfigured?: boolean }
-          | null;
-        if (!alive) return;
-        const enabled = Boolean(data?.enabled);
-        setOnline({
-          enabled,
-          reason: enabled
-            ? ""
-            : "Online payment is not configured on this deployment. Cash on delivery is still available."
-        });
-      })
-      .catch(() => {
-        if (alive) {
-          setOnline({
-            enabled: false,
-            reason: "The payment configuration could not be read. Cash on delivery is still available."
-          });
-        }
-      });
-    return () => {
-      alive = false;
-    };
-  }, []);
+  const online = {
+    enabled: isSupabaseConfigured,
+    reason: "Online payment is not available on this deployment. Cash on delivery is still available."
+  };
 
   const signedIn = Boolean(session.user);
   const accountEmail = session.account?.email ?? session.user?.email ?? "";
@@ -248,25 +230,46 @@ export function CheckoutFlow() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cart.couponCode, couponFeed.coupons]);
 
-  const totals = useMemo(
+  const estimate = useMemo(
     () => computeTotals({ lines: cart.views, coupon, shippingMethod: cart.shippingMethod }),
     [cart.views, coupon, cart.shippingMethod]
   );
 
-  const gstRows = useMemo(
+  // The server prices the cart for the delivery state and payment method; the estimate is the fallback.
+  const deliveryState = (useSaved ? savedAddress?.state : fields.state)?.trim() || null;
+  const quoteEmail = (signedIn ? accountEmail : fields.email).trim().toLowerCase() || null;
+  const { quote } = useServerQuote({
+    views: cart.views,
+    couponCode: cart.couponCode,
+    state: deliveryState,
+    email: quoteEmail,
+    paymentMethod: payment === "razorpay" ? "razorpay" : "cod"
+  });
+  const totals = quote?.totals ?? estimate;
+
+  const estimateRows = useMemo(
     () => gstBreakdownByRate({ lines: cart.views, discountInr: totals.discountInr }),
     [cart.views, totals.discountInr]
   );
+  const gstRows = quote?.gstRows ?? estimateRows;
+  const summaryShipping: ShippingMethod = quote
+    ? {
+        ...cart.shippingMethod,
+        name: quote.codFeeInr > 0 ? `${cart.shippingMethod.name} + cash on delivery fee` : cart.shippingMethod.name,
+        priceInr: quote.totals.shippingInr
+      }
+    : cart.shippingMethod;
+  const summaryCoupon = quote?.coupon?.applied
+    ? ({ code: quote.coupon.code, description: "" } as unknown as Coupon)
+    : coupon;
 
   const priced = allLinesPriced(cart.views);
 
   const onlineBlockedReason = !online.enabled
     ? online.reason
-    : !signedIn
-      ? "Sign in to pay online. Guest checkout can still pay cash on delivery."
-      : totals.totalInr === null
-        ? "The payable amount is not final until a dispatch charge is published. Choose cash on delivery, or pick pickup."
-        : "";
+    : totals.totalInr === null
+      ? "The payable amount could not be confirmed yet. Please try again in a moment, or choose cash on delivery."
+      : "";
   const onlineReady = onlineBlockedReason === "";
 
   const pinHint =
@@ -413,6 +416,8 @@ export function CheckoutFlow() {
               slug: line.product.slug,
               variantLabel: `${variantLabel(line.variant)}${line.colour ? ` · ${line.colour}` : ""}`,
               sku: line.variant.sku,
+              variantId: line.variant.id,
+              colour: line.colour ?? null,
               quantity: line.quantity,
               unitPriceInr: line.variant.priceInr,
               lineTotalInr: line.lineTotalInr
@@ -428,8 +433,8 @@ export function CheckoutFlow() {
         isDemo: true
       };
 
-      /* Guests keep the order in this browser; a server order needs an account. */
-      const placed = session.user ? await saveOrder(order) : order;
+      /* The server prices and records the order for guests and signed-in customers alike. */
+      const placed = isSupabaseConfigured ? await saveOrder(order) : order;
       session.placeOrder(placed);
 
       if (session.account && !useSaved && keepAddress) {
@@ -465,21 +470,21 @@ export function CheckoutFlow() {
               `Payment was closed before it completed. Order ${placed.reference} is saved as payment pending.`,
               "error"
             );
-            router.push(`/account/orders/${placed.id}`);
+            router.push(orderLink(placed));
           }
         } catch (reason) {
           toast.push(
             `${reason instanceof Error ? reason.message : "The payment could not be completed."} Order ${placed.reference} is saved as payment pending.`,
             "error"
           );
-          router.push(`/account/orders/${placed.id}`);
+          router.push(orderLink(placed));
         }
         return;
       }
 
       setPlacedReference(placed.reference);
       toast.push(
-        session.user ? `Order ${placed.reference} saved to your account.` : `Order ${placed.reference} recorded on this device.`,
+        session.user ? `Order ${placed.reference} saved to your account.` : `Order ${placed.reference} placed. A confirmation email is on its way.`,
         "success"
       );
     } catch (error) {
@@ -566,7 +571,7 @@ export function CheckoutFlow() {
               </ButtonLink>
             </div>
           </Notice>
-          <OrderSummary lines={cart.views} totals={totals} shippingMethod={cart.shippingMethod} coupon={coupon} gstRows={gstRows} />
+          <OrderSummary lines={cart.views} totals={totals} shippingMethod={summaryShipping} coupon={summaryCoupon} gstRows={gstRows} taxNote={quote?.taxNote} />
         </div>
       </div>
     );
@@ -574,7 +579,14 @@ export function CheckoutFlow() {
 
   const selectedDispatch = cart.shippingMethod;
   const totalLabel = totals.totalInr === null ? "To be confirmed" : formatInr(totals.totalInr);
-  const placeLabel = payment === "razorpay" ? "Pay online" : "Place order";
+  const placeLabel =
+    totals.totalInr !== null
+      ? payment === "razorpay"
+        ? `Pay ${formatInr(totals.totalInr)} online`
+        : `Place order · ${formatInr(totals.totalInr)}`
+      : payment === "razorpay"
+        ? "Pay online"
+        : "Place order";
 
   return (
     <div className="pm-shell py-2xl pb-0 lg:py-3xl">
@@ -599,9 +611,10 @@ export function CheckoutFlow() {
           <OrderSummary
             lines={cart.views}
             totals={totals}
-            shippingMethod={cart.shippingMethod}
-            coupon={coupon}
+            shippingMethod={summaryShipping}
+            coupon={summaryCoupon}
             gstRows={gstRows}
+            taxNote={quote?.taxNote}
             heading="Your order"
           >
             <ButtonLink href="/cart" variant="secondary" fullWidth>
@@ -833,11 +846,41 @@ export function CheckoutFlow() {
                     <Link href="/login?next=/checkout" className="underline decoration-line-strong underline-offset-4 hover:text-ink">
                       Sign in
                     </Link>{" "}
-                    to use a saved address and pay online.
+                    to use a saved address and see all your orders in one place.
                   </p>
                 )}
               </>
             )}
+
+            <div className="flex flex-col gap-1.5">
+              <span className="text-caption font-medium text-ink">Discount code</span>
+              <CouponControl
+                appliedCode={cart.couponCode}
+                totals={totals}
+                status={quote?.coupon ?? null}
+                validate={async (code) => {
+                  const result = await quoteCart({
+                    lines: quoteLinesFrom(cart.views),
+                    couponCode: code,
+                    state: deliveryState,
+                    email: quoteEmail,
+                    paymentMethod: payment === "razorpay" ? "razorpay" : "cod"
+                  });
+                  if (result.error) return { ok: false, message: result.error.message };
+                  return result.coupon?.applied
+                    ? { ok: true }
+                    : { ok: false, message: result.coupon?.message ?? "That code is not valid." };
+                }}
+                onApply={(code) => {
+                  cart.setCoupon(code);
+                  toast.push(`${code} applied.`, "success");
+                }}
+                onClear={() => {
+                  cart.clearCoupon();
+                  toast.push("Coupon removed.", "info");
+                }}
+              />
+            </div>
 
             <div className="flex flex-col gap-1.5">
               <label htmlFor="checkout-dispatch" className="text-caption font-medium text-ink">
@@ -850,7 +893,7 @@ export function CheckoutFlow() {
                   const method = dispatchOptions.find((option) => option.id === event.target.value);
                   if (method) cart.setShippingMethod(method);
                 }}
-                className="h-12 w-full rounded-lg border border-line-strong bg-surface px-3.5 text-body-sm text-ink transition-colors hover:border-graphite-light focus-visible:border-navy focus-visible:outline-none"
+                className="h-12 w-full rounded-md border border-line-strong bg-surface px-3.5 text-body-sm text-ink transition-colors hover:border-ink/45 focus-visible:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/25"
               >
                 {dispatchOptions.map((method) => (
                   <option key={method.id} value={method.id}>
@@ -896,9 +939,10 @@ export function CheckoutFlow() {
           <OrderSummary
             lines={cart.views}
             totals={totals}
-            shippingMethod={cart.shippingMethod}
-            coupon={coupon}
+            shippingMethod={summaryShipping}
+            coupon={summaryCoupon}
             gstRows={gstRows}
+            taxNote={quote?.taxNote}
             heading="Your order"
           >
             <Button size="lg" fullWidth loading={placing} disabled={placing} onClick={() => void place()}>
@@ -912,7 +956,7 @@ export function CheckoutFlow() {
         </aside>
       </div>
 
-      <div className="sticky bottom-[calc(var(--pm-nav-h)+env(safe-area-inset-bottom))] z-20 -mx-md mt-xl border-t border-line bg-page/95 px-md py-3 backdrop-blur sm:-mx-lg sm:px-lg lg:hidden">
+      <div className="sticky bottom-[calc(var(--pm-nav-h)+env(safe-area-inset-bottom))] z-20 -mx-md mt-xl border-t border-line bg-page px-md py-3 sm:-mx-lg sm:px-lg lg:hidden">
         <div className="flex items-center justify-between gap-3">
           <div className="flex flex-col">
             <span className="text-caption text-muted">Total</span>
@@ -929,7 +973,7 @@ export function CheckoutFlow() {
         </p>
       </div>
 
-      <p className="hidden pb-2xl pt-md text-caption text-muted lg:block">{DEMO_PRICING_LABEL}.</p>
+      {!PRICES_ARE_LIVE && <p className="hidden pb-2xl pt-md text-caption text-muted lg:block">{DEMO_PRICING_LABEL}.</p>}
     </div>
   );
 }

@@ -189,11 +189,11 @@ begin
   return 'archived';
 end $$;
 
-create or replace function public.admin_restore_product(p_product_id uuid)
+create or replace function public.admin_restore_product(p_product_id uuid, p_publish boolean default false)
 returns void language plpgsql security definer set search_path = public as $$
 begin
   perform public.require_admin();
-  update public.products set deleted_at = null where id = p_product_id;
+  update public.products set deleted_at = null, published = p_publish where id = p_product_id;
 end $$;
 
 -- Build every combination of the product's options (Size x Color x any custom axis).

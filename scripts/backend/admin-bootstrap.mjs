@@ -50,7 +50,7 @@ for (const f of factors?.all ?? []) if (f.status === "unverified") await client.
 const { data: enr, error: enrErr } = await client.auth.mfa.enroll({ factorType: "totp", friendlyName: "Plusmark admin" });
 if (enrErr) throw enrErr;
 mkdirSync(".work", { recursive: true });
-writeFileSync(".work/admin-totp-qr.svg", enr.totp.qr_code);
+writeFileSync(".work/admin-totp-qr.svg", enr.totp.qr_code.replace(/^data:image\/svg\+xml[^,]*,/, ""));
 console.log("\nAdd this account in Google Authenticator / Authy / 1Password:");
 console.log("  Secret key :", enr.totp.secret);
 console.log("  Or open the QR image: .work/admin-totp-qr.svg\n");

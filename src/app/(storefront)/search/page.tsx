@@ -1,3 +1,4 @@
+import { ensureLiveCatalog } from "@/lib/backend/server";
 import type { Metadata } from "next";
 import { Listing } from "@/components/commerce/Listing";
 import { filterProducts, sortProducts } from "@/lib/filters";
@@ -18,6 +19,7 @@ export default async function SearchPage({
 }: {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
+  await ensureLiveCatalog();
   const raw = toParams(await searchParams);
   const filters = parseFilters(raw);
   const sort = parseSort(raw.get("sort"));

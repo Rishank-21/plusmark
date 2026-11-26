@@ -64,6 +64,16 @@ export async function middleware(request: NextRequest) {
       url.searchParams.set("denied", "1");
       return NextResponse.redirect(url);
     }
+    /* Administrators must also have passed the authenticator (TOTP) check for this session. */
+    const { data: assurance } = await supabase.auth.mfa.getAuthenticatorAssuranceLevel();
+    if (assurance?.currentLevel !== "aal2") {
+      const url = request.nextUrl.clone();
+      url.pathname = `${ADMIN_PREFIX}/login`;
+      url.search = "";
+      url.searchParams.set("next", `${pathname}${search}`);
+      url.searchParams.set("mfa", "1");
+      return NextResponse.redirect(url);
+    }
   }
 
   return response;

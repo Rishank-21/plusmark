@@ -71,7 +71,8 @@ declare v_url text; v_secret text;
 begin
   select value into v_url from public.app_config where key = 'edge_base_url';
   select value into v_secret from public.app_config where key = 'job_secret';
-  if v_url is not null and v_secret is not null and to_regnamespace('net') is not null then
+  if v_url is not null and v_secret is not null and to_regnamespace('net') is not null
+     and public._rate_ok('email-kick', 1, 3) then
     perform net.http_post(
       url := v_url || '/process-emails',
       headers := jsonb_build_object('Content-Type', 'application/json', 'x-job-secret', v_secret),
@@ -381,8 +382,8 @@ end $$;
 
 -- ---------------------------------------------------------------- self-ship tracking
 create or replace function public.admin_set_shipment(
-  p_order_id uuid, p_carrier_id text, p_carrier_name text, p_tracking_number text,
-  p_tracking_url text, p_status text default 'dispatched',
+  p_order_id uuid, p_carrier_id text default null, p_carrier_name text default null, p_tracking_number text default null,
+  p_tracking_url text default null, p_status text default 'dispatched',
   p_eta_from date default null, p_eta_to date default null, p_note text default null,
   p_shipment_id uuid default null)
 returns uuid language plpgsql security definer set search_path = public as $$
@@ -469,7 +470,7 @@ begin
 end $$;
 revoke all on function public._order_for_actor(uuid, text) from public, anon, authenticated;
 
-create or replace function public.cancel_own_order(p_order_id uuid, p_guest_token text default null)
+create or replace function public.cancel_own_order(p_order_id uuid, p_guest_token text default null, p_reason text default null)
 returns jsonb language plpgsql security definer set search_path = public as $$
 declare o public.orders;
 begin
@@ -478,7 +479,7 @@ begin
   if o.status not in ('placed','payment_pending','payment_failed','confirmed') then
     return jsonb_build_object('ok', false, 'error', 'too_late', 'message', 'This order can no longer be cancelled online. Please contact us.');
   end if;
-  perform public._set_order_status(o.id, 'cancelled', 'Cancelled by customer', true);
+  perform public._set_order_status(o.id, 'cancelled', 'Cancelled by customer' || coalesce(': ' || left(p_reason, 300), ''), true);
   return jsonb_build_object('ok', true);
 end $$;
 

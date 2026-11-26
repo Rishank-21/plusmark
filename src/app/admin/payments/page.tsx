@@ -1,152 +1,78 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { formatDateTime, formatInr } from "@/lib/format";
-import { StatusBadge } from "@/components/ui/Badge";
-import { Notice, ErrorState } from "@/components/ui/States";
-import { AdminPageHeader, StatStrip } from "@/components/admin/Metrics";
-import { FilterBar, FilterSelect, SearchControl } from "@/components/admin/FilterBar";
-import { DataTable, TableLink, type AdminColumn } from "@/components/admin/DataTable";
+import { useState } from "react";
+import Link from "next/link";
+import { AdminPageHeader } from "@/components/admin/Metrics";
+import { ErrorLine, Loading, Pick, Pill, Section, SimpleTable, statusTone } from "@/components/admin/kit";
 import { useAdminQuery } from "@/components/admin/useAdminQuery";
-import { listAdminOrders } from "@/lib/supabase/admin";
-import type { Order } from "@/types";
-
-const ALL = "all";
-
-const METHOD_LABEL: Record<Order["paymentMethod"], string> = {
-  razorpay: "Razorpay",
-  cod_placeholder: "Cash on delivery",
-  quotation_invoice: "Invoice"
-};
+import { Button } from "@/components/ui/Button";
+import { callFunction, db, downloadText, inr, rpc, toCsv, when, type Json } from "@/lib/backend/admin";
+import { useToast } from "@/state/toast";
 
 export default function AdminPaymentsPage() {
-  const query = useAdminQuery(() => listAdminOrders());
-  const orders = query.data ?? [];
-  const [search, setSearch] = useState("");
-  const [status, setStatus] = useState(ALL);
-
-  const rows = useMemo(() => {
-    const needle = search.trim().toLowerCase();
-    return orders.filter((order) => {
-      if (status !== ALL && order.paymentStatus !== status) return false;
-      return !needle || `${order.reference} ${order.email}`.toLowerCase().includes(needle);
-    });
-  }, [orders, search, status]);
-
-  const paid = orders.filter((order) => order.paymentStatus === "paid");
-  const collected = paid.reduce((sum, order) => sum + (order.totals.totalInr ?? 0), 0);
-
-  const columns: AdminColumn<Order>[] = [
-    {
-      id: "reference",
-      header: "Order",
-      minWidth: "9rem",
-      sortValue: (order) => order.reference,
-      render: (order) => <TableLink href={`/admin/orders/${order.id}`}>{order.reference}</TableLink>
-    },
-    {
-      id: "customer",
-      header: "Customer",
-      minWidth: "13rem",
-      sortValue: (order) => order.email,
-      render: (order) => <span className="text-caption text-graphite">{order.email}</span>
-    },
-    {
-      id: "method",
-      header: "Method",
-      minWidth: "8.5rem",
-      sortValue: (order) => order.paymentMethod,
-      render: (order) => METHOD_LABEL[order.paymentMethod]
-    },
-    {
-      id: "status",
-      header: "Payment",
-      minWidth: "7rem",
-      sortValue: (order) => order.paymentStatus,
-      render: (order) => <StatusBadge status={order.paymentStatus} />
-    },
-    {
-      id: "amount",
-      header: "Amount",
-      numeric: true,
-      minWidth: "7rem",
-      sortValue: (order) => order.totals.totalInr ?? 0,
-      render: (order) => (order.totals.totalInr === null ? "—" : formatInr(order.totals.totalInr))
-    },
-    {
-      id: "placed",
-      header: "Placed",
-      minWidth: "10.5rem",
-      sortValue: (order) => order.placedAt,
-      render: (order) => <span className="tabular text-caption">{formatDateTime(order.placedAt)}</span>
-    }
-  ];
+  const toast = useToast();
+  const [status, setStatus] = useState("");
+  const q = useAdminQuery(async () => {
+    const [pay, ref, evt] = await Promise.all([
+      db().from("payments").select("id,provider,provider_order_id,provider_payment_id,amount_inr,status,method,signature_verified,error_description,created_at,orders(id,order_number,email)").order("created_at", { ascending: false }).limit(500),
+      db().from("refunds").select("id,amount_inr,reason,status,error,created_at,orders(id,order_number,email)").order("created_at", { ascending: false }).limit(200),
+      db().from("payment_events").select("id,event,processed,error,received_at").order("received_at", { ascending: false }).limit(30)
+    ]);
+    if (pay.error) throw new Error(pay.error.message);
+    return { pay: (pay.data ?? []) as Json[], ref: (ref.data ?? []) as Json[], evt: (evt.data ?? []) as Json[] };
+  });
+  const run = async (label: string, work: () => Promise<unknown>) => {
+    try { await work(); toast.push(label, "success"); q.reload(); } catch (e) { toast.push((e as Error).message, "error"); }
+  };
+  const pays = (q.data?.pay ?? []).filter((p) => !status || p.status === status);
+  const todo = (q.data?.ref ?? []).filter((r) => r.status !== "processed");
 
   return (
-    <div className="flex flex-col gap-5">
+    <>
       <AdminPageHeader
-        title="Payments"
+        title="Payments and refunds"
         crumbs={[{ label: "Admin", href: "/admin" }, { label: "Payments" }]}
-        lede="Payment state as recorded against each order. This screen is read-only: a browser must never mark money as received."
+        actions={<Button size="sm" variant="secondary" onClick={() => downloadText("payments.csv", toCsv(pays.map((p) => ({ date: p.created_at, order: p.orders?.order_number, email: p.orders?.email, provider: p.provider, payment_id: p.provider_payment_id, razorpay_order: p.provider_order_id, method: p.method, amount: p.amount_inr, status: p.status }))))}>Export CSV</Button>}
       />
-      <Notice tone="warning" title="Payment status is server-authoritative">
-        <p>
-          Only the signed gateway webhook (or a server-side reconciliation job) may move an order to paid. There is no
-          verify button here because this build has no gateway integration to verify against.
-        </p>
-      </Notice>
-
-      {query.error ? (
-        <ErrorState title="Payments could not be loaded" body={query.error} onRetry={query.reload} />
-      ) : (
-        <>
-          <StatStrip
-            items={[
-              { label: "Orders", value: query.loading ? "—" : String(orders.length) },
-              { label: "Paid", value: query.loading ? "—" : String(paid.length) },
-              { label: "Recorded value", value: query.loading ? "—" : formatInr(collected), note: "Paid orders" },
-              { label: "Pending", value: query.loading ? "—" : String(orders.filter((order) => order.paymentStatus === "pending").length) },
-              { label: "Failed", value: query.loading ? "—" : String(orders.filter((order) => order.paymentStatus === "failed").length) },
-              { label: "Refunded", value: query.loading ? "—" : String(orders.filter((order) => order.paymentStatus === "refunded").length) }
-            ]}
-          />
-          <FilterBar
-            resultLabel={`${rows.length} of ${orders.length} orders match`}
-            onReset={search || status !== ALL ? () => { setSearch(""); setStatus(ALL); } : undefined}
-          >
-            <SearchControl label="Search payments" value={search} onChange={setSearch} className="grow" width="w-full min-w-[16rem]" placeholder="Order reference or email" />
-            <FilterSelect
-              label="Payment status"
-              value={status}
-              onChange={setStatus}
-              options={[
-                { value: ALL, label: "All statuses" },
-                { value: "paid", label: "Paid" },
-                { value: "pending", label: "Pending" },
-                { value: "unpaid", label: "Unpaid" },
-                { value: "failed", label: "Failed" },
-                { value: "refunded", label: "Refunded" }
-              ]}
+      {q.error && <ErrorLine message={q.error} onRetry={q.reload} />}
+      {q.loading && !q.data ? <Loading what="Loading payments" /> : (
+        <div className="flex flex-col gap-4">
+          {todo.length > 0 && (
+            <Section title={`Refunds waiting for you (${todo.length})`}>
+              <SimpleTable
+                head={["Order", "Amount", "Reason", "Status", ""]}
+                rows={todo.map((r) => [
+                  <Link key="o" href={`/admin/orders/${r.orders?.id}`} className="font-medium text-primary underline-offset-4 hover:underline">{r.orders?.order_number}</Link>,
+                  inr(r.amount_inr), r.reason,
+                  <div key="s"><Pill tone={statusTone(r.status)}>{r.status}</Pill>{r.error && <div className="text-caption text-red-700">{r.error}</div>}</div>,
+                  <div key="a" className="flex flex-wrap gap-2">
+                    <Button size="sm" onClick={() => void run("Refund sent to Razorpay", () => callFunction("admin-refund", { refund_id: r.id }))}>Refund via Razorpay</Button>
+                    <Button size="sm" variant="secondary" onClick={() => { const ref = window.prompt("Reference of the refund you paid (UPI / bank)", "manual"); if (ref !== null) void run("Marked as refunded", () => rpc("admin_mark_refund_done", { p_refund_id: r.id, p_reference: ref })); }}>Paid manually</Button>
+                  </div>
+                ])}
+              />
+            </Section>
+          )}
+          <Section title="Payments" aside={<div className="w-44"><Pick label="" value={status} onChange={setStatus} options={[["", "All"], ["captured", "Captured"], ["failed", "Failed"], ["created", "Started"], ["refunded", "Refunded"], ["partially_refunded", "Part refunded"]]} /></div>}>
+            <SimpleTable
+              head={["When", "Order", "Provider", "Payment id", "Method", "Amount", "Status"]}
+              empty="No payments yet."
+              rows={pays.map((p) => [
+                when(p.created_at),
+                <Link key="o" href={`/admin/orders/${p.orders?.id}`} className="text-primary underline-offset-4 hover:underline">{p.orders?.order_number}</Link>,
+                p.provider,
+                <span key="i" className="break-all text-caption">{p.provider_payment_id ?? p.provider_order_id}</span>,
+                p.method ?? "",
+                inr(p.amount_inr),
+                <div key="s"><Pill tone={statusTone(p.status)}>{p.status.replace(/_/g, " ")}</Pill>{p.error_description && <div className="text-caption text-red-700">{p.error_description}</div>}</div>
+              ])}
             />
-          </FilterBar>
-          <DataTable
-            caption="Orders with payment method, status, amount and placed time"
-            columns={columns}
-            rows={rows}
-            keyFor={(order) => order.id}
-            loading={query.loading}
-            resetKey={`${search}|${status}`}
-            pageSize={12}
-            defaultSort={{ id: "placed", dir: "desc" }}
-            emptyTitle="No order matches these filters"
-            emptyBody="Reset the payment status filter or clear the search."
-          />
-          <p className="text-[0.6875rem] leading-relaxed text-graphite-light">
-            Amounts come from the order record. Gateway identifiers are not displayed because gateway reconciliation is
-            not connected in this build.
-          </p>
-        </>
+          </Section>
+          <Section title="Recent Razorpay notifications">
+            <SimpleTable head={["Received", "Event", "Handled"]} empty="None yet." rows={(q.data?.evt ?? []).map((e) => [when(e.received_at), e.event, e.processed ? "Yes" : e.error ? `No: ${e.error}` : "Pending"])} />
+          </Section>
+        </div>
       )}
-    </div>
+    </>
   );
 }

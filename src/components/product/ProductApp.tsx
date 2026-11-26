@@ -1,5 +1,6 @@
 "use client";
 
+import { PRICES_ARE_LIVE } from "@/lib/config";
 import { useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import Link from "next/link";
@@ -246,7 +247,9 @@ export function ProductApp({
                 <p className="pt-2 text-[0.75rem] leading-relaxed text-muted">
                   {product.enquiryOnly
                     ? "Quoted individually by the order desk."
-                    : "Demo price — not a Plusmark quotation."}{" "}
+                    : PRICES_ARE_LIVE
+                      ? "Prices exclude GST."
+                      : "Demo price — not a Plusmark quotation."}{" "}
                   Sizes outside the published range are made to order.
                   {series ? ` ${series.name} series.` : ""}
                 </p>
@@ -313,7 +316,7 @@ function RatingStars({ rating }: { rating: number }) {
           <span key={index} className="relative inline-flex size-4 items-center justify-center">
             <Star className="absolute size-4 text-hair-strong" strokeWidth={1.5} />
             <span className="absolute inset-y-0 left-0 overflow-hidden" style={{ width: `${fill * 100}%` }}>
-              <Star className="size-4 fill-current text-primary" strokeWidth={0} />
+              <Star className="size-4 fill-current text-rating" strokeWidth={0} />
             </span>
           </span>
         );
@@ -419,7 +422,7 @@ function ServicesRow() {
           type="button"
           onClick={() => track.current?.scrollBy({ left: -200, behavior: "smooth" })}
           aria-label="Scroll services left"
-          className="absolute -left-2 top-[62%] hidden size-8 -translate-y-1/2 items-center justify-center rounded-full border border-line bg-surface text-ink shadow-card hover:bg-subtle lg:flex"
+          className="absolute -left-2 top-[62%] hidden size-8 -translate-y-1/2 items-center justify-center rounded-md border border-line-strong bg-surface text-ink hover:bg-subtle lg:flex"
         >
           <ChevronLeft className="size-4" aria-hidden />
         </button>
@@ -429,7 +432,7 @@ function ServicesRow() {
           type="button"
           onClick={() => track.current?.scrollBy({ left: 200, behavior: "smooth" })}
           aria-label="Scroll services right"
-          className="absolute -right-2 top-[62%] hidden size-8 -translate-y-1/2 items-center justify-center rounded-full border border-line bg-surface text-ink shadow-card hover:bg-subtle lg:flex"
+          className="absolute -right-2 top-[62%] hidden size-8 -translate-y-1/2 items-center justify-center rounded-md border border-line-strong bg-surface text-ink hover:bg-subtle lg:flex"
         >
           <ChevronRight className="size-4" aria-hidden />
         </button>
@@ -456,7 +459,7 @@ function ScrollArrow({
       onClick={onClick}
       aria-label={label}
       disabled={disabled}
-      className="flex size-7 items-center justify-center rounded-full border border-line bg-surface text-ink shadow-card transition-opacity hover:bg-subtle disabled:opacity-40"
+      className="flex size-7 items-center justify-center rounded-md border border-line-strong bg-surface text-ink transition-opacity hover:bg-subtle disabled:opacity-40"
     >
       <Icon className="size-3.5" aria-hidden />
     </button>
@@ -500,7 +503,7 @@ function StickyBuyBar({
   return (
     <div
       className={classNames(
-        "fixed inset-x-0 bottom-[calc(var(--pm-nav-h)+env(safe-area-inset-bottom))] z-[210] border-t border-line bg-surface/97 px-4 pt-2.5 backdrop-blur-sm transition-transform duration-300 lg:hidden",
+        "fixed inset-x-0 bottom-[calc(var(--pm-nav-h)+env(safe-area-inset-bottom))] z-[210] border-t border-line bg-surface px-4 pt-2.5 transition-transform duration-200 lg:hidden",
         visible ? "translate-y-0" : "translate-y-full invisible"
       )}
       aria-hidden={!visible}
@@ -522,14 +525,14 @@ function StickyBuyBar({
               href={whatsappHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex h-11 shrink-0 items-center gap-1.5 rounded-full border border-primary bg-surface px-3 text-[0.8125rem] font-semibold text-brand"
+              className="flex h-11 shrink-0 items-center gap-1.5 rounded-md border border-line-strong bg-surface px-3 text-[0.8125rem] font-semibold text-ink hover:bg-subtle"
             >
               <MessageCircle className="size-4" aria-hidden />
               WhatsApp
             </a>
             <Link
               href={contactHref}
-              className="flex h-11 shrink-0 items-center rounded-full bg-primary px-4 text-[0.8125rem] font-semibold text-onprimary hover:bg-primary-strong"
+              className="flex h-11 shrink-0 items-center rounded-md bg-primary px-4 text-[0.8125rem] font-semibold text-onprimary hover:bg-primary-strong"
             >
               Enquire
             </Link>
@@ -539,14 +542,14 @@ function StickyBuyBar({
             <button
               type="button"
               onClick={onAdd}
-              className="h-11 shrink-0 rounded-full border border-primary bg-surface px-3 text-[0.8125rem] font-semibold text-primary-strong hover:bg-primary-soft"
+              className="h-11 shrink-0 rounded-md border border-line-strong bg-surface px-3 text-[0.8125rem] font-semibold text-ink hover:bg-subtle"
             >
               Add to cart
             </button>
             <button
               type="button"
               onClick={onBuyNow}
-              className="h-11 shrink-0 rounded-full bg-primary px-4 text-[0.8125rem] font-semibold text-onprimary hover:bg-primary-strong"
+              className="h-11 shrink-0 rounded-md bg-primary px-4 text-[0.8125rem] font-semibold text-onprimary hover:bg-primary-strong"
             >
               Buy Now
             </button>

@@ -156,16 +156,15 @@ begin
   for f in select p.oid::regprocedure as sig from pg_proc p join pg_namespace n on n.oid = p.pronamespace
             where n.nspname = 'public' and p.proname in
               ('confirm_payment','record_payment_failure','register_payment_attempt','complete_refund',
-               'compute_cart','expire_unpaid_orders') loop
+               'compute_cart','expire_unpaid_orders','_place_order') loop
     execute format('grant execute on function %s to service_role', f.sig);
   end loop;
 end $$;
 
 -- public RPCs are explicitly allowed for guests and customers
 grant execute on function public.quote_cart(jsonb, text, text, text, text) to anon, authenticated;
-grant execute on function public.place_order(jsonb, text, text, text, jsonb, jsonb, text, text, text) to anon, authenticated;
 grant execute on function public.track_order(text, text, text) to anon, authenticated;
-grant execute on function public.cancel_own_order(uuid, text) to anon, authenticated;
+grant execute on function public.cancel_own_order(uuid, text, text) to anon, authenticated;
 grant execute on function public.request_return(uuid, jsonb, text, text, text, text) to anon, authenticated;
 grant execute on function public.record_consent(text, boolean, boolean, boolean, text, text) to anon, authenticated;
 grant execute on function public.get_public_settings() to anon, authenticated;

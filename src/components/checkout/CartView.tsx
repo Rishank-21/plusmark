@@ -6,7 +6,7 @@ import { ArrowRight, ChevronDown, Heart, Info, Trash2 } from "lucide-react";
 import { CouponControl } from "@/components/checkout/CouponControl";
 import { OrderSummary } from "@/components/checkout/OrderSummary";
 import { allLinesPriced, checkCoupon, firstUnpricedLine } from "@/components/checkout/cart-support";
-import { Badge, DemoBadge } from "@/components/ui/Badge";
+import { DemoBadge } from "@/components/ui/Badge";
 import { Button, ButtonLink } from "@/components/ui/Button";
 import { EmptyState, Skeleton } from "@/components/ui/States";
 import { Breadcrumbs } from "@/components/ui/Nav";
@@ -15,6 +15,9 @@ import { QuantityStepper } from "@/components/ui/QuantityStepper";
 import { getSeries } from "@/lib/catalog";
 import { useLiveCoupons } from "@/components/checkout/coupon-store";
 import { computeTotals, gstBreakdownByRate } from "@/lib/pricing";
+import { quoteCart, quoteLinesFrom } from "@/lib/backend/storefront";
+import { useServerQuote } from "@/components/checkout/useServerQuote";
+import type { Coupon } from "@/types";
 import { classNames, formatInr, variantLabel } from "@/lib/format";
 import { useCart } from "@/state/cart";
 import { useSession } from "@/state/session";
@@ -40,15 +43,27 @@ export function CartView() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cart.couponCode, couponFeed.coupons]);
 
-  const totals = useMemo(
+    const estimate = useMemo(
     () => computeTotals({ lines: cart.views, coupon, shippingMethod: cart.shippingMethod }),
     [cart.views, coupon, cart.shippingMethod]
   );
-
-  const gstRows = useMemo(
+  const { quote } = useServerQuote({
+    views: cart.views,
+    couponCode: cart.couponCode,
+    state: null,
+    email: session.account?.email ?? null
+  });
+  // The server price wins as soon as it answers; the estimate covers the first moments and offline use.
+  const totals = quote?.totals ?? estimate;
+  const estimateRows = useMemo(
     () => gstBreakdownByRate({ lines: cart.views, discountInr: totals.discountInr }),
     [cart.views, totals.discountInr]
   );
+  const gstRows = quote?.gstRows ?? estimateRows;
+  const summaryShipping = quote ? { ...cart.shippingMethod, priceInr: quote.totals.shippingInr } : cart.shippingMethod;
+  const summaryCoupon = quote?.coupon?.applied
+    ? ({ code: quote.coupon.code, description: "" } as unknown as Coupon)
+    : coupon;
 
   const priced = allLinesPriced(cart.views);
   const blockedLine = firstUnpricedLine(cart.views);
@@ -189,13 +204,22 @@ export function CartView() {
                   <CouponControl
                     appliedCode={cart.couponCode}
                     totals={totals}
+                    status={quote?.coupon ?? null}
+                    validate={async (code) => {
+                      const result = await quoteCart({
+                        lines: quoteLinesFrom(cart.views),
+                        couponCode: code,
+                        state: null,
+                        email: session.account?.email ?? null
+                      });
+                      if (result.error) return { ok: false, message: result.error.message };
+                      return result.coupon?.applied
+                        ? { ok: true }
+                        : { ok: false, message: result.coupon?.message ?? "That code is not valid." };
+                    }}
                     onApply={(code) => {
-                      if (couponFeed.state === "error") {
-                        toast.push("Coupons could not be checked right now. Try again shortly.", "error");
-                        return;
-                      }
-                      const result = cart.applyCoupon(code, couponFeed.coupons);
-                      toast.push(result.message, result.ok ? "success" : "error");
+                      cart.setCoupon(code);
+                      toast.push(`${code} applied.`, "success");
                     }}
                     onClear={() => {
                       cart.clearCoupon();
@@ -211,9 +235,10 @@ export function CartView() {
             <OrderSummary
               lines={cart.views}
               totals={totals}
-              shippingMethod={cart.shippingMethod}
-              coupon={coupon}
+              shippingMethod={summaryShipping}
+              coupon={summaryCoupon}
               gstRows={gstRows}
+              taxNote={quote?.taxNote}
             >
               <ButtonLink href="/checkout" fullWidth disabled={!priced}>
                 Continue to checkout
@@ -241,7 +266,7 @@ export function CartView() {
       )}
 
       {cart.views.length > 0 && (
-        <div className="fixed inset-x-0 bottom-[calc(var(--pm-nav-h)+env(safe-area-inset-bottom))] z-[210] border-t border-line bg-surface px-4 pb-2 pt-2 shadow-card lg:hidden">
+        <div className="fixed inset-x-0 bottom-[calc(var(--pm-nav-h)+env(safe-area-inset-bottom))] z-[210] border-t border-line bg-surface px-4 pb-2 pt-2 lg:hidden">
           <div className="mx-auto flex max-w-page items-center gap-3">
             <div className="min-w-0 flex-1">
               <p className="text-[0.75rem] leading-4 text-muted">Total</p>
@@ -284,7 +309,7 @@ function CartRow({
     : null;
 
   return (
-    <li className={classNames("flex gap-3 rounded-lg border border-line bg-surface p-3 shadow-card lg:gap-4 lg:rounded-xl lg:p-4", line.problem && "border-warning/40 bg-warning-wash/40")}>
+    <li className={classNames("flex gap-3 rounded-md border border-line bg-surface p-3 lg:gap-4 lg:p-4", line.problem && "border-warning/40 bg-warning-wash/40")}>
       <Link
         href={`/product/${line.product.slug}`}
         className="size-[4.5rem] shrink-0 overflow-hidden rounded-md border border-line bg-surface lg:size-24 lg:rounded-lg"
@@ -306,22 +331,16 @@ function CartRow({
             <h2 className="text-[0.9375rem] font-semibold leading-5 text-ink lg:font-display lg:text-h4 lg:font-bold lg:leading-snug">
               <Link
                 href={`/product/${line.product.slug}`}
-                className="line-clamp-2 rounded-xs transition-colors hover:text-primary"
+                className="line-clamp-2 rounded-xs underline-offset-4 hover:underline"
               >
                 {line.product.name}
               </Link>
             </h2>
-            <div className="flex flex-wrap items-center gap-1.5 lg:gap-2">
-              {series && (
-                <Badge tone="navy" className="hidden lg:inline-flex">
-                  {series.name}
-                </Badge>
-              )}
-              <p className="inline-flex items-center rounded-full bg-subtle px-2 py-0.5 text-[0.75rem] leading-4 text-muted lg:bg-transparent lg:p-0 lg:text-caption">
-                {sizeLabel}
-              </p>
-              {dimension && <p className="tabular text-[0.75rem] text-muted lg:text-caption">{dimension}</p>}
-            </div>
+            <p className="flex flex-wrap items-center gap-x-2 gap-y-0.5 text-[0.75rem] leading-snug text-muted lg:text-caption">
+              {series && <span>{series.name}</span>}
+              <span>{series ? `· ${sizeLabel}` : sizeLabel}</span>
+              {dimension && <span className="tabular">· {dimension}</span>}
+            </p>
           </div>
           <p className="tabular shrink-0 text-[0.9375rem] font-semibold text-ink lg:text-body-sm lg:font-medium">
             {line.lineTotalInr === null ? "Price on request" : formatInr(line.lineTotalInr)}

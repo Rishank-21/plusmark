@@ -1,3 +1,4 @@
+import { ensureLiveCatalog } from "@/lib/backend/server";
 import type { Metadata } from "next";
 import { Listing } from "@/components/commerce/Listing";
 import { categories, products } from "@/lib/catalog";
@@ -19,6 +20,7 @@ export default async function ShopAllPage({
 }: {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
+  await ensureLiveCatalog();
   const params = toParams(await searchParams);
   // The category is chosen from the sidebar and navigates to /shop/[category],
   // so the all-products view never carries a category of its own.

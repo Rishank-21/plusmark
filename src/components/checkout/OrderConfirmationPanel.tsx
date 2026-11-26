@@ -1,6 +1,7 @@
 "use client";
 
 import { ArrowRight, CheckCircle2, Search } from "lucide-react";
+import { OrderActions } from "@/components/account/OrderActions";
 import { AddressBlock, DispatchBlock, OrderLinesTable, PaymentStateNote, TotalsTable } from "@/components/checkout/OrderRecordParts";
 import { OrderTimeline } from "@/components/checkout/OrderTimeline";
 import { Badge, DemoBadge, StatusBadge } from "@/components/ui/Badge";
@@ -10,6 +11,7 @@ import { Breadcrumbs } from "@/components/ui/Nav";
 import { DEMO_PRICING_LABEL } from "@/lib/config";
 import { demoOrders } from "@/lib/demo-data";
 import { formatDate, formatInr } from "@/lib/format";
+import { getOrderByReference } from "@/lib/supabase/account";
 import { useSession } from "@/state/session";
 
 /**
@@ -101,7 +103,7 @@ export function OrderConfirmationPanel({ reference }: { reference: string | null
         <p className="max-w-reading text-body-sm text-muted">
           {storedOnline ? (
             <>
-              The order is recorded in your Plusmark account and the server has reserved stock against it.{" "}
+              The order is recorded with Plusmark and stock is reserved for it.{" "}
               {paidOnline ? (
                 <>
                   Razorpay&apos;s payment was verified on the server, so the order is marked{" "}
@@ -139,7 +141,7 @@ export function OrderConfirmationPanel({ reference }: { reference: string | null
           <div>
             <dt className="text-muted">Stored</dt>
             <dd className="mt-0.5 flex items-center gap-1.5 text-ink">
-              {storedOnline ? "Your account (Supabase)" : local ? "This browser (localStorage)" : "Demonstration record"}
+              {storedOnline ? (session.user ? "Your Plusmark account" : "Plusmark order system (guest order)") : local ? "This browser (localStorage)" : "Demonstration record"}
               {!storedOnline && <DemoBadge />}
             </dd>
           </div>
@@ -203,7 +205,7 @@ export function OrderConfirmationPanel({ reference }: { reference: string | null
             </ol>
             <p className="mt-md text-caption leading-relaxed text-muted">
               {storedOnline
-                ? `The order is in the store database. Manufacturing, courier booking and email delivery are handled manually in this build. ${DEMO_PRICING_LABEL}.`
+                ? "Plusmark will pack your order and email you the courier and tracking details when it ships."
                 : `In this prototype none of those steps is started automatically. ${DEMO_PRICING_LABEL}, and a recorded order is not a placed order with the works.`}
             </p>
           </section>
@@ -215,8 +217,20 @@ export function OrderConfirmationPanel({ reference }: { reference: string | null
             <TotalsTable order={order} />
           </div>
 
-          <nav aria-label="Order follow-up" className="flex flex-col gap-2 rounded-sm border border-line bg-page p-md">
+          <nav aria-label="Order follow-up" className="flex flex-col gap-2 rounded-md border border-line bg-page p-md">
             <h2 className="font-display text-h4">Keep an eye on it</h2>
+            {storedOnline && (
+              <OrderActions
+                order={order}
+                onUpdated={() => {
+                  void getOrderByReference(order.reference, order.email)
+                    .then((fresh) => {
+                      if (fresh) session.placeOrder(fresh);
+                    })
+                    .catch(() => undefined);
+                }}
+              />
+            )}
             <ButtonLink href={`/track-order?ref=${encodeURIComponent(order.reference)}`} fullWidth>
               Track this order
               <ArrowRight className="size-4" aria-hidden />

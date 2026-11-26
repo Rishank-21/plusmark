@@ -1,5 +1,5 @@
 import { classNames } from "@/lib/format";
-import { DEMO_PRICING_LABEL } from "@/lib/config";
+import { DEMO_PRICING_LABEL, PRICES_ARE_LIVE } from "@/lib/config";
 
 type Tone = "neutral" | "navy" | "success" | "danger" | "warning" | "demo";
 
@@ -39,6 +39,7 @@ export function Badge({
 
 /** Marks any figure or record that the prototype invented, never Plusmark data. */
 export function DemoBadge({ label, className }: { label?: string; className?: string }) {
+  if (PRICES_ARE_LIVE) return null;
   return (
     <span
       title={DEMO_PRICING_LABEL}
@@ -56,7 +57,7 @@ const STATUS_LABEL: Record<string, { label: string; tone: Tone }> = {
   placed: { label: "Order placed", tone: "neutral" },
   payment_pending: { label: "Payment pending", tone: "warning" },
   payment_failed: { label: "Payment failed", tone: "danger" },
-  confirmed: { label: "Payment confirmed", tone: "navy" },
+  confirmed: { label: "Order confirmed", tone: "navy" },
   processing: { label: "Processing", tone: "navy" },
   dispatched: { label: "Dispatched", tone: "navy" },
   delivered: { label: "Delivered", tone: "success" },

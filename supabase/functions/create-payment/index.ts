@@ -64,7 +64,7 @@ Deno.serve(async (req) => {
       order_number: order.order_number,
       name: "Plusmark",
       description: `Order ${order.order_number}`,
-      prefill: { name: order.customer_name ?? "", email: order.email, contact: order.phone },
+      prefill: { name: order.customer_name ?? "", email: order.email, contact: /^\d{10}$/.test(order.phone) ? `+91${order.phone}` : order.phone },
     });
   } catch (e) {
     console.error("create-payment", e);

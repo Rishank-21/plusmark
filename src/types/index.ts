@@ -215,6 +215,10 @@ export interface OrderLine {
   slug: string;
   variantLabel: string;
   sku: string;
+  /** The storefront variant id, so the server can find the exact variant (SKU codes repeat across products). */
+  variantId?: string;
+  /** Colour the shopper picked from the published list. */
+  colour?: string | null;
   quantity: number;
   unitPriceInr: number;
   lineTotalInr: number;
@@ -368,6 +372,10 @@ export interface ShippingMethod {
   etaMaxDays: number | null;
   available: boolean;
   configured: boolean;
+  /** Dispatch is free once the discounted subtotal reaches this amount. */
+  freeOverInr?: number | null;
+  /** GST charged on the dispatch fee itself. */
+  gstRatePercent?: number;
 }
 
 export interface PaymentRecord {

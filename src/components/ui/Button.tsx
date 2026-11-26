@@ -8,12 +8,12 @@ type Variant = "primary" | "navy" | "secondary" | "ghost" | "danger" | "quiet";
 type Size = "sm" | "md" | "lg";
 
 const BASE =
-  "inline-flex items-center justify-center gap-2 rounded-md font-sans font-semibold tracking-[0.01em] transition-[background-color,color,border-color,opacity,transform] duration-200 active:scale-[0.99] disabled:pointer-events-none disabled:opacity-45 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-page";
+  "inline-flex items-center justify-center gap-2 rounded-md font-sans font-semibold tracking-[0.01em] transition-[background-color,color,border-color,opacity] duration-150 disabled:pointer-events-none disabled:opacity-45 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-page";
 
 const VARIANTS: Record<Variant, string> = {
-  primary: "bg-primary text-onprimary shadow-[0_1px_2px_rgb(var(--c-shadow)/0.12)] hover:bg-primary-strong focus-visible:bg-primary-strong",
+  primary: "bg-primary text-onprimary hover:bg-primary-strong focus-visible:bg-primary-strong",
   navy: "bg-shell text-shell-on hover:bg-shell/90 focus-visible:bg-shell/90",
-  secondary: "border border-line-strong bg-surface text-ink hover:border-primary/50 hover:bg-subtle",
+  secondary: "border border-line-strong bg-surface text-ink hover:border-ink/45 hover:bg-subtle",
   ghost: "text-ink hover:bg-subtle",
   danger: "bg-danger text-onprimary hover:bg-danger/90",
   quiet: "text-muted underline decoration-line-strong underline-offset-4 hover:text-ink hover:decoration-ink"

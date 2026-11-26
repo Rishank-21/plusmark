@@ -35,7 +35,6 @@ export function PaymentStep({
           onChange={() => onChoose("cod")}
           title="Cash on delivery"
           description="Pay the courier when the boards arrive."
-          meta={<Badge tone="navy">Available</Badge>}
         />
         <RadioCard
           name="payment-method"
@@ -45,7 +44,7 @@ export function PaymentStep({
           onChange={() => onChoose("razorpay")}
           title="Pay online"
           description="UPI, card or net banking in Razorpay's hosted checkout. Plusmark never sees your details."
-          meta={onlineEnabled ? <Badge tone="navy">Available</Badge> : <Badge tone="neutral">Not available</Badge>}
+          meta={!onlineEnabled ? <Badge tone="neutral">Not available</Badge> : undefined}
         />
       </fieldset>
 
