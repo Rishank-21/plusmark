@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { AdminPageHeader } from "@/components/admin/Metrics";
 import { Check, ErrorLine, Input, Loading, Pill, Section, SimpleTable, statusTone } from "@/components/admin/kit";
 import { useAdminQuery } from "@/components/admin/useAdminQuery";
-import { Button } from "@/components/ui/Button";
+import { Button, ButtonLink } from "@/components/ui/Button";
 import { db, rpc, when, type Json } from "@/lib/backend/admin";
 import { useToast } from "@/state/toast";
 
@@ -36,7 +36,12 @@ export default function AdminSettingsPage() {
 
   return (
     <>
-      <AdminPageHeader title="Settings" crumbs={[{ label: "Admin", href: "/admin" }, { label: "Settings" }]} lede="Store details, delivery charges, couriers and the email log." />
+      <AdminPageHeader
+        title="Settings"
+        crumbs={[{ label: "Admin", href: "/admin" }, { label: "Settings" }]}
+        lede="Store details, delivery charges, couriers and the email log."
+        actions={<ButtonLink href="/admin/theme" size="sm" variant="secondary">Customize storefront theme</ButtonLink>}
+      />
       <div className="flex flex-col gap-4">
         <Section title="Store and tax">
           <form className="grid gap-3 sm:grid-cols-3" onSubmit={(e) => {

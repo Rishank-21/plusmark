@@ -49,17 +49,8 @@ const PRODUCT_IMAGE_MAP: Record<string, string[]> = {
     "metallic-premium-ceramic-board-6",
     "metallic-premium-ceramic-board-7"
   ],
-  "metallic-premium-ceramic-chalk-board": [
-    "metallic-premium-ceramic-chalk-board",
-    "metallic-premium-ceramic-chalk-board-2",
-    "metallic-premium-ceramic-chalk-board-3",
-    "metallic-premium-ceramic-chalk-board-4",
-    "metallic-premium-ceramic-chalk-board-5",
-    "metallic-premium-ceramic-chalk-board-6",
-    "metallic-premium-ceramic-chalk-board-7"
-  ],
   "deluxe-standard-white-board": ["deluxe-standard-white-board"],
-  "deluxe-standard-chalk-board": ["deluxe-standard-chalk-board-correct"],
+  "deluxe-standard-chalk-board": ["deluxe-standard-chalk-board"],
   "eco-premium-white-board": [
     "eco-premium-white-board",
     "eco-premium-white-board-2",
@@ -70,7 +61,7 @@ const PRODUCT_IMAGE_MAP: Record<string, string[]> = {
     "eco-premium-white-board-7"
   ],
   "eco-regular-white-board": [
-    "eco-regular-white-board-correct",
+    "eco-regular-white-board",
     "eco-regular-white-board-2",
     "eco-regular-white-board-3",
     "eco-regular-white-board-4",
@@ -88,7 +79,7 @@ const PRODUCT_IMAGE_MAP: Record<string, string[]> = {
     "eco-premium-chalk-board-7"
   ],
   "eco-regular-chalk-board": [
-    "eco-regular-chalk-board-correct",
+    "eco-regular-chalk-board",
     "eco-regular-chalk-board-2",
     "eco-regular-chalk-board-3",
     "eco-regular-chalk-board-4",
@@ -97,7 +88,7 @@ const PRODUCT_IMAGE_MAP: Record<string, string[]> = {
     "eco-regular-chalk-board-7"
   ],
   "eco-regular-magnetic-board": [
-    "eco-regular-magnetic-board-correct",
+    "eco-regular-magnetic-board",
     "eco-regular-magnetic-board-2",
     "eco-regular-magnetic-board-3",
     "eco-regular-magnetic-board-4",
@@ -106,7 +97,7 @@ const PRODUCT_IMAGE_MAP: Record<string, string[]> = {
     "eco-regular-magnetic-board-7"
   ],
   "eco-regular-magnetic-chalk-board": [
-    "eco-regular-magnetic-chalk-board-correct",
+    "eco-regular-magnetic-chalk-board",
     "eco-regular-magnetic-chalk-board-2",
     "eco-regular-magnetic-chalk-board-3",
     "eco-regular-magnetic-chalk-board-4",
@@ -134,7 +125,7 @@ const PRODUCT_IMAGE_MAP: Record<string, string[]> = {
   ],
   "deluxe-standard-notice-board": ["deluxe-standard-notice-board"],
   "eco-regular-notice-board": [
-    "eco-regular-notice-board-correct",
+    "eco-regular-notice-board",
     "eco-regular-notice-board-2",
     "eco-regular-notice-board-3",
     "eco-regular-notice-board-4",

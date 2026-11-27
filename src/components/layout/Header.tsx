@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Bookmark, Heart, Headphones, Layers, LayoutGrid, Menu, MessageCircle, Phone, Search, ShoppingBag, ShoppingCart, User, X } from "lucide-react";
@@ -22,8 +21,10 @@ import {
 import { useCart } from "@/state/cart";
 import { useWishlist } from "@/state/wishlist";
 import { useSession } from "@/state/session";
+import { BrandMark } from "@/components/layout/BrandMark";
 import { ProductImage } from "@/components/ui/ProductImage";
 import { SearchPanel } from "@/components/layout/SearchPanel";
+import { MobileThemeRow, StorefrontThemeToggle } from "@/components/layout/StorefrontThemeToggle";
 import { useMobileChrome } from "@/components/layout/MobileChrome";
 import type { Product } from "@/types";
 
@@ -145,34 +146,32 @@ export function Header({ initialNav = null }: { initialNav?: HeaderNavConfig | n
             type="button"
             onClick={chrome.openMenu}
             aria-label="Open navigation menu"
-            className="-ml-2 flex size-11 shrink-0 items-center justify-center rounded-md text-ink hover:bg-subtle lg:hidden"
+            className="-ml-1.5 flex size-10 shrink-0 items-center justify-center rounded-md text-ink hover:bg-subtle lg:hidden"
           >
             <Menu className="size-5" aria-hidden />
           </button>
 
           <Link href="/" className="flex shrink-0 items-center rounded-xs" aria-label="Plusmark home">
-            <Image
-              src="/images/plusmark/brand/plusmark.png"
-              alt="Plusmark"
-              width={1304}
-              height={262}
-              sizes="(min-width: 1024px) 170px, 130px"
-              className="h-7 w-auto max-[359px]:h-6 lg:h-9"
+            <BrandMark
+              surface="surface"
+              sizes="(min-width: 1024px) 170px, 120px"
+              className="h-6 w-auto sm:h-7 lg:h-9"
               priority
             />
           </Link>
 
           <SearchPanel id="desktop-search" label="Search products" className="hidden min-w-0 flex-1 max-w-2xl lg:block" />
 
-          <div className="flex shrink-0 items-center gap-1 max-[359px]:gap-0.5 lg:gap-2">
+          <div className="flex shrink-0 items-center gap-0.5 sm:gap-1 lg:gap-2">
             <button
               type="button"
               onClick={chrome.openSearch}
               aria-label="Search products"
-              className="flex size-11 shrink-0 items-center justify-center rounded-md text-ink transition-colors hover:bg-subtle lg:hidden"
+              className="flex size-9 shrink-0 items-center justify-center rounded-md text-ink transition-colors hover:bg-subtle sm:size-10 lg:hidden"
             >
-              <Search className="size-5" aria-hidden />
+              <Search className="size-[18px] sm:size-5" aria-hidden />
             </button>
+            <StorefrontThemeToggle />
             <HeaderAction label={`Wishlist${wishlist.slugs.length ? ` — ${wishlist.slugs.length} saved` : ""}`} href="/wishlist">
               <Heart className="size-5" aria-hidden />
               {wishlist.slugs.length > 0 && <Dot>{wishlist.slugs.length}</Dot>}
@@ -226,7 +225,7 @@ function HeaderAction({
   hideOnMobile?: boolean;
 }) {
   const className = classNames(
-    "relative flex h-11 items-center justify-center gap-2 rounded-md px-3 text-caption font-medium text-ink transition-colors hover:bg-subtle lg:h-10 lg:px-2.5",
+    "relative flex size-9 items-center justify-center gap-2 rounded-md text-caption font-medium text-ink transition-colors hover:bg-subtle sm:size-10 lg:h-10 lg:w-auto lg:px-2.5",
     hideOnMobile && "hidden lg:flex"
   );
   if (href) {
@@ -653,6 +652,7 @@ function MobileNav({ open, onClose, items }: { open: boolean; onClose: () => voi
         </nav>
 
         <div className="border-t border-line p-4">
+          <MobileThemeRow />
           <div className="flex items-center gap-2">
             <a
               href={`tel:${brand.phone.replace(/\s/g, "")}`}

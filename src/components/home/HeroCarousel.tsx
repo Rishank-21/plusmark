@@ -1,172 +1,180 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
-import { PriceRange } from "@/components/ui/Price";
-import { ProductImage } from "@/components/ui/ProductImage";
-import { classNames, productCardMeta } from "@/lib/format";
-import type { Product } from "@/types";
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { classNames } from "@/lib/format";
+import { getSupabaseBrowserClient } from "@/lib/supabase/client";
+import {
+  buildDefaultHeroConfig,
+  normalizeHeroConfig,
+  type HeroSectionConfig,
+  type HeroSlideConfig
+} from "@/lib/hero-content";
+import { imageUrl } from "@/lib/media";
 
-interface HeroSlide {
-  product: Product;
-  label: string;
-  href: string;
-  specNote: string;
+const ASPECT_CLASSES: Record<HeroSectionConfig["aspectDesktop"], string> = {
+  "21/8": "aspect-[4/5] sm:aspect-[16/10] lg:aspect-[21/8]",
+  "16/7": "aspect-[4/5] sm:aspect-[16/10] lg:aspect-[16/7]",
+  "16/9": "aspect-[4/5] sm:aspect-[16/10] lg:aspect-[16/9]"
+};
+
+function slideSrc(asset: string, width: number, height?: number): string {
+  return imageUrl(asset, {
+    fit: "fill",
+    gravity: "auto",
+    width,
+    ...(height ? { height } : {})
+  });
 }
 
-const CATEGORY_INDEX = [
-  { label: "White & Magnetic Boards", meta: "1 × 1 ft to 8 × 4 ft", href: "/shop/white-boards" },
-  { label: "Ceramic Steel Boards", meta: "P3 enamel surface", href: "/collections/ceramic-boards" },
-  { label: "Chalk & Green Boards", meta: "Matte & ceramic", href: "/shop/chalk-boards" },
-  { label: "Notice & Display Systems", meta: "Cork, felt & covered", href: "/shop/notice-boards" }
-] as const;
+export function HeroCarousel({ initialConfig = null }: { initialConfig?: HeroSectionConfig | null }) {
+  const [config, setConfig] = useState<HeroSectionConfig>(() => initialConfig ?? buildDefaultHeroConfig());
+  const [index, setIndex] = useState(0);
+  const [paused, setPaused] = useState(false);
 
-export function HeroCarousel({
-  products
-}: {
-  products: { main: Product; chalk: Product; notice: Product; ceramic: Product };
-}) {
-  const slides: HeroSlide[] = [
-    {
-      product: products.main,
-      label: "White Boards",
-      href: "/shop/white-boards",
-      specNote: "Anodized aluminium frame · Marker-grade HPL or melamine writing surface"
-    },
-    {
-      product: products.ceramic,
-      label: "Ceramic Boards",
-      href: "/collections/ceramic-boards",
-      specNote: "Porcelain enamel steel face · Accepts magnets · Daily intensive classroom & office use"
-    },
-    {
-      product: products.chalk,
-      label: "Chalk Boards",
-      href: "/shop/chalk-boards",
-      specNote: "Low-glare green & black writing surface · Simple damp-cloth cleaning"
-    },
-    {
-      product: products.notice,
-      label: "Notice Boards",
-      href: "/shop/notice-boards",
-      specNote: "Pinnable cork & felt panels or lockable acrylic-door display cabinets"
+  useEffect(() => {
+    if (initialConfig) setConfig(initialConfig);
+  }, [initialConfig]);
+
+  useEffect(() => {
+    const supabase = getSupabaseBrowserClient();
+    if (!supabase) return;
+    let alive = true;
+    void supabase
+      .from("site_content")
+      .select("value")
+      .eq("key", "hero_config")
+      .maybeSingle()
+      .then(({ data, error }) => {
+        if (!alive || error || !data?.value) return;
+        setConfig(normalizeHeroConfig(data.value));
+      });
+    return () => {
+      alive = false;
+    };
+  }, []);
+
+  const slides: HeroSlideConfig[] = config.slides.filter((s) => s.active);
+  const activeSlides = slides.length > 0 ? slides : buildDefaultHeroConfig().slides;
+  const safeIndex = index % activeSlides.length;
+  const current = activeSlides[safeIndex];
+
+  useEffect(() => {
+    if (paused || activeSlides.length <= 1 || config.autoPlaySeconds <= 0) return;
+    if (typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
+      return;
     }
-  ];
+    const timer = window.setInterval(() => {
+      setIndex((cur) => (cur + 1) % activeSlides.length);
+    }, config.autoPlaySeconds * 1000);
+    return () => window.clearInterval(timer);
+  }, [paused, activeSlides.length, config.autoPlaySeconds]);
 
-  const [selected, setSelected] = useState(0);
-  const current = slides[selected];
+  const step = (delta: -1 | 1) => {
+    setIndex((cur) => (cur + delta + activeSlides.length) % activeSlides.length);
+  };
+
+  const desktopUrl = slideSrc(current.images.desktop, 1920);
+  const tabletUrl = slideSrc(current.images.tablet || current.images.desktop, 1280);
+  const mobileUrl = slideSrc(current.images.mobile || current.images.desktop, 1080);
 
   return (
-    <section className="border-b border-line bg-page text-ink" aria-labelledby="hero-heading">
-      <div className="pm-shell pb-7 pt-5 sm:pb-10 sm:pt-7 lg:pb-12 lg:pt-8">
-        <div className="flex flex-wrap items-center justify-between gap-2 border-b border-line pb-3.5 text-[0.75rem] uppercase tracking-[0.14em] text-muted">
-          <span>Plusmark · Narolgam, Ahmedabad</span>
-          <span className="hidden sm:inline">Single boards &amp; custom sizes · GST invoice included</span>
-        </div>
+    <section
+      aria-label="Featured storefront banner"
+      className="relative w-full overflow-hidden border-b border-line bg-subtle"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocusCapture={() => setPaused(true)}
+      onBlurCapture={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setPaused(false);
+      }}
+    >
+      <div className={classNames("relative w-full max-h-[38rem]", ASPECT_CLASSES[config.aspectDesktop])}>
+        <Link href={current.href} className="block size-full" aria-label={current.headline || current.alt}>
+          <picture className="block size-full">
+            <source media="(max-width: 639px)" srcSet={mobileUrl} />
+            <source media="(max-width: 1023px)" srcSet={tabletUrl} />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={desktopUrl}
+              alt={current.alt}
+              className="size-full object-cover object-center"
+              fetchPriority="high"
+            />
+          </picture>
+        </Link>
 
-        <div className="grid items-center gap-8 pt-6 lg:grid-cols-[minmax(0,1.06fr)_minmax(0,0.94fr)] lg:gap-12 lg:pt-9">
-          <div className="flex min-w-0 flex-col items-start">
-            <h1
-              id="hero-heading"
-              className="max-w-[15ch] font-display text-[2rem] font-extrabold leading-[1.08] tracking-[-0.025em] text-ink sm:text-[2.75rem] lg:text-[3.375rem]"
-            >
-              Writing and display boards built to size
-            </h1>
-            <p className="mt-4 max-w-[46ch] text-body-sm leading-relaxed text-muted sm:text-body">
-              {current.specNote}. Published wall sizes from 1 × 1 ft to 8 × 4 ft, or custom cut to specification.
-            </p>
+        {current.overlayMode === "editorial-bottom" && (current.headline || current.ctaLabel) && (
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 via-black/35 to-transparent pb-10 pt-20 sm:pb-12 sm:pt-28">
+            <div className="pm-shell flex flex-col items-start gap-2.5 sm:flex-row sm:items-end sm:justify-between sm:gap-6">
+              <div className="max-w-xl text-white">
+                {current.eyebrow && (
+                  <p className="text-[0.6875rem] font-medium uppercase tracking-[0.16em] text-white/80">
+                    {current.eyebrow}
+                  </p>
+                )}
+                {current.headline && (
+                  <h1 className="mt-1 font-display text-[1.75rem] font-extrabold leading-[1.1] tracking-[-0.02em] text-white sm:text-[2.375rem] lg:text-[2.75rem]">
+                    {current.headline}
+                  </h1>
+                )}
+                {current.subtitle && (
+                  <p className="mt-1.5 text-caption leading-relaxed text-white/85 sm:text-body-sm">
+                    {current.subtitle}
+                  </p>
+                )}
+              </div>
 
-            <div className="mt-6 flex flex-wrap items-center gap-3 sm:mt-7">
-              <Link
-                href="/shop"
-                className="inline-flex h-11 items-center gap-2 rounded-md bg-primary px-5 text-body-sm font-semibold text-onprimary transition-colors hover:bg-primary-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-page sm:h-12 sm:px-6"
-              >
-                Explore all boards
-                <ArrowRight className="size-4" aria-hidden />
-              </Link>
-              <Link
-                href={current.href}
-                className="inline-flex h-11 items-center rounded-md border border-line-strong bg-surface px-4 text-body-sm font-medium text-ink transition-colors hover:border-ink/45 hover:bg-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-page sm:h-12 sm:px-5"
-              >
-                Shop {current.label}
-              </Link>
-              <Link
-                href="/contact"
-                className="inline-flex h-11 items-center px-2 text-body-sm font-medium text-ink underline decoration-line-strong underline-offset-4 transition-colors hover:decoration-ink"
-              >
-                Custom size quote →
-              </Link>
-            </div>
-
-            <div className="mt-6 flex flex-wrap gap-2 sm:mt-7" role="tablist" aria-label="Featured board surfaces">
-              {slides.map((slide, index) => {
-                const active = index === selected;
-                return (
-                  <button
-                    key={slide.label}
-                    type="button"
-                    role="tab"
-                    aria-selected={active}
-                    onClick={() => setSelected(index)}
-                    className={classNames(
-                      "rounded-md border px-3 py-1.5 text-caption font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-page",
-                      active
-                        ? "border-primary bg-primary text-onprimary"
-                        : "border-line-strong bg-surface text-ink hover:border-ink/45 hover:bg-subtle"
-                    )}
-                  >
-                    {slide.label}
-                  </button>
-                );
-              })}
+              {current.ctaLabel && (
+                <Link
+                  href={current.href}
+                  className="pointer-events-auto inline-flex h-11 shrink-0 items-center gap-2 rounded-md bg-white px-5 text-body-sm font-semibold text-[#141413] transition-colors hover:bg-white/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                >
+                  {current.ctaLabel}
+                  <ArrowRight className="size-4" aria-hidden />
+                </Link>
+              )}
             </div>
           </div>
+        )}
 
-          <Link
-            href={`/product/${current.product.slug}`}
-            className="group flex flex-col overflow-hidden rounded-md border border-line bg-surface p-4 text-ink transition-colors hover:border-line-strong sm:p-5"
-          >
-            <div className="aspect-[4/3] w-full overflow-hidden bg-surface p-3">
-              <ProductImage
-                asset={current.product.media[0] ?? null}
-                name={current.product.name}
-                categoryId={current.product.categoryId}
-                sizes="(max-width: 1023px) 92vw, 45vw"
-                priority
-                className="size-full object-contain"
-              />
-            </div>
-            <div className="flex flex-wrap items-end justify-between gap-3 border-t border-line pt-3.5">
-              <div className="min-w-0">
-                <p className="font-display text-body font-bold text-ink underline-offset-4 group-hover:underline">
-                  {current.product.name}
-                </p>
-                <p className="mt-0.5 text-caption text-muted">{productCardMeta(current.product)}</p>
-              </div>
-              <div className="flex flex-col items-end gap-0.5">
-                <PriceRange size="md" product={current.product} />
-                <span className="text-caption font-medium text-ink">View sizes →</span>
-              </div>
-            </div>
-          </Link>
-        </div>
-
-        <nav
-          aria-label="Board categories"
-          className="mt-8 grid gap-3 border-t border-line pt-5 sm:grid-cols-2 lg:mt-10 lg:grid-cols-4 lg:gap-6"
-        >
-          {CATEGORY_INDEX.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="group flex flex-col gap-0.5 border-b border-line pb-2 text-ink transition-colors hover:border-ink/40 lg:border-b-0 lg:pb-0"
+        {activeSlides.length > 1 && (
+          <>
+            <button
+              type="button"
+              onClick={() => step(-1)}
+              aria-label="Previous slide"
+              className="absolute left-3 top-1/2 z-10 flex size-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/25 bg-black/45 text-white transition-colors hover:bg-black/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white sm:left-5"
             >
-              <span className="text-body-sm font-semibold underline-offset-4 group-hover:underline">{item.label}</span>
-              <span className="text-caption text-muted">{item.meta}</span>
-            </Link>
-          ))}
-        </nav>
+              <ChevronLeft className="size-5" aria-hidden />
+            </button>
+            <button
+              type="button"
+              onClick={() => step(1)}
+              aria-label="Next slide"
+              className="absolute right-3 top-1/2 z-10 flex size-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/25 bg-black/45 text-white transition-colors hover:bg-black/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white sm:right-5"
+            >
+              <ChevronRight className="size-5" aria-hidden />
+            </button>
+
+            <div className="absolute bottom-3 left-1/2 z-10 flex -translate-x-1/2 items-center gap-2 rounded-full bg-black/35 px-2.5 py-1.5 sm:bottom-4">
+              {activeSlides.map((slide, i) => (
+                <button
+                  key={slide.id}
+                  type="button"
+                  onClick={() => setIndex(i)}
+                  aria-label={`Go to slide ${i + 1}`}
+                  aria-current={i === safeIndex ? "true" : undefined}
+                  className={classNames(
+                    "h-2 rounded-full transition-all",
+                    i === safeIndex ? "w-6 bg-white" : "w-2 bg-white/50 hover:bg-white/80"
+                  )}
+                />
+              ))}
+            </div>
+          </>
+        )}
       </div>
     </section>
   );

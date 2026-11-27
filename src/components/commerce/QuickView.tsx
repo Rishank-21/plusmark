@@ -81,8 +81,8 @@ export function QuickView({ product, open, onClose }: { product: Product | null;
                 const result = cart.add({ productId: product.slug, variantId: selected.id, colour: current.colour, quantity: current.quantity });
                 if (!result.ok) toast.push(result.message, "error");
                 if (result.ok) {
+                  toast.push(result.message, "success");
                   onClose();
-                  cart.openDrawer();
                 }
               }}
             >

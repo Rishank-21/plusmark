@@ -33,6 +33,8 @@ export async function fetchRelations(slug: string, limit = 6): Promise<ProductRe
 
 import { applyLiveCatalog, buildLiveCatalog, type LiveCatalog, type LiveCategoryRow, type LiveRow } from "@/lib/catalog";
 import { normalizeHeaderNav, type HeaderNavConfig } from "@/lib/header-nav";
+import { normalizeHeroConfig, type HeroSectionConfig } from "@/lib/hero-content";
+import { normalizeStorefrontTheme, type StorefrontThemeConfig } from "@/lib/storefront-theme";
 
 const PRODUCT_COLUMNS =
   "slug,name,category_id,series_id,subcategory_ids,surface,frame,corners,magnetic,double_sided,board_type,surface_kind,usage,blurb,description,features,specs,customisation,video_id,price_mode,gst_rate,hsn_code,bulk_suggestion_quantity,enquiry_only,needs_data,featured,created_at," +
@@ -43,6 +45,10 @@ let liveCache: { at: number; live: LiveCatalog | null } | null = null;
 let liveInflight: Promise<LiveCatalog | null> | null = null;
 let navCache: { at: number; nav: HeaderNavConfig | null } | null = null;
 let navInflight: Promise<HeaderNavConfig | null> | null = null;
+let themeCache: { at: number; theme: StorefrontThemeConfig | null } | null = null;
+let themeInflight: Promise<StorefrontThemeConfig | null> | null = null;
+let heroCache: { at: number; hero: HeroSectionConfig | null } | null = null;
+let heroInflight: Promise<HeroSectionConfig | null> | null = null;
 
 /**
  * Loads what the admin published (prices, visibility, categories, new products) and applies it to the in-memory catalogue.
@@ -85,7 +91,7 @@ export async function ensureLiveCatalog(): Promise<LiveCatalog | null> {
 /** Reads `site_content.header_nav` saved by Admin, returning null cleanly when unset or offline. */
 export async function ensureHeaderNav(): Promise<HeaderNavConfig | null> {
   if (!isSupabaseConfigured) return null;
-  if (navCache && Date.now() - navCache.at < 5_000) return navCache.nav;
+  if (navCache && Date.now() - navCache.at < 1_000) return navCache.nav;
   if (navInflight) return navInflight;
   navInflight = (async () => {
     try {
@@ -109,4 +115,62 @@ export async function ensureHeaderNav(): Promise<HeaderNavConfig | null> {
     }
   })();
   return navInflight;
+}
+
+/** Reads `site_content.storefront_theme` saved by Admin, returning null cleanly when unset or offline. */
+export async function ensureStorefrontTheme(): Promise<StorefrontThemeConfig | null> {
+  if (!isSupabaseConfigured) return null;
+  if (themeCache && Date.now() - themeCache.at < 1_000) return themeCache.theme;
+  if (themeInflight) return themeInflight;
+  themeInflight = (async () => {
+    try {
+      const res = await fetch(
+        `${SUPABASE_URL}/rest/v1/site_content?select=value&key=eq.storefront_theme&limit=1`,
+        {
+          headers: { apikey: SUPABASE_ANON_KEY, Authorization: `Bearer ${SUPABASE_ANON_KEY}` },
+          cache: "no-store",
+          signal: AbortSignal.timeout(2500)
+        }
+      );
+      if (!res.ok) return themeCache?.theme ?? null;
+      const rows = (await res.json()) as { value?: unknown }[];
+      const theme = rows?.[0]?.value ? normalizeStorefrontTheme(rows[0].value) : null;
+      themeCache = { at: Date.now(), theme };
+      return theme;
+    } catch {
+      return themeCache?.theme ?? null;
+    } finally {
+      themeInflight = null;
+    }
+  })();
+  return themeInflight;
+}
+
+/** Reads `site_content.hero_config` saved by Admin, returning null cleanly when unset or offline. */
+export async function ensureHeroConfig(): Promise<HeroSectionConfig | null> {
+  if (!isSupabaseConfigured) return null;
+  if (heroCache && Date.now() - heroCache.at < 1_000) return heroCache.hero;
+  if (heroInflight) return heroInflight;
+  heroInflight = (async () => {
+    try {
+      const res = await fetch(
+        `${SUPABASE_URL}/rest/v1/site_content?select=value&key=eq.hero_config&limit=1`,
+        {
+          headers: { apikey: SUPABASE_ANON_KEY, Authorization: `Bearer ${SUPABASE_ANON_KEY}` },
+          cache: "no-store",
+          signal: AbortSignal.timeout(2500)
+        }
+      );
+      if (!res.ok) return heroCache?.hero ?? null;
+      const rows = (await res.json()) as { value?: unknown }[];
+      const hero = rows?.[0]?.value ? normalizeHeroConfig(rows[0].value) : null;
+      heroCache = { at: Date.now(), hero };
+      return hero;
+    } catch {
+      return heroCache?.hero ?? null;
+    } finally {
+      heroInflight = null;
+    }
+  })();
+  return heroInflight;
 }

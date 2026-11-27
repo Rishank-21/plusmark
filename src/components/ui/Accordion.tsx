@@ -22,13 +22,13 @@ export function Accordion({
   const baseId = useId();
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="divide-y divide-line border-y border-line">
       {items.map((item) => {
         const open = openId === item.id;
         const panelId = `${baseId}-${item.id}-panel`;
         const buttonId = `${baseId}-${item.id}-button`;
         return (
-          <div key={item.id} className="rounded-xl border border-line bg-surface px-5">
+          <div key={item.id}>
             <h3>
               <button
                 id={buttonId}
@@ -36,27 +36,17 @@ export function Accordion({
                 aria-expanded={open}
                 aria-controls={panelId}
                 onClick={() => setOpenId(open ? null : item.id)}
-                className="group flex w-full items-center justify-between gap-6 py-5 text-left"
+                className="group flex w-full items-center justify-between gap-6 py-4 text-left sm:py-5"
               >
-                <span
-                  className={classNames(
-                    "font-display text-h4 font-semibold leading-snug transition-colors sm:text-h3",
-                    open ? "text-primary-strong" : "text-ink"
-                  )}
-                >
+                <span className="font-display text-[0.9375rem] font-semibold leading-snug text-ink sm:text-[1.0625rem]">
                   {item.question}
                 </span>
                 <span className="flex shrink-0 items-center gap-4">
-                  {item.meta && <span className="hidden text-caption text-muted md:inline">{item.meta}</span>}
-                  <span
-                    className={classNames(
-                      "flex size-8 items-center justify-center rounded-full border transition-colors",
-                      open
-                        ? "border-primary bg-primary text-onprimary"
-                        : "border-line bg-surface text-ink group-hover:border-primary"
-                    )}
-                  >
-                    {open ? <Minus className="size-4" aria-hidden /> : <Plus className="size-4" aria-hidden />}
+                  {item.meta && (
+                    <span className="hidden text-caption text-muted sm:inline">{item.meta}</span>
+                  )}
+                  <span className="text-muted transition-colors group-hover:text-ink" aria-hidden>
+                    {open ? <Minus className="size-4" /> : <Plus className="size-4" />}
                   </span>
                 </span>
               </button>
@@ -66,9 +56,9 @@ export function Accordion({
               role="region"
               aria-labelledby={buttonId}
               hidden={!open}
-              className="max-w-reading pb-6 pr-0 text-body-sm leading-relaxed text-muted sm:pr-14"
+              className="pb-5 text-body-sm leading-relaxed text-muted sm:pr-12"
             >
-              {item.answer}
+              <div className="max-w-reading">{item.answer}</div>
             </div>
           </div>
         );

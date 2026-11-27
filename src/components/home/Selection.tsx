@@ -28,11 +28,11 @@ export function Selection({
 
   return (
     <section
-      className={classNames("py-10 lg:py-24", tone === "surface" ? "bg-surface" : "bg-page")}
+      className={classNames("py-10 sm:py-12 lg:py-16", tone === "surface" ? "bg-surface" : "bg-page")}
       aria-labelledby={headingId}
     >
       <div className="pm-shell">
-        <header className="mb-5 flex flex-wrap items-end justify-between gap-3 sm:mb-8 sm:gap-4">
+        <header className="mb-5 flex flex-wrap items-end justify-between gap-3 sm:mb-7 sm:gap-4">
           <div className="flex flex-col gap-1.5 sm:gap-2">
             <h2 id={headingId} className="font-display text-[1.375rem] font-extrabold leading-7 text-ink sm:text-h2 sm:leading-[1.15]">{heading}</h2>
             {lead && <p className="line-clamp-2 max-w-[58ch] text-body-sm leading-relaxed text-muted sm:line-clamp-none">{lead}</p>}
@@ -43,9 +43,9 @@ export function Selection({
           </Link>
         </header>
 
-        <div className="grid grid-cols-2 gap-x-3 gap-y-6 sm:gap-x-6 sm:gap-y-10 md:grid-cols-3 2xl:grid-cols-4">
+        <div className="grid grid-cols-2 gap-3 sm:gap-5 md:grid-cols-3 lg:grid-cols-4">
           {products.map((product, index) => (
-            <ProductCard key={product.slug} product={product} priority={index < 3} onQuickView={setQuick} />
+            <ProductCard key={product.slug} product={product} priority={index < 4} onQuickView={setQuick} />
           ))}
         </div>
 

@@ -1,5 +1,6 @@
 export const revalidate = 60;
-import { ensureLiveCatalog } from "@/lib/backend/server";
+import { ensureHeroConfig, ensureLiveCatalog } from "@/lib/backend/server";
+import { ServiceStickersRow } from "@/components/commerce/ServiceStickersRow";
 import { ProductBenefits } from "@/components/home/Story";
 import { FaqSection } from "@/components/home/FaqSection";
 import { HeroCarousel } from "@/components/home/HeroCarousel";
@@ -10,7 +11,9 @@ import { Selection } from "@/components/home/Selection";
 import { ShopByCategory } from "@/components/home/ShopByCategory";
 import { ShopByCollection } from "@/components/home/ShopByCollection";
 import type { Metadata } from "next";
-import { products } from "@/lib/catalog";
+import { categories, products, seriesList } from "@/lib/catalog";
+import { buildCollectionSeriesCards } from "@/lib/collection-cards";
+import { buildShopCategoryItems } from "@/lib/category-cards";
 import { META_TITLE_SUFFIX } from "@/lib/config";
 import { pageMetadata } from "@/lib/seo";
 import type { Product } from "@/types";
@@ -50,30 +53,27 @@ function selectionFromCatalogue(count: number, skip: number): Product[] {
 }
 
 export default async function HomePage() {
-  await ensureLiveCatalog();
+  const [, heroConfig] = await Promise.all([ensureLiveCatalog(), ensureHeroConfig()]);
   const featured = selectionFromCatalogue(8, 0);
   const more = selectionFromCatalogue(8, featured.length);
   const spotlight = products.find((product) => product.slug === "metallic-premium-white-board") ?? featured[0];
-  const heroProducts = {
-    main: products.find((product) => product.slug === "metallic-premium-white-board") ?? featured[0],
-    chalk: products.find((product) => product.slug === "metallic-premium-chalk-board") ?? featured[1],
-    notice: products.find((product) => product.slug === "metallic-premium-notice-board") ?? featured[2],
-    ceramic: products.find((product) => product.slug === "metallic-premium-ceramic-board") ?? featured[3]
-  };
+  const categoryItems = buildShopCategoryItems(categories, products);
+  const collectionItems = buildCollectionSeriesCards(seriesList, products);
 
   return (
     <>
-      <HeroCarousel products={heroProducts} />
-      <ShopByCategory />
-      <ShopByCollection />
+      <HeroCarousel initialConfig={heroConfig} />
+      <ServiceStickersRow variant="hero-strip" />
+      <ShopByCategory items={categoryItems} totalProducts={products.length} />
+      <ShopByCollection items={collectionItems} />
       {spotlight && <FeaturedSpotlight product={spotlight} />}
       <Selection
         products={featured}
         id="featured"
         heading="A board from every series"
         lead=""
+        tone="surface"
       />
-      <PromoBanner />
       <Selection
         products={more}
         id="more"
@@ -85,6 +85,7 @@ export default async function HomePage() {
       <ProductBenefits />
       <Reviews />
       <FaqSection />
+      <PromoBanner />
     </>
   );
 }

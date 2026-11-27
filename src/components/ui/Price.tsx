@@ -70,12 +70,12 @@ export function PriceRange({
   const multipleSizes = !variant && new Set(values).size > 1;
   return (
     <span className={classNames("inline-flex flex-wrap items-baseline gap-1.5", className)}>
-      {multipleSizes && <span className={classNames(size === "lg" ? "text-[0.75rem] sm:text-body-sm" : "text-caption", "text-muted")}>From</span>}
+      {multipleSizes && <span className={classNames(size === "lg" ? "text-[0.75rem] sm:text-caption" : "text-caption", "text-muted")}>From</span>}
       <span className="inline-flex items-baseline gap-1 whitespace-nowrap">
-        <span className={classNames(size === "lg" ? "text-[1.1875rem] sm:text-price" : "text-body-sm", "tabular font-medium text-ink")}>
+        <span className={classNames(size === "lg" ? "text-[1.125rem] sm:text-[1.25rem]" : "text-body-sm", "tabular font-bold tracking-[-0.01em] text-ink")}>
           {formatInr(amount)}
         </span>
-        <span className={classNames(size === "lg" ? "text-[0.75rem] sm:text-body-sm" : "text-caption", "text-muted")}>+ GST</span>
+        <span className={classNames(size === "lg" ? "text-[0.75rem]" : "text-caption", "text-muted")}>+ GST</span>
       </span>
     </span>
   );

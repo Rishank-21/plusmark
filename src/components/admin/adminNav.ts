@@ -3,9 +3,11 @@ import {
   Boxes,
   CreditCard,
   FolderTree,
+  Image as ImageIcon,
   LayoutDashboard,
   LayoutList,
   Package,
+  Palette,
   ShoppingBag,
   Star,
   Ticket,
@@ -64,7 +66,11 @@ export const ADMIN_NAV: AdminNavSection[] = [
   },
   {
     title: "Setup",
-    items: [{ href: "/admin/settings", label: "Settings", icon: Settings }]
+    items: [
+      { href: "/admin/hero", label: "Hero banners", icon: ImageIcon },
+      { href: "/admin/theme", label: "Storefront theme", icon: Palette },
+      { href: "/admin/settings", label: "Settings", icon: Settings }
+    ]
   }
 ];
 
@@ -82,6 +88,8 @@ export const ADMIN_AREA_LABELS: Record<string, string> = {
   reviews: "Reviews",
   payments: "Payments",
   reports: "Reports",
+  hero: "Hero Banners",
+  theme: "Storefront Theme",
   settings: "Settings"
 };
 export function isAdminArea(segment: string | undefined): boolean {

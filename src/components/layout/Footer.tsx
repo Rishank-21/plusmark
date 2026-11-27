@@ -1,7 +1,7 @@
 import Link from "next/link";
-import Image from "next/image";
 import { ChevronDown, ExternalLink, Mail, MessageCircle, Phone, ShieldCheck } from "lucide-react";
 import { categories, brand } from "@/lib/catalog";
+import { BrandMark } from "@/components/layout/BrandMark";
 import { Breadcrumbs } from "@/components/ui/Nav";
 
 export { Breadcrumbs };
@@ -29,14 +29,7 @@ export function Footer() {
         <div className="grid gap-7 md:grid-cols-2 md:gap-10 lg:grid-cols-[1.35fr_1fr_1fr_1fr] lg:gap-12">
           <div className="flex flex-col gap-4 md:col-span-2 lg:col-span-1">
             <Link href="/" className="w-fit rounded-xs" aria-label="Plusmark home">
-              <Image
-                src="/images/plusmark/brand/plusmark-white.png"
-                alt="Plusmark"
-                width={1304}
-                height={261}
-                sizes="239px"
-                className="h-10 w-auto md:h-12"
-              />
+              <BrandMark surface="shell" sizes="239px" className="h-10 w-auto md:h-12" />
             </Link>
             <p className="max-w-sm text-body-sm leading-relaxed text-shell-on/72">
               Writing boards, chalk boards, notice boards and display systems made in Ahmedabad, shipped across India.

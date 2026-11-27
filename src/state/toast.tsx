@@ -50,7 +50,7 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
       <div
         aria-live="polite"
         aria-atomic="false"
-        className="pointer-events-none fixed inset-x-0 bottom-4 z-[1000] flex flex-col items-center gap-2 px-4 sm:bottom-6"
+        className="pointer-events-none fixed inset-x-0 top-[calc(var(--pm-header-h,3.5rem)+0.75rem)] z-[1000] flex flex-col items-center gap-2 px-4 lg:bottom-6 lg:top-auto"
       >
         {toasts.map((toast) => {
           const Icon = ICONS[toast.kind];

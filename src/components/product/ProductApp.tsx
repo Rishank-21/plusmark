@@ -10,16 +10,10 @@ import {
   ChevronDown,
   ChevronLeft,
   ChevronRight,
-  Headset,
-  MapPin,
   MessageCircle,
-  Package,
-  ReceiptText,
-  Star,
-  Tags,
-  Truck
+  Star
 } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
+import { ServiceStickersRow } from "@/components/commerce/ServiceStickersRow";
 import { Gallery } from "@/components/product/Gallery";
 import { PurchasePanel, Amount } from "@/components/product/PurchasePanel";
 import { ProductDetailSections } from "@/components/product/ProductDetailSections";
@@ -61,15 +55,6 @@ const PDP_OFFERS = [
     countLabel: "1 offer"
   }
 ] as const;
-
-const PDP_SERVICES: { id: string; label: string; icon: LucideIcon }[] = [
-  { id: "dispatch", label: "Pan-India dispatch", icon: Truck },
-  { id: "pickup", label: "Free Ahmedabad pickup", icon: MapPin },
-  { id: "gst", label: "GST invoice with HSN", icon: ReceiptText },
-  { id: "single", label: "Order a single board", icon: Package },
-  { id: "bulk", label: "Bulk pricing on request", icon: Tags },
-  { id: "support", label: "Order desk support", icon: Headset }
-];
 
 /** Set a badge only when a real merchandising flag exists for the product. */
 const PRODUCT_BADGES: Record<string, { label: string; context?: string }> = {};
@@ -141,7 +126,7 @@ export function ProductApp({
       router.push("/checkout");
       return;
     }
-    cart.openDrawer();
+    toast.push(result.message, "success");
   };
 
   useEffect(() => {
@@ -225,7 +210,7 @@ export function ProductApp({
 
               <OffersRow onOpen={() => setOffersOpen(true)} />
 
-              <ServicesRow />
+              <ServiceStickersRow variant="pdp" />
 
               <div ref={sizeRef} className="scroll-mt-56 border-t border-line pt-4">
                 <p className="pb-2.5 text-body-sm">
@@ -372,71 +357,6 @@ function OffersRow({ onOpen }: { onOpen: () => void }) {
           </button>
         ))}
       </div>
-    </section>
-  );
-}
-
-function ServicesRow() {
-  const track = useRef<HTMLDivElement>(null);
-  const [canLeft, setCanLeft] = useState(false);
-  const [canRight, setCanRight] = useState(false);
-
-  const update = () => {
-    const element = track.current;
-    if (!element) return;
-    setCanLeft(element.scrollLeft > 4);
-    setCanRight(element.scrollLeft + element.clientWidth < element.scrollWidth - 4);
-  };
-
-  useEffect(() => {
-    update();
-    window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
-  }, []);
-
-  return (
-    <section className="relative border-t border-line pt-4" aria-label="Plusmark service information">
-      <h2 className="pb-3 text-body font-semibold text-ink">Service information</h2>
-      <div
-        ref={track}
-        onScroll={update}
-        tabIndex={0}
-        role="group"
-        aria-label="Service highlights"
-        className="grid grid-cols-3 gap-x-2 gap-y-5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary lg:flex lg:gap-5 lg:overflow-x-auto lg:pb-1 lg:no-scrollbar"
-      >
-        {PDP_SERVICES.map((service) => {
-          const Icon = service.icon;
-          return (
-            <div key={service.id} className="flex min-w-0 flex-col items-center gap-1.5 text-center lg:w-[4.75rem] lg:shrink-0">
-              <span className="flex size-10 items-center justify-center rounded-full bg-subtle text-ink">
-                <Icon className="size-4" aria-hidden />
-              </span>
-              <span className="text-[0.75rem] leading-snug text-primary-strong">{service.label}</span>
-            </div>
-          );
-        })}
-      </div>
-      {canLeft && (
-        <button
-          type="button"
-          onClick={() => track.current?.scrollBy({ left: -200, behavior: "smooth" })}
-          aria-label="Scroll services left"
-          className="absolute -left-2 top-[62%] hidden size-8 -translate-y-1/2 items-center justify-center rounded-md border border-line-strong bg-surface text-ink hover:bg-subtle lg:flex"
-        >
-          <ChevronLeft className="size-4" aria-hidden />
-        </button>
-      )}
-      {canRight && (
-        <button
-          type="button"
-          onClick={() => track.current?.scrollBy({ left: 200, behavior: "smooth" })}
-          aria-label="Scroll services right"
-          className="absolute -right-2 top-[62%] hidden size-8 -translate-y-1/2 items-center justify-center rounded-md border border-line-strong bg-surface text-ink hover:bg-subtle lg:flex"
-        >
-          <ChevronRight className="size-4" aria-hidden />
-        </button>
-      )}
     </section>
   );
 }
