@@ -51,7 +51,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
 
   const shellStyle = { [HEAD_VAR]: "5.75rem" } as React.CSSProperties;
 
-  if (!hydrated || adminLoading) {
+  if (!hydrated || (adminLoading && !onLoginPage)) {
     return (
       <div style={shellStyle} className="min-h-dvh bg-canvas">
         <AdminBand />

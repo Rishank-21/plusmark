@@ -95,6 +95,11 @@ export const categories: Category[] = (raw.categories as RawCategory[]).map((c) 
 }));
 
 const seriesById = new Map(seriesList.map((s) => [s.id, s]));
+const BASE_CATEGORIES: Category[] = categories.map((c) => ({
+  ...c,
+  subcategories: c.subcategories.map((s) => ({ ...s }))
+}));
+const baseCategoryById = new Map(BASE_CATEGORIES.map((c) => [c.id, c]));
 const categoryById = new Map(categories.map((c) => [c.id, c]));
 
 const CATEGORY_SUBJECT: Record<string, string> = Object.fromEntries(
@@ -470,12 +475,25 @@ export interface LiveRow {
   }[];
 }
 
+export interface LiveCategoryRow {
+  id: string;
+  parent_id: string | null;
+  name: string;
+  description: string | null;
+  subject: string | null;
+  image: string | null;
+  sort_order: number;
+  active: boolean;
+}
+
 export interface LiveCatalog {
   publishedSlugs: string[];
   /** Variants of built-in products, keyed by the storefront variant id. */
   overrides: Record<string, { variants: Record<string, Pick<Variant, "priceInr" | "compareAtInr" | "available" | "stock" | "trackInventory" | "leadTimeDays">>; added: Variant[]; featured: boolean }>;
   /** Products that exist only in the database. */
   extra: Product[];
+  /** Live active categories and subcategories from Supabase. */
+  categories?: LiveCategoryRow[];
 }
 
 const BASE_SLUGS = new Set(allProducts.map((p) => p.slug));
@@ -551,10 +569,54 @@ function productFromRow(row: LiveRow): Product {
   };
 }
 
+function applyLiveCategories(rows: LiveCategoryRow[] | undefined): void {
+  if (!rows || rows.length === 0) return;
+  const activeRows = rows.filter((row) => row.active !== false).sort((a, b) => a.sort_order - b.sort_order);
+  const topRows = activeRows.filter((row) => !row.parent_id);
+  if (topRows.length === 0) return;
+
+  const subsByParent = new Map<string, Subcategory[]>();
+  for (const row of activeRows) {
+    if (!row.parent_id) continue;
+    const baseParent = baseCategoryById.get(row.parent_id);
+    const baseSub = baseParent?.subcategories.find((s) => s.id === row.id);
+    const list = subsByParent.get(row.parent_id) ?? [];
+    list.push({
+      id: row.id,
+      name: row.name,
+      image: row.image ?? baseSub?.image ?? null
+    });
+    subsByParent.set(row.parent_id, list);
+  }
+
+  const nextCategories: Category[] = topRows.map((row) => {
+    const baseCat = baseCategoryById.get(row.id);
+    return {
+      id: row.id,
+      slug: row.id,
+      name: row.name,
+      description: row.description ?? baseCat?.description ?? "",
+      subject: row.subject ?? baseCat?.subject ?? row.name,
+      image: localCategoryImage(row.id) ?? row.image ?? baseCat?.image ?? null,
+      subcategories: subsByParent.get(row.id) ?? []
+    };
+  });
+
+  categories.splice(0, categories.length, ...nextCategories);
+  categoryById.clear();
+  for (const c of categories) {
+    categoryById.set(c.id, c);
+    CATEGORY_SUBJECT[c.id] = c.subject;
+  }
+}
+
 /** Turns the rows into a small snapshot: only what differs from the built-in catalogue. */
-export function buildLiveCatalog(rows: LiveRow[]): LiveCatalog {
+export function buildLiveCatalog(rows: LiveRow[], liveCategories?: LiveCategoryRow[]): LiveCatalog {
   const overrides: LiveCatalog["overrides"] = {};
   const extra: Product[] = [];
+  if (liveCategories && liveCategories.length > 0) {
+    applyLiveCategories(liveCategories);
+  }
   for (const row of rows) {
     if (!BASE_SLUGS.has(row.slug)) {
       extra.push(productFromRow(row));
@@ -579,12 +641,19 @@ export function buildLiveCatalog(rows: LiveRow[]): LiveCatalog {
     }
     overrides[row.slug] = entry;
   }
-  return { publishedSlugs: rows.map((r) => r.slug), overrides, extra };
+  return {
+    publishedSlugs: rows.map((r) => r.slug),
+    overrides,
+    extra,
+    ...(liveCategories && liveCategories.length > 0 ? { categories: liveCategories } : {})
+  };
 }
 
 /** Applies a snapshot to the in-memory catalogue. Safe to call repeatedly; the newest snapshot wins. */
 export function applyLiveCatalog(live: LiveCatalog | null): void {
-  if (!live || live.publishedSlugs.length === 0) return;
+  if (!live) return;
+  applyLiveCategories(live.categories);
+  if (live.publishedSlugs.length === 0) return;
   const published = new Set(live.publishedSlugs);
 
   // take back anything an earlier snapshot added

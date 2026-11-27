@@ -4,6 +4,7 @@ import {
   CreditCard,
   FolderTree,
   LayoutDashboard,
+  LayoutList,
   Package,
   ShoppingBag,
   Star,
@@ -41,6 +42,7 @@ export const ADMIN_NAV: AdminNavSection[] = [
     items: [
       { href: "/admin/products", label: "Products", icon: Package },
       { href: "/admin/categories", label: "Categories", icon: FolderTree },
+      { href: "/admin/navigation", label: "Header strip", icon: LayoutList },
       { href: "/admin/inventory", label: "Inventory", icon: Boxes },
       { href: "/admin/reviews", label: "Reviews", icon: Star }
     ]
@@ -71,6 +73,7 @@ export const ADMIN_AREA_LABELS: Record<string, string> = {
   login: "Sign in",
   products: "Products",
   categories: "Categories",
+  navigation: "Header Navigation",
   inventory: "Inventory",
   orders: "Orders",
   returns: "Returns",

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { AdminPageHeader } from "@/components/admin/Metrics";
 import { Check, ErrorLine, Input, Loading, Pick, Section, SimpleTable } from "@/components/admin/kit";
 import { useAdminQuery } from "@/components/admin/useAdminQuery";
-import { Button } from "@/components/ui/Button";
+import { Button, ButtonLink } from "@/components/ui/Button";
 import { db, type Json } from "@/lib/backend/admin";
 import { useToast } from "@/state/toast";
 
@@ -39,7 +39,11 @@ export default function AdminCategoriesPage() {
   const tops = (q.data ?? []).filter((c) => !c.parent_id);
   return (
     <>
-      <AdminPageHeader title="Categories" crumbs={[{ label: "Admin", href: "/admin" }, { label: "Categories" }]} />
+      <AdminPageHeader
+        title="Categories"
+        crumbs={[{ label: "Admin", href: "/admin" }, { label: "Categories" }]}
+        actions={<ButtonLink href="/admin/navigation" size="sm" variant="secondary">Edit header strip</ButtonLink>}
+      />
       {q.error && <ErrorLine message={q.error} onRetry={q.reload} />}
       {!q.data ? <Loading what="Loading categories" /> : (
         <div className="grid gap-4 lg:grid-cols-[1fr_22rem]">

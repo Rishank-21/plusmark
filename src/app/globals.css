@@ -241,6 +241,11 @@
       --pm-nav-h: 0rem;
       --pm-page-x: 2rem;
     }
+
+    :root:has([data-surface="storefront"]) {
+      --pm-header-h: 7.125rem;
+      --header-h: 7.125rem;
+    }
   }
 
   /* Sub-bars stick under the header, and follow it when it tucks away. */

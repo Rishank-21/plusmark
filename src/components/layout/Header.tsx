@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -9,98 +9,26 @@ import { brand, categories, products, seriesList } from "@/lib/catalog";
 import { imageUrl } from "@/lib/media";
 import { getSupabaseBrowserClient } from "@/lib/supabase/client";
 import { classNames } from "@/lib/format";
+import {
+  buildDefaultHeaderNav,
+  normalizeHeaderNav,
+  resolveHeaderNav,
+  type HeaderNavConfig,
+  type ResolvedHeaderChild,
+  type ResolvedHeaderMegaMenu,
+  type ResolvedHeaderMiddleLink,
+  type ResolvedHeaderStripItem
+} from "@/lib/header-nav";
 import { useCart } from "@/state/cart";
 import { useWishlist } from "@/state/wishlist";
 import { useSession } from "@/state/session";
 import { ProductImage } from "@/components/ui/ProductImage";
 import { SearchPanel } from "@/components/layout/SearchPanel";
 import { useMobileChrome } from "@/components/layout/MobileChrome";
-
-const ANNOUNCEMENT = "Discover quality writing & display boards by Plusmark";
-
-type NavProduct = (typeof products)[number];
-type NavMenuItem = { label: string; href: string; image: string | null };
-type NavItem = { label: string; href: string; ranges: NavMenuItem[]; featured: NavProduct[] };
-
-function subcategoryImage(subId: string, fallback: string | null): string | null {
-  const product = products.find((item) => item.subcategoryIds.includes(subId) && item.media[0]);
-  return product?.media[0]?.publicId ?? fallback;
-}
-
-function categoryRanges(categoryId: string): NavMenuItem[] {
-  const category = categories.find((c) => c.id === categoryId);
-  if (!category) return [];
-  return category.subcategories.map((sub) => ({
-    label: sub.name,
-    href: `/shop/${category.slug}/${sub.id}`,
-    image: subcategoryImage(sub.id, sub.image)
-  }));
-}
-
-function categoryFeatured(categoryId: string): NavProduct[] {
-  const inCategory = products.filter((product) => product.categoryId === categoryId && product.media[0]).slice(0, 2);
-  return inCategory.length > 0 ? inCategory : products.filter((product) => product.featured).slice(0, 2);
-}
-
-const CERAMIC_RANGES: NavMenuItem[] = categories.flatMap((category) =>
-  category.subcategories
-    .filter((sub) => sub.id.endsWith("-ceramic"))
-    .map((sub) => ({
-      label: sub.name,
-      href: `/shop/${category.slug}/${sub.id}`,
-      image: subcategoryImage(sub.id, sub.image)
-    }))
-);
-
-const CERAMIC_FEATURED = products
-  .filter((product) => product.media[0] && product.subcategoryIds.some((id) => id.endsWith("-ceramic")))
-  .slice(0, 2);
-
-const NAV_LINKS: NavItem[] = [
-  {
-    label: "White Boards",
-    href: "/shop/white-boards",
-    ranges: categoryRanges("white-boards"),
-    featured: categoryFeatured("white-boards")
-  },
-  {
-    label: "Chalk Boards",
-    href: "/shop/chalk-boards",
-    ranges: categoryRanges("chalk-boards"),
-    featured: categoryFeatured("chalk-boards")
-  },
-  {
-    label: "Notice Boards",
-    href: "/shop/notice-boards",
-    ranges: categoryRanges("notice-boards"),
-    featured: categoryFeatured("notice-boards")
-  },
-  {
-    label: "Ceramic Boards",
-    href: "/collections/ceramic-boards",
-    ranges: CERAMIC_RANGES,
-    featured: CERAMIC_FEATURED
-  },
-  {
-    label: "Display Boards",
-    href: "/shop/display-boards",
-    ranges: categoryRanges("display-boards"),
-    featured: categoryFeatured("display-boards")
-  },
-  {
-    label: "Board Stands",
-    href: "/shop/board-stands",
-    ranges: categoryRanges("board-stands"),
-    featured: categoryFeatured("board-stands")
-  }
-];
+import type { Product } from "@/types";
 
 export function AnnouncementBar() {
-  const [entry, setEntry] = useState<{ text: string; linkHref: string | null; linkLabel: string | null } | null>({
-    text: ANNOUNCEMENT,
-    linkHref: null,
-    linkLabel: null
-  });
+  const [entry, setEntry] = useState<{ text: string; linkHref: string | null; linkLabel: string | null } | null>(null);
 
   useEffect(() => {
     const supabase = getSupabaseBrowserClient();
@@ -146,14 +74,36 @@ export function AnnouncementBar() {
   );
 }
 
-export function Header() {
-  const [scrolled, setScrolled] = useState(false);
+export function Header({ initialNav = null }: { initialNav?: HeaderNavConfig | null }) {
   const [collapsed, setCollapsed] = useState(false);
+  const [navConfig, setNavConfig] = useState<HeaderNavConfig>(() => initialNav ?? buildDefaultHeaderNav());
   const lastY = useRef(0);
   const chrome = useMobileChrome();
   const cart = useCart();
   const wishlist = useWishlist();
   const session = useSession();
+
+  useEffect(() => {
+    if (initialNav) setNavConfig(initialNav);
+  }, [initialNav]);
+
+  useEffect(() => {
+    const supabase = getSupabaseBrowserClient();
+    if (!supabase) return;
+    let alive = true;
+    void supabase
+      .from("site_content")
+      .select("value")
+      .eq("key", "header_nav")
+      .maybeSingle()
+      .then(({ data, error }) => {
+        if (!alive || error || !data?.value) return;
+        setNavConfig(normalizeHeaderNav(data.value));
+      });
+    return () => {
+      alive = false;
+    };
+  }, []);
 
   useEffect(() => {
     document.documentElement.dataset.headerCollapsed = collapsed ? "true" : "false";
@@ -162,7 +112,6 @@ export function Header() {
   useEffect(() => {
     const onScroll = () => {
       const y = window.scrollY;
-      setScrolled(y > 8);
       if (window.innerWidth < 1024) {
         const delta = y - lastY.current;
         if (y > 72 && delta > 6) setCollapsed(true);
@@ -177,6 +126,11 @@ export function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const resolvedNav = useMemo(
+    () => resolveHeaderNav(navConfig, { categories, seriesList, products }),
+    [navConfig]
+  );
+
   return (
     <header
       className={classNames(
@@ -186,12 +140,12 @@ export function Header() {
     >
       <AnnouncementBar />
       <div className="border-b border-line bg-surface">
-        <div className="pm-shell flex h-14 items-center gap-2 max-[359px]:gap-1 lg:h-[4.5rem] lg:gap-7">
+        <div className="pm-shell flex h-14 items-center justify-between gap-3 lg:h-[4.25rem] lg:gap-8">
           <button
             type="button"
             onClick={chrome.openMenu}
             aria-label="Open navigation menu"
-            className="-ml-2 flex size-11 shrink-0 items-center justify-center rounded-xs text-ink hover:bg-subtle lg:hidden"
+            className="-ml-2 flex size-11 shrink-0 items-center justify-center rounded-md text-ink hover:bg-subtle lg:hidden"
           >
             <Menu className="size-5" aria-hidden />
           </button>
@@ -202,15 +156,15 @@ export function Header() {
               alt="Plusmark"
               width={1304}
               height={262}
-              sizes="(min-width: 1024px) 220px, 140px"
-              className="h-7 w-auto max-[359px]:h-6 lg:h-11"
+              sizes="(min-width: 1024px) 170px, 130px"
+              className="h-7 w-auto max-[359px]:h-6 lg:h-9"
               priority
             />
           </Link>
 
-          <SearchPanel id="desktop-search" label="Search products" className="hidden min-w-0 flex-1 lg:block" />
+          <SearchPanel id="desktop-search" label="Search products" className="hidden min-w-0 flex-1 max-w-2xl lg:block" />
 
-          <div className="ml-auto flex shrink-0 items-center gap-1 max-[359px]:gap-0.5 lg:ml-0 lg:gap-4">
+          <div className="flex shrink-0 items-center gap-1 max-[359px]:gap-0.5 lg:gap-2">
             <button
               type="button"
               onClick={chrome.openSearch}
@@ -219,36 +173,33 @@ export function Header() {
             >
               <Search className="size-5" aria-hidden />
             </button>
-            <HeaderAction label={`Account${session.account ? " — signed in" : ""}`} href="/account" hideOnMobile>
-              <User className="size-5" aria-hidden />
-              <span className="hidden xl:block">Account</span>
-            </HeaderAction>
             <HeaderAction label={`Wishlist${wishlist.slugs.length ? ` — ${wishlist.slugs.length} saved` : ""}`} href="/wishlist">
               <Heart className="size-5" aria-hidden />
-              <span className="hidden xl:block">Wishlist</span>
               {wishlist.slugs.length > 0 && <Dot>{wishlist.slugs.length}</Dot>}
+            </HeaderAction>
+            <HeaderAction label={`Account${session.account ? " — signed in" : ""}`} href="/account" hideOnMobile>
+              <User className="size-5" aria-hidden />
+              <span className="hidden xl:inline">Account</span>
             </HeaderAction>
             <HeaderAction label={`Cart${cart.count ? ` — ${cart.count} items` : ""}`} onClick={cart.openDrawer}>
               <ShoppingCart className="size-5" aria-hidden />
-              <span className="hidden sm:block">Cart</span>
+              <span className="hidden xl:inline">Cart</span>
               {cart.count > 0 && <Dot>{cart.count}</Dot>}
             </HeaderAction>
           </div>
         </div>
 
-        <nav aria-label="Product navigation" className="hidden border-t border-line lg:block">
-          <div className="pm-shell">
-            <div className="relative flex h-12 items-center gap-1">
-              <MegaMenu />
-              {NAV_LINKS.map((link) => (
-                <NavMenu key={link.href} item={link} />
-              ))}
-            </div>
+        <nav aria-label="Product navigation" className="hidden bg-shell text-shell-on lg:block">
+          <div className="pm-shell relative flex min-h-[2.875rem] flex-wrap items-center justify-center gap-x-4 gap-y-1 py-1 xl:gap-x-7">
+            {resolvedNav.megaMenu.enabled && <MegaMenu config={resolvedNav.megaMenu} />}
+            {resolvedNav.items.map((link) => (
+              <NavMenu key={link.id} item={link} />
+            ))}
           </div>
         </nav>
       </div>
 
-      <MobileNav open={chrome.menuOpen} onClose={chrome.closeMenu} />
+      <MobileNav open={chrome.menuOpen} onClose={chrome.closeMenu} items={resolvedNav.items} />
     </header>
   );
 }
@@ -284,15 +235,174 @@ function HeaderAction({
   return <button type="button" onClick={onClick} aria-label={label} className={className}>{children}</button>;
 }
 
-function NavMenu({ item }: { item: NavItem }) {
+function NavThumb({ image }: { image: string | null }) {
+  const [failed, setFailed] = useState(false);
+
+  if (!image || failed) {
+    return (
+      <span className="flex size-8 shrink-0 items-center justify-center rounded-xs bg-subtle text-muted">
+        <Layers className="size-3.5" aria-hidden />
+      </span>
+    );
+  }
+
+  return (
+    <span className="size-8 shrink-0 overflow-hidden rounded-xs bg-surface">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={imageUrl(image, { fit: "fill", width: 64, height: 64 })}
+        alt=""
+        className="size-full object-contain"
+        onError={() => setFailed(true)}
+      />
+    </span>
+  );
+}
+
+function NavDropdownPanel({
+  id,
+  rangesHeading,
+  ranges,
+  middleHeading,
+  middleLinks,
+  featuredHeading,
+  featured,
+  ctaLabel,
+  ctaHref,
+  onNavigate
+}: {
+  id: string;
+  rangesHeading: string;
+  ranges: ResolvedHeaderChild[];
+  middleHeading: string;
+  middleLinks: ResolvedHeaderMiddleLink[];
+  featuredHeading: string;
+  featured: Product[];
+  ctaLabel: string;
+  ctaHref: string;
+  onNavigate: () => void;
+}) {
+  const hasRanges = ranges.length > 0;
+  const hasMiddle = middleLinks.length > 0;
+  const hasFeaturedCol = featured.length > 0 || Boolean(ctaLabel);
+  const colCount = (hasRanges ? 1 : 0) + (hasMiddle ? 1 : 0) + (hasFeaturedCol ? 1 : 0);
+
+  if (colCount === 0) return null;
+
+  const widthCls =
+    colCount >= 3
+      ? "w-[min(64rem,92vw)]"
+      : colCount === 2
+        ? "w-[min(46rem,92vw)]"
+        : "w-[min(28rem,92vw)]";
+
+  const gridCls =
+    colCount >= 3
+      ? "lg:grid-cols-[1.6fr_1fr_1fr]"
+      : colCount === 2
+        ? hasRanges
+          ? "lg:grid-cols-[1.45fr_1fr]"
+          : "sm:grid-cols-2"
+        : "grid-cols-1";
+
+  return (
+    <div id={id} className={classNames("absolute left-0 top-full z-50 pt-2", widthCls)}>
+      <div className="rounded-md border border-line bg-surface p-6 text-ink shadow-lift">
+        <div className={classNames("grid gap-8", gridCls)}>
+          {hasRanges && (
+            <div>
+              <p className="pm-eyebrow mb-3">{rangesHeading}</p>
+              <ul className="grid grid-cols-2 gap-x-6 gap-y-1">
+                {ranges.map((range) => (
+                  <li key={`${range.id}-${range.href}`}>
+                    <Link
+                      href={range.href}
+                      onClick={onNavigate}
+                      className="flex items-center gap-2.5 rounded-xs px-2 py-1.5 transition-colors hover:bg-subtle"
+                    >
+                      <NavThumb image={range.image} />
+                      <span className="text-body-sm text-ink">{range.label}</span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {hasMiddle && (
+            <div>
+              <p className="pm-eyebrow mb-3">{middleHeading}</p>
+              <ul className="flex flex-col gap-2.5">
+                {middleLinks.map((entry) => (
+                  <li key={`${entry.id}-${entry.href}`}>
+                    <Link
+                      href={entry.href}
+                      onClick={onNavigate}
+                      className="flex flex-col rounded-xs px-2 py-1.5 transition-colors hover:bg-subtle"
+                    >
+                      <span className="text-body-sm font-medium text-ink">{entry.label}</span>
+                      {entry.subtitle && <span className="text-caption leading-snug text-muted">{entry.subtitle}</span>}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {hasFeaturedCol && (
+            <div className="flex flex-col gap-3">
+              {featured.length > 0 && <p className="pm-eyebrow">{featuredHeading}</p>}
+              {featured.map((product) => (
+                <Link
+                  key={product.slug}
+                  href={`/product/${product.slug}`}
+                  onClick={onNavigate}
+                  className="group flex items-center gap-3 rounded-lg border border-line bg-surface p-2 transition-colors hover:border-line-strong"
+                >
+                  <span className="size-14 shrink-0 overflow-hidden rounded-xs border border-line bg-surface">
+                    <ProductImage
+                      asset={product.media[0] ?? null}
+                      name={product.name}
+                      categoryId={product.categoryId}
+                      preset="thumb"
+                      sizes="56px"
+                      className="size-full object-contain"
+                    />
+                  </span>
+                  <span className="flex flex-col">
+                    <span className="text-body-sm font-medium text-ink group-hover:text-ink">{product.name}</span>
+                    <span className="text-caption text-muted">View product</span>
+                  </span>
+                </Link>
+              ))}
+              {ctaLabel && (
+                <Link
+                  href={ctaHref}
+                  onClick={onNavigate}
+                  className="mt-1 flex h-10 items-center justify-center rounded-lg border border-line-strong text-caption font-medium uppercase tracking-[0.1em] text-ink transition-colors hover:bg-subtle"
+                >
+                  {ctaLabel}
+                </Link>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function NavMenu({ item }: { item: ResolvedHeaderStripItem }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const timeout = useRef<number | undefined>(undefined);
-  const id = `nav-menu-${item.href.replace(/\W+/g, "-").replace(/^-|-$/g, "")}`;
+  const id = `nav-menu-${item.href.replace(/\W+/g, "-").replace(/^-|-$/g, "") || item.id}`;
   const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
-  const hasRanges = item.ranges.length > 0;
+  const hasDropdown =
+    item.ranges.length > 0 || item.middleLinks.length > 0 || item.featured.length > 0 || Boolean(item.ctaLabel);
 
   const show = () => {
+    if (!hasDropdown) return;
     window.clearTimeout(timeout.current);
     setOpen(true);
   };
@@ -320,239 +430,98 @@ function NavMenu({ item }: { item: NavItem }) {
       <Link
         href={item.href}
         onClick={close}
-        aria-expanded={open}
-        aria-controls={id}
+        aria-expanded={hasDropdown ? open : undefined}
+        aria-controls={hasDropdown ? id : undefined}
         className={classNames(
-          "relative block rounded-xs px-3 py-2 text-body-sm font-medium transition-colors hover:text-ink",
-          open && "bg-subtle text-ink",
-          !open && (active ? "text-ink" : "text-muted")
+          "relative block whitespace-nowrap rounded-xs px-2 py-1.5 text-[0.6875rem] uppercase tracking-[0.11em] transition-colors focus-visible:ring-surface focus-visible:ring-offset-shell hover:text-shell-on xl:text-[0.75rem] xl:tracking-[0.13em]",
+          open && "bg-white/15 text-shell-on",
+          !open && (active ? "font-semibold text-shell-on" : "text-shell-on/80")
         )}
       >
         {item.label}
-        {active && <span className="absolute inset-x-3 -bottom-px h-px bg-primary" aria-hidden />}
+        {active && <span className="absolute inset-x-2 -bottom-px h-[2px] bg-shell-on" aria-hidden />}
       </Link>
 
-      {open && (
-        <div
+      {open && hasDropdown && (
+        <NavDropdownPanel
           id={id}
-          className={classNames(
-            "absolute left-0 top-full z-50 pt-1",
-            hasRanges ? "w-[min(64rem,92vw)]" : "w-[min(44rem,92vw)]"
-          )}
-        >
-          <div className="rounded-md border border-line bg-page p-6 shadow-lift animate-fade-up">
-            <div className={classNames("grid gap-8", hasRanges ? "lg:grid-cols-[1.6fr_1fr_1fr]" : "grid-cols-2")}>
-              {hasRanges && (
-                <div>
-                  <p className="pm-eyebrow mb-3">Product ranges</p>
-                  <ul className="grid grid-cols-2 gap-x-6 gap-y-1">
-                    {item.ranges.map((range) => (
-                      <li key={range.href}>
-                        <Link
-                          href={range.href}
-                          onClick={close}
-                          className="flex items-center gap-2.5 rounded-xs px-2 py-1.5 transition-colors hover:bg-subtle"
-                        >
-                          <span className="size-8 shrink-0 overflow-hidden rounded-xs bg-surface">
-                            {range.image && (
-                              // eslint-disable-next-line @next/next/no-img-element
-                              <img
-                                src={imageUrl(range.image, { fit: "fill", width: 64, height: 64 })}
-                                alt=""
-                                className="size-full object-contain"
-                                loading="lazy"
-                              />
-                            )}
-                          </span>
-                          <span className="text-body-sm text-ink">{range.label}</span>
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-
-              <div>
-                <p className="pm-eyebrow mb-3">By series</p>
-                <ul className="flex flex-col gap-2.5">
-                  {seriesList.map((series) => (
-                    <li key={series.id}>
-                      <Link
-                        href={`/shop?series=${series.id}`}
-                        onClick={close}
-                        className="flex flex-col rounded-xs px-2 py-1.5 transition-colors hover:bg-subtle"
-                      >
-                        <span className="text-body-sm font-medium text-ink">{series.name}</span>
-                        <span className="text-caption leading-snug text-muted">{series.surface}</span>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="flex flex-col gap-3">
-                <p className="pm-eyebrow">Start here</p>
-                {item.featured.map((product) => (
-                  <Link
-                    key={product.slug}
-                    href={`/product/${product.slug}`}
-                    onClick={close}
-                    className="group flex items-center gap-3 rounded-lg border border-line bg-surface p-2 transition-colors hover:border-line-strong"
-                  >
-                    <span className="size-14 shrink-0 overflow-hidden rounded-xs border border-line bg-surface">
-                      <ProductImage
-                        asset={product.media[0] ?? null}
-                        name={product.name}
-                        categoryId={product.categoryId}
-                        preset="thumb"
-                        sizes="56px"
-                        className="size-full object-contain"
-                      />
-                    </span>
-                    <span className="flex flex-col">
-                      <span className="text-body-sm font-medium text-ink group-hover:text-ink">{product.name}</span>
-                      <span className="text-caption text-muted">View product</span>
-                    </span>
-                  </Link>
-                ))}
-                <Link
-                  href={item.href}
-                  onClick={close}
-                  className="mt-1 flex h-10 items-center justify-center rounded-lg border border-line-strong text-caption font-medium uppercase tracking-[0.1em] text-ink transition-colors hover:bg-subtle"
-                >
-                  Browse all {item.label.toLowerCase()}
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
+          rangesHeading={item.rangesHeading}
+          ranges={item.ranges}
+          middleHeading={item.middleHeading}
+          middleLinks={item.middleLinks}
+          featuredHeading={item.featuredHeading}
+          featured={item.featured}
+          ctaLabel={item.ctaLabel}
+          ctaHref={item.ctaHref}
+          onNavigate={close}
+        />
       )}
     </div>
   );
 }
 
-function MegaMenu() {
+function MegaMenu({ config }: { config: ResolvedHeaderMegaMenu }) {
   const [open, setOpen] = useState(false);
   const timeout = useRef<number | undefined>(undefined);
+  const hoverOpenedAt = useRef(0);
 
   const show = () => {
     window.clearTimeout(timeout.current);
-    setOpen(true);
+    setOpen((prev) => {
+      if (!prev) hoverOpenedAt.current = Date.now();
+      return true;
+    });
   };
   const hide = () => {
     timeout.current = window.setTimeout(() => setOpen(false), 120);
   };
 
-  const featured = products.filter((p) => p.featured).slice(0, 2);
-
   return (
-    <div className="relative" onMouseEnter={show} onMouseLeave={hide}>
+    <div
+      onMouseEnter={show}
+      onMouseLeave={hide}
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setOpen(false);
+      }}
+      onKeyDown={(event) => {
+        if (event.key === "Escape") setOpen(false);
+      }}
+    >
       <button
         type="button"
         aria-expanded={open}
         aria-controls="pm-mega"
-        onClick={() => setOpen((v) => !v)}
+        onClick={() => {
+          if (Date.now() - hoverOpenedAt.current < 250) return;
+          setOpen((v) => !v);
+        }}
         className={classNames(
-          "rounded-xs px-3 py-2 text-body-sm font-medium transition-colors hover:text-ink",
-          open ? "bg-subtle text-ink" : "text-ink"
+          "whitespace-nowrap rounded-xs px-2 py-1.5 text-[0.6875rem] font-semibold uppercase tracking-[0.11em] transition-colors focus-visible:ring-surface focus-visible:ring-offset-shell hover:text-shell-on xl:text-[0.75rem] xl:tracking-[0.13em]",
+          open ? "bg-white/15 text-shell-on" : "text-shell-on"
         )}
       >
-        Shop All Boards
+        {config.label}
       </button>
 
       {open && (
-        <div id="pm-mega" className="absolute left-0 top-full z-50 w-[min(64rem,92vw)] pt-1">
-          <div className="rounded-md border border-line bg-page p-6 shadow-lift animate-fade-up">
-            <div className="grid gap-8 lg:grid-cols-[1.6fr_1fr_1fr]">
-              <div>
-                <p className="pm-eyebrow mb-3">Product ranges</p>
-                <ul className="grid grid-cols-2 gap-x-6 gap-y-1">
-                  {categories.map((c) => (
-                    <li key={c.id}>
-                      <MegaCategory category={c} onNavigate={() => setOpen(false)} />
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div>
-                <p className="pm-eyebrow mb-3">By series</p>
-                <ul className="flex flex-col gap-2.5">
-                  {seriesList.map((s) => (
-                    <li key={s.id}>
-                      <Link
-                        href={`/shop?series=${s.id}`}
-                        onClick={() => setOpen(false)}
-                        className="flex flex-col rounded-xs px-2 py-1.5 transition-colors hover:bg-subtle"
-                      >
-                        <span className="text-body-sm font-medium text-ink">{s.name}</span>
-                        <span className="text-caption leading-snug text-muted">{s.surface}</span>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="flex flex-col gap-3">
-                <p className="pm-eyebrow">Start here</p>
-                {featured.map((p) => (
-                  <Link
-                    key={p.slug}
-                    href={`/product/${p.slug}`}
-                    onClick={() => setOpen(false)}
-                    className="group flex items-center gap-3 rounded-lg border border-line bg-surface p-2 transition-colors hover:border-line-strong"
-                  >
-                    <span className="size-14 shrink-0 overflow-hidden rounded-xs border border-line bg-surface">
-                      <ProductImage
-                        asset={p.media[0] ?? null}
-                        name={p.name}
-                        categoryId={p.categoryId}
-                        preset="thumb"
-                        sizes="56px"
-                        className="size-full object-contain"
-                      />
-                    </span>
-                    <span className="flex flex-col">
-                      <span className="text-body-sm font-medium text-ink group-hover:text-ink">{p.name}</span>
-                      <span className="text-caption text-muted">View product</span>
-                    </span>
-                  </Link>
-                ))}
-                <Link
-                  href="/shop"
-                  onClick={() => setOpen(false)}
-                  className="mt-1 flex h-10 items-center justify-center rounded-lg border border-line-strong text-caption font-medium uppercase tracking-[0.1em] text-ink transition-colors hover:bg-subtle"
-                >
-                  Browse all products
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
+        <NavDropdownPanel
+          id="pm-mega"
+          rangesHeading={config.rangesHeading}
+          ranges={config.ranges}
+          middleHeading={config.middleHeading}
+          middleLinks={config.middleLinks}
+          featuredHeading={config.featuredHeading}
+          featured={config.featured}
+          ctaLabel={config.ctaLabel}
+          ctaHref={config.ctaHref}
+          onNavigate={() => setOpen(false)}
+        />
       )}
     </div>
   );
 }
 
-function MegaCategory({ category, onNavigate }: { category: (typeof categories)[number]; onNavigate: () => void }) {
-  return (
-    <Link
-      href={`/shop/${category.slug}`}
-      onClick={onNavigate}
-      className="flex items-center gap-2.5 rounded-xs px-2 py-1.5 transition-colors hover:bg-subtle"
-    >
-      <span className="size-7 shrink-0 overflow-hidden rounded-xs bg-surface">
-        {category.image && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={imageUrl(category.image, { fit: "fill", width: 56, height: 56 })} alt="" className="size-full object-cover" loading="lazy" />
-        )}
-      </span>
-      <span className="text-body-sm text-ink">{category.name}</span>
-    </Link>
-  );
-}
-
-function MobileNav({ open, onClose }: { open: boolean; onClose: () => void }) {
+function MobileNav({ open, onClose, items }: { open: boolean; onClose: () => void; items: ResolvedHeaderStripItem[] }) {
   const [expanded, setExpanded] = useState<string | null>(null);
   const cart = useCart();
   const wishlist = useWishlist();
@@ -589,29 +558,49 @@ function MobileNav({ open, onClose }: { open: boolean; onClose: () => void }) {
                 Shop all products
               </Link>
             </li>
-            <li className="border-b border-line">
-              <button
-                type="button"
-                aria-expanded={expanded === "cats"}
-                onClick={() => setExpanded((v) => (v === "cats" ? null : "cats"))}
-                className="flex h-[3.25rem] w-full items-center gap-3 text-body font-medium text-ink"
-              >
-                <LayoutGrid className="size-5 text-muted" aria-hidden />
-                Categories
-                <span className={classNames("ml-auto text-muted transition-transform", expanded === "cats" && "rotate-90")}>›</span>
-              </button>
-              {expanded === "cats" && (
-                <ul className="pb-2">
-                  {categories.map((c) => (
-                    <li key={c.id}>
-                      <Link href={`/shop/${c.slug}`} onClick={onClose} className="flex min-h-11 items-center rounded-xs pl-8 pr-2 text-body-sm text-muted hover:bg-subtle hover:text-ink">
-                        {c.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </li>
+            {items.map((item) => {
+              const hasChildren = item.ranges.length > 0;
+              const isOpen = expanded === item.id;
+              return (
+                <li key={item.id} className="border-b border-line">
+                  {hasChildren ? (
+                    <>
+                      <button
+                        type="button"
+                        aria-expanded={isOpen}
+                        onClick={() => setExpanded((v) => (v === item.id ? null : item.id))}
+                        className="flex h-[3.25rem] w-full items-center gap-3 text-body font-medium text-ink"
+                      >
+                        <LayoutGrid className="size-5 text-muted" aria-hidden />
+                        {item.label}
+                        <span className={classNames("ml-auto text-muted transition-transform", isOpen && "rotate-90")}>›</span>
+                      </button>
+                      {isOpen && (
+                        <ul className="pb-2">
+                          <li>
+                            <Link href={item.href} onClick={onClose} className="flex min-h-11 items-center rounded-xs pl-8 pr-2 text-body-sm font-medium text-ink hover:bg-subtle">
+                              All {item.label}
+                            </Link>
+                          </li>
+                          {item.ranges.map((sub) => (
+                            <li key={`${sub.id}-${sub.href}`}>
+                              <Link href={sub.href} onClick={onClose} className="flex min-h-11 items-center rounded-xs pl-8 pr-2 text-body-sm text-muted hover:bg-subtle hover:text-ink">
+                                {sub.label}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </>
+                  ) : (
+                    <Link href={item.href} onClick={onClose} className="flex h-[3.25rem] items-center gap-3 text-body font-medium text-ink">
+                      <LayoutGrid className="size-5 text-muted" aria-hidden />
+                      {item.label}
+                    </Link>
+                  )}
+                </li>
+              );
+            })}
             <li className="border-b border-line">
               <button
                 type="button"

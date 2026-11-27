@@ -112,31 +112,34 @@ export function Gallery({ product }: { product: Product }) {
         )}
         aria-label={`${product.name} media`}
       >
-        {visible.map((asset, index) => (
-          <button
-            key={asset.publicId + index}
-            type="button"
-            onMouseEnter={() => preview(index)}
-            onFocus={() => preview(index)}
-            onClick={() => preview(index)}
-            aria-current={!playing && index === active}
-            aria-label={`Show image ${index + 1} of ${media.length} for ${product.name}`}
-            className={classNames(
-              "relative aspect-square w-16 shrink-0 overflow-hidden rounded-sm border-2 bg-surface transition-colors",
-              !playing && index === active ? "border-primary" : "border-line hover:border-graphite-light"
-            )}
-          >
-            <Image
-              src={imageUrl(asset.publicId, { fit: "scale", width: 160 })}
-              alt=""
-              width={160}
-              height={160}
-              {...deliveryProps(asset.publicId, cloudinaryLoader)}
-              onError={() => markFailed(asset.publicId)}
-              className={classNames("size-full object-contain", failedIds[asset.publicId] && "opacity-30")}
-            />
-          </button>
-        ))}
+        {visible.map((asset, index) => {
+          if (index > 0 && failedIds[asset.publicId]) return null;
+          return (
+            <button
+              key={asset.publicId + index}
+              type="button"
+              onMouseEnter={() => preview(index)}
+              onFocus={() => preview(index)}
+              onClick={() => preview(index)}
+              aria-current={!playing && index === active}
+              aria-label={`Show image ${index + 1} of ${media.length} for ${product.name}`}
+              className={classNames(
+                "relative aspect-square w-16 shrink-0 overflow-hidden rounded-sm border-2 bg-surface transition-colors",
+                !playing && index === active ? "border-primary" : "border-line hover:border-graphite-light"
+              )}
+            >
+              <Image
+                src={imageUrl(asset.publicId, { fit: "scale", width: 160 })}
+                alt=""
+                width={160}
+                height={160}
+                {...deliveryProps(asset.publicId, cloudinaryLoader)}
+                onError={() => markFailed(asset.publicId)}
+                className={classNames("size-full object-contain", failedIds[asset.publicId] && "opacity-30")}
+              />
+            </button>
+          );
+        })}
 
         {product.videoId && (
           <button
@@ -332,29 +335,32 @@ export function Gallery({ product }: { product: Product }) {
               </button>
             </div>
             <div className="flex justify-center gap-2">
-              {media.map((asset, index) => (
-                <button
-                  key={`lightbox-${asset.publicId}-${index}`}
-                  type="button"
-                  onClick={() => setLightboxIndex(index)}
-                  aria-label={`Show image ${index + 1} of ${media.length}`}
-                  aria-current={index === lightboxIndex}
-                  className={classNames(
-                    "size-12 overflow-hidden rounded-sm border-2 bg-surface",
-                    index === lightboxIndex ? "border-primary" : "border-line hover:border-line-strong"
-                  )}
-                >
-                  <Image
-                    src={imageUrl(asset.publicId, { fit: "scale", width: 96 })}
-                    alt=""
-                    width={96}
-                    height={96}
-                    {...deliveryProps(asset.publicId, cloudinaryLoader)}
-                    onError={() => markFailed(asset.publicId)}
-                    className={classNames("size-full object-contain", failedIds[asset.publicId] && "opacity-30")}
-                  />
-                </button>
-              ))}
+              {media.map((asset, index) => {
+                if (index > 0 && failedIds[asset.publicId]) return null;
+                return (
+                  <button
+                    key={`lightbox-${asset.publicId}-${index}`}
+                    type="button"
+                    onClick={() => setLightboxIndex(index)}
+                    aria-label={`Show image ${index + 1} of ${media.length}`}
+                    aria-current={index === lightboxIndex}
+                    className={classNames(
+                      "size-12 overflow-hidden rounded-sm border-2 bg-surface",
+                      index === lightboxIndex ? "border-primary" : "border-line hover:border-line-strong"
+                    )}
+                  >
+                    <Image
+                      src={imageUrl(asset.publicId, { fit: "scale", width: 96 })}
+                      alt=""
+                      width={96}
+                      height={96}
+                      {...deliveryProps(asset.publicId, cloudinaryLoader)}
+                      onError={() => markFailed(asset.publicId)}
+                      className={classNames("size-full object-contain", failedIds[asset.publicId] && "opacity-30")}
+                    />
+                  </button>
+                );
+              })}
             </div>
           </div>
         )}

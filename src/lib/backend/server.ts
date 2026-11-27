@@ -31,7 +31,8 @@ export async function fetchRelations(slug: string, limit = 6): Promise<ProductRe
 
 /* ------------------------------ live catalogue ------------------------------ */
 
-import { applyLiveCatalog, buildLiveCatalog, type LiveCatalog, type LiveRow } from "@/lib/catalog";
+import { applyLiveCatalog, buildLiveCatalog, type LiveCatalog, type LiveCategoryRow, type LiveRow } from "@/lib/catalog";
+import { normalizeHeaderNav, type HeaderNavConfig } from "@/lib/header-nav";
 
 const PRODUCT_COLUMNS =
   "slug,name,category_id,series_id,subcategory_ids,surface,frame,corners,magnetic,double_sided,board_type,surface_kind,usage,blurb,description,features,specs,customisation,video_id,price_mode,gst_rate,hsn_code,bulk_suggestion_quantity,enquiry_only,needs_data,featured,created_at," +
@@ -40,24 +41,35 @@ const PRODUCT_COLUMNS =
 
 let liveCache: { at: number; live: LiveCatalog | null } | null = null;
 let liveInflight: Promise<LiveCatalog | null> | null = null;
+let navCache: { at: number; nav: HeaderNavConfig | null } | null = null;
+let navInflight: Promise<HeaderNavConfig | null> | null = null;
 
 /**
- * Loads what the admin published (prices, visibility, new products) and applies it to the in-memory catalogue.
- * Cached for 30 seconds per server instance. Returns null, and leaves the built-in catalogue untouched, when
+ * Loads what the admin published (prices, visibility, categories, new products) and applies it to the in-memory catalogue.
+ * Cached briefly per server instance. Returns null, and leaves the built-in catalogue untouched, when
  * the backend is not configured or cannot be reached.
  */
 export async function ensureLiveCatalog(): Promise<LiveCatalog | null> {
   if (!isSupabaseConfigured) return null;
-  if (liveCache && Date.now() - liveCache.at < 30_000) return liveCache.live;
+  if (liveCache && Date.now() - liveCache.at < 15_000) return liveCache.live;
   if (liveInflight) return liveInflight;
   liveInflight = (async () => {
     try {
-      const res = await fetch(
-        `${SUPABASE_URL}/rest/v1/products?select=${PRODUCT_COLUMNS}&published=eq.true&deleted_at=is.null&limit=1000`,
-        { headers: { apikey: SUPABASE_ANON_KEY, Authorization: `Bearer ${SUPABASE_ANON_KEY}` }, cache: "no-store" }
-      );
-      if (!res.ok) return liveCache?.live ?? null;
-      const live = buildLiveCatalog((await res.json()) as LiveRow[]);
+      const headers = { apikey: SUPABASE_ANON_KEY, Authorization: `Bearer ${SUPABASE_ANON_KEY}` };
+      const [productsRes, categoriesRes] = await Promise.all([
+        fetch(
+          `${SUPABASE_URL}/rest/v1/products?select=${PRODUCT_COLUMNS}&published=eq.true&deleted_at=is.null&limit=1000`,
+          { headers, cache: "no-store", signal: AbortSignal.timeout(2500) }
+        ),
+        fetch(
+          `${SUPABASE_URL}/rest/v1/categories?select=id,parent_id,name,description,subject,image,sort_order,active&active=eq.true&order=sort_order.asc&limit=500`,
+          { headers, cache: "no-store", signal: AbortSignal.timeout(2500) }
+        ).catch(() => null)
+      ]);
+      if (!productsRes.ok) return liveCache?.live ?? null;
+      const productRows = (await productsRes.json()) as LiveRow[];
+      const categoryRows = categoriesRes && categoriesRes.ok ? ((await categoriesRes.json()) as LiveCategoryRow[]) : undefined;
+      const live = buildLiveCatalog(productRows, categoryRows);
       applyLiveCatalog(live);
       liveCache = { at: Date.now(), live };
       return live;
@@ -68,4 +80,33 @@ export async function ensureLiveCatalog(): Promise<LiveCatalog | null> {
     }
   })();
   return liveInflight;
+}
+
+/** Reads `site_content.header_nav` saved by Admin, returning null cleanly when unset or offline. */
+export async function ensureHeaderNav(): Promise<HeaderNavConfig | null> {
+  if (!isSupabaseConfigured) return null;
+  if (navCache && Date.now() - navCache.at < 5_000) return navCache.nav;
+  if (navInflight) return navInflight;
+  navInflight = (async () => {
+    try {
+      const res = await fetch(
+        `${SUPABASE_URL}/rest/v1/site_content?select=value&key=eq.header_nav&limit=1`,
+        {
+          headers: { apikey: SUPABASE_ANON_KEY, Authorization: `Bearer ${SUPABASE_ANON_KEY}` },
+          cache: "no-store",
+          signal: AbortSignal.timeout(2500)
+        }
+      );
+      if (!res.ok) return navCache?.nav ?? null;
+      const rows = (await res.json()) as { value?: unknown }[];
+      const nav = rows?.[0]?.value ? normalizeHeaderNav(rows[0].value) : null;
+      navCache = { at: Date.now(), nav };
+      return nav;
+    } catch {
+      return navCache?.nav ?? null;
+    } finally {
+      navInflight = null;
+    }
+  })();
+  return navInflight;
 }

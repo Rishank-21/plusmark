@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { KeyRound, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/Button";
@@ -25,55 +25,70 @@ function AdminLogin() {
   const [enroll, setEnroll] = useState<{ secret: string; qr: string } | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  const proceeding = useRef<Promise<void> | null>(null);
 
   const supabase = getSupabaseBrowserClient();
 
   // Already signed in with a password (for example redirected here for the code): go straight to the code step.
   useEffect(() => {
     if (!supabase || step !== "password") return;
+    let cancelled = false;
     void (async () => {
       const { data } = await supabase.auth.getSession();
-      if (!data.session) return;
+      if (cancelled || !data.session) return;
       const level = await supabase.auth.mfa.getAuthenticatorAssuranceLevel();
+      if (cancelled) return;
       if (level.data?.currentLevel === "aal2") {
         router.replace(next);
         return;
       }
       await proceedAfterPassword();
     })();
+    return () => {
+      cancelled = true;
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [supabase]);
 
   async function proceedAfterPassword() {
     if (!supabase) return;
-    const { data: user } = await supabase.auth.getUser();
-    if (!user.user) return;
-    const { data: profile } = await supabase.from("profiles").select("role").eq("id", user.user.id).maybeSingle();
-    if (profile?.role !== "admin") {
-      await supabase.auth.signOut();
-      setError("This account is not an administrator.");
-      setStep("password");
-      return;
+    if (proceeding.current) return proceeding.current;
+    const task = (async () => {
+      const { data: user } = await supabase.auth.getUser();
+      if (!user.user) return;
+      const { data: profile } = await supabase.from("profiles").select("role").eq("id", user.user.id).maybeSingle();
+      if (profile?.role !== "admin") {
+        await supabase.auth.signOut();
+        setError("This account is not an administrator.");
+        setStep("password");
+        return;
+      }
+      const factors = await supabase.auth.mfa.listFactors();
+      const verified = factors.data?.totp?.find((f) => f.status === "verified");
+      if (verified) {
+        setFactorId(verified.id);
+        setStep("code");
+        return;
+      }
+      // first sign-in for this admin: set up the authenticator app
+      for (const stale of factors.data?.all ?? []) {
+        if (stale.status === "unverified") await supabase.auth.mfa.unenroll({ factorId: stale.id });
+      }
+      const created = await supabase.auth.mfa.enroll({ factorType: "totp", friendlyName: "Plusmark admin" });
+      if (created.error || !created.data) {
+        setError(created.error?.message ?? "Could not start authenticator setup.");
+        return;
+      }
+      setFactorId(created.data.id);
+      setEnroll({ secret: created.data.totp.secret, qr: created.data.totp.qr_code });
+      setStep("enroll");
+    })();
+    proceeding.current = task;
+    try {
+      await task;
+    } finally {
+      proceeding.current = null;
     }
-    const factors = await supabase.auth.mfa.listFactors();
-    const verified = factors.data?.totp?.find((f) => f.status === "verified");
-    if (verified) {
-      setFactorId(verified.id);
-      setStep("code");
-      return;
-    }
-    // first sign-in for this admin: set up the authenticator app
-    for (const stale of factors.data?.all ?? []) {
-      if (stale.status === "unverified") await supabase.auth.mfa.unenroll({ factorId: stale.id });
-    }
-    const created = await supabase.auth.mfa.enroll({ factorType: "totp", friendlyName: "Plusmark admin" });
-    if (created.error || !created.data) {
-      setError(created.error?.message ?? "Could not start authenticator setup.");
-      return;
-    }
-    setFactorId(created.data.id);
-    setEnroll({ secret: created.data.totp.secret, qr: created.data.totp.qr_code });
-    setStep("enroll");
   }
 
   async function signIn(event: React.FormEvent) {

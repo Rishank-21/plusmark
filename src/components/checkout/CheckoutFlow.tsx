@@ -578,12 +578,20 @@ export function CheckoutFlow() {
   }
 
   const selectedDispatch = cart.shippingMethod;
-  const totalLabel = totals.totalInr === null ? "To be confirmed" : formatInr(totals.totalInr);
+  const goodsPayable =
+    totals.subtotalInr !== null ? Math.max(0, totals.subtotalInr - totals.discountInr) + totals.gstInr : null;
+  const buttonAmount = totals.totalInr ?? goodsPayable;
+  const totalLabel =
+    totals.totalInr === null
+      ? goodsPayable !== null
+        ? `${formatInr(goodsPayable)} + freight`
+        : "To be confirmed"
+      : formatInr(totals.totalInr);
   const placeLabel =
-    totals.totalInr !== null
+    buttonAmount !== null
       ? payment === "razorpay"
-        ? `Pay ${formatInr(totals.totalInr)} online`
-        : `Place order · ${formatInr(totals.totalInr)}`
+        ? `Pay ${formatInr(buttonAmount)} online`
+        : `Place order · ${formatInr(buttonAmount)}`
       : payment === "razorpay"
         ? "Pay online"
         : "Place order";

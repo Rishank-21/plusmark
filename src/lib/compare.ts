@@ -5,7 +5,7 @@ import {
   SLUG_GUIDES,
   type Guide
 } from "@/data/compare-curation";
-import { categories, products, seriesList } from "@/lib/catalog";
+import { getCategory, products, seriesList } from "@/lib/catalog";
 import { CATALOG_COPY } from "@/lib/catalog-copy";
 import type { MediaAsset, Product, ProductSpec, UsageLevel } from "@/types";
 
@@ -54,7 +54,6 @@ export interface CompareRow {
 }
 
 const seriesById = new Map(seriesList.map((series) => [series.id, series]));
-const categoryById = new Map(categories.map((category) => [category.id, category]));
 
 function writingTypeOf(product: Product): WritingType {
   if (product.surfaceKind === "marker") return "marker";
@@ -110,7 +109,7 @@ function lockableOf(product: Product): boolean | null {
 
 function buildEntry(product: Product): CompareEntry {
   const series = product.seriesId ? seriesById.get(product.seriesId) ?? null : null;
-  const category = categoryById.get(product.categoryId);
+  const category = getCategory(product.categoryId);
   const curation = COMPARE_CURATION[product.slug];
   const guide = guideFor(product);
   const url = `/product/${product.slug}`;
